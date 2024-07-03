@@ -5,13 +5,6 @@
 //  Created by Luka Gujejiani on 03.07.24.
 //
 
-//
-//  BudgetsVC.swift
-//  Budgeting Application
-//
-//  Created by Luka Gujejiani on 03.07.24.
-//
-
 import UIKit
 
 class BudgetsViewController: UIViewController {
@@ -26,7 +19,8 @@ class BudgetsViewController: UIViewController {
     
     private lazy var customSegmentedControlView = CustomSegmentedControlView(
         color: .blue,
-        controlItems: ["Budgets", "Expenses"]
+        controlItems: ["Budgets", "Expenses"], 
+        defaultIndex: 0
     ) { [weak self] selectedIndex in
         self?.handleSegmentChange(selectedIndex: selectedIndex)
     }
@@ -72,18 +66,18 @@ class BudgetsViewController: UIViewController {
         return tableView
     }()
     
-    private let expensesView = DashboardViewController() // Assuming you have this view controller
-    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         setupBindings()
         viewModel.loadBudgets()
+        handleSegmentChange(selectedIndex: 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        customSegmentedControlView.setSelectedIndex(0) // Ensure the first segment is selected
         viewModel.loadBudgets()
     }
     
@@ -103,6 +97,7 @@ class BudgetsViewController: UIViewController {
         bottomView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(scrollView)
+        
         scrollView.addSubview(contentView)
         
         contentView.addSubview(customSegmentedControlView)
@@ -160,48 +155,7 @@ class BudgetsViewController: UIViewController {
             bottomView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
-    
-    private func handleSegmentChange(selectedIndex: Int) {
-        if selectedIndex == 0 {
-            showBudgetsView()
-        } else {
-            showExpensesView()
-        }
-    }
-    
-    private func showBudgetsView() {
-        expensesView.view.removeFromSuperview()
-        expensesView.removeFromParent()
-        
-        contentView.addSubview(infoView)
-        contentView.addSubview(favoriteBudgetsStackView)
-        contentView.addSubview(allBudgetsLabel)
-        contentView.addSubview(allBudgetsTableView)
-        contentView.addSubview(bottomView)
-    }
-    
-    private func showExpensesView() {
-        infoView.removeFromSuperview()
-        favoriteBudgetsStackView.removeFromSuperview()
-        allBudgetsLabel.removeFromSuperview()
-        allBudgetsTableView.removeFromSuperview()
-        bottomView.removeFromSuperview()
-        
-        addChild(expensesView)
-        contentView.addSubview(expensesView.view)
-        
-        expensesView.view.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            expensesView.view.topAnchor.constraint(equalTo: customSegmentedControlView.bottomAnchor),
-            expensesView.view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            expensesView.view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            expensesView.view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-        ])
-        
-        expensesView.didMove(toParent: self)
-    }
-    
+
     // MARK: - Helper Functions
     private func setupBindings() {
         viewModel.onBudgetsUpdated = { [weak self] in
@@ -222,6 +176,15 @@ class BudgetsViewController: UIViewController {
             let singleBudgetView = BudgetView()
             singleBudgetView.budget = budget
             favoriteBudgetsStackView.addArrangedSubview(singleBudgetView)
+        }
+    }
+    
+    private func handleSegmentChange(selectedIndex: Int) {
+        if selectedIndex == 0 {
+            return
+        } else {
+            let expensesViewController = ExpensesViewController()
+            navigationController?.pushViewController(expensesViewController, animated: false)
         }
     }
 }

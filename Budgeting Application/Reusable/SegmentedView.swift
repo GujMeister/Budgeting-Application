@@ -32,12 +32,13 @@ class CustomSegmentedControlView: UIView {
         return view
     }()
     
-    init(color: UIColor, controlItems: [String], segmentChangeCallback: ((Int) -> Void)?) {
+    init(color: UIColor, controlItems: [String], defaultIndex: Int, segmentChangeCallback: ((Int) -> Void)?) {
         self.color = color
         self.controlItems = controlItems
         self.segmentChangeCallback = segmentChangeCallback
         super.init(frame: .zero)
         setupView()
+        setSelectedIndex(defaultIndex)
     }
     
     required init?(coder: NSCoder) {
@@ -96,9 +97,8 @@ class CustomSegmentedControlView: UIView {
     @objc private func segmentChanged(_ sender: UISegmentedControl) {
         segmentChangeCallback?(sender.selectedSegmentIndex)
     }
+    
+    func setSelectedIndex(_ index: Int) {
+        segmentedControl.selectedSegmentIndex = index
+    }
 }
-
-#Preview {
-    CustomSegmentedControlView(color: .blue, controlItems: ["First", "Second"], segmentChangeCallback: nil)
-}
-
