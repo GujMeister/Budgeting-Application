@@ -7,23 +7,55 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		853A3D6B2C3592BF0042A0A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D6A2C3592BF0042A0A4 /* AppDelegate.swift */; };
-		853A3D6D2C3592BF0042A0A4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D6C2C3592BF0042A0A4 /* SceneDelegate.swift */; };
-		853A3D6F2C3592BF0042A0A4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D6E2C3592BF0042A0A4 /* ViewController.swift */; };
-		853A3D722C3592BF0042A0A4 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 853A3D712C3592BF0042A0A4 /* Base */; };
-		853A3D742C3592C20042A0A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 853A3D732C3592C20042A0A4 /* Assets.xcassets */; };
-		853A3D772C3592C20042A0A4 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 853A3D762C3592C20042A0A4 /* Base */; };
+		853A3DA82C3593A40042A0A4 /* Payment Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D7E2C3593A40042A0A4 /* Payment Models.swift */; };
+		853A3DA92C3593A40042A0A4 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D812C3593A40042A0A4 /* Model.xcdatamodeld */; };
+		853A3DAA2C3593A40042A0A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D842C3593A40042A0A4 /* AppDelegate.swift */; };
+		853A3DAB2C3593A40042A0A4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D852C3593A40042A0A4 /* SceneDelegate.swift */; };
+		853A3DAC2C3593A40042A0A4 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D862C3593A40042A0A4 /* TabBarController.swift */; };
+		853A3DAD2C3593A40042A0A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 853A3D882C3593A40042A0A4 /* Assets.xcassets */; };
+		853A3DAE2C3593A40042A0A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 853A3D8A2C3593A40042A0A4 /* LaunchScreen.storyboard */; };
+		853A3DAF2C3593A40042A0A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 853A3D8C2C3593A40042A0A4 /* Main.storyboard */; };
+		853A3DB02C3593A40042A0A4 /* BudgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D912C3593A40042A0A4 /* BudgetView.swift */; };
+		853A3DB12C3593A40042A0A4 /* NavigationRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D922C3593A40042A0A4 /* NavigationRectangle.swift */; };
+		853A3DB22C3593A40042A0A4 /* SubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D932C3593A40042A0A4 /* SubscriptionView.swift */; };
+		853A3DB32C3593A40042A0A4 /* DashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D952C3593A40042A0A4 /* DashboardVC.swift */; };
+		853A3DB42C3593A40042A0A4 /* DashboardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D962C3593A40042A0A4 /* DashboardVM.swift */; };
+		853A3DB52C3593A40042A0A4 /* AddSubscriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D982C3593A40042A0A4 /* AddSubscriptionVC.swift */; };
+		853A3DB62C3593A40042A0A4 /* AddCategoriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D9A2C3593A40042A0A4 /* AddCategoriesVC.swift */; };
+		853A3DB72C3593A40042A0A4 /* RecurringVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D9D2C3593A40042A0A4 /* RecurringVC.swift */; };
+		853A3DB82C3593A40042A0A4 /* RecurringVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D9E2C3593A40042A0A4 /* RecurringVM.swift */; };
+		853A3DB92C3593A40042A0A4 /* BasicExpenseBudgetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3DA12C3593A40042A0A4 /* BasicExpenseBudgetModel.swift */; };
+		853A3DBA2C3593A40042A0A4 /* BasicExpenseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3DA22C3593A40042A0A4 /* BasicExpenseModel.swift */; };
+		853A3DBB2C3593A40042A0A4 /* SubscriptionExpenseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3DA32C3593A40042A0A4 /* SubscriptionExpenseModel.swift */; };
+		853A3DBC2C3593A40042A0A4 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3DA52C3593A40042A0A4 /* DataManager.swift */; };
+		853A3DBD2C3593A40042A0A4 /* Subscription Occurances.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3DA62C3593A40042A0A4 /* Subscription Occurances.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		853A3D672C3592BF0042A0A4 /* Budgeting Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Budgeting Application.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		853A3D6A2C3592BF0042A0A4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		853A3D6C2C3592BF0042A0A4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		853A3D6E2C3592BF0042A0A4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		853A3D712C3592BF0042A0A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		853A3D732C3592C20042A0A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		853A3D762C3592C20042A0A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		853A3D782C3592C20042A0A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		853A3D7E2C3593A40042A0A4 /* Payment Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Payment Models.swift"; sourceTree = "<group>"; };
+		853A3D832C3593A40042A0A4 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		853A3D842C3593A40042A0A4 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		853A3D852C3593A40042A0A4 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		853A3D862C3593A40042A0A4 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		853A3D882C3593A40042A0A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		853A3D892C3593A40042A0A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		853A3D8B2C3593A40042A0A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		853A3D912C3593A40042A0A4 /* BudgetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetView.swift; sourceTree = "<group>"; };
+		853A3D922C3593A40042A0A4 /* NavigationRectangle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationRectangle.swift; sourceTree = "<group>"; };
+		853A3D932C3593A40042A0A4 /* SubscriptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionView.swift; sourceTree = "<group>"; };
+		853A3D952C3593A40042A0A4 /* DashboardVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardVC.swift; sourceTree = "<group>"; };
+		853A3D962C3593A40042A0A4 /* DashboardVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardVM.swift; sourceTree = "<group>"; };
+		853A3D982C3593A40042A0A4 /* AddSubscriptionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSubscriptionVC.swift; sourceTree = "<group>"; };
+		853A3D9A2C3593A40042A0A4 /* AddCategoriesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCategoriesVC.swift; sourceTree = "<group>"; };
+		853A3D9D2C3593A40042A0A4 /* RecurringVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecurringVC.swift; sourceTree = "<group>"; };
+		853A3D9E2C3593A40042A0A4 /* RecurringVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecurringVM.swift; sourceTree = "<group>"; };
+		853A3DA12C3593A40042A0A4 /* BasicExpenseBudgetModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicExpenseBudgetModel.swift; sourceTree = "<group>"; };
+		853A3DA22C3593A40042A0A4 /* BasicExpenseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicExpenseModel.swift; sourceTree = "<group>"; };
+		853A3DA32C3593A40042A0A4 /* SubscriptionExpenseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionExpenseModel.swift; sourceTree = "<group>"; };
+		853A3DA52C3593A40042A0A4 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		853A3DA62C3593A40042A0A4 /* Subscription Occurances.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Subscription Occurances.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +88,167 @@
 		853A3D692C3592BF0042A0A4 /* Budgeting Application */ = {
 			isa = PBXGroup;
 			children = (
-				853A3D6A2C3592BF0042A0A4 /* AppDelegate.swift */,
-				853A3D6C2C3592BF0042A0A4 /* SceneDelegate.swift */,
-				853A3D6E2C3592BF0042A0A4 /* ViewController.swift */,
-				853A3D702C3592BF0042A0A4 /* Main.storyboard */,
-				853A3D732C3592C20042A0A4 /* Assets.xcassets */,
-				853A3D752C3592C20042A0A4 /* LaunchScreen.storyboard */,
+				853A3D872C3593A40042A0A4 /* App */,
+				853A3D822C3593A40042A0A4 /* CoreData */,
+				853A3D8E2C3593A40042A0A4 /* Extensions */,
+				853A3D7F2C3593A40042A0A4 /* Models */,
+				853A3D8D2C3593A40042A0A4 /* Resources */,
+				853A3D802C3593A40042A0A4 /* Reusable */,
+				853A3DA02C3593A40042A0A4 /* Scene */,
+				853A3DA72C3593A40042A0A4 /* Services */,
 				853A3D782C3592C20042A0A4 /* Info.plist */,
 			);
 			path = "Budgeting Application";
+			sourceTree = "<group>";
+		};
+		853A3D7F2C3593A40042A0A4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				853A3D7E2C3593A40042A0A4 /* Payment Models.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		853A3D802C3593A40042A0A4 /* Reusable */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Reusable;
+			sourceTree = "<group>";
+		};
+		853A3D822C3593A40042A0A4 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				853A3D812C3593A40042A0A4 /* Model.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		853A3D872C3593A40042A0A4 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				853A3D842C3593A40042A0A4 /* AppDelegate.swift */,
+				853A3D852C3593A40042A0A4 /* SceneDelegate.swift */,
+				853A3D862C3593A40042A0A4 /* TabBarController.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		853A3D8D2C3593A40042A0A4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				853A3D882C3593A40042A0A4 /* Assets.xcassets */,
+				853A3D8A2C3593A40042A0A4 /* LaunchScreen.storyboard */,
+				853A3D8C2C3593A40042A0A4 /* Main.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		853A3D8E2C3593A40042A0A4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		853A3D8F2C3593A40042A0A4 /* Budgets */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Budgets;
+			sourceTree = "<group>";
+		};
+		853A3D902C3593A40042A0A4 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		853A3D942C3593A40042A0A4 /* Extracted Views */ = {
+			isa = PBXGroup;
+			children = (
+				853A3D912C3593A40042A0A4 /* BudgetView.swift */,
+				853A3D922C3593A40042A0A4 /* NavigationRectangle.swift */,
+				853A3D932C3593A40042A0A4 /* SubscriptionView.swift */,
+			);
+			path = "Extracted Views";
+			sourceTree = "<group>";
+		};
+		853A3D972C3593A40042A0A4 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				853A3D942C3593A40042A0A4 /* Extracted Views */,
+				853A3D952C3593A40042A0A4 /* DashboardVC.swift */,
+				853A3D962C3593A40042A0A4 /* DashboardVM.swift */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		853A3D992C3593A40042A0A4 /* Extracted VCs */ = {
+			isa = PBXGroup;
+			children = (
+				853A3D982C3593A40042A0A4 /* AddSubscriptionVC.swift */,
+			);
+			path = "Extracted VCs";
+			sourceTree = "<group>";
+		};
+		853A3D9B2C3593A40042A0A4 /* Add Categories */ = {
+			isa = PBXGroup;
+			children = (
+				853A3D992C3593A40042A0A4 /* Extracted VCs */,
+				853A3D9A2C3593A40042A0A4 /* AddCategoriesVC.swift */,
+			);
+			path = "Add Categories";
+			sourceTree = "<group>";
+		};
+		853A3D9C2C3593A40042A0A4 /* Minor Scenes ⭐️ */ = {
+			isa = PBXGroup;
+			children = (
+				853A3D9B2C3593A40042A0A4 /* Add Categories */,
+			);
+			path = "Minor Scenes ⭐️";
+			sourceTree = "<group>";
+		};
+		853A3D9F2C3593A40042A0A4 /* Recurring */ = {
+			isa = PBXGroup;
+			children = (
+				853A3D9D2C3593A40042A0A4 /* RecurringVC.swift */,
+				853A3D9E2C3593A40042A0A4 /* RecurringVM.swift */,
+			);
+			path = Recurring;
+			sourceTree = "<group>";
+		};
+		853A3DA02C3593A40042A0A4 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				853A3D8F2C3593A40042A0A4 /* Budgets */,
+				853A3D902C3593A40042A0A4 /* Calendar */,
+				853A3D972C3593A40042A0A4 /* Dashboard */,
+				853A3D9F2C3593A40042A0A4 /* Recurring */,
+				853A3D9C2C3593A40042A0A4 /* Minor Scenes ⭐️ */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		853A3DA42C3593A40042A0A4 /* Data Models */ = {
+			isa = PBXGroup;
+			children = (
+				853A3DA12C3593A40042A0A4 /* BasicExpenseBudgetModel.swift */,
+				853A3DA22C3593A40042A0A4 /* BasicExpenseModel.swift */,
+				853A3DA32C3593A40042A0A4 /* SubscriptionExpenseModel.swift */,
+			);
+			path = "Data Models";
+			sourceTree = "<group>";
+		};
+		853A3DA72C3593A40042A0A4 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				853A3DA42C3593A40042A0A4 /* Data Models */,
+				853A3DA52C3593A40042A0A4 /* DataManager.swift */,
+				853A3DA62C3593A40042A0A4 /* Subscription Occurances.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,9 +309,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				853A3D742C3592C20042A0A4 /* Assets.xcassets in Resources */,
-				853A3D772C3592C20042A0A4 /* Base in Resources */,
-				853A3D722C3592BF0042A0A4 /* Base in Resources */,
+				853A3DAF2C3593A40042A0A4 /* Main.storyboard in Resources */,
+				853A3DAE2C3593A40042A0A4 /* LaunchScreen.storyboard in Resources */,
+				853A3DAD2C3593A40042A0A4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,29 +322,45 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				853A3D6F2C3592BF0042A0A4 /* ViewController.swift in Sources */,
-				853A3D6B2C3592BF0042A0A4 /* AppDelegate.swift in Sources */,
-				853A3D6D2C3592BF0042A0A4 /* SceneDelegate.swift in Sources */,
+				853A3DB92C3593A40042A0A4 /* BasicExpenseBudgetModel.swift in Sources */,
+				853A3DAA2C3593A40042A0A4 /* AppDelegate.swift in Sources */,
+				853A3DB42C3593A40042A0A4 /* DashboardVM.swift in Sources */,
+				853A3DB32C3593A40042A0A4 /* DashboardVC.swift in Sources */,
+				853A3DB22C3593A40042A0A4 /* SubscriptionView.swift in Sources */,
+				853A3DAC2C3593A40042A0A4 /* TabBarController.swift in Sources */,
+				853A3DAB2C3593A40042A0A4 /* SceneDelegate.swift in Sources */,
+				853A3DBD2C3593A40042A0A4 /* Subscription Occurances.swift in Sources */,
+				853A3DB72C3593A40042A0A4 /* RecurringVC.swift in Sources */,
+				853A3DB52C3593A40042A0A4 /* AddSubscriptionVC.swift in Sources */,
+				853A3DBC2C3593A40042A0A4 /* DataManager.swift in Sources */,
+				853A3DBA2C3593A40042A0A4 /* BasicExpenseModel.swift in Sources */,
+				853A3DB02C3593A40042A0A4 /* BudgetView.swift in Sources */,
+				853A3DA82C3593A40042A0A4 /* Payment Models.swift in Sources */,
+				853A3DB82C3593A40042A0A4 /* RecurringVM.swift in Sources */,
+				853A3DA92C3593A40042A0A4 /* Model.xcdatamodeld in Sources */,
+				853A3DB12C3593A40042A0A4 /* NavigationRectangle.swift in Sources */,
+				853A3DB62C3593A40042A0A4 /* AddCategoriesVC.swift in Sources */,
+				853A3DBB2C3593A40042A0A4 /* SubscriptionExpenseModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		853A3D702C3592BF0042A0A4 /* Main.storyboard */ = {
+		853A3D8A2C3593A40042A0A4 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				853A3D712C3592BF0042A0A4 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		853A3D752C3592C20042A0A4 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				853A3D762C3592C20042A0A4 /* Base */,
+				853A3D892C3593A40042A0A4 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		853A3D8C2C3593A40042A0A4 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				853A3D8B2C3593A40042A0A4 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -297,9 +497,9 @@
 				INFOPLIST_FILE = "Budgeting Application/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -307,9 +507,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yvelazeMagariKompania.ge.Budgeting-Application";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -325,9 +529,9 @@
 				INFOPLIST_FILE = "Budgeting Application/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -335,9 +539,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yvelazeMagariKompania.ge.Budgeting-Application";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -363,6 +571,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		853A3D812C3593A40042A0A4 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				853A3D832C3593A40042A0A4 /* Model.xcdatamodel */,
+			);
+			currentVersion = 853A3D832C3593A40042A0A4 /* Model.xcdatamodel */;
+			name = Model.xcdatamodeld;
+			path = "/Users/lukagujejiani/Desktop/Budgeting Application/Budgeting Application/CoreData/Model.xcdatamodeld";
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 853A3D5F2C3592BF0042A0A4 /* Project object */;
 }
