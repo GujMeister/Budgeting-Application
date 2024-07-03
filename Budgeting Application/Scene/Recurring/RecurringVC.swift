@@ -86,20 +86,22 @@ struct SubscriptionView: View {
     var body: some View {
         VStack {
             HStack {
+                Text(subscriptionDescription)
+                    .font(.system(size: 16))
+                    .foregroundColor(.black)
+                    .padding(.top, 5)
                 Spacer()
                 ZStack {
                     RoundedRectangle(cornerRadius: 10)
                         .fill(Color.white)
-                        .frame(width: 40, height: 40)
+                        .frame(width: 20, height: 20)
+                        .padding([.top, .trailing], 5)
                     Text(categoryEmoji)
-                        .font(.title)
+                        .font(.system(size: 8))
+                        .padding([.top, .trailing], 5)
                 }
             }
             .padding([.trailing, .top], -18)
-            
-            Text(subscriptionDescription)
-                .font(.system(size: 13))
-                .foregroundColor(.black)
             
             Text(String(format: "$%.2f", amount))
                 .font(.system(size: 10))
@@ -119,6 +121,7 @@ struct SubscriptionView: View {
 struct RecurringPage_Previews: PreviewProvider {
     static var previews: some View {
         RecurringPage()
+        SubscriptionView(categoryEmoji: "⭐️", amount: 9.99, subscriptionDescription: "Spotify", date: .now)
     }
 }
 

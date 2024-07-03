@@ -7,14 +7,14 @@
 
 import Foundation
 // MARK: - Basic Expense
-struct BasicExpense {
+struct BasicExpense: Codable {
     var category: BasicExpenseCategory
     var expenseDescription: String
     var amount: Double
     var date: Date
 }
 
-struct BasicExpenseBudget {
+struct BasicExpenseBudget: Codable {
     var category: BasicExpenseCategory
     var totalAmount: Double
     var spentAmount: Double
@@ -28,9 +28,10 @@ struct BasicExpenseBudget {
     }
 }
 
-enum BasicExpenseCategory: String, CaseIterable {
+enum BasicExpenseCategory: String, CaseIterable, Codable {
     case food = "Food"
     case transportation = "Transportation"
+    case groceries = "Groceries"
     case housing = "Housing"
     case utilities = "Utilities"
     case entertainment = "Entertainment"
@@ -62,6 +63,8 @@ enum BasicExpenseCategory: String, CaseIterable {
             return "📦"
         case .others:
             return "❓"
+        case .groceries:
+            return "🛒"
         }
     }
 }
