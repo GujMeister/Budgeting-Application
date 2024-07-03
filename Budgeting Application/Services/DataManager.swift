@@ -32,6 +32,7 @@ class DataManager {
         deleteAll(entityName: "SubscriptionExpenseModel")
         deleteAll(entityName: "BasicExpenseBudgetModel")
         deleteAll(entityName: "BasicExpenseModel")
+        deleteAll(entityName: "PaymentExpenseModel")
     }
     
     private func deleteAll(entityName: String) {
@@ -69,6 +70,33 @@ class DataManager {
     }
 
     func deleteSubscriptionExpense(expense: SubscriptionExpenseModel) {
+        context.delete(expense)
+        saveContext()
+    }
+    
+    // MARK: - PaymentExpenseModel Management
+    var PaymentExpenseModelList: [PaymentExpenseModel] = []
+
+    func PaymentExpenses() {
+        let request: NSFetchRequest<PaymentExpenseModel> = PaymentExpenseModel.fetchRequest() as! NSFetchRequest<PaymentExpenseModel>
+        do {
+            PaymentExpenseModelList = try context.fetch(request)
+        } catch {
+            print("Failed to fetch SubscriptionExpenseModel: \(error)")
+        }
+    }
+
+    func addPaymentExpense(category: String, amount: Double, startDate: Date, repeatCount: Int16, paymentDescription: String) {
+        let subscription = PaymentExpenseModel(context: context)
+        subscription.category = category
+        subscription.amount = amount
+        subscription.startDate = startDate
+        subscription.repeatCount = repeatCount
+        subscription.paymentDescription = paymentDescription
+        saveContext()
+    }
+
+    func deletePaymentExpense(expense: SubscriptionExpenseModel) {
         context.delete(expense)
         saveContext()
     }

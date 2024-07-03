@@ -5,7 +5,6 @@
 //  Created by Luka Gujejiani on 01.07.24.
 //
 
-import Foundation
 import CoreData
 
 struct SubscriptionOccurrence {

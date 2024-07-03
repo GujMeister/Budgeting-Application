@@ -16,8 +16,11 @@ class MainTabBarController: UITabBarController {
 
         let recurringVC = RecurringViewController()
         recurringVC.tabBarItem = UITabBarItem(title: "Recurring", image: UIImage(systemName: "repeat"), tag: 1)
+        
+        let budgetsVC = BudgetsViewController()
+        budgetsVC.tabBarItem = UITabBarItem(title: "Budgets", image: UIImage(systemName: "book.closed"), tag: 2)
 
-        let viewControllerList = [dashboardVC, recurringVC]
+        let viewControllerList = [dashboardVC, recurringVC, budgetsVC]
 
         viewControllers = viewControllerList.map { UINavigationController(rootViewController: $0) }
     }
