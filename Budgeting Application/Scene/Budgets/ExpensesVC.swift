@@ -1,10 +1,3 @@
-//
-//  ExpensesViewController.swift
-//  Budgeting Application
-//
-//  Created by Luka Gujejiani on 04.07.24.
-//
-
 import UIKit
 
 class ExpensesViewController: UIViewController {
@@ -26,7 +19,7 @@ class ExpensesViewController: UIViewController {
     
     private var contentView = UIView()
     private var bottomView = UIView()
-
+    
     private var infoView: UIView = {
         let screenSize = UIScreen.main.bounds.height
         let view = NavigationRectangle(height: screenSize / 4, color: .blue, totalBudgetedMoney: "$200", descriptionLabelText: "Total Budgeted")
@@ -34,36 +27,57 @@ class ExpensesViewController: UIViewController {
         view.descriptionLabel.textColor = .white
         return view
     }()
-
-    private var expensesLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Expenses"
-        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        return label
+    
+    private lazy var addExpenseButton: UIButton = {
+        let button = UIButton()
+        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+        button.layer.cornerRadius = 10
+        button.setImage(UIImage(systemName: "plus"), for: .normal)
+        button.tintColor = .black
+        button.addAction(UIAction(handler: { _ in
+            self.addExpense()
+        }), for: .touchUpInside)
+        return button
     }()
     
-    private lazy var expensesTableView: UITableView = {
+    private lazy var timePeriodButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle(TimePeriodBackwards.lastWeek.rawValue, for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
+        button.contentHorizontalAlignment = .left
+        button.addAction(UIAction(handler: { _ in
+            self.showMenu()
+        }), for: .touchUpInside)
+        return button
+    }()
+    
+    private var chevronImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(systemName: "chevron.down"))
+        imageView.tintColor = .black
+        return imageView
+    }()
+    
+    private var expensesTableView: UITableView = {
         let tableView = UITableView()
-//        tableView.delegate = self
-//        tableView.dataSource = self
-        tableView.register(CustomBudgetCell.self, forCellReuseIdentifier: CustomBudgetCell.reuseIdentifier)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ExpenseCell")
         return tableView
     }()
-    
-//    private let expensesView = DashboardViewController()
-    
+
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-//        setupBindings()
+        setupBindings()
         viewModel.loadBudgets()
+        viewModel.loadExpenses()
         handleSegmentChange(selectedIndex: 1)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.loadBudgets()
+        viewModel.loadExpenses()
     }
     
     // MARK: - Setup UI
@@ -75,14 +89,21 @@ class ExpensesViewController: UIViewController {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         contentView.translatesAutoresizingMaskIntoConstraints = false
         infoView.translatesAutoresizingMaskIntoConstraints = false
+        addExpenseButton.translatesAutoresizingMaskIntoConstraints = false
+        timePeriodButton.translatesAutoresizingMaskIntoConstraints = false
+        chevronImageView.translatesAutoresizingMaskIntoConstraints = false
+        expensesTableView.translatesAutoresizingMaskIntoConstraints = false
         bottomView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(scrollView)
-        
         scrollView.addSubview(contentView)
         
         contentView.addSubview(customSegmentedControlView)
         contentView.addSubview(infoView)
+        contentView.addSubview(addExpenseButton)
+        contentView.addSubview(timePeriodButton)
+        contentView.addSubview(chevronImageView)
+        contentView.addSubview(expensesTableView)
         contentView.addSubview(bottomView)
         
         NSLayoutConstraint.activate([
@@ -106,37 +127,36 @@ class ExpensesViewController: UIViewController {
             customSegmentedControlView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             customSegmentedControlView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             
-            bottomView.topAnchor.constraint(equalTo: customSegmentedControlView.bottomAnchor),
-            bottomView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            bottomView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            bottomView.heightAnchor.constraint(equalToConstant: 1),
+            addExpenseButton.topAnchor.constraint(equalTo: customSegmentedControlView.bottomAnchor, constant: 10),
+            addExpenseButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            
+            timePeriodButton.centerYAnchor.constraint(equalTo: addExpenseButton.centerYAnchor),
+            timePeriodButton.leadingAnchor.constraint(equalTo: chevronImageView.trailingAnchor, constant: 5),
+            
+            chevronImageView.centerYAnchor.constraint(equalTo: addExpenseButton.centerYAnchor),
+            chevronImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            chevronImageView.widthAnchor.constraint(equalToConstant: 14),
+            chevronImageView.heightAnchor.constraint(equalToConstant: 16),
+            
+            expensesTableView.topAnchor.constraint(equalTo: timePeriodButton.bottomAnchor, constant: 20),
+            expensesTableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            expensesTableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            expensesTableView.bottomAnchor.constraint(equalTo: bottomView.topAnchor),
+            
+            bottomView.topAnchor.constraint(equalTo: expensesTableView.bottomAnchor),
             bottomView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
+        
+        expensesTableView.delegate = self
+        expensesTableView.dataSource = self
     }
-
-    // MARK: - Helper Functions
-//    private func setupBindings() {
-//        viewModel.onBudgetsUpdated = { [weak self] in
-//            self?.allBudgetsTableView.reloadData()
-//            self?.updateFavoriteBudgets()
-//        }
-//        
-//        viewModel.onFavoritedBudgetsUpdated = { [weak self] in
-//            self?.updateFavoriteBudgets()
-//        }
-//    }
-//    
-//    private func updateFavoriteBudgets() {
-//        favoriteBudgetsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
-//        
-//        for budget in viewModel.favoritedBudgets.suffix(5) {
-//            print("adding views")
-//            let singleBudgetView = BudgetView()
-//            singleBudgetView.budget = budget
-//            favoriteBudgetsStackView.addArrangedSubview(singleBudgetView)
-//        }
-//    }
-//    
+    
+    private func setupBindings() {
+        viewModel.onExpensesUpdated = { [weak self] in
+            self?.expensesTableView.reloadData()
+        }
+    }
+    
     private func handleSegmentChange(selectedIndex: Int) {
         if selectedIndex == 1 {
             return
@@ -144,43 +164,49 @@ class ExpensesViewController: UIViewController {
             navigationController?.popViewController(animated: false)
         }
     }
+    
+    // MARK: - Button Actions
+     
+    private func addExpense() {
+        let addExpensesVC = AddCategoriesViewController()
+        self.present(addExpensesVC, animated: true, completion: nil)
+    }
+    
+    private func showMenu() {
+        let actions = TimePeriodBackwards.allCases.map { period in
+            UIAction(title: period.rawValue) { [weak self] _ in
+                self?.timePeriodButton.setTitle(period.rawValue, for: .normal)
+                self?.viewModel.selectedTimePeriod = period
+                self?.viewModel.loadExpenses()
+            }
+        }
+        let menu = UIMenu(title: "", options: .displayInline, children: actions)
+        timePeriodButton.menu = menu
+        timePeriodButton.showsMenuAsPrimaryAction = true
+    }
 }
 
-//// MARK: - UITableViewDataSource, UITableViewDelegate
-//extension BudgetsViewController: UITableViewDataSource, UITableViewDelegate, BudgetDetailViewControllerDelegate {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if tableView == allBudgetsTableView {
-//            return viewModel.allBudgets.count
-//        }
-//        return 0
-//    }
-//    
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        if tableView == allBudgetsTableView {
-//            let cell = tableView.dequeueReusableCell(withIdentifier: CustomBudgetCell.reuseIdentifier, for: indexPath) as! CustomBudgetCell
-//            let budget = viewModel.allBudgets[indexPath.row]
-//            cell.configure(with: budget)
-//            return cell
-//        }
-//        
-//        return UITableViewCell()
-//    }
-//    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if tableView == allBudgetsTableView {
-//            let detailVC = BudgetDetailViewController()
-//            detailVC.budget = viewModel.allBudgets[indexPath.row]
-//            detailVC.delegate = self
-//            
-//            if let presentationController = detailVC.presentationController as? UISheetPresentationController {
-//                presentationController.detents = [.medium()]
-//            }
-//            
-//            present(detailVC, animated: true, completion: nil)
-//        }
-//    }
-//    
-//    func didUpdateFavoriteStatus(for budget: BasicExpenseBudget) {
-//        viewModel.loadFavoritedBudgets()
-//    }
-//}
+// MARK: - UITableViewDataSource, UITableViewDelegate
+extension ExpensesViewController: UITableViewDataSource, UITableViewDelegate {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return viewModel.expensesByDate.keys.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let date = viewModel.sortedExpenseDates[section]
+        return viewModel.expensesByDate[date]?.count ?? 0
+    }
+
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let date = viewModel.sortedExpenseDates[section]
+        return DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none)
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let date = viewModel.sortedExpenseDates[indexPath.section]
+        let expense = viewModel.expensesByDate[date]?[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ExpenseCell", for: indexPath)
+        cell.textLabel?.text = "\(expense?.category.emoji ?? "") \(expense?.category.rawValue ?? ""): $\(expense?.amount ?? 0)"
+        return cell
+    }
+}

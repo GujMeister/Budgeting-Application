@@ -10,13 +10,7 @@ import UIKit
 class BudgetsViewController: UIViewController {
     // MARK: - Properties
     private var viewModel = BudgetsViewModel()
-    
-    private var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.contentInsetAdjustmentBehavior = .never
-        return scrollView
-    }()
-    
+
     private lazy var customSegmentedControlView = CustomSegmentedControlView(
         color: .blue,
         controlItems: ["Budgets", "Expenses"], 
@@ -24,10 +18,7 @@ class BudgetsViewController: UIViewController {
     ) { [weak self] selectedIndex in
         self?.handleSegmentChange(selectedIndex: selectedIndex)
     }
-    
-    private var contentView = UIView()
-    private var bottomView = UIView()
-    
+
     private var budgetsStackViewBackground: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(hex: "#e5f1ff")
@@ -58,6 +49,18 @@ class BudgetsViewController: UIViewController {
         return label
     }()
     
+    private lazy var addBudgetButton: UIButton = {
+        let button = UIButton()
+        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+        button.layer.cornerRadius = 10
+        button.setImage(UIImage(systemName: "plus"), for: .normal)
+        button.tintColor = .black
+        button.addAction(UIAction(handler: { _ in
+            self.addBudget()
+        }), for: .touchUpInside)
+        return button
+    }()
+    
     private lazy var allBudgetsTableView: UITableView = {
         let tableView = UITableView()
         tableView.delegate = self
@@ -86,49 +89,22 @@ class BudgetsViewController: UIViewController {
         view.backgroundColor = .white
         self.navigationController?.isNavigationBarHidden = true
         
-        customSegmentedControlView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        infoView.translatesAutoresizingMaskIntoConstraints = false
-        favoriteBudgetsStackView.translatesAutoresizingMaskIntoConstraints = false
-        allBudgetsLabel.translatesAutoresizingMaskIntoConstraints = false
-        allBudgetsTableView.translatesAutoresizingMaskIntoConstraints = false
-        budgetsStackViewBackground.translatesAutoresizingMaskIntoConstraints = false
-        bottomView.translatesAutoresizingMaskIntoConstraints = false
+        let views = [customSegmentedControlView, infoView, allBudgetsLabel, allBudgetsTableView, budgetsStackViewBackground, addBudgetButton, favoriteBudgetsStackView]
         
-        view.addSubview(scrollView)
-        
-        scrollView.addSubview(contentView)
-        
-        contentView.addSubview(customSegmentedControlView)
-        contentView.addSubview(infoView)
-        contentView.addSubview(budgetsStackViewBackground)
-        contentView.addSubview(favoriteBudgetsStackView)
-        contentView.addSubview(allBudgetsLabel)
-        contentView.addSubview(allBudgetsTableView)
-        contentView.addSubview(bottomView)
-        
+        views.forEach { view in
+            self.view.addSubview(view)
+            view.translatesAutoresizingMaskIntoConstraints = false
+        }
+
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            
-            infoView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            infoView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            infoView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            infoView.topAnchor.constraint(equalTo: view.topAnchor),
+            infoView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            infoView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             infoView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 4),
             
             customSegmentedControlView.topAnchor.constraint(equalTo: infoView.bottomAnchor, constant: -15),
-            customSegmentedControlView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            customSegmentedControlView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            
+            customSegmentedControlView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            customSegmentedControlView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
             budgetsStackViewBackground.topAnchor.constraint(equalTo: favoriteBudgetsStackView.topAnchor, constant: 10),
             budgetsStackViewBackground.leadingAnchor.constraint(equalTo: favoriteBudgetsStackView.leadingAnchor),
@@ -136,27 +112,24 @@ class BudgetsViewController: UIViewController {
             budgetsStackViewBackground.bottomAnchor.constraint(equalTo: favoriteBudgetsStackView.bottomAnchor, constant: 18),
             
             favoriteBudgetsStackView.topAnchor.constraint(equalTo: customSegmentedControlView.bottomAnchor, constant: 0),
-            favoriteBudgetsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            favoriteBudgetsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            favoriteBudgetsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            favoriteBudgetsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             favoriteBudgetsStackView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 8),
             
             allBudgetsLabel.topAnchor.constraint(equalTo: favoriteBudgetsStackView.bottomAnchor, constant: 35),
-            allBudgetsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            allBudgetsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            
+            addBudgetButton.topAnchor.constraint(equalTo: allBudgetsLabel.topAnchor),
+            addBudgetButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             
             allBudgetsTableView.topAnchor.constraint(equalTo: allBudgetsLabel.bottomAnchor, constant: 10),
-            allBudgetsTableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            allBudgetsTableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            allBudgetsTableView.heightAnchor.constraint(equalToConstant: 200),
-            
-            bottomView.topAnchor.constraint(equalTo: allBudgetsTableView.bottomAnchor),
-            bottomView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            bottomView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            bottomView.heightAnchor.constraint(equalToConstant: 1),
-            bottomView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            allBudgetsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            allBudgetsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            allBudgetsTableView.heightAnchor.constraint(equalToConstant: 300),
         ])
     }
 
-    // MARK: - Helper Functions
+    // MARK: - View Model Bindings
     private func setupBindings() {
         viewModel.onBudgetsUpdated = { [weak self] in
             self?.allBudgetsTableView.reloadData()
@@ -168,6 +141,14 @@ class BudgetsViewController: UIViewController {
         }
     }
     
+    // MARK: - Button Action
+    
+    func addBudget() {
+        let addBudgetVC = AddCategoriesViewController()
+        self.present(addBudgetVC, animated: true, completion: nil)
+    }
+    
+    // MARK: - View helper functions
     private func updateFavoriteBudgets() {
         favoriteBudgetsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         
