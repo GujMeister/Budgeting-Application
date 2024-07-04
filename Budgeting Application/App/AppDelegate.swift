@@ -16,6 +16,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 //        DataManager.shared.deleteAllRecords()
+        
+//        let domain = Bundle.main.bundleIdentifier!
+//        UserDefaults.standard.removePersistentDomain(forName: domain)
+//        UserDefaults.standard.synchronize()
+//        print(Array(UserDefaults.standard.dictionaryRepresentation().keys).count)
+        
+        
         let window = UIWindow(frame: UIScreen.main.bounds)
         let mainTabBarController = MainTabBarController()
 

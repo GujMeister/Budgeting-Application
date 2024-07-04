@@ -10,15 +10,15 @@ import UIKit
 class BudgetsViewController: UIViewController {
     // MARK: - Properties
     private var viewModel = BudgetsViewModel()
-
+    
     private lazy var customSegmentedControlView = CustomSegmentedControlView(
         color: .blue,
-        controlItems: ["Budgets", "Expenses"], 
+        controlItems: ["Budgets", "Expenses"],
         defaultIndex: 0
     ) { [weak self] selectedIndex in
         self?.handleSegmentChange(selectedIndex: selectedIndex)
     }
-
+    
     private var budgetsStackViewBackground: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(hex: "#e5f1ff")
@@ -69,6 +69,9 @@ class BudgetsViewController: UIViewController {
         return tableView
     }()
     
+    // MARK: - Oh my god
+    private var updateTimer: Timer?
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,8 +83,9 @@ class BudgetsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        customSegmentedControlView.setSelectedIndex(0) // Ensure the first segment is selected
-        viewModel.loadBudgets()
+        customSegmentedControlView.setSelectedIndex(0)
+        //        viewModel.loadBudgets()
+        //        updateFavoriteBudgets()
     }
     
     // MARK: - Setup UI
@@ -95,7 +99,7 @@ class BudgetsViewController: UIViewController {
             self.view.addSubview(view)
             view.translatesAutoresizingMaskIntoConstraints = false
         }
-
+        
         NSLayoutConstraint.activate([
             infoView.topAnchor.constraint(equalTo: view.topAnchor),
             infoView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -128,7 +132,7 @@ class BudgetsViewController: UIViewController {
             allBudgetsTableView.heightAnchor.constraint(equalToConstant: 300),
         ])
     }
-
+    
     // MARK: - View Model Bindings
     private func setupBindings() {
         viewModel.onBudgetsUpdated = { [weak self] in
@@ -139,21 +143,28 @@ class BudgetsViewController: UIViewController {
         viewModel.onFavoritedBudgetsUpdated = { [weak self] in
             self?.updateFavoriteBudgets()
         }
+        
+        viewModel.onExpensesUpdated = { [weak self] in
+            self?.updateFavoriteBudgets()
+            self?.viewModel.refreshFavoriteBudgets()
+            self?.viewModel.loadBudgets()
+            self?.viewModel.loadFavoritedBudgets()
+        }
     }
     
     // MARK: - Button Action
     
     func addBudget() {
         let addBudgetVC = AddCategoriesViewController()
+        addBudgetVC.delegate = self
         self.present(addBudgetVC, animated: true, completion: nil)
     }
     
     // MARK: - View helper functions
-    private func updateFavoriteBudgets() {
+    func updateFavoriteBudgets() {
         favoriteBudgetsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         
         for budget in viewModel.favoritedBudgets.suffix(5) {
-            print("adding views")
             let singleBudgetView = BudgetView()
             singleBudgetView.budget = budget
             favoriteBudgetsStackView.addArrangedSubview(singleBudgetView)
@@ -167,6 +178,34 @@ class BudgetsViewController: UIViewController {
             let expensesViewController = ExpensesViewController()
             navigationController?.pushViewController(expensesViewController, animated: false)
         }
+    }
+}
+
+// MARK: - AddCategoriesDelegate
+extension BudgetsViewController: AddCategoriesDelegate {
+    func addCategory(_ category: BasicExpenseCategory, totalAmount: Double) {
+        if checkForDuplicateCategory(category) {
+            let alert = UIAlertController(title: "Duplicate Category", message: "This category already exists.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        let newBudget = BasicExpenseBudgetModel(context: DataManager.shared.context)
+        newBudget.category = category.rawValue
+        newBudget.totalAmount = NSNumber(value: totalAmount)
+        newBudget.spentAmount = 0
+        
+        do {
+            try DataManager.shared.context.save()
+            viewModel.loadBudgets()
+        } catch {
+            print("Failed to save new budget: \(error)")
+        }
+    }
+    
+    func checkForDuplicateCategory(_ category: BasicExpenseCategory) -> Bool {
+        return viewModel.allBudgets.contains(where: { $0.category == category })
     }
 }
 
@@ -205,7 +244,13 @@ extension BudgetsViewController: UITableViewDataSource, UITableViewDelegate, Bud
     }
     
     func didUpdateFavoriteStatus(for budget: BasicExpenseBudget) {
-        viewModel.loadFavoritedBudgets()
+        if viewModel.favoritedBudgets.contains(where: { $0.category == budget.category }) {
+            viewModel.removeBudgetFromFavorites(budget)
+            updateFavoriteBudgets()
+        } else {
+            viewModel.addBudgetToFavorites(budget)
+            updateFavoriteBudgets()
+        }
     }
 }
 

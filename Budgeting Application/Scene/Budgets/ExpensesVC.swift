@@ -4,21 +4,12 @@ class ExpensesViewController: UIViewController {
     // MARK: - Properties
     private var viewModel = BudgetsViewModel()
     
-    private var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.contentInsetAdjustmentBehavior = .never
-        return scrollView
-    }()
-    
     private lazy var customSegmentedControlView = CustomSegmentedControlView(
         color: .blue,
-        controlItems: ["Budgets", "Expenses"], defaultIndex: 1
-    ) { [weak self] selectedIndex in
+        controlItems: ["Budgets", "Expenses"],
+        defaultIndex: 1 ) { [weak self] selectedIndex in
         self?.handleSegmentChange(selectedIndex: selectedIndex)
     }
-    
-    private var contentView = UIView()
-    private var bottomView = UIView()
     
     private var infoView: UIView = {
         let screenSize = UIScreen.main.bounds.height
@@ -58,9 +49,13 @@ class ExpensesViewController: UIViewController {
         return imageView
     }()
     
-    private var expensesTableView: UITableView = {
+    private lazy var expensesTableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ExpenseCell")
+        tableView.register(CustomExpenseCell.self, forCellReuseIdentifier: CustomExpenseCell.reuseIdentifier)
+        tableView.showsHorizontalScrollIndicator = false
+        tableView.showsVerticalScrollIndicator = false
+        tableView.delegate = self
+        tableView.dataSource = self
         return tableView
     }()
 
@@ -85,72 +80,42 @@ class ExpensesViewController: UIViewController {
         view.backgroundColor = .white
         self.navigationController?.isNavigationBarHidden = true
         
-        customSegmentedControlView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        infoView.translatesAutoresizingMaskIntoConstraints = false
-        addExpenseButton.translatesAutoresizingMaskIntoConstraints = false
-        timePeriodButton.translatesAutoresizingMaskIntoConstraints = false
-        chevronImageView.translatesAutoresizingMaskIntoConstraints = false
-        expensesTableView.translatesAutoresizingMaskIntoConstraints = false
-        bottomView.translatesAutoresizingMaskIntoConstraints = false
+        let views = [customSegmentedControlView, infoView, addExpenseButton, timePeriodButton, chevronImageView, expensesTableView]
         
-        view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
-        
-        contentView.addSubview(customSegmentedControlView)
-        contentView.addSubview(infoView)
-        contentView.addSubview(addExpenseButton)
-        contentView.addSubview(timePeriodButton)
-        contentView.addSubview(chevronImageView)
-        contentView.addSubview(expensesTableView)
-        contentView.addSubview(bottomView)
-        
+        views.forEach { view in
+            self.view.addSubview(view)
+            view.translatesAutoresizingMaskIntoConstraints = false
+        }
+
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            
-            infoView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            infoView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            infoView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            infoView.topAnchor.constraint(equalTo: view.topAnchor),
+            infoView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            infoView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             infoView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 4),
             
             customSegmentedControlView.topAnchor.constraint(equalTo: infoView.bottomAnchor, constant: -15),
-            customSegmentedControlView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            customSegmentedControlView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            customSegmentedControlView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            customSegmentedControlView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
             addExpenseButton.topAnchor.constraint(equalTo: customSegmentedControlView.bottomAnchor, constant: 10),
-            addExpenseButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            addExpenseButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             
             timePeriodButton.centerYAnchor.constraint(equalTo: addExpenseButton.centerYAnchor),
             timePeriodButton.leadingAnchor.constraint(equalTo: chevronImageView.trailingAnchor, constant: 5),
             
             chevronImageView.centerYAnchor.constraint(equalTo: addExpenseButton.centerYAnchor),
-            chevronImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            chevronImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             chevronImageView.widthAnchor.constraint(equalToConstant: 14),
             chevronImageView.heightAnchor.constraint(equalToConstant: 16),
             
             expensesTableView.topAnchor.constraint(equalTo: timePeriodButton.bottomAnchor, constant: 20),
-            expensesTableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            expensesTableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            expensesTableView.bottomAnchor.constraint(equalTo: bottomView.topAnchor),
-            
-            bottomView.topAnchor.constraint(equalTo: expensesTableView.bottomAnchor),
-            bottomView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            expensesTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
+            expensesTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
+            expensesTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
-        
-        expensesTableView.delegate = self
-        expensesTableView.dataSource = self
     }
     
+    // MARK: - View Model Bindings
     private func setupBindings() {
         viewModel.onExpensesUpdated = { [weak self] in
             self?.expensesTableView.reloadData()
@@ -166,9 +131,9 @@ class ExpensesViewController: UIViewController {
     }
     
     // MARK: - Button Actions
-     
     private func addExpense() {
-        let addExpensesVC = AddCategoriesViewController()
+        let addExpensesVC = AddExpenseViewController()
+        addExpensesVC.delegate = self
         self.present(addExpensesVC, animated: true, completion: nil)
     }
     
@@ -205,8 +170,25 @@ extension ExpensesViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let date = viewModel.sortedExpenseDates[indexPath.section]
         let expense = viewModel.expensesByDate[date]?[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ExpenseCell", for: indexPath)
-        cell.textLabel?.text = "\(expense?.category.emoji ?? "") \(expense?.category.rawValue ?? ""): $\(expense?.amount ?? 0)"
+        let cell = tableView.dequeueReusableCell(withIdentifier: CustomExpenseCell.reuseIdentifier, for: indexPath) as! CustomExpenseCell
+        if let expense = expense {
+            cell.configure(with: expense)
+        }
         return cell
+    }
+}
+
+// MARK: - AddExpenseDelegate
+extension ExpensesViewController: AddExpenseDelegate {
+    func updateBudgets(_ expense: BasicExpenseModel) {
+        let context = DataManager.shared.context
+        let service = BasicExpenseService(context: context)
+        service.addExpense(expense)
+    }
+
+    func didAddExpense(_ expense: BasicExpenseModel) {
+        viewModel.loadExpenses()
+        viewModel.loadBudgets()
+        viewModel.loadFavoritedBudgets() // Ensure favorite budgets are updated
     }
 }

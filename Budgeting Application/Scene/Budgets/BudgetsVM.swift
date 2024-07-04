@@ -8,13 +8,6 @@
 import Foundation
 import CoreData
 
-enum TimePeriodBackwards: String, CaseIterable {
-    case lastDay = "Last Day"
-    case lastThreeDays = "Last 3 Days"
-    case lastWeek = "Last Week"
-    case lastMonth = "Last Month"
-}
-
 class BudgetsViewModel {
     var allBudgets: [BasicExpenseBudget] = [] {
         didSet {
@@ -60,44 +53,48 @@ class BudgetsViewModel {
         loadExpenses()
     }
     
+    // Method to refresh favorite budgets
+    func refreshFavoriteBudgets() {
+        let favoriteCategories = DataManager.shared.favoriteBudgets.map { $0.category }
+        favoritedBudgets = allBudgets.filter { favoriteCategories.contains($0.category.rawValue) }
+        onFavoritedBudgetsUpdated?()
+    }
+
+    func loadExpenses() {
+        let service = BasicExpenseService(context: context)
+        expenses = service.fetchBasicExpenses()
+        filterExpenses()
+        refreshFavoriteBudgets()
+    }
+
+    func addExpense(_ expense: BasicExpenseModel) {
+        let service = BasicExpenseService(context: context)
+        service.addExpense(expense)
+        loadExpenses()
+    }
+    
     func loadBudgets() {
         let service = BasicExpenseService(context: context)
         allBudgets = service.fetchBasicExpenseBudgets()
     }
     
     func loadFavoritedBudgets() {
-        if let savedBudgets = UserDefaults.standard.object(forKey: "favoritedBudgets") as? Data {
-            let decoder = JSONDecoder()
-            if let loadedBudgets = try? decoder.decode([BasicExpenseBudget].self, from: savedBudgets) {
-                favoritedBudgets = loadedBudgets
-            }
-        }
+        DataManager.shared.fetchFavoriteBudgets()
+        let favoriteCategories = DataManager.shared.favoriteBudgets.map { $0.category }
+        favoritedBudgets = allBudgets.filter { favoriteCategories.contains($0.category.rawValue) }
+        onFavoritedBudgetsUpdated?()
     }
-    
-    func saveFavoritedBudgets() {
-        let encoder = JSONEncoder()
-        if let encoded = try? encoder.encode(favoritedBudgets) {
-            UserDefaults.standard.set(encoded, forKey: "favoritedBudgets")
-            onFavoritedBudgetsUpdated?()
-        }
-    }
-    
+
     func addBudgetToFavorites(_ budget: BasicExpenseBudget) {
-        favoritedBudgets.append(budget)
-        saveFavoritedBudgets()
+        DataManager.shared.addFavoriteBudget(category: budget.category.rawValue)
+        loadFavoritedBudgets()
     }
-    
+
     func removeBudgetFromFavorites(_ budget: BasicExpenseBudget) {
-        favoritedBudgets.removeAll { $0.category == budget.category }
-        saveFavoritedBudgets()
+        DataManager.shared.removeFavoriteBudget(category: budget.category.rawValue)
+        loadFavoritedBudgets()
     }
-    
-    func loadExpenses() {
-        let service = BasicExpenseService(context: context)
-        expenses = service.fetchBasicExpenses()
-        filterExpenses()
-    }
-    
+
     func filterExpenses() {
         let calendar = Calendar.current
         let now = Date()

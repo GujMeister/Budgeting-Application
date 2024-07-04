@@ -188,3 +188,12 @@ enum PaymentsCategory {
         }
     }
 }
+
+
+
+enum TimePeriodBackwards: String, CaseIterable {
+    case lastDay = "Last Day"
+    case lastThreeDays = "Last 3 Days"
+    case lastWeek = "Last Week"
+    case lastMonth = "Last Month"
+}

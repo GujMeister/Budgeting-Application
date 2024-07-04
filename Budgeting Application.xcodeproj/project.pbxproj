@@ -42,6 +42,8 @@
 		853A3DD52C35FC990042A0A4 /* SegmentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3DD42C35FC990042A0A4 /* SegmentedView.swift */; };
 		853A3DD92C360B7C0042A0A4 /* ExpensesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3DD82C360B7C0042A0A4 /* ExpensesVC.swift */; };
 		85B85B052C36D83100AAD046 /* AddExpenseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B042C36D83100AAD046 /* AddExpenseVC.swift */; };
+		85B85B072C36DB4C00AAD046 /* CustomExpenseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B062C36DB4C00AAD046 /* CustomExpenseCell.swift */; };
+		85B85B092C36FC9400AAD046 /* FavoriteBudgetsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B082C36FC9400AAD046 /* FavoriteBudgetsModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +84,8 @@
 		853A3DD42C35FC990042A0A4 /* SegmentedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedView.swift; sourceTree = "<group>"; };
 		853A3DD82C360B7C0042A0A4 /* ExpensesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesVC.swift; sourceTree = "<group>"; };
 		85B85B042C36D83100AAD046 /* AddExpenseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseVC.swift; sourceTree = "<group>"; };
+		85B85B062C36DB4C00AAD046 /* CustomExpenseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomExpenseCell.swift; sourceTree = "<group>"; };
+		85B85B082C36FC9400AAD046 /* FavoriteBudgetsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteBudgetsModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,6 +226,7 @@
 		853A3D992C3593A40042A0A4 /* Extracted VCs */ = {
 			isa = PBXGroup;
 			children = (
+				853A3D9A2C3593A40042A0A4 /* AddBudgetsVC.swift */,
 				853A3D982C3593A40042A0A4 /* AddSubscriptionVC.swift */,
 				85B85B042C36D83100AAD046 /* AddExpenseVC.swift */,
 			);
@@ -232,7 +237,6 @@
 			isa = PBXGroup;
 			children = (
 				853A3D992C3593A40042A0A4 /* Extracted VCs */,
-				853A3D9A2C3593A40042A0A4 /* AddBudgetsVC.swift */,
 			);
 			path = "Add Categories";
 			sourceTree = "<group>";
@@ -273,6 +277,7 @@
 				853A3DA22C3593A40042A0A4 /* BasicExpenseModel.swift */,
 				853A3DA32C3593A40042A0A4 /* SubscriptionExpenseModel.swift */,
 				853A3DBE2C35CBDA0042A0A4 /* PaymentExpenseModel.swift */,
+				85B85B082C36FC9400AAD046 /* FavoriteBudgetsModel.swift */,
 			);
 			path = "Data Models";
 			sourceTree = "<group>";
@@ -302,6 +307,7 @@
 			isa = PBXGroup;
 			children = (
 				853A3DCC2C35E4F00042A0A4 /* CustomBudgetCell.swift */,
+				85B85B062C36DB4C00AAD046 /* CustomExpenseCell.swift */,
 			);
 			path = "Table View Cell";
 			sourceTree = "<group>";
@@ -381,6 +387,7 @@
 				853A3DD92C360B7C0042A0A4 /* ExpensesVC.swift in Sources */,
 				853A3DD12C35F6460042A0A4 /* UIColor.swift in Sources */,
 				853A3DCA2C35DC210042A0A4 /* BudgetDetailViewController.swift in Sources */,
+				85B85B092C36FC9400AAD046 /* FavoriteBudgetsModel.swift in Sources */,
 				853A3DAA2C3593A40042A0A4 /* AppDelegate.swift in Sources */,
 				853A3DB42C3593A40042A0A4 /* DashboardVM.swift in Sources */,
 				853A3DB32C3593A40042A0A4 /* DashboardVC.swift in Sources */,
@@ -405,6 +412,7 @@
 				853A3DA92C3593A40042A0A4 /* Model.xcdatamodeld in Sources */,
 				853A3DB12C3593A40042A0A4 /* NavigationRectangle.swift in Sources */,
 				853A3DCD2C35E4F00042A0A4 /* CustomBudgetCell.swift in Sources */,
+				85B85B072C36DB4C00AAD046 /* CustomExpenseCell.swift in Sources */,
 				853A3DC52C35D1030042A0A4 /* BudgetsVC.swift in Sources */,
 				853A3DB62C3593A40042A0A4 /* AddBudgetsVC.swift in Sources */,
 				853A3DBB2C3593A40042A0A4 /* SubscriptionExpenseModel.swift in Sources */,
