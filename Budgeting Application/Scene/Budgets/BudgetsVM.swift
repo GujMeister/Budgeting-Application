@@ -20,6 +20,7 @@ class BudgetsViewModel {
             onFavoritedBudgetsUpdated?()
         }
     }
+                                                     
     
     var expenses: [BasicExpense] = [] {
         didSet {

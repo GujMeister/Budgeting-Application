@@ -84,8 +84,8 @@ class BudgetsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         customSegmentedControlView.setSelectedIndex(0)
-        //        viewModel.loadBudgets()
-        //        updateFavoriteBudgets()
+        viewModel.loadBudgets() // es ro ara budget table view updates ar aketebs
+        viewModel.loadFavoritedBudgets() // es ro ara bidget view updates ar aketebs
     }
     
     // MARK: - Setup UI
@@ -143,13 +143,13 @@ class BudgetsViewController: UIViewController {
         viewModel.onFavoritedBudgetsUpdated = { [weak self] in
             self?.updateFavoriteBudgets()
         }
-        
-        viewModel.onExpensesUpdated = { [weak self] in
-            self?.updateFavoriteBudgets()
-            self?.viewModel.refreshFavoriteBudgets()
-            self?.viewModel.loadBudgets()
-            self?.viewModel.loadFavoritedBudgets()
-        }
+//        
+//        viewModel.onExpensesUpdated = { [weak self] in
+//            self?.updateFavoriteBudgets()
+//            self?.viewModel.refreshFavoriteBudgets()
+//            self?.viewModel.loadBudgets()
+//            self?.viewModel.loadFavoritedBudgets()
+//        }
     }
     
     // MARK: - Button Action
