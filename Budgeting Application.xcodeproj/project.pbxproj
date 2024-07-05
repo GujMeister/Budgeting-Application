@@ -285,10 +285,9 @@
 		853A3DA72C3593A40042A0A4 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				853A3DA42C3593A40042A0A4 /* Data Models */,
 				853A3DA52C3593A40042A0A4 /* DataManager.swift */,
-				853A3DA62C3593A40042A0A4 /* Subscription Occurances.swift */,
-				853A3DC02C35CD190042A0A4 /* Payment Occurances.swift */,
+				853A3DA42C3593A40042A0A4 /* Data Models */,
+				85B85B0B2C3718BA00AAD046 /* Occurances */,
 				853A3DC62C35D22D0042A0A4 /* Expense:Budget service.swift */,
 				853A3DCE2C35E84D0042A0A4 /* NumberFormatter.swift */,
 			);
@@ -310,6 +309,15 @@
 				85B85B062C36DB4C00AAD046 /* CustomExpenseCell.swift */,
 			);
 			path = "Table View Cell";
+			sourceTree = "<group>";
+		};
+		85B85B0B2C3718BA00AAD046 /* Occurances */ = {
+			isa = PBXGroup;
+			children = (
+				853A3DA62C3593A40042A0A4 /* Subscription Occurances.swift */,
+				853A3DC02C35CD190042A0A4 /* Payment Occurances.swift */,
+			);
+			path = Occurances;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

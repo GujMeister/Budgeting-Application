@@ -69,9 +69,17 @@ class ExpensesViewController: UIViewController {
         handleSegmentChange(selectedIndex: 1)
     }
     
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        viewModel.loadBudgets()
+//        viewModel.loadExpenses()
+//    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        customSegmentedControlView.setSelectedIndex(1)
         viewModel.loadBudgets()
+        viewModel.loadFavoritedBudgets()
         viewModel.loadExpenses()
     }
     
@@ -129,7 +137,7 @@ class ExpensesViewController: UIViewController {
             navigationController?.popViewController(animated: false)
         }
     }
-    
+
     // MARK: - Button Actions
     private func addExpense() {
         let addExpensesVC = AddExpenseViewController()

@@ -7,9 +7,21 @@
 
 import UIKit
 
+protocol AnimatableViewController {
+    var shouldAnimateInfoView: Bool { get set }
+    func toggleAnimationFlag()
+}
+
+extension AnimatableViewController {
+    mutating func toggleAnimationFlag() {
+        shouldAnimateInfoView.toggle()
+    }
+}
+
 class BudgetsViewController: UIViewController {
     // MARK: - Properties
     private var viewModel = BudgetsViewModel()
+    internal var shouldAnimateInfoView = true
     
     private lazy var customSegmentedControlView = CustomSegmentedControlView(
         color: .blue,
@@ -68,10 +80,7 @@ class BudgetsViewController: UIViewController {
         tableView.register(CustomBudgetCell.self, forCellReuseIdentifier: CustomBudgetCell.reuseIdentifier)
         return tableView
     }()
-    
-    // MARK: - Oh my god
-    private var updateTimer: Timer?
-    
+
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,6 +88,7 @@ class BudgetsViewController: UIViewController {
         setupBindings()
         viewModel.loadBudgets()
         handleSegmentChange(selectedIndex: 0)
+        customSegmentedControlView.transform = CGAffineTransform(translationX: 0, y: -50)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,8 +96,19 @@ class BudgetsViewController: UIViewController {
         customSegmentedControlView.setSelectedIndex(0)
         viewModel.loadBudgets() // es ro ara budget table view updates ar aketebs
         viewModel.loadFavoritedBudgets() // es ro ara bidget view updates ar aketebs
-    }
     
+        if shouldAnimateInfoView {
+            customSegmentedControlView.transform = CGAffineTransform(translationX: 0, y: -50)
+            UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: {
+                self.customSegmentedControlView.transform = .identity
+            }, completion: { _ in
+                self.shouldAnimateInfoView = false
+            })
+        } else {
+            customSegmentedControlView.transform = .identity
+        }
+    }
+
     // MARK: - Setup UI
     private func setupUI() {
         view.backgroundColor = .white
@@ -143,13 +164,13 @@ class BudgetsViewController: UIViewController {
         viewModel.onFavoritedBudgetsUpdated = { [weak self] in
             self?.updateFavoriteBudgets()
         }
-//        
-//        viewModel.onExpensesUpdated = { [weak self] in
-//            self?.updateFavoriteBudgets()
-//            self?.viewModel.refreshFavoriteBudgets()
-//            self?.viewModel.loadBudgets()
-//            self?.viewModel.loadFavoritedBudgets()
-//        }
+        //
+        //        viewModel.onExpensesUpdated = { [weak self] in
+        //            self?.updateFavoriteBudgets()
+        //            self?.viewModel.refreshFavoriteBudgets()
+        //            self?.viewModel.loadBudgets()
+        //            self?.viewModel.loadFavoritedBudgets()
+        //        }
     }
     
     // MARK: - Button Action
@@ -175,11 +196,27 @@ class BudgetsViewController: UIViewController {
         if selectedIndex == 0 {
             return
         } else {
+            shouldAnimateInfoView = false
             let expensesViewController = ExpensesViewController()
-            navigationController?.pushViewController(expensesViewController, animated: false)
+            if let navigationController = navigationController {
+                navigationController.pushViewController(expensesViewController, animated: false)
+            }
         }
     }
 }
+    
+//    private func handleSegmentChange(selectedIndex: Int) {
+//        if selectedIndex == 0 {
+//            return
+//        } else {
+//            shouldAnimateInfoView = false
+//            let expensesViewController = ExpensesViewController()
+//            if let navigationController = navigationController {
+//                navigationController.pushViewController(expensesViewController, animated: false)
+//            }
+//        }
+//    }
+//}
 
 // MARK: - AddCategoriesDelegate
 extension BudgetsViewController: AddCategoriesDelegate {
@@ -246,10 +283,10 @@ extension BudgetsViewController: UITableViewDataSource, UITableViewDelegate, Bud
     func didUpdateFavoriteStatus(for budget: BasicExpenseBudget) {
         if viewModel.favoritedBudgets.contains(where: { $0.category == budget.category }) {
             viewModel.removeBudgetFromFavorites(budget)
-            updateFavoriteBudgets()
+            //            updateFavoriteBudgets()
         } else {
             viewModel.addBudgetToFavorites(budget)
-            updateFavoriteBudgets()
+            //            updateFavoriteBudgets()
         }
     }
 }
