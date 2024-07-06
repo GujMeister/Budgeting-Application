@@ -8,17 +8,17 @@
 import UIKit
 
 class NavigationRectangle: UIView {
-    
+    // MARK: - Properties
     private let height: CGFloat
     private let rectangleColor: UIColor
-    private let totalBudgetedMoney: String
+    private let totalBudgetedMoney: Double
     private let descriptionLabelText: String
     
-    let totalBudgetedNumberLabel: UILabel = {
+    lazy var totalBudgetedNumberLabel: UILabel = {
         let label = UILabel()
         label.textColor = .label
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 30, weight: .regular)
+        label.font = UIFont(name: "Heebo-SemiBold", size: 36)
         label.textColor = .white
         label.text = "Total Budget"
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -37,7 +37,7 @@ class NavigationRectangle: UIView {
     }()
     
     // MARK: - Initializers
-    init(height: CGFloat, color: UIColor, totalBudgetedMoney: String, descriptionLabelText: String) {
+    init(height: CGFloat, color: UIColor, totalBudgetedMoney: Double, descriptionLabelText: String) {
         self.height = height
         self.rectangleColor = color
         self.totalBudgetedMoney = totalBudgetedMoney
@@ -53,7 +53,7 @@ class NavigationRectangle: UIView {
     // MARK: - Setup UI
     private func setupView() {
         backgroundColor = rectangleColor
-        totalBudgetedNumberLabel.text = totalBudgetedMoney
+        totalBudgetedNumberLabel.attributedText = NumberFormatterHelper.shared.format(amount: totalBudgetedMoney, baseFont: UIFont(name: "Heebo-SemiBold", size: 36) ?? UIFont(), sizeDifference: 0.6)
         descriptionLabel.text = descriptionLabelText
         
         addSubview(totalBudgetedNumberLabel)
@@ -69,6 +69,7 @@ class NavigationRectangle: UIView {
         heightAnchor.constraint(equalToConstant: height).isActive = true
     }
     
+    // MARK: - Bottom corner radius
     override func layoutSubviews() {
         super.layoutSubviews()
         roundBottomCorners(radius: 30)
@@ -85,5 +86,5 @@ class NavigationRectangle: UIView {
 }
 
 #Preview {
-    NavigationRectangle(height: 100, color: .blue, totalBudgetedMoney: "$200", descriptionLabelText: "Total Budgeted")
+    NavigationRectangle(height: 100, color: .blue, totalBudgetedMoney: 100.00, descriptionLabelText: "Total Budgeted")
 }

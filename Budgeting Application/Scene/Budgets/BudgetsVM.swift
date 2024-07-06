@@ -9,9 +9,11 @@ import Foundation
 import CoreData
 
 class BudgetsViewModel {
+    // MARK: - Properties
     var allBudgets: [BasicExpenseBudget] = [] {
         didSet {
             onBudgetsUpdated?()
+            onTotalBudgetedMoneyUpdated?()
         }
     }
     
@@ -40,20 +42,34 @@ class BudgetsViewModel {
         }
     }
     
-    var onBudgetsUpdated: (() -> Void)?
-    var onFavoritedBudgetsUpdated: (() -> Void)?
-    var onExpensesUpdated: (() -> Void)?
+    var totalBudgetedMoney: Double = 0.0 {
+        didSet {
+            onTotalBudgetedMoneyUpdated?()
+        }
+    }
+    
     
     private var context: NSManagedObjectContext {
         return DataManager.shared.context
     }
     
+    var onBudgetsUpdated: (() -> Void)?
+    var onFavoritedBudgetsUpdated: (() -> Void)?
+    var onExpensesUpdated: (() -> Void)?
+    var onTotalBudgetedMoneyUpdated: (() -> Void)?
+    
+    private let service: BasicExpenseService
+    
+    // MARK: - Lifecycle
     init() {
+        self.service = BasicExpenseService(context: DataManager.shared.context)
         loadBudgets()
         loadFavoritedBudgets()
         loadExpenses()
+        updateTotalBudgetedMoney()
     }
     
+    // MARK: - Methods
     // Method to refresh favorite budgets
     func refreshFavoriteBudgets() {
         let favoriteCategories = DataManager.shared.favoriteBudgets.map { $0.category }
@@ -77,6 +93,7 @@ class BudgetsViewModel {
     func loadBudgets() {
         let service = BasicExpenseService(context: context)
         allBudgets = service.fetchBasicExpenseBudgets()
+        updateTotalBudgetedMoney()
     }
     
     func loadFavoritedBudgets() {
@@ -95,13 +112,26 @@ class BudgetsViewModel {
         DataManager.shared.removeFavoriteBudget(category: budget.category.rawValue)
         loadFavoritedBudgets()
     }
-
+    
+    private func updateTotalBudgetedMoney() {
+        totalBudgetedMoney = allBudgets.reduce(0) { $0 + $1.totalAmount }
+    }
+    
+    func deleteBudget(at index: Int) {
+        let budgetToDelete = allBudgets[index]
+        service.deleteBasicExpenseBudget(by: budgetToDelete.category.rawValue)
+        allBudgets.remove(at: index)
+    }
+    
     func filterExpenses() {
         let calendar = Calendar.current
         let now = Date()
         var filtered: [BasicExpense] = []
         
         switch selectedTimePeriod {
+        case .today:
+            let startOfToday = calendar.startOfDay(for: now)
+            filtered = expenses.filter { $0.date >= startOfToday }
         case .lastDay:
             let dayAgo = calendar.date(byAdding: .day, value: -1, to: now) ?? now
             filtered = expenses.filter { $0.date >= dayAgo }

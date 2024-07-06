@@ -17,7 +17,7 @@ struct RecurringPage: View {
             NavigationRectangleRepresentable(
                 height: 212.667,
                 color: .blue,
-                totalBudgetedMoney: String(format: "$%.2f", viewModel.totalBudgeted),
+                totalBudgetedMoney: viewModel.totalBudgeted,
                 descriptionLabelText: "Total Budgeted"
             )
                 .edgesIgnoringSafeArea(.top)
@@ -128,7 +128,7 @@ struct RecurringPage_Previews: PreviewProvider {
 struct NavigationRectangleRepresentable: UIViewRepresentable {
     let height: CGFloat
     let color: UIColor
-    let totalBudgetedMoney: String
+    let totalBudgetedMoney: Double
     let descriptionLabelText: String
     
     func makeUIView(context: Context) -> NavigationRectangle {
@@ -141,6 +141,6 @@ struct NavigationRectangleRepresentable: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: NavigationRectangle, context: Context) {
-        uiView.totalBudgetedNumberLabel.text = totalBudgetedMoney
+        uiView.totalBudgetedNumberLabel.text = String(totalBudgetedMoney)
     }
 }

@@ -8,7 +8,7 @@ class DashboardViewController: UIViewController {
     
     private var infoView: UIView = {
         let screenSize = UIScreen.main.bounds.height
-        let view = NavigationRectangle(height: screenSize / 4, color: .blue, totalBudgetedMoney: "$200", descriptionLabelText: "Total Budgeted")
+        let view = NavigationRectangle(height: screenSize / 4, color: .blue, totalBudgetedMoney: 121.50, descriptionLabelText: "Total Budgeted")
         return view
     }()
     

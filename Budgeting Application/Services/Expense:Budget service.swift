@@ -123,4 +123,19 @@ class BasicExpenseService {
             print("Failed to fetch budgets: \(error)")
         }
     }
+    
+    func deleteBasicExpenseBudget(by category: String) {
+        let request: NSFetchRequest<BasicExpenseBudgetModel> = BasicExpenseBudgetModel.fetchRequest() as! NSFetchRequest<BasicExpenseBudgetModel>
+        request.predicate = NSPredicate(format: "category == %@", category)
+        
+        do {
+            let budgets = try context.fetch(request)
+            if let budgetToDelete = budgets.first {
+                context.delete(budgetToDelete)
+                try context.save()
+            }
+        } catch {
+            print("Failed to delete budget for category \(category): \(error)")
+        }
+    }
 }

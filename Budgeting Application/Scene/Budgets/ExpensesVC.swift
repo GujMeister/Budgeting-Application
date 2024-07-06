@@ -13,7 +13,7 @@ class ExpensesViewController: UIViewController {
     
     private var infoView: UIView = {
         let screenSize = UIScreen.main.bounds.height
-        let view = NavigationRectangle(height: screenSize / 4, color: .blue, totalBudgetedMoney: "$200", descriptionLabelText: "Total Budgeted")
+        let view = NavigationRectangle(height: screenSize / 4, color: .blue, totalBudgetedMoney: 0.0, descriptionLabelText: "Total Budgeted")
         view.totalBudgetedNumberLabel.textColor = .white
         view.descriptionLabel.textColor = .white
         return view

@@ -7,46 +7,32 @@
 
 import UIKit
 
-protocol AnimatableViewController {
-    var shouldAnimateInfoView: Bool { get set }
-    func toggleAnimationFlag()
-}
-
-extension AnimatableViewController {
-    mutating func toggleAnimationFlag() {
-        shouldAnimateInfoView.toggle()
-    }
-}
-
 class BudgetsViewController: UIViewController {
     // MARK: - Properties
     private var viewModel = BudgetsViewModel()
     internal var shouldAnimateInfoView = true
     
-    private lazy var customSegmentedControlView = CustomSegmentedControlView(
-        color: .blue,
-        controlItems: ["Budgets", "Expenses"],
-        defaultIndex: 0
-    ) { [weak self] selectedIndex in
-        self?.handleSegmentChange(selectedIndex: selectedIndex)
-    }
-    
-    private var budgetsStackViewBackground: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(hex: "#e5f1ff")
-        view.layer.cornerRadius = 20
-        view.layer.masksToBounds = true
-        return view
-    }()
-    
-    private var infoView: UIView = {
+    private var infoView: NavigationRectangle = {
         let screenSize = UIScreen.main.bounds.height
-        let view = NavigationRectangle(height: screenSize / 4, color: .blue, totalBudgetedMoney: "$200", descriptionLabelText: "Total Budgeted")
+        let view = NavigationRectangle(height: screenSize / 4, color: UIColor(hex: "1B1A55"), totalBudgetedMoney: 0.0, descriptionLabelText: "Budget upper limit")
         view.totalBudgetedNumberLabel.textColor = .white
         view.descriptionLabel.textColor = .white
         return view
     }()
     
+    private lazy var customSegmentedControlView = CustomSegmentedControlView(
+        color: UIColor(hex: "535C91"),
+        controlItems: ["Budgets", "Expenses"],
+        defaultIndex: 0
+    ) { [weak self] selectedIndex in
+        self?.handleSegmentChange(selectedIndex: selectedIndex)
+    }
+
+    private var budgetsStackViewBackground: UIView = {
+        let view = BorderLabelView(labelName: "Favorites")
+        return view
+    }()
+
     private var favoriteBudgetsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -58,6 +44,7 @@ class BudgetsViewController: UIViewController {
         let label = UILabel()
         label.text = "All Budgets"
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        label.textColor = UIColor(hex: "0F1035")
         return label
     }()
     
@@ -66,7 +53,7 @@ class BudgetsViewController: UIViewController {
         button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
         button.layer.cornerRadius = 10
         button.setImage(UIImage(systemName: "plus"), for: .normal)
-        button.tintColor = .black
+        button.tintColor = UIColor(hex: "0F1035")
         button.addAction(UIAction(handler: { _ in
             self.addBudget()
         }), for: .touchUpInside)
@@ -77,6 +64,7 @@ class BudgetsViewController: UIViewController {
         let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.backgroundColor = UIColor(hex: "f4f3f9")
         tableView.register(CustomBudgetCell.self, forCellReuseIdentifier: CustomBudgetCell.reuseIdentifier)
         return tableView
     }()
@@ -84,34 +72,23 @@ class BudgetsViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
         setupBindings()
+        setupUI()
         viewModel.loadBudgets()
         handleSegmentChange(selectedIndex: 0)
-        customSegmentedControlView.transform = CGAffineTransform(translationX: 0, y: -50)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         customSegmentedControlView.setSelectedIndex(0)
+        animateSegmentedControlView()
         viewModel.loadBudgets() // es ro ara budget table view updates ar aketebs
         viewModel.loadFavoritedBudgets() // es ro ara bidget view updates ar aketebs
-    
-        if shouldAnimateInfoView {
-            customSegmentedControlView.transform = CGAffineTransform(translationX: 0, y: -50)
-            UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: {
-                self.customSegmentedControlView.transform = .identity
-            }, completion: { _ in
-                self.shouldAnimateInfoView = false
-            })
-        } else {
-            customSegmentedControlView.transform = .identity
-        }
     }
 
     // MARK: - Setup UI
     private func setupUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(hex: "#f4f3f9")
         self.navigationController?.isNavigationBarHidden = true
         
         let views = [customSegmentedControlView, infoView, allBudgetsLabel, allBudgetsTableView, budgetsStackViewBackground, addBudgetButton, favoriteBudgetsStackView]
@@ -131,17 +108,17 @@ class BudgetsViewController: UIViewController {
             customSegmentedControlView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             customSegmentedControlView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
-            budgetsStackViewBackground.topAnchor.constraint(equalTo: favoriteBudgetsStackView.topAnchor, constant: 10),
-            budgetsStackViewBackground.leadingAnchor.constraint(equalTo: favoriteBudgetsStackView.leadingAnchor),
-            budgetsStackViewBackground.trailingAnchor.constraint(equalTo: favoriteBudgetsStackView.trailingAnchor),
-            budgetsStackViewBackground.bottomAnchor.constraint(equalTo: favoriteBudgetsStackView.bottomAnchor, constant: 18),
+            budgetsStackViewBackground.topAnchor.constraint(equalTo: favoriteBudgetsStackView.topAnchor, constant: 5),
+            budgetsStackViewBackground.leadingAnchor.constraint(equalTo: favoriteBudgetsStackView.leadingAnchor, constant: -10),
+            budgetsStackViewBackground.trailingAnchor.constraint(equalTo: favoriteBudgetsStackView.trailingAnchor, constant: 10),
+            budgetsStackViewBackground.bottomAnchor.constraint(equalTo: favoriteBudgetsStackView.bottomAnchor, constant: 25),
             
-            favoriteBudgetsStackView.topAnchor.constraint(equalTo: customSegmentedControlView.bottomAnchor, constant: 0),
+            favoriteBudgetsStackView.topAnchor.constraint(equalTo: customSegmentedControlView.bottomAnchor, constant: 10),
             favoriteBudgetsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             favoriteBudgetsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             favoriteBudgetsStackView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 8),
             
-            allBudgetsLabel.topAnchor.constraint(equalTo: favoriteBudgetsStackView.bottomAnchor, constant: 35),
+            allBudgetsLabel.topAnchor.constraint(equalTo: favoriteBudgetsStackView.bottomAnchor, constant: 50),
             allBudgetsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             
             addBudgetButton.topAnchor.constraint(equalTo: allBudgetsLabel.topAnchor),
@@ -164,17 +141,20 @@ class BudgetsViewController: UIViewController {
         viewModel.onFavoritedBudgetsUpdated = { [weak self] in
             self?.updateFavoriteBudgets()
         }
-        //
-        //        viewModel.onExpensesUpdated = { [weak self] in
-        //            self?.updateFavoriteBudgets()
-        //            self?.viewModel.refreshFavoriteBudgets()
-        //            self?.viewModel.loadBudgets()
-        //            self?.viewModel.loadFavoritedBudgets()
-        //        }
+        
+//        viewModel.onExpensesUpdated = { [weak self] in
+//            self?.updateFavoriteBudgets()
+//            self?.viewModel.refreshFavoriteBudgets()
+//            self?.viewModel.loadBudgets()
+//            self?.viewModel.loadFavoritedBudgets()
+//        }
+        
+        viewModel.onTotalBudgetedMoneyUpdated = { [weak self] in
+            self?.updateInfoView()
+        }
     }
     
     // MARK: - Button Action
-    
     func addBudget() {
         let addBudgetVC = AddCategoriesViewController()
         addBudgetVC.delegate = self
@@ -192,6 +172,10 @@ class BudgetsViewController: UIViewController {
         }
     }
     
+    private func updateInfoView() {
+        infoView.totalBudgetedNumberLabel.attributedText = NumberFormatterHelper.shared.format(amount: viewModel.totalBudgetedMoney, baseFont: UIFont(name: "Heebo-SemiBold", size: 36) ?? UIFont(), sizeDifference: 0.6)
+    }
+    
     private func handleSegmentChange(selectedIndex: Int) {
         if selectedIndex == 0 {
             return
@@ -203,22 +187,22 @@ class BudgetsViewController: UIViewController {
             }
         }
     }
-}
     
-//    private func handleSegmentChange(selectedIndex: Int) {
-//        if selectedIndex == 0 {
-//            return
-//        } else {
-//            shouldAnimateInfoView = false
-//            let expensesViewController = ExpensesViewController()
-//            if let navigationController = navigationController {
-//                navigationController.pushViewController(expensesViewController, animated: false)
-//            }
-//        }
-//    }
-//}
+    private func animateSegmentedControlView() {
+        if shouldAnimateInfoView {
+            customSegmentedControlView.transform = CGAffineTransform(translationX: 0, y: -50)
+            UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: {
+                self.customSegmentedControlView.transform = .identity
+            }, completion: { _ in
+                self.shouldAnimateInfoView = false
+            })
+        } else {
+            customSegmentedControlView.transform = .identity
+        }
+    }
+}
 
-// MARK: - AddCategoriesDelegate
+// MARK: - Add Categories Delegate
 extension BudgetsViewController: AddCategoriesDelegate {
     func addCategory(_ category: BasicExpenseCategory, totalAmount: Double) {
         if checkForDuplicateCategory(category) {
@@ -260,6 +244,8 @@ extension BudgetsViewController: UITableViewDataSource, UITableViewDelegate, Bud
             let cell = tableView.dequeueReusableCell(withIdentifier: CustomBudgetCell.reuseIdentifier, for: indexPath) as! CustomBudgetCell
             let budget = viewModel.allBudgets[indexPath.row]
             cell.configure(with: budget)
+            cell.selectionStyle = .none
+            cell.backgroundColor = UIColor(hex: "f4f3f9")
             return cell
         }
         
@@ -280,13 +266,17 @@ extension BudgetsViewController: UITableViewDataSource, UITableViewDelegate, Bud
         }
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            viewModel.deleteBudget(at: indexPath.row)
+        }
+    }
+    
     func didUpdateFavoriteStatus(for budget: BasicExpenseBudget) {
         if viewModel.favoritedBudgets.contains(where: { $0.category == budget.category }) {
             viewModel.removeBudgetFromFavorites(budget)
-            //            updateFavoriteBudgets()
         } else {
             viewModel.addBudgetToFavorites(budget)
-            //            updateFavoriteBudgets()
         }
     }
 }
