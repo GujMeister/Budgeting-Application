@@ -121,6 +121,9 @@ class BudgetsViewModel {
         let budgetToDelete = allBudgets[index]
         service.deleteBasicExpenseBudget(by: budgetToDelete.category.rawValue)
         allBudgets.remove(at: index)
+        refreshFavoriteBudgets()
+        onBudgetsUpdated?()
+        updateTotalBudgetedMoney()
     }
     
     func filterExpenses() {
