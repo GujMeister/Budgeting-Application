@@ -129,7 +129,7 @@ class DataManager {
         saveContext()
     }
 
-    func deletePaymentExpense(expense: SubscriptionExpenseModel) {
+    func deletePaymentExpense(expense: PaymentExpenseModel) {
         context.delete(expense)
         saveContext()
     }

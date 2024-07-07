@@ -1,9 +1,9 @@
 import SwiftUI
-import CoreData
 
 struct RecurringPage: View {
     @StateObject private var viewModel = RecurringPageViewModel()
     @State private var shouldAnimate = true
+    @State private var isEditing = false
     
     let columns = [
         GridItem(.flexible(minimum: 100, maximum: .infinity)),
@@ -13,14 +13,13 @@ struct RecurringPage: View {
     var body: some View {
         VStack {
             ZStack {
-                
-                
                 CustomSegmentedControlViewRepresentable(
                     color: .customLightBlue,
-                    controlItems: ["Subscriptions", "Payments"],
+                    controlItems: ["Subscriptions", "Payments", "Overview"],
                     defaultIndex: viewModel.selectedSegmentIndex,
                     segmentChangeCallback: { index in
                         viewModel.selectedSegmentIndex = index
+                        isEditing = false
                     },
                     shouldAnimate: $shouldAnimate
                 )
@@ -30,7 +29,7 @@ struct RecurringPage: View {
                 NavigationRectangleRepresentable(
                     height: 0,
                     color: .customBlue,
-                    totalBudgetedMoney: NumberFormatterHelper.shared.format(amount: viewModel.totalBudgeted, baseFont: UIFont(name: "Heebo-SemiBold", size: 36) ?? UIFont(), sizeDifference: 0.6),
+                    totalBudgetedMoney: NumberFormatterHelper.shared.format(amount: totalBudgetedMoneyHelper(), baseFont: UIFont(name: "Heebo-SemiBold", size: 36) ?? UIFont(), sizeDifference: 0.6),
                     descriptionLabelText: "Total Budgeted"
                 )
                 .edgesIgnoringSafeArea(.top)
@@ -42,9 +41,7 @@ struct RecurringPage: View {
                 Menu {
                     ForEach(TimePeriod.allCases, id: \.self) { period in
                         Button(action: {
-                            withAnimation {
-                                viewModel.selectedTimePeriod = period
-                            }
+                            viewModel.selectedTimePeriod = period
                         }) {
                             Text(period.rawValue)
                         }
@@ -59,16 +56,24 @@ struct RecurringPage: View {
                 
                 Spacer()
                 
-                Button(action: {
-                    // Handle add action
-                    if viewModel.selectedSegmentIndex == 0 {
-                        presentAddSubscriptionVC()
-                    } else {
-                        presentAddPaymentVC()
+                if viewModel.selectedSegmentIndex == 2 {
+                    Button(action: {
+                        isEditing.toggle()
+                    }) {
+                        Text(isEditing ? "Done" : "Edit")
+                            .foregroundStyle(.black)
                     }
-                }) {
-                    Image(systemName: "plus")
-                        .foregroundStyle(.black)
+                } else {
+                    Button(action: {
+                        if viewModel.selectedSegmentIndex == 0 {
+                            presentAddSubscriptionVC()
+                        } else if viewModel.selectedSegmentIndex == 1 {
+                            presentAddPaymentVC()
+                        }
+                    }) {
+                        Image(systemName: "plus")
+                            .foregroundStyle(.black)
+                    }
                 }
             }
             .padding([.leading, .trailing])
@@ -82,21 +87,72 @@ struct RecurringPage: View {
                                 emoji: SubscriptionCategory.emoji(for: occurrence.category),
                                 amount: occurrence.amount,
                                 paymentDescription: occurrence.subscriptionDescription,
-                                date: occurrence.date
+                                date: occurrence.date,
+                                color: SubscriptionCategory.color(for: occurrence.category)
                             )
                         }
-                    } else {
+                    } else if viewModel.selectedSegmentIndex == 1 {
                         ForEach(viewModel.filteredPaymentOccurrences, id: \.date) { occurrence in
                             RecurringView(
                                 emoji: PaymentsCategory.emoji(for: occurrence.category),
                                 amount: occurrence.amount,
                                 paymentDescription: occurrence.subscriptionDescription,
-                                date: occurrence.date
+                                date: occurrence.date,
+                                color: PaymentsCategory.color(for: occurrence.category)
                             )
+                        }
+                    } else {
+                        if isEditing && viewModel.selectedSegmentIndex == 2 {
+                            ForEach(viewModel.allSubscriptionExpenses) { subscription in
+                                EditableRecurringView(
+                                    amount: subscription.amount,
+                                    paymentDescription: subscription.subscriptionDescription,
+                                    date: subscription.startDate,
+                                    color: subscription.category.color,
+                                    deleteAction: {
+                                        viewModel.deleteSubscriptionExpense(subscription)
+                                    }
+                                )
+                            }
+
+                            ForEach(viewModel.allPaymentExpenses) { payment in
+                                EditableRecurringView(
+                                    amount: payment.amount,
+                                    paymentDescription: payment.paymentDescription,
+                                    date: payment.startDate,
+                                    color: payment.category.color,
+                                    deleteAction: {
+                                        viewModel.deletePaymentExpense(payment)
+                                    }
+                                )
+                            }
+                        } else if !isEditing && viewModel.selectedSegmentIndex == 2 {
+                            ForEach(viewModel.allSubscriptionExpenses, id: \.subscriptionDescription) { subscription in
+                                RecurringView(
+                                    emoji: subscription.category.emoji,
+                                    amount: subscription.amount,
+                                    paymentDescription: subscription.subscriptionDescription,
+                                    date: subscription.startDate,
+                                    color: subscription.category.color
+                                )
+                            }
+                            ForEach(viewModel.allPaymentExpenses, id: \.paymentDescription) { payment in
+                                RecurringView(
+                                    emoji: payment.category.emoji,
+                                    amount: payment.amount,
+                                    paymentDescription: payment.paymentDescription,
+                                    date: payment.startDate,
+                                    color: payment.category.color
+                                )
+                            }
                         }
                     }
                 }
                 .padding()
+            }
+            .onAppear {
+                viewModel.loadOccurrences()
+                viewModel.loadAllExpenses()
             }
             .padding(.top, -70)
         }
@@ -105,6 +161,7 @@ struct RecurringPage: View {
         )
         .onAppear {
             viewModel.loadOccurrences()
+            viewModel.loadAllExpenses()
         }
     }
     
@@ -119,6 +176,14 @@ struct RecurringPage: View {
         addPaymentVC.delegate = viewModel as? any AddPaymentDelegate
         UIApplication.shared.windows.first?.rootViewController?.present(addPaymentVC, animated: true, completion: nil)
     }
+    
+    private func totalBudgetedMoneyHelper() -> Double {
+        if viewModel.selectedSegmentIndex == 2 {
+            return viewModel.listTotalBudgeted
+        } else {
+            return viewModel.totalBudgeted
+        }
+    }
 }
 
 // MARK: - Payment Cell
@@ -130,39 +195,41 @@ struct RecurringView: View {
     var color: UIColor
     
     var body: some View {
-        VStack {
-            HStack {
-                VStack(alignment: .leading) {
-                    Text(paymentDescription)
-                        .font(.custom("Heebo-SemiBold", size: 20))
-                        .foregroundColor(.black)
+        HStack {
+            RoundedRectangle(cornerRadius: 0)
+                .fill(Color(color))
+                .frame(width: 10)
+                .padding(.vertical, -18)
+                .padding(.leading, -18)
+            
+            VStack {
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(paymentDescription)
+                            .font(.custom("Heebo-SemiBold", size: 20))
+                            .lineLimit(1)
+                            .foregroundColor(.black)
+                        
+                        Text(PlainNumberFormatterHelper.shared.format(amount: amount))
+                            .font(.custom("Inter-Regular", size: 15))
+                            .foregroundStyle(.black)
+                        
+                        Text(DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none))
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                            .padding(.top, 10)
+                    }
                     
-                    Text(PlainNumberFormatterHelper.shared.format(amount: amount))
-                        .font(.custom("Inter-Regular", size: 15))
-                        .foregroundStyle(.black)
+                    Spacer()
                     
-                    Text(DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none))
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .padding(.top, 10)
-                }
-                
-                Spacer()
-                
-                ZStack {
-                    RoundedRectangle(cornerRadius: 0)
-                        .fill(Color(UIColor.customLightBlue))
-                        .padding([.trailing, .vertical] , -18)
-                        .padding(.leading, 35)
                     Text(emoji)
                         .font(.system(size: 24))
                         .background(
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(Color.white)
-                                .padding(.all, -5)
+                            RoundedRectangle(cornerRadius: 15)
+                                .fill(Color(color))
+                                .padding(.all, -8)
                         )
                 }
-                .padding(.trailing, -50)
             }
         }
         .padding()
@@ -170,7 +237,6 @@ struct RecurringView: View {
         .cornerRadius(15)
     }
 }
-
 // MARK: - Representables
 struct CustomSegmentedControlViewRepresentable: UIViewRepresentable {
     var color: UIColor
@@ -221,7 +287,62 @@ struct NavigationRectangleRepresentable: UIViewRepresentable {
 struct RecurringPage_Previews: PreviewProvider {
     static var previews: some View {
         RecurringPage()
-        RecurringView(emoji: "🏠", amount: 1000, paymentDescription: "Vashlijvari", date: Date())
+        
+        RecurringView(emoji: "🏠", amount: 1000, paymentDescription: "Vashlijvari", date: Date(), color: .customLightBlue)
             .frame(width: UIScreen.main.bounds.width / 2, height: 150)
+        
+        EditableRecurringView(amount: 200, paymentDescription: "Vashlijvari", date: Date(), color: .blue, deleteAction: {})
+            .frame(width: UIScreen.main.bounds.width / 2, height: 150)
+    }
+}
+
+// MARK: - Editable Payment Cell
+struct EditableRecurringView: View {
+    var amount: Double
+    var paymentDescription: String
+    var date: Date
+    var color: UIColor
+    var deleteAction: () -> Void
+    
+    var body: some View {
+        HStack {
+            RoundedRectangle(cornerRadius: 0)
+                .fill(Color(color))
+                .frame(width: 10)
+                .padding(.vertical, -18)
+                .padding(.leading, -18)
+            
+            VStack {
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(paymentDescription)
+                            .font(.custom("Heebo-SemiBold", size: 20))
+                            .lineLimit(1)
+                            .foregroundColor(.black)
+                        
+                        Text(PlainNumberFormatterHelper.shared.format(amount: amount))
+                            .font(.custom("Inter-Regular", size: 15))
+                            .foregroundStyle(.black)
+                        
+                        Text(DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none))
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                            .padding(.top, 10)
+                    }
+                    
+                    Spacer()
+                    
+                    Button(action: deleteAction) {
+                        Image(systemName: "minus.circle")
+                            .resizable()
+                            .foregroundColor(.red)
+                            .frame(width: 25, height: 25)
+                    }
+                }
+            }
+        }
+        .padding()
+        .background(Color(UIColor.systemGray5))
+        .cornerRadius(15)
     }
 }
