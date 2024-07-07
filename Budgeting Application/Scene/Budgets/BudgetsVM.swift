@@ -5,7 +5,6 @@
 //  Created by Luka Gujejiani on 03.07.24.
 //
 
-import Foundation
 import CoreData
 
 class BudgetsViewModel {
@@ -22,7 +21,6 @@ class BudgetsViewModel {
             onFavoritedBudgetsUpdated?()
         }
     }
-                                                     
     
     var expenses: [BasicExpense] = [] {
         didSet {
@@ -39,6 +37,7 @@ class BudgetsViewModel {
     var selectedTimePeriod: TimePeriodBackwards = .lastWeek {
         didSet {
             filterExpenses()
+            updateExpensesDescription()
         }
     }
     
@@ -48,6 +47,11 @@ class BudgetsViewModel {
         }
     }
     
+    var totalExpenses: Double = 0.0 {
+        didSet {
+            onTotalExpensesUpdated?()
+        }
+    }
     
     private var context: NSManagedObjectContext {
         return DataManager.shared.context
@@ -57,6 +61,8 @@ class BudgetsViewModel {
     var onFavoritedBudgetsUpdated: (() -> Void)?
     var onExpensesUpdated: (() -> Void)?
     var onTotalBudgetedMoneyUpdated: (() -> Void)?
+    var onTotalExpensesUpdated: (() -> Void)?
+    var onExpensesDescriptionUpdated: ((String) -> Void)?
     
     private let service: BasicExpenseService
     
@@ -154,8 +160,27 @@ class BudgetsViewModel {
             return startOfDay
         }
         
+        totalExpenses = filtered.reduce(0) { $0 + $1.amount }
+        
         DispatchQueue.main.async {
             self.onExpensesUpdated?()
         }
+    }
+    
+    func updateExpensesDescription() {
+        let description: String
+        switch selectedTimePeriod {
+        case .today:
+            description = "Expenses Today"
+        case .lastDay:
+            description = "Expenses Last Day"
+        case .lastThreeDays:
+            description = "Expenses Last 3 Days"
+        case .lastWeek:
+            description = "Expenses Last Week"
+        case .lastMonth:
+            description = "Expenses Last Month"
+        }
+        onExpensesDescriptionUpdated?(description)
     }
 }

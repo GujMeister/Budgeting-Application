@@ -8,7 +8,7 @@ class DashboardViewController: UIViewController {
     
     private var infoView: UIView = {
         let screenSize = UIScreen.main.bounds.height
-        let view = NavigationRectangle(height: screenSize / 4, color: .blue, totalBudgetedMoney: 121.50, descriptionLabelText: "Total Budgeted")
+        let view = NavigationRectangle(height: screenSize / 4, color: .blue, totalBudgetedMoney: NSMutableAttributedString(string: ""), descriptionLabelText: "Total Budgeted")
         return view
     }()
     
@@ -135,7 +135,7 @@ class DashboardViewController: UIViewController {
     
     // MARK: - Setup Bindings
     private func setupBindings() {
-        viewModel.onBudgetsUpdated = { [weak self] in
+        viewModel.onFavoritedBudgetsUpdated = { [weak self] in
             self?.updateBudgets()
         }
         
@@ -160,7 +160,7 @@ class DashboardViewController: UIViewController {
     private func updateBudgets() {
         budgetStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         
-        for budget in viewModel.budgets {
+        for budget in viewModel.favoritedBudgets {
             let singleBudgetView = BudgetView()
             singleBudgetView.budget = budget
             budgetStackView.addArrangedSubview(singleBudgetView)

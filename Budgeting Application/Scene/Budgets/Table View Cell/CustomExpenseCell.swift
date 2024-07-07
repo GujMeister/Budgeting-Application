@@ -62,6 +62,6 @@ class CustomExpenseCell: UITableViewCell {
     func configure(with expense: BasicExpense) {
         categoryLabel.text = expense.category.emoji
         descriptionLabel.text = expense.expenseDescription
-        amountLabel.attributedText = NumberFormatterHelper.shared.format(amount: expense.amount, baseFont: UIFont(name: "Heebo-SemiBold", size: 36) ?? UIFont(), sizeDifference: 0.6)
+        amountLabel.text = PlainNumberFormatterHelper.shared.format(amount: expense.amount)
     }
 }

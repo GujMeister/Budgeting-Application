@@ -1,5 +1,5 @@
 //
-//  SegmentedView.swift
+//  SegmentedControlView.swift
 //  Budgeting Application
 //
 //  Created by Luka Gujejiani on 04.07.24.
