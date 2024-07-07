@@ -15,7 +15,7 @@ class BudgetView: UIView {
     private let amountLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        label.font = UIFont(name: "Inter-SemiBold", size: 12)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -23,7 +23,7 @@ class BudgetView: UIView {
     private let statusLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 12, weight: .light)
+        label.font = UIFont(name: "Inter-SemiBold", size: 8)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -99,13 +99,15 @@ class BudgetView: UIView {
         
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.toValue = remainingPercentage
-        animation.duration = 1.5 // Adjust the duration as needed
+        animation.duration = 1 // Adjust the duration as needed
         animation.fillMode = .forwards
         animation.isRemovedOnCompletion = false
         progressLayer.add(animation, forKey: "progressAnim")
         
         let remainingAmount = budget.remainingAmount
-        amountLabel.text = String(format: "$%.2f", abs(remainingAmount))
+        
+        amountLabel.text = PlainNumberFormatterHelper.shared.format(amount: remainingAmount)
+        
         statusLabel.text = remainingAmount < 0 ? "over" : "under"
         
         emojiView.text = budget.category.emoji

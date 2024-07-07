@@ -145,19 +145,19 @@ struct PaymentExpense {
     var repeatCount: Int
 }
 
-enum PaymentsCategory {
-    case insurance
-    case housePayments
-    case carPayments
-    case personalLoans
-    case studentLoans
-    case creditCardPayments
-    case phoneBills
-    case internetBills
-    case healthInsurance
-    case lifeInsurance
-    case dentalInsurance
-    case propertyTaxes
+enum PaymentsCategory:  String, CaseIterable {
+    case insurance = "Insurance"
+    case housePayments = "House Payments"
+    case carPayments = "Car Payments"
+    case personalLoans = "Personal Loans"
+    case studentLoans = "Student Loans"
+    case creditCardPayments = "Credit-Card Payments"
+    case phoneBills = "Phone Bills"
+    case internetBills = "Internet Bills"
+    case healthInsurance = "Health Insurance"
+    case lifeInsurance = "Life Insurance"
+    case dentalInsurance = "Dental Insurance"
+    case propertyTaxes = "Property Taxes"
 
     var emoji: String {
         switch self {
@@ -187,4 +187,18 @@ enum PaymentsCategory {
             return "🏡"
         }
     }
+    
+    static func emoji(for category: String) -> String {
+        return PaymentsCategory(rawValue: category)?.emoji ?? "🔔"
+    }
+}
+
+
+
+enum TimePeriodBackwards: String, CaseIterable {
+    case today = "Today"
+    case lastDay = "Last Day"
+    case lastThreeDays = "Last 3 Days"
+    case lastWeek = "Last Week"
+    case lastMonth = "Last Month"
 }

@@ -1,5 +1,5 @@
 //
-//  SegmentedView.swift
+//  SegmentedControlView.swift
 //  Budgeting Application
 //
 //  Created by Luka Gujejiani on 04.07.24.
@@ -9,35 +9,37 @@ import UIKit
 import SwiftUI
 
 class CustomSegmentedControlView: UIView {
-    
+    // MARK: - Properties
     private var color: UIColor
     private var controlItems: [String]
     private var segmentChangeCallback: ((Int) -> Void)?
     
     private lazy var segmentedControl: UISegmentedControl = {
         let control = UISegmentedControl(items: controlItems)
-        control.backgroundColor = UIColor.red
+        control.backgroundColor = color
         control.selectedSegmentTintColor = UIColor.white
-        control.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
-        control.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.green], for: .selected)
+        control.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor(hex: "2B2A4C")], for: .normal)
+        control.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
         control.setBackgroundImage(UIImage(), for: .normal, barMetrics: .default)
         control.setDividerImage(UIImage(), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
         control.addTarget(self, action: #selector(segmentChanged(_:)), for: .valueChanged)
         return control
     }()
     
-    private let topView: UIView = {
+    private lazy var topView: UIView = {
         let view = UIView()
-        view.backgroundColor = .red
+        view.backgroundColor = color
         return view
     }()
     
-    init(color: UIColor, controlItems: [String], segmentChangeCallback: ((Int) -> Void)?) {
+    // MARK: - Initialization
+    init(color: UIColor, controlItems: [String], defaultIndex: Int, segmentChangeCallback: ((Int) -> Void)?) {
         self.color = color
         self.controlItems = controlItems
         self.segmentChangeCallback = segmentChangeCallback
         super.init(frame: .zero)
         setupView()
+        setSelectedIndex(defaultIndex)
     }
     
     required init?(coder: NSCoder) {
@@ -47,6 +49,7 @@ class CustomSegmentedControlView: UIView {
         setupView()
     }
     
+    // MARK: - Setup UI
     private func setupView() {
         addSubview(segmentedControl)
         addSubview(topView)
@@ -96,9 +99,8 @@ class CustomSegmentedControlView: UIView {
     @objc private func segmentChanged(_ sender: UISegmentedControl) {
         segmentChangeCallback?(sender.selectedSegmentIndex)
     }
+    
+    func setSelectedIndex(_ index: Int) {
+        segmentedControl.selectedSegmentIndex = index
+    }
 }
-
-#Preview {
-    CustomSegmentedControlView(color: .blue, controlItems: ["First", "Second"], segmentChangeCallback: nil)
-}
-

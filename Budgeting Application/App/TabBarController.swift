@@ -24,6 +24,15 @@ class MainTabBarController: UITabBarController {
 
         viewControllers = viewControllerList.map { UINavigationController(rootViewController: $0) }
     }
+    
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        if item.tag == 2 {
+            if let navController = viewControllers?[2] as? UINavigationController,
+               let budgetsVC = navController.viewControllers.first as? BudgetsViewController {
+                budgetsVC.shouldAnimateInfoView = selectedIndex != 2
+            }
+        }
+    }
 }
 
 import SwiftUI

@@ -12,6 +12,7 @@ protocol BudgetDetailViewControllerDelegate: AnyObject {
 }
 
 class BudgetDetailViewController: UIViewController {
+    // MARK: - Properties
     var budget: BasicExpenseBudget?
     weak var delegate: BudgetDetailViewControllerDelegate?
 
@@ -82,15 +83,29 @@ class BudgetDetailViewController: UIViewController {
         updateFavoriteButtonTitle()
     }
 
+//    @objc private func favoriteButtonTapped() {
+//        guard let budget = budget else { return }
+//        let viewModel = BudgetsViewModel()
+//        if let index = viewModel.favoritedBudgets.firstIndex(where: { $0.category == budget.category }) {
+//            viewModel.favoritedBudgets.remove(at: index)
+//            print("Removing from faves")
+//        } else {
+//            viewModel.favoritedBudgets.append(budget)
+//            print("Adding to faves")
+//        }
+//        updateFavoriteButtonTitle()
+//        delegate?.didUpdateFavoriteStatus(for: budget)
+//    }
+    
     @objc private func favoriteButtonTapped() {
         guard let budget = budget else { return }
         let viewModel = BudgetsViewModel()
-        if let index = viewModel.favoritedBudgets.firstIndex(where: { $0.category == budget.category }) {
-            viewModel.favoritedBudgets.remove(at: index)
+        if viewModel.favoritedBudgets.contains(where: { $0.category == budget.category }) {
+            viewModel.removeBudgetFromFavorites(budget)
         } else {
-            viewModel.favoritedBudgets.append(budget)
+            viewModel.addBudgetToFavorites(budget)
         }
-        viewModel.saveFavoritedBudgets()
+        
         updateFavoriteButtonTitle()
         delegate?.didUpdateFavoriteStatus(for: budget)
     }

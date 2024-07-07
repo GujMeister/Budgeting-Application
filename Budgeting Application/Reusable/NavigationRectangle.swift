@@ -8,19 +8,18 @@
 import UIKit
 
 class NavigationRectangle: UIView {
-    
+    // MARK: - Properties
     private let height: CGFloat
     private let rectangleColor: UIColor
-    private let totalBudgetedMoney: String
+    private let totalBudgetedMoney: NSAttributedString
     private let descriptionLabelText: String
     
-    let totalBudgetedNumberLabel: UILabel = {
+    lazy var totalBudgetedNumberLabel: UILabel = {
         let label = UILabel()
         label.textColor = .label
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 30, weight: .regular)
+        label.font = UIFont(name: "Heebo-SemiBold", size: 36)
         label.textColor = .white
-        label.text = "Total Budget"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -31,13 +30,12 @@ class NavigationRectangle: UIView {
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 14, weight: .regular)
         label.textColor = .white
-        label.text = "Default description"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     // MARK: - Initializers
-    init(height: CGFloat, color: UIColor, totalBudgetedMoney: String, descriptionLabelText: String) {
+    init(height: CGFloat, color: UIColor, totalBudgetedMoney: NSAttributedString, descriptionLabelText: String) {
         self.height = height
         self.rectangleColor = color
         self.totalBudgetedMoney = totalBudgetedMoney
@@ -53,7 +51,7 @@ class NavigationRectangle: UIView {
     // MARK: - Setup UI
     private func setupView() {
         backgroundColor = rectangleColor
-        totalBudgetedNumberLabel.text = totalBudgetedMoney
+        totalBudgetedNumberLabel.attributedText = totalBudgetedMoney
         descriptionLabel.text = descriptionLabelText
         
         addSubview(totalBudgetedNumberLabel)
@@ -69,6 +67,7 @@ class NavigationRectangle: UIView {
         heightAnchor.constraint(equalToConstant: height).isActive = true
     }
     
+    // MARK: - Bottom corner radius
     override func layoutSubviews() {
         super.layoutSubviews()
         roundBottomCorners(radius: 30)
@@ -85,5 +84,6 @@ class NavigationRectangle: UIView {
 }
 
 #Preview {
-    NavigationRectangle(height: 100, color: .blue, totalBudgetedMoney: "$200", descriptionLabelText: "Total Budgeted")
+    NavigationRectangle(height: 100, color: .blue, totalBudgetedMoney: NSAttributedString(string: "$100.00"), descriptionLabelText: "Total Budgeted")
 }
+

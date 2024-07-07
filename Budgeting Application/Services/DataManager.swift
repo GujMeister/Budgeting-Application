@@ -33,6 +33,7 @@ class DataManager {
         deleteAll(entityName: "BasicExpenseBudgetModel")
         deleteAll(entityName: "BasicExpenseModel")
         deleteAll(entityName: "PaymentExpenseModel")
+        deleteAll(entityName: "FavoriteBudgetsModel")
     }
     
     private func deleteAll(entityName: String) {
@@ -46,7 +47,39 @@ class DataManager {
             print("Failed to delete records for entity \(entityName): \(error)")
         }
     }
-    
+
+    // MARK: - FavoriteBudgetsModel Management
+    var favoriteBudgets: [FavoriteBudgetsModel] = []
+
+    func fetchFavoriteBudgets() {
+        let request: NSFetchRequest<FavoriteBudgetsModel> = FavoriteBudgetsModel.fetchRequest() as! NSFetchRequest<FavoriteBudgetsModel>
+        do {
+            favoriteBudgets = try context.fetch(request)
+        } catch {
+            print("Failed to fetch FavoriteBudgetsModel: \(error)")
+        }
+    }
+
+    func addFavoriteBudget(category: String) {
+        let favorite = FavoriteBudgetsModel(context: context)
+        favorite.category = category
+        saveContext()
+    }
+
+    func removeFavoriteBudget(category: String) {
+        let request: NSFetchRequest<FavoriteBudgetsModel> = FavoriteBudgetsModel.fetchRequest() as! NSFetchRequest<FavoriteBudgetsModel>
+        request.predicate = NSPredicate(format: "category == %@", category)
+        
+        do {
+            let favorites = try context.fetch(request)
+            for favorite in favorites {
+                context.delete(favorite)
+            }
+            saveContext()
+        } catch {
+            print("Failed to remove FavoriteBudgetsModel: \(error)")
+        }
+    }
     // MARK: - SubscriptionExpenseModel Management
     var subscriptionExpenseModelList: [SubscriptionExpenseModel] = []
 

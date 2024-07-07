@@ -1,20 +1,20 @@
 //
-//  AddSubscriptionVC.swift
-//  PersonalFinanceV2
+//  AddPaymentVC.swift
+//  Budgeting Application
 //
-//  Created by Luka Gujejiani on 01.07.24.
+//  Created by Luka Gujejiani on 07.07.24.
 //
 
 import UIKit
 
-protocol AddSubscriptionDelegate: AnyObject {
-    func didAddSubscription(_ subscription: SubscriptionExpenseModel)
+protocol AddPaymentDelegate: AnyObject {
+    func didAddPayment(_ subscription: PaymentExpenseModel)
 }
 
-class AddSubscriptionVC: UIViewController {
+class AddPaymentVC: UIViewController {
     
     // MARK: - Properties
-    weak var delegate: AddSubscriptionDelegate?
+    weak var delegate: AddPaymentDelegate?
     
     private let categoryPicker: UIPickerView = {
         let picker = UIPickerView()
@@ -63,7 +63,7 @@ class AddSubscriptionVC: UIViewController {
         return button
     }()
     
-    private let categories = SubscriptionCategory.allCases
+    private let categories = PaymentsCategory.allCases
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -104,16 +104,16 @@ class AddSubscriptionVC: UIViewController {
         }
         
         let context = DataManager.shared.context
-        let subscription = SubscriptionExpenseModel(context: context)
+        let subscription = PaymentExpenseModel(context: context)
         subscription.category = category.rawValue
-        subscription.subscriptionDescription = description
+        subscription.paymentDescription = description
         subscription.amount = amount
         subscription.startDate = datePicker.date
         subscription.repeatCount = Int16(repeatCount)
         
         do {
             try context.save()
-            delegate?.didAddSubscription(subscription)
+            delegate?.didAddPayment(subscription)
             navigationController?.popViewController(animated: true)
         } catch {
             print("Failed to save subscription: \(error)")
@@ -121,7 +121,7 @@ class AddSubscriptionVC: UIViewController {
     }
 }
 
-extension AddSubscriptionVC: UIPickerViewDataSource, UIPickerViewDelegate {
+extension AddPaymentVC: UIPickerViewDataSource, UIPickerViewDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -134,3 +134,4 @@ extension AddSubscriptionVC: UIPickerViewDataSource, UIPickerViewDelegate {
         return categories[row].rawValue
     }
 }
+

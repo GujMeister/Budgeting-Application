@@ -5,11 +5,14 @@
 //  Created by Luka Gujejiani on 30.06.24.
 //
 
+import CoreData
+
 // MARK: - DashboardViewModel
 class DashboardViewModel {
+    // MARK: - Properties
     var budgets: [BasicExpenseBudget] = [] {
         didSet {
-            onBudgetsUpdated?()
+            onFavoritedBudgetsUpdated?()
         }
     }
     
@@ -19,8 +22,41 @@ class DashboardViewModel {
         }
     }
     
-    var onBudgetsUpdated: (() -> Void)?
+    var favoritedBudgets: [BasicExpenseBudget] = [] {
+        didSet {
+            onFavoritedBudgetsUpdated?()
+        }
+    }
+    
+    var onFavoritedBudgetsUpdated: (() -> Void)?
     var onSubscriptionsUpdated: (() -> Void)?
+    
+    private var context: NSManagedObjectContext {
+        return DataManager.shared.context
+    }
+    
+    // MARK: - Initialization
+    init() {
+        loadBudgets()
+        loadFavoritedBudgets()
+    }
+    
+    deinit {
+        print("Deiniting DashboardVIEWMODEL ")
+    }
+    
+    // MARK: - Budgets
+    func loadFavoritedBudgets() {
+        DataManager.shared.fetchFavoriteBudgets()
+        let favoriteCategories = DataManager.shared.favoriteBudgets.map { $0.category }
+        favoritedBudgets = budgets.filter { favoriteCategories.contains($0.category.rawValue) }
+        onFavoritedBudgetsUpdated?()
+    }
+    
+    func loadBudgets() {
+        let service = BasicExpenseService(context: context)
+        budgets = service.fetchBasicExpenseBudgets()
+    }
     
     func fetchBudgets() {
         DataManager.shared.fetchBasicExpenseBudgets()
@@ -37,6 +73,7 @@ class DashboardViewModel {
         }
     }
     
+    // MARK: - Subscriptions
     func fetchSubscriptions() {
         DataManager.shared.fetchSubscriptionExpenses()
         subscriptions = DataManager.shared.subscriptionExpenseModelList

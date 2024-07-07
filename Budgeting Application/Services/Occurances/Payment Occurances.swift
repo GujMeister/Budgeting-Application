@@ -45,7 +45,7 @@ class PaymentService {
                 }
             }
         } catch {
-            print("Failed to fetch SubscriptionExpenseModel: \(error)")
+            print("Failed to fetch PaymentExpenseModel: \(error)")
         }
         
         return occurrences

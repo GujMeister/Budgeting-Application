@@ -21,7 +21,7 @@
 		853A3DB32C3593A40042A0A4 /* DashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D952C3593A40042A0A4 /* DashboardVC.swift */; };
 		853A3DB42C3593A40042A0A4 /* DashboardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D962C3593A40042A0A4 /* DashboardVM.swift */; };
 		853A3DB52C3593A40042A0A4 /* AddSubscriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D982C3593A40042A0A4 /* AddSubscriptionVC.swift */; };
-		853A3DB62C3593A40042A0A4 /* AddCategoriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D9A2C3593A40042A0A4 /* AddCategoriesVC.swift */; };
+		853A3DB62C3593A40042A0A4 /* AddBudgetsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D9A2C3593A40042A0A4 /* AddBudgetsVC.swift */; };
 		853A3DB72C3593A40042A0A4 /* RecurringVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D9D2C3593A40042A0A4 /* RecurringVC.swift */; };
 		853A3DB82C3593A40042A0A4 /* RecurringVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D9E2C3593A40042A0A4 /* RecurringVM.swift */; };
 		853A3DB92C3593A40042A0A4 /* BasicExpenseBudgetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3DA12C3593A40042A0A4 /* BasicExpenseBudgetModel.swift */; };
@@ -39,7 +39,20 @@
 		853A3DCF2C35E84D0042A0A4 /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3DCE2C35E84D0042A0A4 /* NumberFormatter.swift */; };
 		853A3DD12C35F6460042A0A4 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3DD02C35F6460042A0A4 /* UIColor.swift */; };
 		853A3DD32C35F66A0042A0A4 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3DD22C35F66A0042A0A4 /* Color.swift */; };
-		853A3DD52C35FC990042A0A4 /* SegmentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3DD42C35FC990042A0A4 /* SegmentedView.swift */; };
+		853A3DD52C35FC990042A0A4 /* SegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3DD42C35FC990042A0A4 /* SegmentedControlView.swift */; };
+		853A3DD92C360B7C0042A0A4 /* ExpensesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3DD82C360B7C0042A0A4 /* ExpensesVC.swift */; };
+		85B85B052C36D83100AAD046 /* AddExpenseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B042C36D83100AAD046 /* AddExpenseVC.swift */; };
+		85B85B072C36DB4C00AAD046 /* CustomExpenseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B062C36DB4C00AAD046 /* CustomExpenseCell.swift */; };
+		85B85B092C36FC9400AAD046 /* FavoriteBudgetsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B082C36FC9400AAD046 /* FavoriteBudgetsModel.swift */; };
+		85B85B0D2C38A54A00AAD046 /* BorderLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B0C2C38A54A00AAD046 /* BorderLabelView.swift */; };
+		85B85B122C38ACFF00AAD046 /* Heebo-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85B85B112C38ACFF00AAD046 /* Heebo-SemiBold.ttf */; };
+		85B85B1C2C38BD6900AAD046 /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85B85B1B2C38BD6800AAD046 /* Inter-Regular.ttf */; };
+		85B85B282C38C46900AAD046 /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85B85B252C38C46800AAD046 /* OpenSans-SemiBold.ttf */; };
+		85B85B292C38C46900AAD046 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85B85B262C38C46800AAD046 /* OpenSans-Regular.ttf */; };
+		85B85B2A2C38C46900AAD046 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85B85B272C38C46900AAD046 /* OpenSans-Bold.ttf */; };
+		85B85B2C2C38D44B00AAD046 /* Inter-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85B85B2B2C38D44B00AAD046 /* Inter-Bold.ttf */; };
+		85B85B2E2C38D67300AAD046 /* Inter-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85B85B2D2C38D67200AAD046 /* Inter-SemiBold.ttf */; };
+		85B85B302C3AE06800AAD046 /* AddPaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B2F2C3AE06800AAD046 /* AddPaymentVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,7 +72,7 @@
 		853A3D952C3593A40042A0A4 /* DashboardVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardVC.swift; sourceTree = "<group>"; };
 		853A3D962C3593A40042A0A4 /* DashboardVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardVM.swift; sourceTree = "<group>"; };
 		853A3D982C3593A40042A0A4 /* AddSubscriptionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSubscriptionVC.swift; sourceTree = "<group>"; };
-		853A3D9A2C3593A40042A0A4 /* AddCategoriesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCategoriesVC.swift; sourceTree = "<group>"; };
+		853A3D9A2C3593A40042A0A4 /* AddBudgetsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddBudgetsVC.swift; sourceTree = "<group>"; };
 		853A3D9D2C3593A40042A0A4 /* RecurringVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecurringVC.swift; sourceTree = "<group>"; };
 		853A3D9E2C3593A40042A0A4 /* RecurringVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecurringVM.swift; sourceTree = "<group>"; };
 		853A3DA12C3593A40042A0A4 /* BasicExpenseBudgetModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicExpenseBudgetModel.swift; sourceTree = "<group>"; };
@@ -77,7 +90,20 @@
 		853A3DCE2C35E84D0042A0A4 /* NumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatter.swift; sourceTree = "<group>"; };
 		853A3DD02C35F6460042A0A4 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		853A3DD22C35F66A0042A0A4 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
-		853A3DD42C35FC990042A0A4 /* SegmentedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedView.swift; sourceTree = "<group>"; };
+		853A3DD42C35FC990042A0A4 /* SegmentedControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlView.swift; sourceTree = "<group>"; };
+		853A3DD82C360B7C0042A0A4 /* ExpensesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesVC.swift; sourceTree = "<group>"; };
+		85B85B042C36D83100AAD046 /* AddExpenseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseVC.swift; sourceTree = "<group>"; };
+		85B85B062C36DB4C00AAD046 /* CustomExpenseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomExpenseCell.swift; sourceTree = "<group>"; };
+		85B85B082C36FC9400AAD046 /* FavoriteBudgetsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteBudgetsModel.swift; sourceTree = "<group>"; };
+		85B85B0C2C38A54A00AAD046 /* BorderLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderLabelView.swift; sourceTree = "<group>"; };
+		85B85B112C38ACFF00AAD046 /* Heebo-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Heebo-SemiBold.ttf"; sourceTree = "<group>"; };
+		85B85B1B2C38BD6800AAD046 /* Inter-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Regular.ttf"; sourceTree = "<group>"; };
+		85B85B252C38C46800AAD046 /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiBold.ttf"; sourceTree = "<group>"; };
+		85B85B262C38C46800AAD046 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		85B85B272C38C46900AAD046 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		85B85B2B2C38D44B00AAD046 /* Inter-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Bold.ttf"; sourceTree = "<group>"; };
+		85B85B2D2C38D67200AAD046 /* Inter-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-SemiBold.ttf"; sourceTree = "<group>"; };
+		85B85B2F2C3AE06800AAD046 /* AddPaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPaymentVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,7 +160,10 @@
 		853A3D802C3593A40042A0A4 /* Reusable */ = {
 			isa = PBXGroup;
 			children = (
-				853A3DD42C35FC990042A0A4 /* SegmentedView.swift */,
+				853A3D912C3593A40042A0A4 /* BudgetView.swift */,
+				853A3D922C3593A40042A0A4 /* NavigationRectangle.swift */,
+				853A3DD42C35FC990042A0A4 /* SegmentedControlView.swift */,
+				85B85B0C2C38A54A00AAD046 /* BorderLabelView.swift */,
 			);
 			path = Reusable;
 			sourceTree = "<group>";
@@ -160,6 +189,7 @@
 		853A3D8D2C3593A40042A0A4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				85B85B0E2C38AB5600AAD046 /* Fonts */,
 				853A3D882C3593A40042A0A4 /* Assets.xcassets */,
 				853A3D8A2C3593A40042A0A4 /* LaunchScreen.storyboard */,
 				853A3D8C2C3593A40042A0A4 /* Main.storyboard */,
@@ -183,6 +213,7 @@
 				853A3DCB2C35E4E50042A0A4 /* Table View Cell */,
 				853A3DC22C35CF3E0042A0A4 /* BudgetsVM.swift */,
 				853A3DC42C35D1030042A0A4 /* BudgetsVC.swift */,
+				853A3DD82C360B7C0042A0A4 /* ExpensesVC.swift */,
 			);
 			path = Budgets;
 			sourceTree = "<group>";
@@ -197,8 +228,6 @@
 		853A3D942C3593A40042A0A4 /* Extracted Views */ = {
 			isa = PBXGroup;
 			children = (
-				853A3D912C3593A40042A0A4 /* BudgetView.swift */,
-				853A3D922C3593A40042A0A4 /* NavigationRectangle.swift */,
 				853A3D932C3593A40042A0A4 /* SubscriptionView.swift */,
 			);
 			path = "Extracted Views";
@@ -217,7 +246,10 @@
 		853A3D992C3593A40042A0A4 /* Extracted VCs */ = {
 			isa = PBXGroup;
 			children = (
+				853A3D9A2C3593A40042A0A4 /* AddBudgetsVC.swift */,
 				853A3D982C3593A40042A0A4 /* AddSubscriptionVC.swift */,
+				85B85B042C36D83100AAD046 /* AddExpenseVC.swift */,
+				85B85B2F2C3AE06800AAD046 /* AddPaymentVC.swift */,
 			);
 			path = "Extracted VCs";
 			sourceTree = "<group>";
@@ -226,7 +258,6 @@
 			isa = PBXGroup;
 			children = (
 				853A3D992C3593A40042A0A4 /* Extracted VCs */,
-				853A3D9A2C3593A40042A0A4 /* AddCategoriesVC.swift */,
 			);
 			path = "Add Categories";
 			sourceTree = "<group>";
@@ -267,6 +298,7 @@
 				853A3DA22C3593A40042A0A4 /* BasicExpenseModel.swift */,
 				853A3DA32C3593A40042A0A4 /* SubscriptionExpenseModel.swift */,
 				853A3DBE2C35CBDA0042A0A4 /* PaymentExpenseModel.swift */,
+				85B85B082C36FC9400AAD046 /* FavoriteBudgetsModel.swift */,
 			);
 			path = "Data Models";
 			sourceTree = "<group>";
@@ -274,10 +306,9 @@
 		853A3DA72C3593A40042A0A4 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				853A3DA42C3593A40042A0A4 /* Data Models */,
 				853A3DA52C3593A40042A0A4 /* DataManager.swift */,
-				853A3DA62C3593A40042A0A4 /* Subscription Occurances.swift */,
-				853A3DC02C35CD190042A0A4 /* Payment Occurances.swift */,
+				853A3DA42C3593A40042A0A4 /* Data Models */,
+				85B85B0B2C3718BA00AAD046 /* Occurances */,
 				853A3DC62C35D22D0042A0A4 /* Expense:Budget service.swift */,
 				853A3DCE2C35E84D0042A0A4 /* NumberFormatter.swift */,
 			);
@@ -296,8 +327,32 @@
 			isa = PBXGroup;
 			children = (
 				853A3DCC2C35E4F00042A0A4 /* CustomBudgetCell.swift */,
+				85B85B062C36DB4C00AAD046 /* CustomExpenseCell.swift */,
 			);
 			path = "Table View Cell";
+			sourceTree = "<group>";
+		};
+		85B85B0B2C3718BA00AAD046 /* Occurances */ = {
+			isa = PBXGroup;
+			children = (
+				853A3DA62C3593A40042A0A4 /* Subscription Occurances.swift */,
+				853A3DC02C35CD190042A0A4 /* Payment Occurances.swift */,
+			);
+			path = Occurances;
+			sourceTree = "<group>";
+		};
+		85B85B0E2C38AB5600AAD046 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				85B85B2D2C38D67200AAD046 /* Inter-SemiBold.ttf */,
+				85B85B2B2C38D44B00AAD046 /* Inter-Bold.ttf */,
+				85B85B272C38C46900AAD046 /* OpenSans-Bold.ttf */,
+				85B85B262C38C46800AAD046 /* OpenSans-Regular.ttf */,
+				85B85B252C38C46800AAD046 /* OpenSans-SemiBold.ttf */,
+				85B85B1B2C38BD6800AAD046 /* Inter-Regular.ttf */,
+				85B85B112C38ACFF00AAD046 /* Heebo-SemiBold.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -361,6 +416,13 @@
 				853A3DAF2C3593A40042A0A4 /* Main.storyboard in Resources */,
 				853A3DAE2C3593A40042A0A4 /* LaunchScreen.storyboard in Resources */,
 				853A3DAD2C3593A40042A0A4 /* Assets.xcassets in Resources */,
+				85B85B2C2C38D44B00AAD046 /* Inter-Bold.ttf in Resources */,
+				85B85B282C38C46900AAD046 /* OpenSans-SemiBold.ttf in Resources */,
+				85B85B122C38ACFF00AAD046 /* Heebo-SemiBold.ttf in Resources */,
+				85B85B1C2C38BD6900AAD046 /* Inter-Regular.ttf in Resources */,
+				85B85B292C38C46900AAD046 /* OpenSans-Regular.ttf in Resources */,
+				85B85B2E2C38D67300AAD046 /* Inter-SemiBold.ttf in Resources */,
+				85B85B2A2C38C46900AAD046 /* OpenSans-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,18 +434,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				853A3DB92C3593A40042A0A4 /* BasicExpenseBudgetModel.swift in Sources */,
+				853A3DD92C360B7C0042A0A4 /* ExpensesVC.swift in Sources */,
 				853A3DD12C35F6460042A0A4 /* UIColor.swift in Sources */,
 				853A3DCA2C35DC210042A0A4 /* BudgetDetailViewController.swift in Sources */,
+				85B85B092C36FC9400AAD046 /* FavoriteBudgetsModel.swift in Sources */,
+				85B85B0D2C38A54A00AAD046 /* BorderLabelView.swift in Sources */,
 				853A3DAA2C3593A40042A0A4 /* AppDelegate.swift in Sources */,
 				853A3DB42C3593A40042A0A4 /* DashboardVM.swift in Sources */,
 				853A3DB32C3593A40042A0A4 /* DashboardVC.swift in Sources */,
+				85B85B052C36D83100AAD046 /* AddExpenseVC.swift in Sources */,
 				853A3DB22C3593A40042A0A4 /* SubscriptionView.swift in Sources */,
 				853A3DC72C35D22D0042A0A4 /* Expense:Budget service.swift in Sources */,
 				853A3DAC2C3593A40042A0A4 /* TabBarController.swift in Sources */,
 				853A3DAB2C3593A40042A0A4 /* SceneDelegate.swift in Sources */,
 				853A3DBD2C3593A40042A0A4 /* Subscription Occurances.swift in Sources */,
-				853A3DD52C35FC990042A0A4 /* SegmentedView.swift in Sources */,
+				853A3DD52C35FC990042A0A4 /* SegmentedControlView.swift in Sources */,
 				853A3DB72C3593A40042A0A4 /* RecurringVC.swift in Sources */,
+				85B85B302C3AE06800AAD046 /* AddPaymentVC.swift in Sources */,
 				853A3DB52C3593A40042A0A4 /* AddSubscriptionVC.swift in Sources */,
 				853A3DBC2C3593A40042A0A4 /* DataManager.swift in Sources */,
 				853A3DC32C35CF3E0042A0A4 /* BudgetsVM.swift in Sources */,
@@ -397,8 +464,9 @@
 				853A3DA92C3593A40042A0A4 /* Model.xcdatamodeld in Sources */,
 				853A3DB12C3593A40042A0A4 /* NavigationRectangle.swift in Sources */,
 				853A3DCD2C35E4F00042A0A4 /* CustomBudgetCell.swift in Sources */,
+				85B85B072C36DB4C00AAD046 /* CustomExpenseCell.swift in Sources */,
 				853A3DC52C35D1030042A0A4 /* BudgetsVC.swift in Sources */,
-				853A3DB62C3593A40042A0A4 /* AddCategoriesVC.swift in Sources */,
+				853A3DB62C3593A40042A0A4 /* AddBudgetsVC.swift in Sources */,
 				853A3DBB2C3593A40042A0A4 /* SubscriptionExpenseModel.swift in Sources */,
 				853A3DBF2C35CBDA0042A0A4 /* PaymentExpenseModel.swift in Sources */,
 			);
@@ -478,7 +546,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -535,7 +603,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -550,6 +618,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9S26B8AV5C;
@@ -567,6 +636,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yvelazeMagariKompania.ge.Budgeting-Application";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -582,6 +652,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9S26B8AV5C;
@@ -599,6 +670,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yvelazeMagariKompania.ge.Budgeting-Application";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

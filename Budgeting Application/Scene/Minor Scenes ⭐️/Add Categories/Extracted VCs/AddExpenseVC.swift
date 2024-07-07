@@ -1,20 +1,19 @@
 //
-//  AddSubscriptionVC.swift
-//  PersonalFinanceV2
+//  AddExpenseVC.swift
+//  Budgeting Application
 //
-//  Created by Luka Gujejiani on 01.07.24.
+//  Created by Luka Gujejiani on 04.07.24.
 //
 
 import UIKit
 
-protocol AddSubscriptionDelegate: AnyObject {
-    func didAddSubscription(_ subscription: SubscriptionExpenseModel)
+protocol AddExpenseDelegate: AnyObject {
+    func didAddExpense(_ expense: BasicExpenseModel)
+    func updateBudgets(_ expense: BasicExpenseModel)
 }
 
-class AddSubscriptionVC: UIViewController {
-    
-    // MARK: - Properties
-    weak var delegate: AddSubscriptionDelegate?
+class AddExpenseViewController: UIViewController {
+    weak var delegate: AddExpenseDelegate?
     
     private let categoryPicker: UIPickerView = {
         let picker = UIPickerView()
@@ -42,43 +41,33 @@ class AddSubscriptionVC: UIViewController {
     private let datePicker: UIDatePicker = {
         let picker = UIDatePicker()
         picker.datePickerMode = .date
+        picker.maximumDate = Date() // Prevent selecting future dates
         picker.translatesAutoresizingMaskIntoConstraints = false
         return picker
     }()
     
-    private let repeatCountTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Repeat Count"
-        textField.borderStyle = .roundedRect
-        textField.keyboardType = .numberPad
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
-    }()
-    
     private let addButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Add Subscription", for: .normal)
+        button.setTitle("Add Expense", for: .normal)
         button.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    private let categories = SubscriptionCategory.allCases
+    private let categories = BasicExpenseCategory.allCases
     
-    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
 
-    // MARK: - Setup UI
     private func setupUI() {
         view.backgroundColor = .white
         
         categoryPicker.dataSource = self
         categoryPicker.delegate = self
         
-        let stackView = UIStackView(arrangedSubviews: [categoryPicker, descriptionTextField, amountTextField, datePicker, repeatCountTextField, addButton])
+        let stackView = UIStackView(arrangedSubviews: [categoryPicker, descriptionTextField, amountTextField, datePicker, addButton])
         stackView.axis = .vertical
         stackView.spacing = 10
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -97,31 +86,28 @@ class AddSubscriptionVC: UIViewController {
         let category = categories[selectedCategoryIndex]
         
         guard let description = descriptionTextField.text, !description.isEmpty,
-              let amountText = amountTextField.text, let amount = Double(amountText),
-              let repeatCountText = repeatCountTextField.text, let repeatCount = Int(repeatCountText) else {
+              let amountText = amountTextField.text, let amount = Double(amountText) else {
             // Handle invalid input
             return
         }
         
         let context = DataManager.shared.context
-        let subscription = SubscriptionExpenseModel(context: context)
-        subscription.category = category.rawValue
-        subscription.subscriptionDescription = description
-        subscription.amount = amount
-        subscription.startDate = datePicker.date
-        subscription.repeatCount = Int16(repeatCount)
+        let expense = BasicExpenseModel(context: context)
+        expense.category = category.rawValue
+        expense.expenseDescription = description
+        expense.amount = NSNumber(value: amount)
+        expense.date = datePicker.date
         
-        do {
-            try context.save()
-            delegate?.didAddSubscription(subscription)
-            navigationController?.popViewController(animated: true)
-        } catch {
-            print("Failed to save subscription: \(error)")
-        }
+        let expenseService = BasicExpenseService(context: context)
+        expenseService.addExpense(expense)
+        
+        delegate?.didAddExpense(expense)
+        
+        dismiss(animated: true, completion: nil)
     }
 }
 
-extension AddSubscriptionVC: UIPickerViewDataSource, UIPickerViewDelegate {
+extension AddExpenseViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
