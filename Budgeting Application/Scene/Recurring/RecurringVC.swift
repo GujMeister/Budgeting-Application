@@ -19,7 +19,6 @@ struct RecurringPage: View {
                     defaultIndex: viewModel.selectedSegmentIndex,
                     segmentChangeCallback: { index in
                         viewModel.selectedSegmentIndex = index
-                        isEditing = false
                     },
                     shouldAnimate: $shouldAnimate
                 )
@@ -30,7 +29,7 @@ struct RecurringPage: View {
                     height: 0,
                     color: .customBlue,
                     totalBudgetedMoney: NumberFormatterHelper.shared.format(amount: totalBudgetedMoneyHelper(), baseFont: UIFont(name: "Heebo-SemiBold", size: 36) ?? UIFont(), sizeDifference: 0.6),
-                    descriptionLabelText: "Total Budgeted"
+                    descriptionLabelText: viewModel.descriptionLabelText
                 )
                 .edgesIgnoringSafeArea(.top)
                 .frame(height: UIScreen.main.bounds.size.height / 5)
@@ -38,20 +37,24 @@ struct RecurringPage: View {
             .edgesIgnoringSafeArea(.top)
             
             HStack {
-                Menu {
-                    ForEach(TimePeriod.allCases, id: \.self) { period in
-                        Button(action: {
-                            viewModel.selectedTimePeriod = period
-                        }) {
-                            Text(period.rawValue)
+                if viewModel.selectedSegmentIndex != 2 {
+                    Menu {
+                        ForEach(TimePeriod.allCases, id: \.self) { period in
+                            Button(action: {
+                                viewModel.selectedTimePeriod = period
+                            }) {
+                                Text(period.rawValue)
+                            }
                         }
+                    } label: {
+                        Text(viewModel.selectedTimePeriod.rawValue.uppercased())
+                            .font(.headline)
+                            .foregroundStyle(.black)
+                        Image(systemName: "chevron.down")
+                            .foregroundStyle(.black)
                     }
-                } label: {
-                    Text(viewModel.selectedTimePeriod.rawValue.uppercased())
-                        .font(.headline)
-                        .foregroundStyle(.black)
-                    Image(systemName: "chevron.down")
-                        .foregroundStyle(.black)
+                } else {
+                    
                 }
                 
                 Spacer()
@@ -102,7 +105,7 @@ struct RecurringPage: View {
                             )
                         }
                     } else {
-                        if isEditing && viewModel.selectedSegmentIndex == 2 {
+                        if isEditing {
                             ForEach(viewModel.allSubscriptionExpenses) { subscription in
                                 EditableRecurringView(
                                     amount: subscription.amount,
@@ -126,14 +129,15 @@ struct RecurringPage: View {
                                     }
                                 )
                             }
-                        } else if !isEditing && viewModel.selectedSegmentIndex == 2 {
+                        } else {
                             ForEach(viewModel.allSubscriptionExpenses, id: \.subscriptionDescription) { subscription in
                                 RecurringView(
                                     emoji: subscription.category.emoji,
                                     amount: subscription.amount,
                                     paymentDescription: subscription.subscriptionDescription,
                                     date: subscription.startDate,
-                                    color: subscription.category.color
+                                    color: subscription.category.color,
+                                    isOverview: true
                                 )
                             }
                             ForEach(viewModel.allPaymentExpenses, id: \.paymentDescription) { payment in
@@ -142,7 +146,8 @@ struct RecurringPage: View {
                                     amount: payment.amount,
                                     paymentDescription: payment.paymentDescription,
                                     date: payment.startDate,
-                                    color: payment.category.color
+                                    color: payment.category.color,
+                                    isOverview: true
                                 )
                             }
                         }
@@ -165,6 +170,7 @@ struct RecurringPage: View {
         }
     }
     
+    // MARK: - Helper Functions
     private func presentAddSubscriptionVC() {
         let addSubscriptionVC = AddSubscriptionVC()
         addSubscriptionVC.delegate = viewModel as? any AddSubscriptionDelegate
@@ -185,14 +191,14 @@ struct RecurringPage: View {
         }
     }
 }
-
-// MARK: - Payment Cell
-struct RecurringView: View {
-    var emoji: String
+// MARK: - Extracted Views
+// MARK: Editable Payment Cell
+struct EditableRecurringView: View {
     var amount: Double
     var paymentDescription: String
     var date: Date
     var color: UIColor
+    var deleteAction: () -> Void
     
     var body: some View {
         HStack {
@@ -214,10 +220,69 @@ struct RecurringView: View {
                             .font(.custom("Inter-Regular", size: 15))
                             .foregroundStyle(.black)
                         
-                        Text(DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none))
+                        Text("Every month on \(Calendar.current.component(.day, from: date))\(daySuffix(for: date))")
                             .font(.caption)
                             .foregroundColor(.secondary)
                             .padding(.top, 10)
+                    }
+                    
+                    Spacer()
+                    
+                    Button(action: deleteAction) {
+                        Image(systemName: "minus.circle")
+                            .resizable()
+                            .foregroundColor(.red)
+                            .frame(width: 25, height: 25)
+                    }
+                }
+            }
+        }
+        .padding()
+        .background(Color(UIColor.systemGray5))
+        .cornerRadius(15)
+    }
+}
+
+// MARK: Payment Cell
+struct RecurringView: View {
+    var emoji: String
+    var amount: Double
+    var paymentDescription: String
+    var date: Date
+    var color: UIColor
+    var isOverview: Bool = false
+    
+    var body: some View {
+        HStack {
+            RoundedRectangle(cornerRadius: 0)
+                .fill(Color(color))
+                .frame(width: 10)
+                .padding(.vertical, -18)
+                .padding(.leading, -18)
+            
+            VStack {
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(paymentDescription)
+                            .font(.custom("Heebo-SemiBold", size: 20))
+                            .lineLimit(1)
+                            .foregroundColor(.black)
+                        
+                        Text(PlainNumberFormatterHelper.shared.format(amount: amount))
+                            .font(.custom("Inter-Regular", size: 15))
+                            .foregroundStyle(.black)
+                        
+                        if isOverview {
+                            Text("Every month on \(Calendar.current.component(.day, from: date))\(daySuffix(for: date))")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                                .padding(.top, 10)
+                        } else {
+                            Text(DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none))
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                                .padding(.top, 10)
+                        }
                     }
                     
                     Spacer()
@@ -237,6 +302,7 @@ struct RecurringView: View {
         .cornerRadius(15)
     }
 }
+
 // MARK: - Representables
 struct CustomSegmentedControlViewRepresentable: UIViewRepresentable {
     var color: UIColor
@@ -280,6 +346,7 @@ struct NavigationRectangleRepresentable: UIViewRepresentable {
     
     func updateUIView(_ uiView: NavigationRectangle, context: Context) {
         uiView.totalBudgetedNumberLabel.attributedText = totalBudgetedMoney
+        uiView.descriptionLabel.text = descriptionLabelText
     }
 }
 
@@ -293,56 +360,5 @@ struct RecurringPage_Previews: PreviewProvider {
         
         EditableRecurringView(amount: 200, paymentDescription: "Vashlijvari", date: Date(), color: .blue, deleteAction: {})
             .frame(width: UIScreen.main.bounds.width / 2, height: 150)
-    }
-}
-
-// MARK: - Editable Payment Cell
-struct EditableRecurringView: View {
-    var amount: Double
-    var paymentDescription: String
-    var date: Date
-    var color: UIColor
-    var deleteAction: () -> Void
-    
-    var body: some View {
-        HStack {
-            RoundedRectangle(cornerRadius: 0)
-                .fill(Color(color))
-                .frame(width: 10)
-                .padding(.vertical, -18)
-                .padding(.leading, -18)
-            
-            VStack {
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text(paymentDescription)
-                            .font(.custom("Heebo-SemiBold", size: 20))
-                            .lineLimit(1)
-                            .foregroundColor(.black)
-                        
-                        Text(PlainNumberFormatterHelper.shared.format(amount: amount))
-                            .font(.custom("Inter-Regular", size: 15))
-                            .foregroundStyle(.black)
-                        
-                        Text(DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none))
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                            .padding(.top, 10)
-                    }
-                    
-                    Spacer()
-                    
-                    Button(action: deleteAction) {
-                        Image(systemName: "minus.circle")
-                            .resizable()
-                            .foregroundColor(.red)
-                            .frame(width: 25, height: 25)
-                    }
-                }
-            }
-        }
-        .padding()
-        .background(Color(UIColor.systemGray5))
-        .cornerRadius(15)
     }
 }

@@ -6,33 +6,40 @@ class RecurringPageViewModel: ObservableObject {
     @Published var allPaymentOccurrences: [PaymentOccurance] = []
     @Published var filteredSubscriptionOccurrences: [SubscriptionOccurrence] = []
     @Published var filteredPaymentOccurrences: [PaymentOccurance] = []
-    @Published var selectedTimePeriod: TimePeriod = .thisMonth {
-        didSet {
-            filterOccurrences()
-        }
-    }
     @Published var totalBudgeted: Double = 0.0
     @Published var listTotalBudgeted: Double = 0.0
     @Published var selectedSegmentIndex: Int = 0 {
         didSet {
             loadOccurrences()
+            updateDescriptionLabelText()
         }
     }
+    
+    @Published var selectedTimePeriod: TimePeriod = .thisMonth {
+        didSet {
+            filterOccurrences()
+            updateDescriptionLabelText()
+        }
+    }
+    
+    @Published var descriptionLabelText: String = ""
     
     // MARK: - Combined Properties
     @Published var allSubscriptionExpenses: [SubscriptionExpense] = []
     @Published var allPaymentExpenses: [PaymentExpense] = []
-
+    
     private var context: NSManagedObjectContext {
         return DataManager.shared.context
     }
     
+    // MARK: - Initialization
     init() {
         loadOccurrences()
         loadAllExpenses()
+        updateDescriptionLabelText()
     }
     
-    // MARK: - Combined Functions
+    // MARK: - Overview View Functions
     func loadAllExpenses() {
         DataManager.shared.fetchSubscriptionExpenses()
         DataManager.shared.PaymentExpenses()
@@ -58,7 +65,7 @@ class RecurringPageViewModel: ObservableObject {
         }
         
         listTotalBudgeted = allSubscriptionExpenses.reduce(0) { $0 + $1.amount } +
-                           allPaymentExpenses.reduce(0) { $0 + $1.amount }
+        allPaymentExpenses.reduce(0) { $0 + $1.amount }
     }
     
     func deleteSubscriptionExpense(_ subscription: SubscriptionExpense) {
@@ -70,7 +77,7 @@ class RecurringPageViewModel: ObservableObject {
             }
         }
     }
-
+    
     func deletePaymentExpense(_ payment: PaymentExpense) {
         if let index = allPaymentExpenses.firstIndex(where: { $0.paymentDescription == payment.paymentDescription }) {
             allPaymentExpenses.remove(at: index)
@@ -146,7 +153,17 @@ class RecurringPageViewModel: ObservableObject {
             return filteredPaymentOccurrences.reduce(0) { $0 + $1.amount }
         }
     }
+    
+    private func updateDescriptionLabelText() {
+        if selectedSegmentIndex == 2 {
+            descriptionLabelText = "Total Monthly Expenditure"
+        } else {
+            let segmentName = selectedSegmentIndex == 0 ? "Subscriptions" : "Payments"
+            descriptionLabelText = "\(segmentName) Budgeted: \(selectedTimePeriod.rawValue)"
+        }
+    }
 }
+
 
 enum TimePeriod: String, CaseIterable {
     case thisWeek = "This Week"

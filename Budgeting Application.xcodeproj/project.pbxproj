@@ -53,6 +53,7 @@
 		85B85B2C2C38D44B00AAD046 /* Inter-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85B85B2B2C38D44B00AAD046 /* Inter-Bold.ttf */; };
 		85B85B2E2C38D67300AAD046 /* Inter-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85B85B2D2C38D67200AAD046 /* Inter-SemiBold.ttf */; };
 		85B85B302C3AE06800AAD046 /* AddPaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B2F2C3AE06800AAD046 /* AddPaymentVC.swift */; };
+		85B85B322C3B308200AAD046 /* Day Suffix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B312C3B308200AAD046 /* Day Suffix.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -104,6 +105,7 @@
 		85B85B2B2C38D44B00AAD046 /* Inter-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Bold.ttf"; sourceTree = "<group>"; };
 		85B85B2D2C38D67200AAD046 /* Inter-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-SemiBold.ttf"; sourceTree = "<group>"; };
 		85B85B2F2C3AE06800AAD046 /* AddPaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPaymentVC.swift; sourceTree = "<group>"; };
+		85B85B312C3B308200AAD046 /* Day Suffix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Day Suffix.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -311,6 +313,7 @@
 				85B85B0B2C3718BA00AAD046 /* Occurances */,
 				853A3DC62C35D22D0042A0A4 /* Expense:Budget service.swift */,
 				853A3DCE2C35E84D0042A0A4 /* NumberFormatter.swift */,
+				85B85B312C3B308200AAD046 /* Day Suffix.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -460,6 +463,7 @@
 				853A3DCF2C35E84D0042A0A4 /* NumberFormatter.swift in Sources */,
 				853A3DB02C3593A40042A0A4 /* BudgetView.swift in Sources */,
 				853A3DA82C3593A40042A0A4 /* Payment Models.swift in Sources */,
+				85B85B322C3B308200AAD046 /* Day Suffix.swift in Sources */,
 				853A3DB82C3593A40042A0A4 /* RecurringVM.swift in Sources */,
 				853A3DA92C3593A40042A0A4 /* Model.xcdatamodeld in Sources */,
 				853A3DB12C3593A40042A0A4 /* NavigationRectangle.swift in Sources */,
