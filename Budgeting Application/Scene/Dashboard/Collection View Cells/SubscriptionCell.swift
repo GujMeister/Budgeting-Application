@@ -7,16 +7,21 @@ class SubscriptionCollectionViewCell: UICollectionViewCell {
     
     private let customBackgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = .customLightBlue
-        view.layer.cornerRadius = 15
+        view.layer.cornerRadius = 10
+        view.backgroundColor = .systemGray5
+        view.layer.masksToBounds = false  // Ensure this is false to allow shadows
+        view.layer.shadowColor = UIColor.customBlue.cgColor
+        view.layer.shadowOffset = CGSize(width: 3, height: 3)
+        view.layer.shadowOpacity = 0.2
+        view.layer.shadowRadius = 5
         return view
     }()
     
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .white
+        label.textColor = .systemGray2
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 16, weight: .regular)
+        label.font = .systemFont(ofSize: 13, weight: .regular)
         return label
     }()
     
@@ -70,12 +75,12 @@ class SubscriptionCollectionViewCell: UICollectionViewCell {
         costLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            customBackgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            customBackgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            customBackgroundView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            customBackgroundView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 10),
             customBackgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
             customBackgroundView.topAnchor.constraint(equalTo: topAnchor, constant: 5),
             
-            dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0),
+            dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 23),
             dateLabel.bottomAnchor.constraint(equalTo: customBackgroundView.topAnchor, constant: -2),
             
             emojiLabel.leadingAnchor.constraint(equalTo: customBackgroundView.leadingAnchor, constant: 8),
@@ -96,9 +101,9 @@ class SubscriptionCollectionViewCell: UICollectionViewCell {
     func configure(with subscription: SubscriptionExpenseModel, textColor: UIColor) {
         dateLabel.text = DateFormatter.localizedString(from: subscription.startDate ?? Date(), dateStyle: .medium, timeStyle: .none)
         categoryLabel.text = subscription.subscriptionDescription
-        costLabel.text = String(format: "$%.2f", subscription.amount)
+        costLabel.text = PlainNumberFormatterHelper.shared.format(amount: subscription.amount)
         
-        dateLabel.textColor = textColor
+//        dateLabel.textColor = textColor
         categoryLabel.textColor = textColor
         costLabel.textColor = textColor
         

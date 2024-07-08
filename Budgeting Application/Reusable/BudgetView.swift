@@ -30,7 +30,7 @@ class BudgetView: UIView {
     
     var budget: BasicExpenseBudget? {
         didSet {
-            updateView(textColor: .customBackground)
+            updateView(textColor: .black)
         }
     }
     

@@ -34,7 +34,14 @@ class DashboardViewModel {
             onFavoritedBudgetsUpdated?()
         }
     }
+    
+    var totalBudgetedThisMonth: Double = 0.0 {
+        didSet {
+            onTotalBudgetedThisMonthUpdated?()
+        }
+    }
 
+    var onTotalBudgetedThisMonthUpdated: (() -> Void)?
     var onBudgetsUpdated: (() -> Void)?
     var onFavoritedBudgetsUpdated: (() -> Void)?
     var onSubscriptionsUpdated: (() -> Void)?
@@ -49,6 +56,7 @@ class DashboardViewModel {
         fetchFavoritedBudgets()
         fetchPayments()
         fetchSubscriptions()
+        calculateTotalBudgetedThisMonth()
     }
     
     deinit {
@@ -60,6 +68,15 @@ class DashboardViewModel {
         fetchSubscriptions()
         fetchPayments()
         fetchFavoritedBudgets()
+        calculateTotalBudgetedThisMonth()
+    }
+    
+    func calculateTotalBudgetedThisMonth() {
+        let totalBudgeted = budgets.reduce(0) { $0 + $1.totalAmount }
+        let totalPayments = payments.reduce(0) { $0 + $1.amount }
+        let totalSubscriptions = subscriptions.reduce(0) { $0 + $1.amount }
+
+        totalBudgetedThisMonth = totalBudgeted + totalPayments + totalSubscriptions
     }
     
     // MARK: - Budgets

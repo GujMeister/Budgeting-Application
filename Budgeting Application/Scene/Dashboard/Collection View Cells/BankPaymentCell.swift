@@ -16,17 +16,22 @@ class BankPaymentCollectionViewCell: UICollectionViewCell {
     
     private let customBackgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = .customLightBlue
         view.layer.cornerRadius = 25
+        view.backgroundColor = .systemGray5
+        view.layer.masksToBounds = false  // Ensure this is false to allow shadows
+        view.layer.shadowColor = UIColor.customBlue.cgColor
+        view.layer.shadowOffset = CGSize(width: 3, height: 3)
+        view.layer.shadowOpacity = 0.5
+        view.layer.shadowRadius = 5
         return view
     }()
     
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .label
-        label.textAlignment = .center
+        label.textColor = .systemGray2
+        label.textAlignment = .left
         label.text = "1 Apr"
-        label.font = .systemFont(ofSize: 16, weight: .regular)
+        label.font = .systemFont(ofSize: 12, weight: .regular)
         return label
     }()
     
@@ -50,15 +55,22 @@ class BankPaymentCollectionViewCell: UICollectionViewCell {
     private let costLabel: UILabel = {
         let label = UILabel()
         label.textColor = .label
-        label.textAlignment = .center
-        label.font = .systemFont(ofSize: 16, weight: .regular)
+        label.textAlignment = .left
+        label.font = .systemFont(ofSize: 22, weight: .regular)
         return label
     }()
     
-    private lazy var emojiBackgroundView: UIView = {
+//    private lazy var emojiBackgroundView: UIView = {
+//        let view = UIView()
+//        view.backgroundColor = .red
+//        view.layer.cornerRadius = 22
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        return view
+//    }()
+    
+    private let lineColorView: UIView = {
         let view = UIView()
         view.backgroundColor = .red
-        view.layer.cornerRadius = 15
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -76,13 +88,14 @@ class BankPaymentCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Setup UI
     private func setupView() {
-        contentView.addSubview(dateLabel)
         contentView.addSubview(customBackgroundView)
         
-        customBackgroundView.addSubview(emojiBackgroundView)
+        customBackgroundView.addSubview(dateLabel)
+//        customBackgroundView.addSubview(emojiBackgroundView)
         customBackgroundView.addSubview(emojiLabel)
         customBackgroundView.addSubview(categoryLabel)
         customBackgroundView.addSubview(costLabel)
+        customBackgroundView.addSubview(lineColorView)
         
         customBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -91,50 +104,58 @@ class BankPaymentCollectionViewCell: UICollectionViewCell {
         costLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 3),
-            dateLabel.bottomAnchor.constraint(equalTo: customBackgroundView.topAnchor, constant: -3),
-            
-            customBackgroundView.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+            customBackgroundView.topAnchor.constraint(equalTo: topAnchor),
             customBackgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
             customBackgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
             customBackgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
+            lineColorView.topAnchor.constraint(equalTo: customBackgroundView.topAnchor),
+            lineColorView.bottomAnchor.constraint(equalTo: customBackgroundView.bottomAnchor),
+            lineColorView.leadingAnchor.constraint(equalTo: customBackgroundView.leadingAnchor),
+            lineColorView.widthAnchor.constraint(equalTo: customBackgroundView.widthAnchor, multiplier: 0.05),
+            
             categoryLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
             categoryLabel.topAnchor.constraint(equalTo: customBackgroundView.topAnchor, constant: 25),
-            categoryLabel.trailingAnchor.constraint(equalTo: emojiLabel.trailingAnchor, constant: -10),
+            categoryLabel.trailingAnchor.constraint(equalTo: emojiLabel.trailingAnchor, constant: 10),
             
-            emojiLabel.centerYAnchor.constraint(equalTo: categoryLabel.centerYAnchor),
-            emojiLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
+            emojiLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+            emojiLabel.trailingAnchor.constraint(equalTo: customBackgroundView.trailingAnchor, constant: -20),
             emojiLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2),
             emojiLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.2),
-            
-            emojiBackgroundView.heightAnchor.constraint(equalTo: emojiLabel.heightAnchor, multiplier: 1.5),
-            emojiBackgroundView.widthAnchor.constraint(equalTo: emojiLabel.widthAnchor, multiplier: 1.5),
-            emojiBackgroundView.centerXAnchor.constraint(equalTo: emojiLabel.centerXAnchor),
-            emojiBackgroundView.centerYAnchor.constraint(equalTo: emojiLabel.centerYAnchor),
+//            
+//            emojiBackgroundView.heightAnchor.constraint(equalTo: emojiLabel.heightAnchor, multiplier: 1.5),
+//            emojiBackgroundView.widthAnchor.constraint(equalTo: emojiBackgroundView.heightAnchor),
+//            emojiBackgroundView.centerXAnchor.constraint(equalTo: emojiLabel.centerXAnchor),
+//            emojiBackgroundView.centerYAnchor.constraint(equalTo: emojiLabel.centerYAnchor),
+//            
+            dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            dateLabel.bottomAnchor.constraint(equalTo: costLabel.topAnchor, constant: -8),
             
             costLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
             costLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15)
         ])
+        
+        customBackgroundView.clipsToBounds = true
     }
     
     // MARK: - Configure
     func configure(with payment: PaymentExpenseModel, textColor: UIColor) {
         dateLabel.text = DateFormatter.localizedString(from: payment.startDate ?? Date(), dateStyle: .medium, timeStyle: .none)
         categoryLabel.text = payment.paymentDescription
-        costLabel.text = PlainNumberFormatterHelper.shared.format(amount: payment.amount)
+        costLabel.attributedText = NumberFormatterHelper.shared.format(amount: payment.amount, baseFont: UIFont(name: "Heebo-SemiBold", size: 50) ?? UIFont(), sizeDifference: 0.2)
         
-        dateLabel.textColor = textColor
+//        dateLabel.textColor = textColor
         categoryLabel.textColor = textColor
         costLabel.textColor = textColor
         
-        
         if let category = PaymentsCategory(rawValue: payment.category ?? "") {
             emojiLabel.text = category.emoji
-            emojiBackgroundView.backgroundColor = category.color
+//            emojiBackgroundView.backgroundColor = .white
+            lineColorView.backgroundColor = category.color
         } else {
             emojiLabel.text = "🔔"
-            emojiBackgroundView.backgroundColor = UIColor.customLightBlue
+//            emojiBackgroundView.backgroundColor = UIColor.customLightBlue
+            lineColorView.backgroundColor = UIColor.red
         }
     }
 }

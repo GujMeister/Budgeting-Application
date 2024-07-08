@@ -5,8 +5,11 @@ class DashboardViewController: UIViewController {
     
     // MARK: - Properties
     private var viewModel = DashboardViewModel()
-    private var viewBackgroundColors = UIColor.customBlue
+    
+    private var viewBackgroundColors = UIColor.customBackground
     private var backgroundColor = UIColor.customBackground
+    private var textColor = UIColor.black
+    private var cellTextColors = UIColor.black
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -22,18 +25,40 @@ class DashboardViewController: UIViewController {
         return view
     }()
     
-    private var infoView: UIView = {
+    private lazy var infoView: NavigationRectangle = {
         let screenSize = UIScreen.main.bounds.height
-        let view = NavigationRectangle(height: screenSize / 4, color: UIColor.customBlue, totalBudgetedMoney: NSMutableAttributedString(string: "1234"), descriptionLabelText: "Total Budgeted")
+        let view = NavigationRectangle(height: screenSize / 4, color: .customBlue, totalBudgetedMoney: NSMutableAttributedString(string: "1234"), descriptionLabelText: "Total Budgeted")
         return view
+    }()
+    
+    private lazy var budgetingButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Budgets", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
+        
+        // Add chevron right image
+        let config = UIImage.SymbolConfiguration(pointSize: 10) // Desired size
+        let chevron = UIImage(systemName: "chevron.right", withConfiguration: config)
+        button.setImage(chevron, for: .normal)
+        button.tintColor = textColor
+        button.semanticContentAttribute = .forceRightToLeft
+        
+//        button.addAction(UIAction(handler: { _ in
+//            self.addBudget()
+//        }), for: .touchUpInside)
+        
+        return button
     }()
     
     private lazy var budgetsStackViewBackground: UIView = {
         let view = UIView()
-        view.layer.cornerRadius = 30
-        view.layer.masksToBounds = true
-        view.layer.shadowOffset = CGSize(width: 10, height: 10)
+        view.layer.cornerRadius = 25
         view.backgroundColor = viewBackgroundColors
+        view.layer.masksToBounds = false  // Ensure this is false to allow shadows
+        view.layer.shadowColor = UIColor.customBlue.cgColor
+        view.layer.shadowOffset = CGSize(width: 3, height: 3)
+        view.layer.shadowOpacity = 0.5
+        view.layer.shadowRadius = 5
         return view
     }()
 
@@ -45,19 +70,18 @@ class DashboardViewController: UIViewController {
     }()
     
     
-    private let recurringButton: UIButton = {
+    private lazy var upcomingButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Recurring", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 26, weight: .bold)
+        button.setTitle("Upcoming", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
         
         // Add chevron right image
-        let chevron = UIImage(systemName: "chevron.right")
+        let config = UIImage.SymbolConfiguration(pointSize: 10) // Desired size
+        let chevron = UIImage(systemName: "chevron.right", withConfiguration: config)
         button.setImage(chevron, for: .normal)
-        button.tintColor = .black
-        
-        // Adjust the title and image alignment
+        button.tintColor = textColor
         button.semanticContentAttribute = .forceRightToLeft
-        
+
 //        button.addAction(UIAction(handler: { _ in
 //            self.addBudget()
 //        }), for: .touchUpInside)
@@ -65,22 +89,18 @@ class DashboardViewController: UIViewController {
         return button
     }()
     
-    private lazy var subscriptionBackgroundView: UIView = {
-        let view = UIView()
-        view.backgroundColor = viewBackgroundColors
-        view.layer.cornerRadius = 30
-        return view
-    }()
-    
-    private let subscriptionsLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .black
-        label.textAlignment = .center
-        label.font = .systemFont(ofSize: 20, weight: .bold)
-        label.text = "Subscriptions"
-        return label
-    }()
-    
+//    private lazy var subscriptionBackgroundView: UIView = {
+//        let view = UIView()
+//        view.layer.cornerRadius = 25
+//        view.backgroundColor = viewBackgroundColors
+//        view.layer.masksToBounds = false  // Ensure this is false to allow shadows
+//        view.layer.shadowColor = UIColor.customBlue.cgColor
+//        view.layer.shadowOffset = CGSize(width: 3, height: 3)
+//        view.layer.shadowOpacity = 0.2
+//        view.layer.shadowRadius = 5
+//        return view
+//    }()
+
     private lazy var subscriptionCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -95,22 +115,18 @@ class DashboardViewController: UIViewController {
         return collectionView
     }()
     
-    private lazy var paymentsBackgroundView: UIView = {
-        let view = UIView()
-        view.backgroundColor = viewBackgroundColors
-        view.layer.cornerRadius = 30
-        return view
-    }()
-    
-    private let paymentsLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .black
-        label.textAlignment = .center
-        label.font = .systemFont(ofSize: 20, weight: .bold)
-        label.text = "Bank Payments"
-        return label
-    }()
-    
+//    private lazy var paymentsBackgroundView: UIView = {
+//        let view = UIView()
+//        view.layer.cornerRadius = 25
+//        view.backgroundColor = viewBackgroundColors
+//        view.layer.masksToBounds = false  // Ensure this is false to allow shadows
+//        view.layer.shadowColor = UIColor.customBlue.cgColor
+//        view.layer.shadowOffset = CGSize(width: 3, height: 3)
+//        view.layer.shadowOpacity = 0.5
+//        view.layer.shadowRadius = 5
+//        return view
+//    }()
+
     private lazy var paymentCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -144,7 +160,7 @@ class DashboardViewController: UIViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         
-        let views = [subscriptionBackgroundView, paymentsBackgroundView, budgetsStackViewBackground, budgetStackView, infoView, recurringButton, subscriptionsLabel, subscriptionCollectionView, paymentsLabel, paymentCollectionView]
+        let views = [/*subscriptionBackgroundView*/ /*paymentsBackgroundView*/ budgetsStackViewBackground, budgetingButton, budgetStackView, infoView, upcomingButton, /*subscriptionsLabel*/ subscriptionCollectionView, /*paymentsLabel*/ paymentCollectionView]
         
         views.forEach { view in
             contentView.addSubview(view)
@@ -170,7 +186,10 @@ class DashboardViewController: UIViewController {
             infoView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             infoView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             
-            budgetStackView.topAnchor.constraint(equalTo: infoView.bottomAnchor, constant: 40),
+            budgetingButton.topAnchor.constraint(equalTo: infoView.bottomAnchor, constant: 25),
+            budgetingButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            
+            budgetStackView.topAnchor.constraint(equalTo: budgetingButton.bottomAnchor, constant: 10),
             budgetStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             budgetStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             budgetStackView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 8),
@@ -178,39 +197,33 @@ class DashboardViewController: UIViewController {
             budgetsStackViewBackground.topAnchor.constraint(equalTo: budgetStackView.topAnchor, constant: 0),
             budgetsStackViewBackground.leadingAnchor.constraint(equalTo: budgetStackView.leadingAnchor, constant: -10),
             budgetsStackViewBackground.trailingAnchor.constraint(equalTo: budgetStackView.trailingAnchor, constant: 10),
-            budgetsStackViewBackground.bottomAnchor.constraint(equalTo: budgetStackView.bottomAnchor, constant: 15),
+            budgetsStackViewBackground.bottomAnchor.constraint(equalTo: budgetStackView.bottomAnchor, constant: 25),
             
-            recurringButton.topAnchor.constraint(equalTo: budgetStackView.bottomAnchor, constant: 40),
-            recurringButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            upcomingButton.topAnchor.constraint(equalTo: budgetStackView.bottomAnchor, constant: 40),
+            upcomingButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             
             //Subscriptions View
-            subscriptionsLabel.topAnchor.constraint(equalTo: recurringButton.bottomAnchor, constant: 15),
-            subscriptionsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            
-            subscriptionBackgroundView.topAnchor.constraint(equalTo: subscriptionCollectionView.topAnchor, constant: -10),
-            subscriptionBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            subscriptionBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            subscriptionBackgroundView.bottomAnchor.constraint(equalTo: subscriptionCollectionView.bottomAnchor, constant: 0),
+//            subscriptionBackgroundView.topAnchor.constraint(equalTo: subscriptionCollectionView.topAnchor, constant: -10),
+//            subscriptionBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+//            subscriptionBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+//            subscriptionBackgroundView.bottomAnchor.constraint(equalTo: subscriptionCollectionView.bottomAnchor, constant: 0),
 
-            subscriptionCollectionView.leadingAnchor.constraint(equalTo: subscriptionBackgroundView.leadingAnchor, constant: 10),
-            subscriptionCollectionView.trailingAnchor.constraint(equalTo: subscriptionBackgroundView.trailingAnchor, constant: -10),
-            subscriptionCollectionView.topAnchor.constraint(equalTo: subscriptionsLabel.bottomAnchor, constant: 10),
+            subscriptionCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            subscriptionCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            subscriptionCollectionView.topAnchor.constraint(equalTo: upcomingButton.bottomAnchor, constant: 0),
             subscriptionCollectionView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 10),
             
             //Payments View
-            paymentsLabel.topAnchor.constraint(equalTo: subscriptionCollectionView.bottomAnchor, constant: 10),
-            paymentsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+//            paymentsBackgroundView.topAnchor.constraint(equalTo: paymentCollectionView.topAnchor, constant: -20),
+//            paymentsBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+//            paymentsBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+//            paymentsBackgroundView.bottomAnchor.constraint(equalTo: paymentCollectionView.bottomAnchor, constant: 0),
             
-            paymentsBackgroundView.topAnchor.constraint(equalTo: paymentCollectionView.topAnchor, constant: -20),
-            paymentsBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            paymentsBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            paymentsBackgroundView.bottomAnchor.constraint(equalTo: paymentCollectionView.bottomAnchor, constant: 0),
-            
-            paymentCollectionView.leadingAnchor.constraint(equalTo: paymentsBackgroundView.leadingAnchor, constant: 10),
-            paymentCollectionView.trailingAnchor.constraint(equalTo: paymentsBackgroundView.trailingAnchor, constant: -10),
-            paymentCollectionView.topAnchor.constraint(equalTo: paymentsLabel.bottomAnchor, constant: 20),
-            paymentCollectionView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 2),
-            paymentCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
+            paymentCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            paymentCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            paymentCollectionView.topAnchor.constraint(equalTo: subscriptionCollectionView.bottomAnchor, constant: 5),
+            paymentCollectionView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 2.5),
+            paymentCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -170)
         ])
     }
     
@@ -226,6 +239,10 @@ class DashboardViewController: UIViewController {
 
         viewModel.onPaymentsUpdated = { [weak self] in
             self?.paymentCollectionView.reloadData()
+        }
+        
+        viewModel.onTotalBudgetedThisMonthUpdated = { [weak self] in
+            self?.updateTotalBudgetedLabel()
         }
     }
     
@@ -251,6 +268,14 @@ class DashboardViewController: UIViewController {
             budgetStackView.addArrangedSubview(singleBudgetView)
         }
     }
+    
+    private func updateTotalBudgetedLabel() {
+        infoView.totalBudgetedNumberLabel.attributedText = NumberFormatterHelper.shared.format(
+            amount: viewModel.totalBudgetedThisMonth,
+            baseFont: UIFont(name: "Heebo-SemiBold", size: 36) ?? UIFont(),
+            sizeDifference: 0.6
+        )
+    }
 }
 
 // MARK: - Collection View Data Source
@@ -268,14 +293,14 @@ extension DashboardViewController: UICollectionViewDataSource {
         if collectionView == subscriptionCollectionView {
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SubscriptionCollectionViewCell.reuseIdentifier, for: indexPath) as! SubscriptionCollectionViewCell
-            cell.configure(with: viewModel.subscriptions[indexPath.row], textColor: .white)
+            cell.configure(with: viewModel.subscriptions[indexPath.row], textColor: cellTextColors)
 //            cell.backgroundColor = .red
             return cell
             
         } else if collectionView == paymentCollectionView {
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BankPaymentCollectionViewCell.reuseIdentifier, for: indexPath) as! BankPaymentCollectionViewCell
-            cell.configure(with: viewModel.payments[indexPath.row], textColor: .white)
+            cell.configure(with: viewModel.payments[indexPath.row], textColor: cellTextColors)
 //            cell.backgroundColor = .red
             return cell
         }
@@ -289,10 +314,11 @@ extension DashboardViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         if collectionView == paymentCollectionView {
-            // Payment Collection View Layout
             let screenWidth = UIScreen.main.bounds.width
-            let cellWidth = (screenWidth - 70) / 2 // Two cells per row, 20 padding on each side
-            let cellHeight = cellWidth
+            let spacing: CGFloat = 25
+            let totalSpacing = (spacing * 2) // 2 cells + 3 spaces
+            let cellWidth = (screenWidth - totalSpacing) / 2 // Two cells per row
+            let cellHeight = screenWidth / 3.2
             return CGSize(width: cellWidth, height: cellHeight)
         } else if collectionView == subscriptionCollectionView {
             // Subscription Collection View Layout
@@ -312,6 +338,18 @@ extension DashboardViewController: UICollectionViewDelegateFlowLayout {
         } else {
             // Default size for other collection views (if any)
             return CGSize(width: 100, height: 50)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        if collectionView == paymentCollectionView {
+            let insets: CGFloat = 7 // Set your desired inset value
+            let verticalInsets: CGFloat = 5
+            return UIEdgeInsets(top: verticalInsets, left: insets, bottom: verticalInsets, right: insets)
+        } else if collectionView == subscriptionCollectionView {
+            return .zero
+        } else {
+            return .zero
         }
     }
 }
