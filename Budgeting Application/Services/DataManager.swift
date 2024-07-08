@@ -110,7 +110,7 @@ class DataManager {
     // MARK: - PaymentExpenseModel Management
     var PaymentExpenseModelList: [PaymentExpenseModel] = []
 
-    func PaymentExpenses() {
+    func FetchPaymentExpenses() {
         let request: NSFetchRequest<PaymentExpenseModel> = PaymentExpenseModel.fetchRequest() as! NSFetchRequest<PaymentExpenseModel>
         do {
             PaymentExpenseModelList = try context.fetch(request)

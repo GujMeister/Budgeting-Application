@@ -42,7 +42,7 @@ class RecurringPageViewModel: ObservableObject {
     // MARK: - Overview View Functions
     func loadAllExpenses() {
         DataManager.shared.fetchSubscriptionExpenses()
-        DataManager.shared.PaymentExpenses()
+        DataManager.shared.FetchPaymentExpenses()
         
         allSubscriptionExpenses = DataManager.shared.subscriptionExpenseModelList.map { subscription in
             SubscriptionExpense(

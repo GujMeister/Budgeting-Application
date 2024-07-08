@@ -17,7 +17,7 @@
 		853A3DAF2C3593A40042A0A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 853A3D8C2C3593A40042A0A4 /* Main.storyboard */; };
 		853A3DB02C3593A40042A0A4 /* BudgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D912C3593A40042A0A4 /* BudgetView.swift */; };
 		853A3DB12C3593A40042A0A4 /* NavigationRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D922C3593A40042A0A4 /* NavigationRectangle.swift */; };
-		853A3DB22C3593A40042A0A4 /* SubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D932C3593A40042A0A4 /* SubscriptionView.swift */; };
+		853A3DB22C3593A40042A0A4 /* SubscriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D932C3593A40042A0A4 /* SubscriptionCell.swift */; };
 		853A3DB32C3593A40042A0A4 /* DashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D952C3593A40042A0A4 /* DashboardVC.swift */; };
 		853A3DB42C3593A40042A0A4 /* DashboardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D962C3593A40042A0A4 /* DashboardVM.swift */; };
 		853A3DB52C3593A40042A0A4 /* AddSubscriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D982C3593A40042A0A4 /* AddSubscriptionVC.swift */; };
@@ -54,6 +54,7 @@
 		85B85B2E2C38D67300AAD046 /* Inter-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85B85B2D2C38D67200AAD046 /* Inter-SemiBold.ttf */; };
 		85B85B302C3AE06800AAD046 /* AddPaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B2F2C3AE06800AAD046 /* AddPaymentVC.swift */; };
 		85B85B322C3B308200AAD046 /* Day Suffix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B312C3B308200AAD046 /* Day Suffix.swift */; };
+		85B85B342C3C2E1900AAD046 /* BankPaymentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B332C3C2E1900AAD046 /* BankPaymentCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,7 +70,7 @@
 		853A3D8B2C3593A40042A0A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		853A3D912C3593A40042A0A4 /* BudgetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetView.swift; sourceTree = "<group>"; };
 		853A3D922C3593A40042A0A4 /* NavigationRectangle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationRectangle.swift; sourceTree = "<group>"; };
-		853A3D932C3593A40042A0A4 /* SubscriptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionView.swift; sourceTree = "<group>"; };
+		853A3D932C3593A40042A0A4 /* SubscriptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionCell.swift; sourceTree = "<group>"; };
 		853A3D952C3593A40042A0A4 /* DashboardVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardVC.swift; sourceTree = "<group>"; };
 		853A3D962C3593A40042A0A4 /* DashboardVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardVM.swift; sourceTree = "<group>"; };
 		853A3D982C3593A40042A0A4 /* AddSubscriptionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSubscriptionVC.swift; sourceTree = "<group>"; };
@@ -106,6 +107,7 @@
 		85B85B2D2C38D67200AAD046 /* Inter-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-SemiBold.ttf"; sourceTree = "<group>"; };
 		85B85B2F2C3AE06800AAD046 /* AddPaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPaymentVC.swift; sourceTree = "<group>"; };
 		85B85B312C3B308200AAD046 /* Day Suffix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Day Suffix.swift"; sourceTree = "<group>"; };
+		85B85B332C3C2E1900AAD046 /* BankPaymentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankPaymentCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,18 +229,19 @@
 			path = Calendar;
 			sourceTree = "<group>";
 		};
-		853A3D942C3593A40042A0A4 /* Extracted Views */ = {
+		853A3D942C3593A40042A0A4 /* Collection View Cells */ = {
 			isa = PBXGroup;
 			children = (
-				853A3D932C3593A40042A0A4 /* SubscriptionView.swift */,
+				853A3D932C3593A40042A0A4 /* SubscriptionCell.swift */,
+				85B85B332C3C2E1900AAD046 /* BankPaymentCell.swift */,
 			);
-			path = "Extracted Views";
+			path = "Collection View Cells";
 			sourceTree = "<group>";
 		};
 		853A3D972C3593A40042A0A4 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
-				853A3D942C3593A40042A0A4 /* Extracted Views */,
+				853A3D942C3593A40042A0A4 /* Collection View Cells */,
 				853A3D952C3593A40042A0A4 /* DashboardVC.swift */,
 				853A3D962C3593A40042A0A4 /* DashboardVM.swift */,
 			);
@@ -446,7 +449,7 @@
 				853A3DB42C3593A40042A0A4 /* DashboardVM.swift in Sources */,
 				853A3DB32C3593A40042A0A4 /* DashboardVC.swift in Sources */,
 				85B85B052C36D83100AAD046 /* AddExpenseVC.swift in Sources */,
-				853A3DB22C3593A40042A0A4 /* SubscriptionView.swift in Sources */,
+				853A3DB22C3593A40042A0A4 /* SubscriptionCell.swift in Sources */,
 				853A3DC72C35D22D0042A0A4 /* Expense:Budget service.swift in Sources */,
 				853A3DAC2C3593A40042A0A4 /* TabBarController.swift in Sources */,
 				853A3DAB2C3593A40042A0A4 /* SceneDelegate.swift in Sources */,
@@ -454,6 +457,7 @@
 				853A3DD52C35FC990042A0A4 /* SegmentedControlView.swift in Sources */,
 				853A3DB72C3593A40042A0A4 /* RecurringVC.swift in Sources */,
 				85B85B302C3AE06800AAD046 /* AddPaymentVC.swift in Sources */,
+				85B85B342C3C2E1900AAD046 /* BankPaymentCell.swift in Sources */,
 				853A3DB52C3593A40042A0A4 /* AddSubscriptionVC.swift in Sources */,
 				853A3DBC2C3593A40042A0A4 /* DataManager.swift in Sources */,
 				853A3DC32C35CF3E0042A0A4 /* BudgetsVM.swift in Sources */,

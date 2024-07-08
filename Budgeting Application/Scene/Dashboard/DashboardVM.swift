@@ -12,7 +12,7 @@ class DashboardViewModel {
     // MARK: - Properties
     var budgets: [BasicExpenseBudget] = [] {
         didSet {
-            onFavoritedBudgetsUpdated?()
+            onBudgetsUpdated?()
         }
     }
     
@@ -22,14 +22,23 @@ class DashboardViewModel {
         }
     }
     
+    var payments: [PaymentExpenseModel] = [] {
+        didSet {
+            print(payments)
+            onPaymentsUpdated?()
+        }
+    }
+    
     var favoritedBudgets: [BasicExpenseBudget] = [] {
         didSet {
             onFavoritedBudgetsUpdated?()
         }
     }
-    
+
+    var onBudgetsUpdated: (() -> Void)?
     var onFavoritedBudgetsUpdated: (() -> Void)?
     var onSubscriptionsUpdated: (() -> Void)?
+    var onPaymentsUpdated: (() -> Void)?
     
     private var context: NSManagedObjectContext {
         return DataManager.shared.context
@@ -37,17 +46,27 @@ class DashboardViewModel {
     
     // MARK: - Initialization
     init() {
-        loadBudgets()
-        loadFavoritedBudgets()
+        fetchFavoritedBudgets()
+        fetchPayments()
+        fetchSubscriptions()
     }
     
     deinit {
         print("Deiniting DashboardVIEWMODEL ")
     }
     
+    // MARK: - Load All Data
+    func loadData() {
+        fetchSubscriptions()
+        fetchPayments()
+        fetchFavoritedBudgets()
+    }
+    
     // MARK: - Budgets
-    func loadFavoritedBudgets() {
+    func fetchFavoritedBudgets() {
+        loadBudgets()
         DataManager.shared.fetchFavoriteBudgets()
+        
         let favoriteCategories = DataManager.shared.favoriteBudgets.map { $0.category }
         favoritedBudgets = budgets.filter { favoriteCategories.contains($0.category.rawValue) }
         onFavoritedBudgetsUpdated?()
@@ -57,25 +76,16 @@ class DashboardViewModel {
         let service = BasicExpenseService(context: context)
         budgets = service.fetchBasicExpenseBudgets()
     }
-    
-    func fetchBudgets() {
-        DataManager.shared.fetchBasicExpenseBudgets()
-        budgets = DataManager.shared.basicExpenseBudgetModelList.compactMap { coreDataBudget in
-            guard let category = BasicExpenseCategory(rawValue: coreDataBudget.category) else {
-                return nil
-            }
-            
-            return BasicExpenseBudget(
-                category: category,
-                totalAmount: coreDataBudget.totalAmount.doubleValue,
-                spentAmount: coreDataBudget.spentAmount.doubleValue
-            )
-        }
-    }
-    
+
     // MARK: - Subscriptions
     func fetchSubscriptions() {
         DataManager.shared.fetchSubscriptionExpenses()
         subscriptions = DataManager.shared.subscriptionExpenseModelList
+    }
+    
+    // MARK: - Payments
+    func fetchPayments() {
+        DataManager.shared.FetchPaymentExpenses()
+        payments = DataManager.shared.PaymentExpenseModelList
     }
 }
