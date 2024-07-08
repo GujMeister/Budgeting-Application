@@ -54,7 +54,7 @@ class DashboardViewController: UIViewController {
         let view = UIView()
         view.layer.cornerRadius = 25
         view.backgroundColor = viewBackgroundColors
-        view.layer.masksToBounds = false  // Ensure this is false to allow shadows
+        view.layer.masksToBounds = false
         view.layer.shadowColor = UIColor.customBlue.cgColor
         view.layer.shadowOffset = CGSize(width: 3, height: 3)
         view.layer.shadowOpacity = 0.5
@@ -75,8 +75,7 @@ class DashboardViewController: UIViewController {
         button.setTitle("Upcoming", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
         
-        // Add chevron right image
-        let config = UIImage.SymbolConfiguration(pointSize: 10) // Desired size
+        let config = UIImage.SymbolConfiguration(pointSize: 10)
         let chevron = UIImage(systemName: "chevron.right", withConfiguration: config)
         button.setImage(chevron, for: .normal)
         button.tintColor = textColor
@@ -247,17 +246,7 @@ class DashboardViewController: UIViewController {
     }
     
     // MARK: - Actions
-//    @objc private func addExpenseTapped() {
-//        let addExpenseVC = AddCategoriesViewController()
-//        navigationController?.pushViewController(addExpenseVC, animated: true)
-//    }
-//    
-//    @objc private func addSubscriptionTapped() {
-//        let addSubscriptionVC = AddSubscriptionVC()
-//        addSubscriptionVC.delegate = self
-//        navigationController?.pushViewController(addSubscriptionVC, animated: true)
-//    }
-    
+
     // MARK: - Helper Functions
     private func updateBudgets() {
         budgetStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
@@ -321,10 +310,7 @@ extension DashboardViewController: UICollectionViewDelegateFlowLayout {
             let cellHeight = screenWidth / 3.2
             return CGSize(width: cellWidth, height: cellHeight)
         } else if collectionView == subscriptionCollectionView {
-            // Subscription Collection View Layout
-            // FIX: Check for index bounds before accessing the array
             guard viewModel.subscriptions.indices.contains(indexPath.row) else {
-                // Handle out-of-bounds gracefully (return a default size)
                 return CGSize(width: 100, height: 50)
             }
 
@@ -336,7 +322,6 @@ extension DashboardViewController: UICollectionViewDelegateFlowLayout {
             let width = min(label.frame.width + 70, label.frame.width + 100)
             return CGSize(width: width, height: UIScreen.main.bounds.height / 20)
         } else {
-            // Default size for other collection views (if any)
             return CGSize(width: 100, height: 50)
         }
     }
@@ -353,13 +338,6 @@ extension DashboardViewController: UICollectionViewDelegateFlowLayout {
         }
     }
 }
-
-//extension DashboardViewController: AddSubscriptionDelegate {
-//    func didAddSubscription(_ subscription: SubscriptionExpenseModel) {
-//        viewModel.subscriptions.append(subscription)
-//        viewModel.onSubscriptionsUpdated?()
-//    }
-//}
 
 // MARK: - Preview
 #Preview {

@@ -59,15 +59,7 @@ class BankPaymentCollectionViewCell: UICollectionViewCell {
         label.font = .systemFont(ofSize: 22, weight: .regular)
         return label
     }()
-    
-//    private lazy var emojiBackgroundView: UIView = {
-//        let view = UIView()
-//        view.backgroundColor = .red
-//        view.layer.cornerRadius = 22
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        return view
-//    }()
-    
+
     private let lineColorView: UIView = {
         let view = UIView()
         view.backgroundColor = .red
@@ -122,12 +114,7 @@ class BankPaymentCollectionViewCell: UICollectionViewCell {
             emojiLabel.trailingAnchor.constraint(equalTo: customBackgroundView.trailingAnchor, constant: -20),
             emojiLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2),
             emojiLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.2),
-//            
-//            emojiBackgroundView.heightAnchor.constraint(equalTo: emojiLabel.heightAnchor, multiplier: 1.5),
-//            emojiBackgroundView.widthAnchor.constraint(equalTo: emojiBackgroundView.heightAnchor),
-//            emojiBackgroundView.centerXAnchor.constraint(equalTo: emojiLabel.centerXAnchor),
-//            emojiBackgroundView.centerYAnchor.constraint(equalTo: emojiLabel.centerYAnchor),
-//            
+
             dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
             dateLabel.bottomAnchor.constraint(equalTo: costLabel.topAnchor, constant: -8),
             
@@ -144,17 +131,14 @@ class BankPaymentCollectionViewCell: UICollectionViewCell {
         categoryLabel.text = payment.paymentDescription
         costLabel.attributedText = NumberFormatterHelper.shared.format(amount: payment.amount, baseFont: UIFont(name: "Heebo-SemiBold", size: 50) ?? UIFont(), sizeDifference: 0.2)
         
-//        dateLabel.textColor = textColor
         categoryLabel.textColor = textColor
         costLabel.textColor = textColor
         
         if let category = PaymentsCategory(rawValue: payment.category ?? "") {
             emojiLabel.text = category.emoji
-//            emojiBackgroundView.backgroundColor = .white
             lineColorView.backgroundColor = category.color
         } else {
             emojiLabel.text = "🔔"
-//            emojiBackgroundView.backgroundColor = UIColor.customLightBlue
             lineColorView.backgroundColor = UIColor.red
         }
     }
