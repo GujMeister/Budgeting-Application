@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct RecurringPage: View {
+    // MARK: - Properties
     @StateObject private var viewModel = RecurringPageViewModel()
     @State private var shouldAnimate = true
     @State private var isEditing = false
@@ -10,6 +11,7 @@ struct RecurringPage: View {
         GridItem(.flexible(minimum: 100, maximum: .infinity)),
     ]
     
+    // MARK: - View
     var body: some View {
         VStack {
             ZStack {
@@ -54,7 +56,7 @@ struct RecurringPage: View {
                             .foregroundStyle(.black)
                     }
                 } else {
-                    
+                    // TODO: Maybe add two buttons for adding subscriptions and adding payments in Overview?
                 }
                 
                 Spacer()

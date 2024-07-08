@@ -158,7 +158,7 @@ class RecurringPageViewModel: ObservableObject {
         if selectedSegmentIndex == 2 {
             descriptionLabelText = "Total Monthly Expenditure"
         } else {
-            let segmentName = selectedSegmentIndex == 0 ? "Subscriptions" : "Payments"
+            let segmentName = selectedSegmentIndex == 0 ? "Subscriptions" : "Bank Payments"
             descriptionLabelText = "\(segmentName) Budgeted: \(selectedTimePeriod.rawValue)"
         }
     }
