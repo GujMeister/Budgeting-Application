@@ -4,9 +4,9 @@ import CoreData
 class DashboardViewController: UIViewController {
     
     // MARK: - Properties
-    private var viewModel = DashboardViewModel()
+    private let viewModel: DashboardViewModel
     
-    private var viewBackgroundColors = UIColor.customBackground
+    private var viewBackgroundColors = UIColor.customLightBlue
     private var backgroundColor = UIColor.customBackground
     private var textColor = UIColor.black
     private var cellTextColors = UIColor.black
@@ -18,7 +18,7 @@ class DashboardViewController: UIViewController {
         scrollView.showsVerticalScrollIndicator = false
         return scrollView
     }()
-
+    
     private lazy var contentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -27,7 +27,7 @@ class DashboardViewController: UIViewController {
     
     private lazy var infoView: NavigationRectangle = {
         let screenSize = UIScreen.main.bounds.height
-        let view = NavigationRectangle(height: screenSize / 4, color: .customBlue, totalBudgetedMoney: NSMutableAttributedString(string: "1234"), descriptionLabelText: "Total Budgeted")
+        let view = NavigationRectangle(height: screenSize / 4, color: UIColor.customBlue, totalBudgetedMoney: NSMutableAttributedString(string: "1234"), descriptionLabelText: "Total Budgeted")
         return view
     }()
     
@@ -36,16 +36,11 @@ class DashboardViewController: UIViewController {
         button.setTitle("Budgets", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
         
-        // Add chevron right image
         let config = UIImage.SymbolConfiguration(pointSize: 10) // Desired size
         let chevron = UIImage(systemName: "chevron.right", withConfiguration: config)
         button.setImage(chevron, for: .normal)
         button.tintColor = textColor
         button.semanticContentAttribute = .forceRightToLeft
-        
-//        button.addAction(UIAction(handler: { _ in
-//            self.addBudget()
-//        }), for: .touchUpInside)
         
         return button
     }()
@@ -53,22 +48,16 @@ class DashboardViewController: UIViewController {
     private lazy var budgetsStackViewBackground: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 25
-        view.backgroundColor = viewBackgroundColors
-        view.layer.masksToBounds = false
-        view.layer.shadowColor = UIColor.customBlue.cgColor
-        view.layer.shadowOffset = CGSize(width: 3, height: 3)
-        view.layer.shadowOpacity = 0.5
-        view.layer.shadowRadius = 5
+        view.backgroundColor = .white
         return view
     }()
-
+    
     private var budgetStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
         return stackView
     }()
-    
     
     private lazy var upcomingButton: UIButton = {
         let button = UIButton(type: .system)
@@ -80,26 +69,10 @@ class DashboardViewController: UIViewController {
         button.setImage(chevron, for: .normal)
         button.tintColor = textColor
         button.semanticContentAttribute = .forceRightToLeft
-
-//        button.addAction(UIAction(handler: { _ in
-//            self.addBudget()
-//        }), for: .touchUpInside)
         
         return button
     }()
     
-//    private lazy var subscriptionBackgroundView: UIView = {
-//        let view = UIView()
-//        view.layer.cornerRadius = 25
-//        view.backgroundColor = viewBackgroundColors
-//        view.layer.masksToBounds = false  // Ensure this is false to allow shadows
-//        view.layer.shadowColor = UIColor.customBlue.cgColor
-//        view.layer.shadowOffset = CGSize(width: 3, height: 3)
-//        view.layer.shadowOpacity = 0.2
-//        view.layer.shadowRadius = 5
-//        return view
-//    }()
-
     private lazy var subscriptionCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -114,18 +87,6 @@ class DashboardViewController: UIViewController {
         return collectionView
     }()
     
-//    private lazy var paymentsBackgroundView: UIView = {
-//        let view = UIView()
-//        view.layer.cornerRadius = 25
-//        view.backgroundColor = viewBackgroundColors
-//        view.layer.masksToBounds = false  // Ensure this is false to allow shadows
-//        view.layer.shadowColor = UIColor.customBlue.cgColor
-//        view.layer.shadowOffset = CGSize(width: 3, height: 3)
-//        view.layer.shadowOpacity = 0.5
-//        view.layer.shadowRadius = 5
-//        return view
-//    }()
-
     private lazy var paymentCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -139,7 +100,53 @@ class DashboardViewController: UIViewController {
         return collectionView
     }()
     
+    // MARK: - Placeholder Views (Initially hidden)
+    private lazy var noSubscriptionsLabel: UILabel = {
+        let label = UILabel()
+        label.text = "No subscriptions saved"
+        label.textColor = .systemGray
+        label.font = .systemFont(ofSize: 16)
+        label.textAlignment = .center
+        label.isHidden = true
+        return label
+    }()
+    
+    private lazy var noPaymentsLabel: UILabel = {
+        let label = UILabel()
+        label.text = "No bank payments saved"
+        label.textColor = .systemGray
+        label.font = .systemFont(ofSize: 16)
+        label.textAlignment = .center
+        label.isHidden = true
+        return label
+    }()
+    
+    private lazy var subscriptionBackgroundView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 25
+        view.backgroundColor = .white
+        view.isHidden = true
+        return view
+    }()
+    
+    private lazy var paymentsBackgroundView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 25
+        view.backgroundColor = .white
+        view.isHidden = true
+        return view
+    }()
+    
     // MARK: - Lifecycle
+    init(viewModel: DashboardViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -159,7 +166,7 @@ class DashboardViewController: UIViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         
-        let views = [/*subscriptionBackgroundView*/ /*paymentsBackgroundView*/ budgetsStackViewBackground, budgetingButton, budgetStackView, infoView, upcomingButton, /*subscriptionsLabel*/ subscriptionCollectionView, /*paymentsLabel*/ paymentCollectionView]
+        let views = [subscriptionBackgroundView, noSubscriptionsLabel, paymentsBackgroundView, noPaymentsLabel, budgetsStackViewBackground, budgetingButton, budgetStackView, infoView, upcomingButton, subscriptionCollectionView, paymentCollectionView]
         
         views.forEach { view in
             contentView.addSubview(view)
@@ -192,7 +199,7 @@ class DashboardViewController: UIViewController {
             budgetStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             budgetStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             budgetStackView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 8),
-
+            
             budgetsStackViewBackground.topAnchor.constraint(equalTo: budgetStackView.topAnchor, constant: 0),
             budgetsStackViewBackground.leadingAnchor.constraint(equalTo: budgetStackView.leadingAnchor, constant: -10),
             budgetsStackViewBackground.trailingAnchor.constraint(equalTo: budgetStackView.trailingAnchor, constant: 10),
@@ -202,27 +209,34 @@ class DashboardViewController: UIViewController {
             upcomingButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             
             //Subscriptions View
-//            subscriptionBackgroundView.topAnchor.constraint(equalTo: subscriptionCollectionView.topAnchor, constant: -10),
-//            subscriptionBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-//            subscriptionBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-//            subscriptionBackgroundView.bottomAnchor.constraint(equalTo: subscriptionCollectionView.bottomAnchor, constant: 0),
-
+            subscriptionBackgroundView.topAnchor.constraint(equalTo: subscriptionCollectionView.topAnchor, constant: 0),
+            subscriptionBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            subscriptionBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            subscriptionBackgroundView.bottomAnchor.constraint(equalTo: subscriptionCollectionView.bottomAnchor, constant: 0),
+            subscriptionBackgroundView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 12),
+            
+            noSubscriptionsLabel.centerXAnchor.constraint(equalTo: subscriptionCollectionView.centerXAnchor),
+            noSubscriptionsLabel.centerYAnchor.constraint(equalTo: subscriptionCollectionView.centerYAnchor),
+            
             subscriptionCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             subscriptionCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            subscriptionCollectionView.topAnchor.constraint(equalTo: upcomingButton.bottomAnchor, constant: 0),
-            subscriptionCollectionView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 10),
+            subscriptionCollectionView.topAnchor.constraint(equalTo: upcomingButton.bottomAnchor, constant: 5),
+            subscriptionCollectionView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 12),
             
             //Payments View
-//            paymentsBackgroundView.topAnchor.constraint(equalTo: paymentCollectionView.topAnchor, constant: -20),
-//            paymentsBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-//            paymentsBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-//            paymentsBackgroundView.bottomAnchor.constraint(equalTo: paymentCollectionView.bottomAnchor, constant: 0),
+            paymentsBackgroundView.topAnchor.constraint(equalTo: paymentCollectionView.topAnchor, constant: 0),
+            paymentsBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            paymentsBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            paymentsBackgroundView.bottomAnchor.constraint(equalTo: paymentCollectionView.bottomAnchor, constant: 0),
+            
+            noPaymentsLabel.centerXAnchor.constraint(equalTo: paymentCollectionView.centerXAnchor),
+            noPaymentsLabel.centerYAnchor.constraint(equalTo: paymentCollectionView.centerYAnchor),
             
             paymentCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             paymentCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             paymentCollectionView.topAnchor.constraint(equalTo: subscriptionCollectionView.bottomAnchor, constant: 5),
-            paymentCollectionView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 2.5),
-            paymentCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -170)
+            paymentCollectionView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 3.2),
+            paymentCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -170),
         ])
     }
     
@@ -234,10 +248,12 @@ class DashboardViewController: UIViewController {
         
         viewModel.onSubscriptionsUpdated = { [weak self] in
             self?.subscriptionCollectionView.reloadData()
+            self?.updateSubscriptionsPlaceholder()
         }
-
+        
         viewModel.onPaymentsUpdated = { [weak self] in
             self?.paymentCollectionView.reloadData()
+            self?.updatePaymentsPlaceholder()
         }
         
         viewModel.onTotalBudgetedThisMonthUpdated = { [weak self] in
@@ -246,8 +262,28 @@ class DashboardViewController: UIViewController {
     }
     
     // MARK: - Actions
+    private func pushBudgetsViewController() {
+        let budgetsVC = BudgetsViewController()
+        navigationController?.pushViewController(budgetsVC, animated: true)
+    }
 
+    private func pushRecurringViewController() {
+        let recurringVC = RecurringViewController()
+        navigationController?.pushViewController(recurringVC, animated: true)
+    }
+    
     // MARK: - Helper Functions
+    
+    private func updateSubscriptionsPlaceholder() {
+        noSubscriptionsLabel.isHidden = !viewModel.filteredSubscriptions.isEmpty
+        subscriptionBackgroundView.isHidden = !viewModel.filteredSubscriptions.isEmpty
+    }
+    
+    private func updatePaymentsPlaceholder() {
+        noPaymentsLabel.isHidden = !viewModel.filteredPayments.isEmpty
+        paymentsBackgroundView.isHidden = !viewModel.filteredPayments.isEmpty
+    }
+    
     private func updateBudgets() {
         budgetStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         
@@ -271,9 +307,9 @@ class DashboardViewController: UIViewController {
 extension DashboardViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == subscriptionCollectionView {
-            return viewModel.subscriptions.count
+            return viewModel.filteredSubscriptions.count
         } else if collectionView == paymentCollectionView {
-            return viewModel.payments.count
+            return viewModel.filteredPayments.count
         }
         return 0
     }
@@ -282,15 +318,15 @@ extension DashboardViewController: UICollectionViewDataSource {
         if collectionView == subscriptionCollectionView {
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SubscriptionCollectionViewCell.reuseIdentifier, for: indexPath) as! SubscriptionCollectionViewCell
-            cell.configure(with: viewModel.subscriptions[indexPath.row], textColor: cellTextColors)
-//            cell.backgroundColor = .red
+            let occurrence = viewModel.filteredSubscriptions[indexPath.row]
+            cell.configure(with: occurrence, textColor: cellTextColors)
             return cell
             
         } else if collectionView == paymentCollectionView {
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BankPaymentCollectionViewCell.reuseIdentifier, for: indexPath) as! BankPaymentCollectionViewCell
-            cell.configure(with: viewModel.payments[indexPath.row], textColor: cellTextColors)
-//            cell.backgroundColor = .red
+            let occurrence = viewModel.filteredPayments[indexPath.row]
+            cell.configure(with: occurrence, textColor: cellTextColors)
             return cell
         }
         
@@ -307,17 +343,17 @@ extension DashboardViewController: UICollectionViewDelegateFlowLayout {
             let spacing: CGFloat = 25
             let totalSpacing = (spacing * 2) // 2 cells + 3 spaces
             let cellWidth = (screenWidth - totalSpacing) / 2 // Two cells per row
-            let cellHeight = screenWidth / 3.2
+            let cellHeight = screenWidth / 3.7
             return CGSize(width: cellWidth, height: cellHeight)
         } else if collectionView == subscriptionCollectionView {
-            guard viewModel.subscriptions.indices.contains(indexPath.row) else {
+            guard viewModel.filteredSubscriptions.indices.contains(indexPath.row) else {
                 return CGSize(width: 100, height: 50)
             }
-
-            let subscription = viewModel.subscriptions[indexPath.row]
+            
+            let subscription = viewModel.filteredSubscriptions[indexPath.row]
             let label = UILabel()
             label.font = .systemFont(ofSize: 16, weight: .regular)
-            label.text = (subscription.subscriptionDescription ?? "") + String(subscription.amount)
+            label.text = subscription.subscriptionDescription + String(subscription.amount)
             label.sizeToFit()
             let width = min(label.frame.width + 70, label.frame.width + 100)
             return CGSize(width: width, height: UIScreen.main.bounds.height / 20)
@@ -337,9 +373,4 @@ extension DashboardViewController: UICollectionViewDelegateFlowLayout {
             return .zero
         }
     }
-}
-
-// MARK: - Preview
-#Preview {
-    DashboardViewController()
 }

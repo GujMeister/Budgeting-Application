@@ -8,7 +8,7 @@ class SubscriptionCollectionViewCell: UICollectionViewCell {
     private let customBackgroundView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 10
-        view.backgroundColor = .systemGray5
+        view.backgroundColor = .white
         view.layer.masksToBounds = false  // Ensure this is false to allow shadows
         view.layer.shadowColor = UIColor.customBlue.cgColor
         view.layer.shadowOffset = CGSize(width: 3, height: 3)
@@ -98,8 +98,8 @@ class SubscriptionCollectionViewCell: UICollectionViewCell {
     }
     
     // MARK: - Configure
-    func configure(with subscription: SubscriptionExpenseModel, textColor: UIColor) {
-        dateLabel.text = DateFormatter.localizedString(from: subscription.startDate ?? Date(), dateStyle: .medium, timeStyle: .none)
+    func configure(with subscription: SubscriptionOccurrence, textColor: UIColor) {
+        dateLabel.text = DateFormatter.localizedString(from: subscription.date, dateStyle: .medium, timeStyle: .none)
         categoryLabel.text = subscription.subscriptionDescription
         costLabel.text = PlainNumberFormatterHelper.shared.format(amount: subscription.amount)
         
@@ -107,7 +107,7 @@ class SubscriptionCollectionViewCell: UICollectionViewCell {
         categoryLabel.textColor = textColor
         costLabel.textColor = textColor
         
-        if let category = SubscriptionCategory(rawValue: subscription.category ?? "") {
+        if let category = SubscriptionCategory(rawValue: subscription.category) {
             emojiLabel.text = category.emoji
         } else {
             emojiLabel.text = "🔔"

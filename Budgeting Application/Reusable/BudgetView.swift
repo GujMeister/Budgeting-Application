@@ -23,7 +23,7 @@ class BudgetView: UIView {
     private let statusLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont(name: "Inter-SemiBold", size: 8)
+        label.font = .systemFont(ofSize: 8, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

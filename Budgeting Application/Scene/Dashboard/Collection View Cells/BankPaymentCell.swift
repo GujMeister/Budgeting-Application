@@ -1,13 +1,11 @@
 //
-//  BankPaymentCell.swift
+//  BankPaymentCollectionViewCell.swift
 //  Budgeting Application
 //
 //  Created by Luka Gujejiani on 08.07.24.
 //
 
 import UIKit
-import SwiftUI
-import CoreData
 
 class BankPaymentCollectionViewCell: UICollectionViewCell {
     
@@ -16,13 +14,8 @@ class BankPaymentCollectionViewCell: UICollectionViewCell {
     
     private let customBackgroundView: UIView = {
         let view = UIView()
-        view.layer.cornerRadius = 25
-        view.backgroundColor = .systemGray5
-        view.layer.masksToBounds = false  // Ensure this is false to allow shadows
-        view.layer.shadowColor = UIColor.customBlue.cgColor
-        view.layer.shadowOffset = CGSize(width: 3, height: 3)
-        view.layer.shadowOpacity = 0.5
-        view.layer.shadowRadius = 5
+        view.layer.cornerRadius = 15
+        view.backgroundColor = .white
         return view
     }()
     
@@ -39,7 +32,7 @@ class BankPaymentCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .label
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 32, weight: .regular)
+        label.font = .systemFont(ofSize: 26, weight: .regular)
         return label
     }()
     
@@ -48,7 +41,7 @@ class BankPaymentCollectionViewCell: UICollectionViewCell {
         label.textColor = .label
         label.textAlignment = .left
         label.numberOfLines = 2
-        label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.font = .systemFont(ofSize: 17, weight: .bold)
         return label
     }()
     
@@ -56,7 +49,7 @@ class BankPaymentCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .label
         label.textAlignment = .left
-        label.font = .systemFont(ofSize: 22, weight: .regular)
+        label.font = .systemFont(ofSize: 19, weight: .regular)
         return label
     }()
 
@@ -82,9 +75,8 @@ class BankPaymentCollectionViewCell: UICollectionViewCell {
     private func setupView() {
         contentView.addSubview(customBackgroundView)
         
-        customBackgroundView.addSubview(dateLabel)
-//        customBackgroundView.addSubview(emojiBackgroundView)
         customBackgroundView.addSubview(emojiLabel)
+        customBackgroundView.addSubview(dateLabel)
         customBackgroundView.addSubview(categoryLabel)
         customBackgroundView.addSubview(costLabel)
         customBackgroundView.addSubview(lineColorView)
@@ -106,40 +98,47 @@ class BankPaymentCollectionViewCell: UICollectionViewCell {
             lineColorView.leadingAnchor.constraint(equalTo: customBackgroundView.leadingAnchor),
             lineColorView.widthAnchor.constraint(equalTo: customBackgroundView.widthAnchor, multiplier: 0.05),
             
-            categoryLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
-            categoryLabel.topAnchor.constraint(equalTo: customBackgroundView.topAnchor, constant: 25),
+            categoryLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            categoryLabel.centerYAnchor.constraint(equalTo: emojiLabel.centerYAnchor),
             categoryLabel.trailingAnchor.constraint(equalTo: emojiLabel.trailingAnchor, constant: 10),
             
-            emojiLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20),
-            emojiLabel.trailingAnchor.constraint(equalTo: customBackgroundView.trailingAnchor, constant: -20),
+            emojiLabel.topAnchor.constraint(equalTo: topAnchor, constant: 15),
+            emojiLabel.trailingAnchor.constraint(equalTo: customBackgroundView.trailingAnchor, constant: -10),
             emojiLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2),
             emojiLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.2),
 
-            dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
-            dateLabel.bottomAnchor.constraint(equalTo: costLabel.topAnchor, constant: -8),
+            dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            dateLabel.bottomAnchor.constraint(equalTo: costLabel.topAnchor, constant: -2),
             
-            costLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
-            costLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15)
+            costLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            costLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5)
         ])
         
         customBackgroundView.clipsToBounds = true
     }
     
     // MARK: - Configure
-    func configure(with payment: PaymentExpenseModel, textColor: UIColor) {
-        dateLabel.text = DateFormatter.localizedString(from: payment.startDate ?? Date(), dateStyle: .medium, timeStyle: .none)
-        categoryLabel.text = payment.paymentDescription
-        costLabel.attributedText = NumberFormatterHelper.shared.format(amount: payment.amount, baseFont: UIFont(name: "Heebo-SemiBold", size: 50) ?? UIFont(), sizeDifference: 0.2)
+    func configure(with payment: PaymentOccurance, textColor: UIColor) {
+        dateLabel.text = formattedDate(payment.date)
+        categoryLabel.text = payment.subscriptionDescription
+        
+        costLabel.attributedText = NumberFormatterHelper.shared.format(amount: payment.amount, baseFont: UIFont(name: "Heebo-SemiBold", size: 19) ?? UIFont(), sizeDifference: 0.7)
         
         categoryLabel.textColor = textColor
         costLabel.textColor = textColor
         
-        if let category = PaymentsCategory(rawValue: payment.category ?? "") {
+        if let category = PaymentsCategory(rawValue: payment.category) {
             emojiLabel.text = category.emoji
             lineColorView.backgroundColor = category.color
         } else {
             emojiLabel.text = "🔔"
             lineColorView.backgroundColor = UIColor.red
         }
+    }
+    
+    func formattedDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM d'\(daySuffix(for: date))'"
+        return formatter.string(from: date)
     }
 }

@@ -7,24 +7,24 @@
 
 import CoreData
 
+import CoreData
+
 // MARK: - DashboardViewModel
 class DashboardViewModel {
     // MARK: - Properties
-    var budgets: [BasicExpenseBudget] = [] {
-        didSet {
-            onBudgetsUpdated?()
-        }
-    }
+    var budgets: [BasicExpenseBudget] = []
+    var subscriptions: [SubscriptionExpenseModel] = []
+    var payments: [PaymentExpenseModel] = []
     
-    var subscriptions: [SubscriptionExpenseModel] = [] {
+    // MARK: Data To Show
+    var filteredSubscriptions: [SubscriptionOccurrence] = [] {
         didSet {
             onSubscriptionsUpdated?()
         }
     }
     
-    var payments: [PaymentExpenseModel] = [] {
+    var filteredPayments: [PaymentOccurance] = [] {
         didSet {
-            print(payments)
             onPaymentsUpdated?()
         }
     }
@@ -42,7 +42,6 @@ class DashboardViewModel {
     }
 
     var onTotalBudgetedThisMonthUpdated: (() -> Void)?
-    var onBudgetsUpdated: (() -> Void)?
     var onFavoritedBudgetsUpdated: (() -> Void)?
     var onSubscriptionsUpdated: (() -> Void)?
     var onPaymentsUpdated: (() -> Void)?
@@ -57,18 +56,19 @@ class DashboardViewModel {
         fetchPayments()
         fetchSubscriptions()
         calculateTotalBudgetedThisMonth()
+        loadFilteredOccurrences()
     }
     
     deinit {
-        print("Deiniting DashboardVIEWMODEL ")
+        print("🗑️⬅️ Deiniting Dashboard VIEWMODEL")
     }
     
-    // MARK: - Load All Data
     func loadData() {
         fetchSubscriptions()
         fetchPayments()
         fetchFavoritedBudgets()
         calculateTotalBudgetedThisMonth()
+        loadFilteredOccurrences()
     }
     
     func calculateTotalBudgetedThisMonth() {
@@ -77,6 +77,21 @@ class DashboardViewModel {
         let totalSubscriptions = subscriptions.reduce(0) { $0 + $1.amount }
 
         totalBudgetedThisMonth = totalBudgeted + totalPayments + totalSubscriptions
+    }
+    
+    func loadFilteredOccurrences() {
+        let subscriptionService = SubscriptionService(context: context)
+        let paymentService = PaymentService(context: context)
+        
+        let allSubscriptionOccurrences = subscriptionService.fetchSubscriptionOccurrences()
+        let allPaymentOccurrences = paymentService.fetchPaymentOccurrences()
+        
+        let now = Date()
+        let filteredSubscriptions = allSubscriptionOccurrences.filter { $0.date >= now }
+        let filteredPayments = allPaymentOccurrences.filter { $0.date >= now }
+        
+        self.filteredSubscriptions = Array(filteredSubscriptions.sorted(by: { $0.date < $1.date }).prefix(5))
+        self.filteredPayments = Array(filteredPayments.sorted(by: { $0.date < $1.date }).prefix(4))
     }
     
     // MARK: - Budgets
