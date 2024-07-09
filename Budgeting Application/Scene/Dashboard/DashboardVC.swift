@@ -1,11 +1,14 @@
-import UIKit
-import CoreData
+//
+//  DashboardVC.swift
+//  PersonalFinance
+//
+//  Created by Luka Gujejiani on 30.06.24.
 
-class DashboardViewController: UIViewController {
-    
+import UIKit
+
+final class DashboardViewController: UIViewController {
     // MARK: - Properties
     private let viewModel: DashboardViewModel
-    
     private var viewBackgroundColors = UIColor.customLightBlue
     private var backgroundColor = UIColor.customBackground
     private var textColor = UIColor.black
@@ -42,6 +45,10 @@ class DashboardViewController: UIViewController {
         button.tintColor = textColor
         button.semanticContentAttribute = .forceRightToLeft
         
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.pushBudgetsViewController()
+        }), for: .touchUpInside)
+        
         return button
     }()
     
@@ -69,6 +76,10 @@ class DashboardViewController: UIViewController {
         button.setImage(chevron, for: .normal)
         button.tintColor = textColor
         button.semanticContentAttribute = .forceRightToLeft
+        
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.pushRecurringViewController()
+        }), for: .touchUpInside)
         
         return button
     }()
@@ -174,20 +185,17 @@ class DashboardViewController: UIViewController {
         }
         
         NSLayoutConstraint.activate([
-            // ScrollView constraints
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            // ContentView constraints
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            
-            // InfoView constraints
+    
             infoView.topAnchor.constraint(equalTo: contentView.topAnchor),
             infoView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             infoView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
@@ -207,8 +215,7 @@ class DashboardViewController: UIViewController {
             
             upcomingButton.topAnchor.constraint(equalTo: budgetStackView.bottomAnchor, constant: 40),
             upcomingButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            
-            //Subscriptions View
+
             subscriptionBackgroundView.topAnchor.constraint(equalTo: subscriptionCollectionView.topAnchor, constant: 0),
             subscriptionBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             subscriptionBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
@@ -222,8 +229,7 @@ class DashboardViewController: UIViewController {
             subscriptionCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
             subscriptionCollectionView.topAnchor.constraint(equalTo: upcomingButton.bottomAnchor, constant: 5),
             subscriptionCollectionView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 12),
-            
-            //Payments View
+
             paymentsBackgroundView.topAnchor.constraint(equalTo: paymentCollectionView.topAnchor, constant: 0),
             paymentsBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             paymentsBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
@@ -263,13 +269,11 @@ class DashboardViewController: UIViewController {
     
     // MARK: - Actions
     private func pushBudgetsViewController() {
-        let budgetsVC = BudgetsViewController()
-        navigationController?.pushViewController(budgetsVC, animated: true)
+        tabBarController?.selectedIndex = 2
     }
-
+    
     private func pushRecurringViewController() {
-        let recurringVC = RecurringViewController()
-        navigationController?.pushViewController(recurringVC, animated: true)
+        tabBarController?.selectedIndex = 1
     }
     
     // MARK: - Helper Functions
@@ -319,7 +323,7 @@ extension DashboardViewController: UICollectionViewDataSource {
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SubscriptionCollectionViewCell.reuseIdentifier, for: indexPath) as! SubscriptionCollectionViewCell
             let occurrence = viewModel.filteredSubscriptions[indexPath.row]
-            cell.configure(with: occurrence, textColor: cellTextColors)
+            cell.configure(with: occurrence)
             return cell
             
         } else if collectionView == paymentCollectionView {
@@ -352,10 +356,10 @@ extension DashboardViewController: UICollectionViewDelegateFlowLayout {
             
             let subscription = viewModel.filteredSubscriptions[indexPath.row]
             let label = UILabel()
-            label.font = .systemFont(ofSize: 16, weight: .regular)
+            label.font = .systemFont(ofSize: 18, weight: .regular)
             label.text = subscription.subscriptionDescription + String(subscription.amount)
             label.sizeToFit()
-            let width = min(label.frame.width + 70, label.frame.width + 100)
+            let width = max(label.frame.width + 50, label.frame.width + 60)
             return CGSize(width: width, height: UIScreen.main.bounds.height / 20)
         } else {
             return CGSize(width: 100, height: 50)

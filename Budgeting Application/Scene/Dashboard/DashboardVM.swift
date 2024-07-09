@@ -1,22 +1,19 @@
 //
 //  DashboardVM.swift
-//  PersonalFinanceV2
+//  PersonalFinance
 //
 //  Created by Luka Gujejiani on 30.06.24.
 //
 
 import CoreData
 
-import CoreData
-
-// MARK: - DashboardViewModel
-class DashboardViewModel {
+final class DashboardViewModel {
     // MARK: - Properties
     var budgets: [BasicExpenseBudget] = []
     var subscriptions: [SubscriptionExpenseModel] = []
     var payments: [PaymentExpenseModel] = []
     
-    // MARK: Data To Show
+    //Data To Show
     var filteredSubscriptions: [SubscriptionOccurrence] = [] {
         didSet {
             onSubscriptionsUpdated?()
@@ -63,6 +60,7 @@ class DashboardViewModel {
         print("🗑️⬅️ Deiniting Dashboard VIEWMODEL")
     }
     
+    // MARK: - Helper Functions
     func loadData() {
         fetchSubscriptions()
         fetchPayments()
@@ -71,7 +69,7 @@ class DashboardViewModel {
         loadFilteredOccurrences()
     }
     
-    func calculateTotalBudgetedThisMonth() {
+    private func calculateTotalBudgetedThisMonth() {
         let totalBudgeted = budgets.reduce(0) { $0 + $1.totalAmount }
         let totalPayments = payments.reduce(0) { $0 + $1.amount }
         let totalSubscriptions = subscriptions.reduce(0) { $0 + $1.amount }
@@ -79,7 +77,7 @@ class DashboardViewModel {
         totalBudgetedThisMonth = totalBudgeted + totalPayments + totalSubscriptions
     }
     
-    func loadFilteredOccurrences() {
+    private func loadFilteredOccurrences() {
         let subscriptionService = SubscriptionService(context: context)
         let paymentService = PaymentService(context: context)
         
@@ -94,8 +92,7 @@ class DashboardViewModel {
         self.filteredPayments = Array(filteredPayments.sorted(by: { $0.date < $1.date }).prefix(4))
     }
     
-    // MARK: - Budgets
-    func fetchFavoritedBudgets() {
+    private func fetchFavoritedBudgets() {
         loadBudgets()
         DataManager.shared.fetchFavoriteBudgets()
         
@@ -104,19 +101,17 @@ class DashboardViewModel {
         onFavoritedBudgetsUpdated?()
     }
     
-    func loadBudgets() {
+    private func loadBudgets() {
         let service = BasicExpenseService(context: context)
         budgets = service.fetchBasicExpenseBudgets()
     }
 
-    // MARK: - Subscriptions
-    func fetchSubscriptions() {
+    private func fetchSubscriptions() {
         DataManager.shared.fetchSubscriptionExpenses()
         subscriptions = DataManager.shared.subscriptionExpenseModelList
     }
     
-    // MARK: - Payments
-    func fetchPayments() {
+    private func fetchPayments() {
         DataManager.shared.FetchPaymentExpenses()
         payments = DataManager.shared.PaymentExpenseModelList
     }

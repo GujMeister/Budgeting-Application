@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BankPaymentCollectionViewCell: UICollectionViewCell {
+final class BankPaymentCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
     static let reuseIdentifier = "BankPaymentCollectionViewCell"
@@ -24,7 +24,7 @@ class BankPaymentCollectionViewCell: UICollectionViewCell {
         label.textColor = .systemGray2
         label.textAlignment = .left
         label.text = "1 Apr"
-        label.font = .systemFont(ofSize: 12, weight: .regular)
+        label.font = UIFont(name: "ChesnaGrotesk-Regular", size: 12)
         return label
     }()
     
@@ -41,15 +41,15 @@ class BankPaymentCollectionViewCell: UICollectionViewCell {
         label.textColor = .label
         label.textAlignment = .left
         label.numberOfLines = 2
-        label.font = .systemFont(ofSize: 17, weight: .bold)
+        label.font = UIFont(name: "ChesnaGrotesk-Bold", size: 20)
         return label
     }()
     
     private let costLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .label
+        label.textColor = UIColor(hex: "#252525")
         label.textAlignment = .left
-        label.font = .systemFont(ofSize: 19, weight: .regular)
+        label.font = UIFont(name: "ChesnaGrotesk-Bold", size: 17)
         return label
     }()
 
@@ -122,7 +122,7 @@ class BankPaymentCollectionViewCell: UICollectionViewCell {
         dateLabel.text = formattedDate(payment.date)
         categoryLabel.text = payment.subscriptionDescription
         
-        costLabel.attributedText = NumberFormatterHelper.shared.format(amount: payment.amount, baseFont: UIFont(name: "Heebo-SemiBold", size: 19) ?? UIFont(), sizeDifference: 0.7)
+        costLabel.attributedText = NumberFormatterHelper.shared.format(amount: payment.amount, baseFont: UIFont(name: "Heebo-SemiBold", size: 17) ?? UIFont(), sizeDifference: 0.8)
         
         categoryLabel.textColor = textColor
         costLabel.textColor = textColor
