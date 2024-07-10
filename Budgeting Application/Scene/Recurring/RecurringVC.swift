@@ -16,7 +16,7 @@ struct RecurringPage: View {
         VStack {
             ZStack {
                 CustomSegmentedControlViewRepresentable(
-                    color: .customLightBlue,
+                    color: UIColor(hex: "535C91"),
                     controlItems: ["Subscriptions", "Payments", "Overview"],
                     defaultIndex: viewModel.selectedSegmentIndex,
                     segmentChangeCallback: { index in
@@ -50,7 +50,7 @@ struct RecurringPage: View {
                         }
                     } label: {
                         Text(viewModel.selectedTimePeriod.rawValue.uppercased())
-                            .font(.headline)
+                            .font(.custom("ChesnaGrotesk-Bold", size: 16))
                             .foregroundStyle(.black)
                         Image(systemName: "chevron.down")
                             .foregroundStyle(.black)
@@ -64,6 +64,7 @@ struct RecurringPage: View {
                 if viewModel.selectedSegmentIndex == 2 {
                     Button(action: {
                         isEditing.toggle()
+                        viewModel.loadOverviewExpenses()
                     }) {
                         Text(isEditing ? "Done" : "Edit")
                             .foregroundStyle(.black)
@@ -82,7 +83,7 @@ struct RecurringPage: View {
                 }
             }
             .padding([.leading, .trailing])
-            .padding(.top, -95)
+            .padding(.top, -105)
             
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 20) {
@@ -157,32 +158,32 @@ struct RecurringPage: View {
                 }
                 .padding()
             }
-            .onAppear {
-                viewModel.loadOccurrences()
-                viewModel.loadAllExpenses()
-            }
-            .padding(.top, -70)
+            .padding(.top, -80)
         }
         .background(
             Color(UIColor.customBackground)
         )
-        .onAppear {
-            viewModel.loadOccurrences()
-            viewModel.loadAllExpenses()
-        }
     }
     
     // MARK: - Helper Functions
     private func presentAddSubscriptionVC() {
         let addSubscriptionVC = AddSubscriptionVC()
-        addSubscriptionVC.delegate = viewModel as? any AddSubscriptionDelegate
-        UIApplication.shared.windows.first?.rootViewController?.present(addSubscriptionVC, animated: true, completion: nil)
+        addSubscriptionVC.delegate = viewModel as any AddSubscriptionDelegate as any AddSubscriptionDelegate
+        
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first {
+            window.rootViewController?.present(addSubscriptionVC, animated: true, completion: nil)
+        }
     }
     
     private func presentAddPaymentVC() {
         let addPaymentVC = AddPaymentVC()
-        addPaymentVC.delegate = viewModel as? any AddPaymentDelegate
-        UIApplication.shared.windows.first?.rootViewController?.present(addPaymentVC, animated: true, completion: nil)
+        addPaymentVC.delegate = viewModel as any AddPaymentDelegate as any AddPaymentDelegate
+        
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first {
+            window.rootViewController?.present(addPaymentVC, animated: true, completion: nil)
+        }
     }
     
     private func totalBudgetedMoneyHelper() -> Double {
@@ -214,16 +215,16 @@ struct EditableRecurringView: View {
                 HStack {
                     VStack(alignment: .leading) {
                         Text(paymentDescription)
-                            .font(.custom("Heebo-SemiBold", size: 20))
-                            .lineLimit(1)
+                            .font(.custom("ChesnaGrotesk-Bold", size: 18))
+                            .lineLimit(2)
                             .foregroundColor(.black)
                         
                         Text(PlainNumberFormatterHelper.shared.format(amount: amount))
-                            .font(.custom("Inter-Regular", size: 15))
+                            .font(.custom("ChesnaGrotesk-Regular", size: 12))
                             .foregroundStyle(.black)
                         
                         Text("Every month on \(Calendar.current.component(.day, from: date))\(daySuffix(for: date))")
-                            .font(.caption)
+                            .font(.custom("ChesnaGrotesk-Regular", size: 12))
                             .foregroundColor(.secondary)
                             .padding(.top, 10)
                     }
@@ -240,7 +241,7 @@ struct EditableRecurringView: View {
             }
         }
         .padding()
-        .background(Color(UIColor.systemGray5))
+        .background(Color(UIColor.white))
         .cornerRadius(15)
     }
 }
@@ -266,22 +267,22 @@ struct RecurringView: View {
                 HStack {
                     VStack(alignment: .leading) {
                         Text(paymentDescription)
-                            .font(.custom("Heebo-SemiBold", size: 20))
-                            .lineLimit(1)
+                            .font(.custom("ChesnaGrotesk-Bold", size: 18))
+                            .lineLimit(2)
                             .foregroundColor(.black)
                         
                         Text(PlainNumberFormatterHelper.shared.format(amount: amount))
-                            .font(.custom("Inter-Regular", size: 15))
+                            .font(.custom("ChesnaGrotesk-Regular", size: 12))
                             .foregroundStyle(.black)
                         
                         if isOverview {
                             Text("Every month on \(Calendar.current.component(.day, from: date))\(daySuffix(for: date))")
-                                .font(.caption)
+                                .font(.custom("ChesnaGrotesk-Regular", size: 12))
                                 .foregroundColor(.secondary)
                                 .padding(.top, 10)
                         } else {
                             Text(DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none))
-                                .font(.caption)
+                                .font(.custom("ChesnaGrotesk-Regular", size: 12))
                                 .foregroundColor(.secondary)
                                 .padding(.top, 10)
                         }
@@ -300,7 +301,7 @@ struct RecurringView: View {
             }
         }
         .padding()
-        .background(Color(UIColor.systemGray5))
+        .background(Color(UIColor.white))
         .cornerRadius(15)
     }
 }

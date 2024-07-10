@@ -18,7 +18,7 @@ class NavigationRectangle: UIView {
         let label = UILabel()
         label.textColor = .label
         label.textAlignment = .center
-        label.font = UIFont(name: "Heebo-SemiBold", size: 36)
+        label.font = UIFont(name: "Heebo-SemiBold", size: 40)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -28,7 +28,7 @@ class NavigationRectangle: UIView {
         let label = UILabel()
         label.textColor = .label
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 14, weight: .regular)
+        label.font = UIFont(name: "ChesnaGrotesk-Regular", size: 14)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

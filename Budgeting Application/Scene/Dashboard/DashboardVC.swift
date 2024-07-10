@@ -37,9 +37,9 @@ final class DashboardViewController: UIViewController {
     private lazy var budgetingButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Budgets", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
+        button.titleLabel?.font = UIFont(name: "ChesnaGrotesk-Bold", size: 14)
         
-        let config = UIImage.SymbolConfiguration(pointSize: 10) // Desired size
+        let config = UIImage.SymbolConfiguration(pointSize: 9)
         let chevron = UIImage(systemName: "chevron.right", withConfiguration: config)
         button.setImage(chevron, for: .normal)
         button.tintColor = textColor
@@ -69,9 +69,9 @@ final class DashboardViewController: UIViewController {
     private lazy var upcomingButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Upcoming", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
+        button.titleLabel?.font = UIFont(name: "ChesnaGrotesk-Bold", size: 14)
         
-        let config = UIImage.SymbolConfiguration(pointSize: 10)
+        let config = UIImage.SymbolConfiguration(pointSize: 9)
         let chevron = UIImage(systemName: "chevron.right", withConfiguration: config)
         button.setImage(chevron, for: .normal)
         button.tintColor = textColor
