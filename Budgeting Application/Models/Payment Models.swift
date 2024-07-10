@@ -277,3 +277,12 @@ enum TimePeriodBackwards: String, CaseIterable {
     case lastWeek = "Last Week"
     case lastMonth = "Last Month"
 }
+
+enum TimePeriod: String, CaseIterable {
+    case thisWeek = "This Week"
+    case thisTwoWeeks = "This Two Weeks"
+    case thisMonth = "This Month"
+    case threeMonths = "3 Months"
+    case sixMonths = "6 Months"
+    case year = "Year"
+}

@@ -1,13 +1,22 @@
 import SwiftUI
 import CoreData
 
-class RecurringPageViewModel: ObservableObject {
-    @Published var allSubscriptionOccurrences: [SubscriptionOccurrence] = []
-    @Published var allPaymentOccurrences: [PaymentOccurance] = []
+final class RecurringPageViewModel: ObservableObject {
+    // MARK: - Properties
+    private var allSubscriptionOccurrences: [SubscriptionOccurrence] = []
+    private var allPaymentOccurrences: [PaymentOccurance] = []
+    private var context: NSManagedObjectContext {
+        return DataManager.shared.context
+    }
+    
+    @Published var allSubscriptionExpenses: [SubscriptionExpense] = []
+    @Published var allPaymentExpenses: [PaymentExpense] = []
     @Published var filteredSubscriptionOccurrences: [SubscriptionOccurrence] = []
     @Published var filteredPaymentOccurrences: [PaymentOccurance] = []
     @Published var totalBudgeted: Double = 0.0
     @Published var listTotalBudgeted: Double = 0.0
+    @Published var descriptionLabelText: String = ""
+    
     @Published var selectedSegmentIndex: Int = 0 {
         didSet {
             loadOccurrences()
@@ -22,25 +31,19 @@ class RecurringPageViewModel: ObservableObject {
         }
     }
     
-    @Published var descriptionLabelText: String = ""
-    
-    // MARK: - Combined Properties
-    @Published var allSubscriptionExpenses: [SubscriptionExpense] = []
-    @Published var allPaymentExpenses: [PaymentExpense] = []
-    
-    private var context: NSManagedObjectContext {
-        return DataManager.shared.context
-    }
-    
     // MARK: - Initialization
     init() {
         loadOccurrences()
-        loadAllExpenses()
+        loadOverviewExpenses()
         updateDescriptionLabelText()
     }
     
-    // MARK: - Overview View Functions
-    func loadAllExpenses() {
+    deinit {
+        print("🗑️⬅️ Deiniting Recurring VIEWMODEL")
+    }
+    
+    // MARK: - Overview
+    func loadOverviewExpenses() {
         DataManager.shared.fetchSubscriptionExpenses()
         DataManager.shared.FetchPaymentExpenses()
         
@@ -68,6 +71,7 @@ class RecurringPageViewModel: ObservableObject {
         allPaymentExpenses.reduce(0) { $0 + $1.amount }
     }
     
+    // MARK: Deleting
     func deleteSubscriptionExpense(_ subscription: SubscriptionExpense) {
         if let index = allSubscriptionExpenses.firstIndex(where: { $0.subscriptionDescription == subscription.subscriptionDescription }) {
             allSubscriptionExpenses.remove(at: index)
@@ -89,7 +93,7 @@ class RecurringPageViewModel: ObservableObject {
     }
     
     // MARK: - Occurancies Functions
-    func loadOccurrences() {
+    private func loadOccurrences() {
         loadSubscriptions()
         loadPayments()
         filterOccurrences()
@@ -112,12 +116,12 @@ class RecurringPageViewModel: ObservableObject {
         let now = Date()
         
         switch selectedTimePeriod {
-        case .thisWeek:
+        case .thisWeek: //works
             let startOfWeek = calendar.dateInterval(of: .weekOfYear, for: now)?.start ?? now
             let endOfWeek = calendar.dateInterval(of: .weekOfYear, for: now)?.end ?? now
             filteredSubscriptionOccurrences = allSubscriptionOccurrences.filter { $0.date >= startOfWeek && $0.date < endOfWeek }
             filteredPaymentOccurrences = allPaymentOccurrences.filter { $0.date >= startOfWeek && $0.date < endOfWeek }
-        case .thisTwoWeeks:
+        case .thisTwoWeeks: //works
             let startOfWeek = calendar.dateInterval(of: .weekOfYear, for: now)?.start ?? now
             let twoWeeksFromNow = calendar.date(byAdding: .day, value: 14, to: startOfWeek) ?? now
             filteredSubscriptionOccurrences = allSubscriptionOccurrences.filter { $0.date >= startOfWeek && $0.date < twoWeeksFromNow }
@@ -125,21 +129,22 @@ class RecurringPageViewModel: ObservableObject {
         case .thisMonth:
             let startOfMonth = calendar.dateInterval(of: .month, for: now)?.start ?? now
             let endOfMonth = calendar.dateInterval(of: .month, for: now)?.end ?? now
-            filteredSubscriptionOccurrences = allSubscriptionOccurrences.filter { $0.date >= startOfMonth && $0.date < endOfMonth }
-            filteredPaymentOccurrences = allPaymentOccurrences.filter { $0.date >= startOfMonth && $0.date < endOfMonth }
+            filteredSubscriptionOccurrences = allSubscriptionOccurrences.filter { $0.date >= now && $0.date < endOfMonth }
+            filteredPaymentOccurrences = allPaymentOccurrences.filter { $0.date >= now && $0.date < endOfMonth }
         case .threeMonths:
             let threeMonthsFromNow = calendar.date(byAdding: .month, value: 3, to: now) ?? now
-            filteredSubscriptionOccurrences = allSubscriptionOccurrences.filter { $0.date <= threeMonthsFromNow }
-            filteredPaymentOccurrences = allPaymentOccurrences.filter { $0.date <= threeMonthsFromNow }
+            filteredSubscriptionOccurrences = allSubscriptionOccurrences.filter { $0.date >= now && $0.date <= threeMonthsFromNow }
+            filteredPaymentOccurrences = allPaymentOccurrences.filter { $0.date >= now && $0.date <= threeMonthsFromNow }
         case .sixMonths:
             let sixMonthsFromNow = calendar.date(byAdding: .month, value: 6, to: now) ?? now
-            filteredSubscriptionOccurrences = allSubscriptionOccurrences.filter { $0.date <= sixMonthsFromNow }
-            filteredPaymentOccurrences = allPaymentOccurrences.filter { $0.date <= sixMonthsFromNow }
+            filteredSubscriptionOccurrences = allSubscriptionOccurrences.filter { $0.date >= now && $0.date <= sixMonthsFromNow }
+            filteredPaymentOccurrences = allPaymentOccurrences.filter { $0.date >= now && $0.date <= sixMonthsFromNow }
         case .year:
             let yearFromNow = calendar.date(byAdding: .year, value: 1, to: now) ?? now
-            filteredSubscriptionOccurrences = allSubscriptionOccurrences.filter { $0.date <= yearFromNow }
-            filteredPaymentOccurrences = allPaymentOccurrences.filter { $0.date <= yearFromNow }
+            filteredSubscriptionOccurrences = allSubscriptionOccurrences.filter { $0.date >= now && $0.date <= yearFromNow }
+            filteredPaymentOccurrences = allPaymentOccurrences.filter { $0.date >= now && $0.date <= yearFromNow }
         }
+        
         
         DispatchQueue.main.async {
             self.totalBudgeted = self.calculateTotalBudgeted()
@@ -159,17 +164,23 @@ class RecurringPageViewModel: ObservableObject {
             descriptionLabelText = "Total Monthly Expenditure"
         } else {
             let segmentName = selectedSegmentIndex == 0 ? "Subscriptions" : "Bank Payments"
-            descriptionLabelText = "\(segmentName) Budgeted: \(selectedTimePeriod.rawValue)"
+            descriptionLabelText = "\(segmentName) Left: \(selectedTimePeriod.rawValue)"
         }
     }
 }
 
+extension RecurringPageViewModel: AddPaymentDelegate {
+    func didAddPayment(_ payment: PaymentExpenseModel) {
+        loadOccurrences()
+        loadOverviewExpenses()
+        updateDescriptionLabelText()
+    }
+}
 
-enum TimePeriod: String, CaseIterable {
-    case thisWeek = "This Week"
-    case thisTwoWeeks = "This Two Weeks"
-    case thisMonth = "This Month"
-    case threeMonths = "3 Months"
-    case sixMonths = "6 Months"
-    case year = "Year"
+extension RecurringPageViewModel: AddSubscriptionDelegate {
+    func didAddSubscription(_ subscription: SubscriptionExpenseModel) {
+        loadOccurrences()
+        loadOverviewExpenses()
+        updateDescriptionLabelText()
+    }
 }

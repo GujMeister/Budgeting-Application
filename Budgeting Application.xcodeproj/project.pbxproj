@@ -257,29 +257,13 @@
 			path = Dashboard;
 			sourceTree = "<group>";
 		};
-		853A3D992C3593A40042A0A4 /* Extracted VCs */ = {
-			isa = PBXGroup;
-			children = (
-				853A3D9A2C3593A40042A0A4 /* AddBudgetsVC.swift */,
-				853A3D982C3593A40042A0A4 /* AddSubscriptionVC.swift */,
-				85B85B042C36D83100AAD046 /* AddExpenseVC.swift */,
-				85B85B2F2C3AE06800AAD046 /* AddPaymentVC.swift */,
-			);
-			path = "Extracted VCs";
-			sourceTree = "<group>";
-		};
-		853A3D9B2C3593A40042A0A4 /* Add Categories */ = {
-			isa = PBXGroup;
-			children = (
-				853A3D992C3593A40042A0A4 /* Extracted VCs */,
-			);
-			path = "Add Categories";
-			sourceTree = "<group>";
-		};
 		853A3D9C2C3593A40042A0A4 /* Minor Scenes ⭐️ */ = {
 			isa = PBXGroup;
 			children = (
-				853A3D9B2C3593A40042A0A4 /* Add Categories */,
+				85B85B2F2C3AE06800AAD046 /* AddPaymentVC.swift */,
+				853A3D982C3593A40042A0A4 /* AddSubscriptionVC.swift */,
+				853A3D9A2C3593A40042A0A4 /* AddBudgetsVC.swift */,
+				85B85B042C36D83100AAD046 /* AddExpenseVC.swift */,
 			);
 			path = "Minor Scenes ⭐️";
 			sourceTree = "<group>";
