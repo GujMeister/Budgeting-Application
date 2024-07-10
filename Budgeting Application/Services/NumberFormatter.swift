@@ -57,7 +57,13 @@ class PlainNumberFormatterHelper {
         formatter.numberStyle = .currency
         formatter.locale = Locale(identifier: "en_US") // Ensures the dollar sign is in the front
         formatter.currencySymbol = "$"
-        formatter.minimumFractionDigits = 2
+        
+        // Custom logic to handle the fraction digits
+        if floor(amount) == amount {
+            formatter.minimumFractionDigits = 0
+        } else {
+            formatter.minimumFractionDigits = 2
+        }
         formatter.maximumFractionDigits = 2
         
         let formattedNumber = formatter.string(from: NSNumber(value: amount)) ?? "$0.00"

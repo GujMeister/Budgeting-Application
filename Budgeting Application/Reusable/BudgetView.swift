@@ -15,7 +15,7 @@ class BudgetView: UIView {
     private let amountLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont(name: "Inter-SemiBold", size: 12)
+        label.font = UIFont(name: "ChesnaGrotesk-Bold", size: 12)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -23,14 +23,14 @@ class BudgetView: UIView {
     private let statusLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont(name: "Inter-SemiBold", size: 8)
+        label.font = UIFont(name: "ChesnaGrotesk-Regular", size: 10)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     var budget: BasicExpenseBudget? {
         didSet {
-            updateView()
+            updateView(textColor: .black)
         }
     }
     
@@ -59,7 +59,7 @@ class BudgetView: UIView {
             emojiView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             
             amountLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            amountLabel.topAnchor.constraint(equalTo: emojiView.bottomAnchor, constant: 23),
+            amountLabel.topAnchor.constraint(equalTo: emojiView.bottomAnchor, constant: 30),
             
             statusLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             statusLabel.topAnchor.constraint(equalTo: amountLabel.bottomAnchor)
@@ -90,7 +90,7 @@ class BudgetView: UIView {
     }
     
     // MARK: - Update View
-    private func updateView() {
+    private func updateView(textColor: UIColor) {
         guard let budget = budget else { return }
         
         let remainingPercentage = min(CGFloat(budget.remainingPercentage), 1.0)
@@ -106,11 +106,14 @@ class BudgetView: UIView {
         
         let remainingAmount = budget.remainingAmount
         
-        amountLabel.text = PlainNumberFormatterHelper.shared.format(amount: remainingAmount)
+        amountLabel.text = PlainNumberFormatterHelper.shared.format(amount: abs(remainingAmount))
         
         statusLabel.text = remainingAmount < 0 ? "over" : "under"
         
         emojiView.text = budget.category.emoji
+        
+        amountLabel.textColor = textColor
+        statusLabel.textColor = textColor
     }
 }
 

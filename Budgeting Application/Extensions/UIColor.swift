@@ -9,7 +9,7 @@ import UIKit
 
 extension UIColor {
     static let customBlue = UIColor(hex: "1B1A55")
-    static let customLightBlue = UIColor(hex: "535C91")
+    static let customLightBlue = UIColor(hex: "#adb2d0")
     static let customBackground = UIColor(hex: "f4f3f9")
     
     convenience init(hex: String) {
