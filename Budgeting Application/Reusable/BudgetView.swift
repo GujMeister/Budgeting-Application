@@ -15,7 +15,7 @@ class BudgetView: UIView {
     private let amountLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont(name: "Inter-SemiBold", size: 12)
+        label.font = UIFont(name: "ChesnaGrotesk-Bold", size: 12)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -23,7 +23,7 @@ class BudgetView: UIView {
     private let statusLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 8, weight: .regular)
+        label.font = UIFont(name: "ChesnaGrotesk-Regular", size: 10)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
