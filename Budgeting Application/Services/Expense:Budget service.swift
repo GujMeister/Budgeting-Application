@@ -14,6 +14,12 @@ class BasicExpenseService {
         self.context = context
     }
     
+    private func startOfCurrentMonth() -> Date? {
+        let calendar = Calendar.current
+        let now = Date()
+        return calendar.date(from: calendar.dateComponents([.year, .month], from: now))
+    }
+    
     func fetchBasicExpenses() -> [BasicExpense] {
         var expenses: [BasicExpense] = []
         
@@ -83,10 +89,13 @@ class BasicExpenseService {
     func deleteBasicExpense(expense: BasicExpense) {
         let request: NSFetchRequest<BasicExpenseModel> = BasicExpenseModel.fetchRequest() as! NSFetchRequest<BasicExpenseModel>
         request.predicate = NSPredicate(format: "expenseDescription == %@ AND date == %@", expense.expenseDescription, expense.date as NSDate)
-        
+
         do {
             let coreDataExpenses = try context.fetch(request)
             if let expenseToDelete = coreDataExpenses.first {
+                // Update the budget before deleting the expense:
+                updateBudget(for: expenseToDelete, isDeleting: true)
+
                 context.delete(expenseToDelete)
                 try context.save()
             }
@@ -94,27 +103,88 @@ class BasicExpenseService {
             print("Failed to delete expense: \(error)")
         }
     }
-    
-    // MARK: - Budgets
-    private func updateBudget(for expense: BasicExpenseModel) {
+
+    private func updateBudget(for expense: BasicExpenseModel, isDeleting: Bool = false) {
         guard let categoryString = expense.category,
-              let category = BasicExpenseCategory(rawValue: categoryString) else {
+              let category = BasicExpenseCategory(rawValue: categoryString),
+              let startOfMonth = startOfCurrentMonth() else {
             return
         }
-        
+
         let request: NSFetchRequest<BasicExpenseBudgetModel> = BasicExpenseBudgetModel.fetchRequest() as! NSFetchRequest<BasicExpenseBudgetModel>
         request.predicate = NSPredicate(format: "category == %@", category.rawValue)
-        
+
         do {
             let budgets = try context.fetch(request)
             if let budget = budgets.first {
-                budget.spentAmount = NSNumber(value: budget.spentAmount.doubleValue + expense.amount.doubleValue)
+                // Fetch all expenses for the category from the start of the month
+                let expenseRequest: NSFetchRequest<BasicExpenseModel> = BasicExpenseModel.fetchRequest() as! NSFetchRequest<BasicExpenseModel>
+                expenseRequest.predicate = NSPredicate(format: "category == %@ AND date >= %@", category.rawValue, startOfMonth as NSDate)
+                let expenses = try context.fetch(expenseRequest)
                 
-                // Save updated budgets to UserDefaults
-                saveUpdatedBudgets()
+                // Calculate the total spent amount for the category from the start of the month
+                let totalSpent = expenses.reduce(0) { $0 + $1.amount.doubleValue }
+                
+                if isDeleting {
+                    budget.spentAmount = NSNumber(value: totalSpent - expense.amount.doubleValue)
+                } else {
+                    budget.spentAmount = NSNumber(value: totalSpent + expense.amount.doubleValue)
+                }
+
+                // Save the updated budget to Core Data
+                try context.save()
             }
         } catch {
-            print("Failed to fetch budget for category \(category.rawValue): \(error)")
+            print("Failed to fetch or update budget for category \(category.rawValue): \(error)")
+        }
+    }
+    
+    // MARK: - Budgets
+//    private func updateBudget(for expense: BasicExpenseModel) {
+//        guard let categoryString = expense.category,
+//              let category = BasicExpenseCategory(rawValue: categoryString) else {
+//            return
+//        }
+//        
+//        let request: NSFetchRequest<BasicExpenseBudgetModel> = BasicExpenseBudgetModel.fetchRequest() as! NSFetchRequest<BasicExpenseBudgetModel>
+//        request.predicate = NSPredicate(format: "category == %@", category.rawValue)
+//        
+//        do {
+//            let budgets = try context.fetch(request)
+//            if let budget = budgets.first {
+//                budget.spentAmount = NSNumber(value: budget.spentAmount.doubleValue + expense.amount.doubleValue)
+//                
+//                // Save updated budgets to UserDefaults
+//                saveUpdatedBudgets()
+//            }
+//        } catch {
+//            print("Failed to fetch budget for category \(category.rawValue): \(error)")
+//        }
+//    }
+    
+    func recalculateSpentAmount(for category: BasicExpenseCategory) {
+        guard let startOfMonth = startOfCurrentMonth() else { return }
+        
+        let request: NSFetchRequest<BasicExpenseBudgetModel> = BasicExpenseBudgetModel.fetchRequest() as! NSFetchRequest<BasicExpenseBudgetModel>
+        request.predicate = NSPredicate(format: "category == %@", category.rawValue)
+
+        do {
+            let budgets = try context.fetch(request)
+            if let budget = budgets.first {
+                // Fetch all expenses for the category from the start of the month
+                let expenseRequest: NSFetchRequest<BasicExpenseModel> = BasicExpenseModel.fetchRequest() as! NSFetchRequest<BasicExpenseModel>
+                expenseRequest.predicate = NSPredicate(format: "category == %@ AND date >= %@", category.rawValue, startOfMonth as NSDate)
+                let expenses = try context.fetch(expenseRequest)
+                
+                // Calculate the total spent amount for the category from the start of the month
+                let totalSpent = expenses.reduce(0) { $0 + $1.amount.doubleValue }
+                budget.spentAmount = NSNumber(value: totalSpent)
+                
+                // Save the updated budget to Core Data
+                try context.save()
+            }
+        } catch {
+            print("Failed to fetch or update budget for category \(category.rawValue): \(error)")
         }
     }
     

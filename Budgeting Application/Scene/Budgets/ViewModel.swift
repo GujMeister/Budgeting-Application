@@ -49,7 +49,7 @@ class BudgetsViewModel: NSObject {
         return expensesByDate.keys.sorted(by: >)
     }
     
-    var selectedTimePeriod: TimePeriodBackwards = .lastWeek {
+    var selectedTimePeriod: TimePeriodBackwards = .lastMonth {
         didSet {
             filterExpenses()
             updateExpensesDescription()
@@ -85,6 +85,12 @@ class BudgetsViewModel: NSObject {
     func loadBudgets() {
         allBudgets = service.fetchBasicExpenseBudgets()
         updateTotalBudgetedMoney()
+        // Recalculate spent amounts for the current month
+        allBudgets.forEach { budget in
+            if let category = BasicExpenseCategory(rawValue: budget.category.rawValue) {
+                service.recalculateSpentAmount(for: category)
+            }
+        }
     }
     
     private func updateTotalBudgetedMoney() {
@@ -156,9 +162,9 @@ class BudgetsViewModel: NSObject {
         case .today:
             let startOfToday = calendar.startOfDay(for: now)
             filtered = expenses.filter { $0.date >= startOfToday }
-        case .lastDay:
-            let dayAgo = calendar.date(byAdding: .day, value: -1, to: now) ?? now
-            filtered = expenses.filter { $0.date >= dayAgo }
+//        case .lastDay:
+//            let dayAgo = calendar.date(byAdding: .day, value: -1, to: now) ?? now
+//            filtered = expenses.filter { $0.date >= dayAgo }
         case .lastThreeDays:
             let threeDaysAgo = calendar.date(byAdding: .day, value: -3, to: now) ?? now
             filtered = expenses.filter { $0.date >= threeDaysAgo }
@@ -186,8 +192,8 @@ class BudgetsViewModel: NSObject {
         switch selectedTimePeriod {
         case .today:
             description = "Expenses Today"
-        case .lastDay:
-            description = "Expenses Last Day"
+//        case .lastDay:
+//            description = "Expenses Last Day"
         case .lastThreeDays:
             description = "Expenses Last 3 Days"
         case .lastWeek:
@@ -252,8 +258,9 @@ extension BudgetsViewModel: AddExpenseDelegate {
     }
 
     func didAddExpense(_ expense: BasicExpenseModel) {
+        print("ALALALALLALALALALALALALLALALALA _____________________________________")
         loadExpenses()
-        loadBudgets()
-        loadFavoritedBudgets()
+        onExpensesUpdated?()
+        print("ALALALALLALALALALALALALLALALALA _____________________________________")
     }
 }

@@ -16,8 +16,8 @@ class ExpensesViewController: UIViewController {
         color: UIColor(hex: "535C91"),
         controlItems: ["Budgets", "Expenses"],
         defaultIndex: 1 ) { [weak self] selectedIndex in
-        self?.handleSegmentChange(selectedIndex: selectedIndex)
-    }
+            self?.handleSegmentChange(selectedIndex: selectedIndex)
+        }
     
     private lazy var addExpenseButton: UIButton = {
         let button = UIButton()
@@ -35,9 +35,10 @@ class ExpensesViewController: UIViewController {
     
     private lazy var timePeriodButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle(TimePeriodBackwards.lastWeek.rawValue, for: .normal)
+        button.setTitle(TimePeriodBackwards.lastMonth.rawValue, for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
+        //        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
+        button.titleLabel?.font = UIFont(name: "ChesnaGrotesk-Medium", size: 14)
         button.contentHorizontalAlignment = .left
         return button
     }()
@@ -54,17 +55,17 @@ class ExpensesViewController: UIViewController {
         tableView.showsHorizontalScrollIndicator = false
         tableView.showsVerticalScrollIndicator = false
         tableView.backgroundColor = .customBackground
+        tableView.separatorStyle = .singleLine
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
     }()
-
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         setupBindings()
-        viewModel.loadBudgets()
         viewModel.loadExpenses()
         handleSegmentChange(selectedIndex: 1)
         configureTimePeriodMenu()
@@ -73,15 +74,13 @@ class ExpensesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         customSegmentedControlView.setSelectedIndex(1)
-        viewModel.loadBudgets()
-        viewModel.loadFavoritedBudgets()
         viewModel.loadExpenses()
     }
     
     // MARK: - Setup UI
     private func setupUI() {
         view.backgroundColor = .customBackground
-//        self.navigationController?.isNavigationBarHidden = true
+        //        self.navigationController?.isNavigationBarHidden = true
         
         let views = [customSegmentedControlView, infoView, addExpenseButton, timePeriodButton, chevronImageView, expensesTableView]
         
@@ -89,7 +88,7 @@ class ExpensesViewController: UIViewController {
             self.view.addSubview(view)
             view.translatesAutoresizingMaskIntoConstraints = false
         }
-
+        
         NSLayoutConstraint.activate([
             infoView.topAnchor.constraint(equalTo: view.topAnchor),
             infoView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -114,7 +113,7 @@ class ExpensesViewController: UIViewController {
             expensesTableView.topAnchor.constraint(equalTo: timePeriodButton.bottomAnchor, constant: 0),
             expensesTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
             expensesTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
-            expensesTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            expensesTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
         ])
     }
     
@@ -133,17 +132,20 @@ class ExpensesViewController: UIViewController {
         }
     }
     
+    // MARK: - Button Actions
+    private func addExpense() {
+        let addExpenseVC = AddExpenseViewController()
+        addExpenseVC.delegate = viewModel
+        self.present(addExpenseVC, animated: true, completion: nil)
+    }
+    
+    // MARK: - Helper function
     private func handleSegmentChange(selectedIndex: Int) {
         if selectedIndex == 1 {
             return
         } else {
             navigationController?.popViewController(animated: false)
         }
-    }
-
-    // MARK: - Button Actions
-    private func addExpense() {
-        self.present(AddExpenseViewController(), animated: true, completion: nil)
     }
 
     private func configureTimePeriodMenu() {
@@ -196,6 +198,12 @@ extension ExpensesViewController: UITableViewDataSource, UITableViewDelegate {
         if editingStyle == .delete {
             viewModel.deleteExpense(at: indexPath)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        guard let header = view as? UITableViewHeaderFooterView else { return }
+        header.textLabel?.textColor = UIColor.gray
+        header.textLabel?.font = UIFont(name: "ChesnaGrotesk-Medium", size: 12)
     }
 }
 
