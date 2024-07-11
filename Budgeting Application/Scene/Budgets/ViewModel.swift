@@ -9,7 +9,16 @@ import CoreData
 
 class BudgetsViewModel: NSObject {
     // MARK: - Properties
-    // Budgets
+    var onBudgetsUpdated: (() -> Void)?
+    var onFavoritedBudgetsUpdated: (() -> Void)?
+    var onExpensesUpdated: (() -> Void)?
+    var onTotalBudgetedMoneyUpdated: (() -> Void)?
+    var onTotalExpensesUpdated: (() -> Void)?
+    var onExpensesDescriptionUpdated: ((String) -> Void)?
+    var showAlertForDuplicateCategory: (() -> Void)?
+    var showAlertForMaxFavorites: (() -> Void)?
+    
+    // BudgetsVC
     var totalBudgetedMoney: Double = 0.0 {
         didSet {
             onTotalBudgetedMoneyUpdated?()
@@ -29,7 +38,7 @@ class BudgetsViewModel: NSObject {
         }
     }
     
-    // Expenses
+    // ExpensesVC
     var expensesByDate: [Date: [BasicExpense]] = [:]
     
     var totalExpenses: Double = 0.0 {
@@ -60,15 +69,7 @@ class BudgetsViewModel: NSObject {
         return DataManager.shared.context
     }
     
-    var onBudgetsUpdated: (() -> Void)?
-    var onFavoritedBudgetsUpdated: (() -> Void)?
-    var onExpensesUpdated: (() -> Void)?
-    var onTotalBudgetedMoneyUpdated: (() -> Void)?
-    var onTotalExpensesUpdated: (() -> Void)?
-    var onExpensesDescriptionUpdated: ((String) -> Void)?
-    var showAlertForDuplicateCategory: (() -> Void)?
-    var showAlertForMaxFavorites: (() -> Void)?
-    
+    static let shared = BudgetsViewModel()
     private let service: BasicExpenseService
     
     // MARK: - Lifecycle
@@ -85,7 +86,6 @@ class BudgetsViewModel: NSObject {
     func loadBudgets() {
         allBudgets = service.fetchBasicExpenseBudgets()
         updateTotalBudgetedMoney()
-        // Recalculate spent amounts for the current month
         allBudgets.forEach { budget in
             if let category = BasicExpenseCategory(rawValue: budget.category.rawValue) {
                 service.recalculateSpentAmount(for: category)
@@ -216,8 +216,6 @@ extension BudgetsViewModel: BudgetDetailViewControllerDelegate {
             showAlertForMaxFavorites?()
         }
     }
-    
-
 }
 
 // MARK: - Delegate - AddBudgetsDelegate
@@ -240,9 +238,7 @@ extension BudgetsViewModel: AddBudgetsDelegate {
             print("Failed to save new budget: \(error)")
         }
     }
-    
 
-    
     func checkForDuplicateCategory(_ category: BasicExpenseCategory) -> Bool {
         return allBudgets.contains { $0.category == category }
     }

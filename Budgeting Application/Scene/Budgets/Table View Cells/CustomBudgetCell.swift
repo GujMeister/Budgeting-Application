@@ -7,8 +7,8 @@
 
 import UIKit
 
-class CustomBudgetCell: UITableViewCell {
-    
+final class CustomBudgetCell: UITableViewCell {
+    // MARK: - Properties
     static let reuseIdentifier = "CustomBudgetCell"
     
     private let emojiLabel: UILabel = {
@@ -50,6 +50,7 @@ class CustomBudgetCell: UITableViewCell {
         return progressView
     }()
     
+    // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
@@ -59,6 +60,7 @@ class CustomBudgetCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Setup UI
     private func setupViews() {
         addSubview(emojiLabel)
         addSubview(categoryNameLabel)
@@ -97,6 +99,7 @@ class CustomBudgetCell: UITableViewCell {
         ])
     }
     
+    // MARK: - Helper function
     func configure(with budget: BasicExpenseBudget) {
 //        emojiLabel.text = budget.category.emoji
         categoryNameLabel.text = budget.category.rawValue

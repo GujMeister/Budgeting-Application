@@ -37,7 +37,6 @@ class ExpensesViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle(TimePeriodBackwards.lastMonth.rawValue, for: .normal)
         button.setTitleColor(.black, for: .normal)
-        //        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
         button.titleLabel?.font = UIFont(name: "ChesnaGrotesk-Medium", size: 14)
         button.contentHorizontalAlignment = .left
         return button
@@ -78,7 +77,6 @@ class ExpensesViewController: UIViewController {
     // MARK: - Setup UI
     private func setupUI() {
         view.backgroundColor = .customBackground
-        //        self.navigationController?.isNavigationBarHidden = true
         
         let views = [customSegmentedControlView, infoView, addExpenseButton, timePeriodButton, chevronImageView, expensesTableView]
         
@@ -129,7 +127,7 @@ class ExpensesViewController: UIViewController {
             self?.infoView.descriptionLabel.text = description
         }
     }
-    
+
     // MARK: - Button Actions
     private func addExpense() {
         let addExpenseVC = AddExpenseViewController()
@@ -149,7 +147,7 @@ class ExpensesViewController: UIViewController {
             navigationController?.popViewController(animated: false)
         }
     }
-
+    
     private func configureTimePeriodMenu() {
         let actions = TimePeriodBackwards.allCases.map { period in
             UIAction(title: period.rawValue) { [weak self] _ in

@@ -7,9 +7,9 @@
 
 import UIKit
 
-class BudgetsViewController: UIViewController {
+final class BudgetsViewController: UIViewController {
     // MARK: - Properties
-    private var viewModel = BudgetsViewModel()
+    private var viewModel: BudgetsViewModel
     
     private var infoView: NavigationRectangle = {
         let screenSize = UIScreen.main.bounds.height
@@ -72,6 +72,15 @@ class BudgetsViewController: UIViewController {
     }()
 
     // MARK: - Lifecycle
+    init(viewModel: BudgetsViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBindings()
@@ -150,14 +159,6 @@ class BudgetsViewController: UIViewController {
         viewModel.showAlertForDuplicateCategory = { [weak self] in
             let alert = UIAlertController(title: "Duplicate Category", message: "This category already exists.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self?.present(alert, animated: true, completion: nil)
-        }
-        
-        viewModel.showAlertForMaxFavorites = { [weak self] in
-            let alert = UIAlertController(title: "Favorites Limit",
-                                          message: "You can only have a maximum of 5 favorite budgets.",
-                                          preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
             self?.present(alert, animated: true, completion: nil)
         }
     }

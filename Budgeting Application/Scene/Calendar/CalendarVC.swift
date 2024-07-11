@@ -1,13 +1,13 @@
 //
-//  CalendarVC.swift
+//  CalendarViewController.swift
 //  Budgeting Application
 //
-//  Created by Luka Gujejiani on 10.07.24.
+//  Created by Luka Gujejiani on 11.07.24.
 //
 
 import UIKit
 
-class CalendarVC: UIViewController {
+class CalendarViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -12,8 +12,8 @@ protocol AddExpenseDelegate: AnyObject {
     func updateBudgets(_ expense: BasicExpenseModel)
 }
 
-class AddExpenseViewController: UIViewController {
-    
+final class AddExpenseViewController: UIViewController {
+    // MARK: - Properties
     weak var delegate: AddExpenseDelegate?
     
     private var topView: UIView = {
@@ -133,20 +133,6 @@ class AddExpenseViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height
-            }
-        }
-    }
-
-    @objc func keyboardWillHide(notification: NSNotification) {
-        if self.view.frame.origin.y != 0 {
-            self.view.frame.origin.y = 0
-        }
-    }
-    
     // MARK: - Setup UI
     private func setupUI() {
         view.backgroundColor = .customBackground
@@ -229,6 +215,7 @@ class AddExpenseViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    // MARK: - Keyboard Functions
     private func addDoneButtonToKeyboards() {
         let doneToolbar = UIToolbar()
         doneToolbar.sizeToFit()
@@ -243,10 +230,24 @@ class AddExpenseViewController: UIViewController {
     }
 
     @objc private func doneButtonTapped() {
-        view.endEditing(true) // Dismiss the keyboard
+        view.endEditing(true)
     }
     
-    // MARK: - Information
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
+    
+    // MARK: - Information Alerts
     private func descriptionsButtonTapped() {
         let alert = UIAlertController(title: "Info about the description", message: "This description will be used to describe the expense throughout the application for your convinience", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))

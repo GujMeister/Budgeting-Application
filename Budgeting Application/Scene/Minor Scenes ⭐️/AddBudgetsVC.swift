@@ -12,8 +12,8 @@ protocol AddBudgetsDelegate: AnyObject {
     func checkForDuplicateCategory(_ category: BasicExpenseCategory) -> Bool
 }
 
-class AddBudgetsViewController: UIViewController {
-    
+final class AddBudgetsViewController: UIViewController {
+    // MARK: - Properties
     weak var delegate: AddBudgetsDelegate?
     
     private var topView: UIView = {
@@ -93,10 +93,8 @@ class AddBudgetsViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         addDoneButtonToKeyboards()
-        
-        if let presentationController = presentationController as? UISheetPresentationController {
-            presentationController.detents = [.medium()]
-        }
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     // MARK: - Setup UI
@@ -152,7 +150,6 @@ class AddBudgetsViewController: UIViewController {
         }
         
         if let delegate = delegate, delegate.checkForDuplicateCategory(category) {
-            // Show an alert for duplicate category
             showAlert(message: "Category already exists")
         } else {
             delegate?.addCategory(category, totalAmount: amount)
@@ -160,6 +157,7 @@ class AddBudgetsViewController: UIViewController {
         }
     }
     
+    // MARK: - Keyboard Functions
     private func addDoneButtonToKeyboards() {
         let doneToolbar = UIToolbar()
         doneToolbar.sizeToFit()
@@ -176,7 +174,21 @@ class AddBudgetsViewController: UIViewController {
         view.endEditing(true) // Dismiss the keyboard
     }
     
-    // MARK: - Information
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
+    
+    // MARK: - Information Alerts
     private func inputAmountButtonTapped() {
         let alert = UIAlertController(title: "Info about the input amount", message: "This number will be used to set the amount that you are going to budget every month for this payment", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
