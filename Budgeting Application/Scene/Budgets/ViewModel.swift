@@ -258,9 +258,7 @@ extension BudgetsViewModel: AddExpenseDelegate {
     }
 
     func didAddExpense(_ expense: BasicExpenseModel) {
-        print("ALALALALLALALALALALALALLALALALA _____________________________________")
         loadExpenses()
         onExpensesUpdated?()
-        print("ALALALALLALALALALALALALLALALALA _____________________________________")
     }
 }

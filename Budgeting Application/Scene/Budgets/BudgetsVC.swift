@@ -66,6 +66,7 @@ class BudgetsViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = UIColor(hex: "f4f3f9")
+        tableView.showsVerticalScrollIndicator = false
         tableView.register(CustomBudgetCell.self, forCellReuseIdentifier: CustomBudgetCell.reuseIdentifier)
         return tableView
     }()
@@ -164,8 +165,12 @@ class BudgetsViewController: UIViewController {
     // MARK: - Button Action
     func addBudget() {
         let addBudgetVC = AddBudgetsViewController()
-        addBudgetVC.delegate = viewModel as? any AddBudgetsDelegate
-        self.present(addBudgetVC, animated: true, completion: nil)
+        addBudgetVC.delegate = viewModel
+        
+        if let presentationController = addBudgetVC.presentationController as? UISheetPresentationController {
+            presentationController.detents = [.medium()]
+            present(addBudgetVC, animated: true, completion: nil)
+        }
     }
     
     // MARK: - View helper functions

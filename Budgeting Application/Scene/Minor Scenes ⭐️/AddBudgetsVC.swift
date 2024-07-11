@@ -16,81 +16,181 @@ class AddBudgetsViewController: UIViewController {
     
     weak var delegate: AddBudgetsDelegate?
     
-    // Your UI elements and other properties here
+    private var topView: UIView = {
+       let view = UIView()
+        view.backgroundColor = .gray
+        view.layer.cornerRadius = 3
+        return view
+    }()
     
-    private var categoryPicker: UIPickerView = {
+    private let categoryLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .label
+        label.textAlignment = .center
+        label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 20)
+        label.text = "Choose Budget Category"
+        return label
+    }()
+    
+    private let categoryPicker: UIPickerView = {
         let picker = UIPickerView()
         picker.translatesAutoresizingMaskIntoConstraints = false
         return picker
     }()
     
-    private var amountTextField: UITextField = {
+    private let amountLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .label
+        label.textAlignment = .center
+        label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 16)
+        label.text = "Input Budget Limit"
+        return label
+    }()
+    
+    private let amountTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Enter amount"
-        textField.keyboardType = .decimalPad
+        textField.placeholder = "e.g. 1500"
         textField.borderStyle = .roundedRect
+        textField.keyboardType = .decimalPad
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
     
+    private lazy var amountButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "info.circle.fill"), for: .normal)
+        button.tintColor = .customBlue
+        
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.inputAmountButtonTapped()
+        }), for: .touchUpInside)
+
+        return button
+    }()
+    
     private lazy var addButton: UIButton = {
-        let button = UIButton(type: .system)
+        let button = UIButton()
         button.setTitle("Add Budget", for: .normal)
-        button.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
+        
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.addButtonTapped()
+        }), for: .touchUpInside)
+
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.widthAnchor.constraint(equalToConstant: 180).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        button.titleLabel?.font = UIFont(name: "ChesnaGrotesk-Regular", size: 18)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .customBlue
+        button.layer.cornerRadius = 15
         return button
     }()
     
     private let categories = BasicExpenseCategory.allCases
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        categoryPicker.delegate = self
-        categoryPicker.dataSource = self
-    }
-    
-    private func setupUI() {
-        view.backgroundColor = .white
+        addDoneButtonToKeyboards()
         
-        view.addSubview(categoryPicker)
-        view.addSubview(amountTextField)
-        view.addSubview(addButton)
+        if let presentationController = presentationController as? UISheetPresentationController {
+            presentationController.detents = [.medium()]
+        }
+    }
+
+    // MARK: - Setup UI
+    private func setupUI() {
+        view.backgroundColor = .customBackground
+        
+        categoryPicker.dataSource = self
+        categoryPicker.delegate = self
+
+        let views = [topView, categoryLabel, categoryPicker, amountLabel, amountTextField, amountButton, addButton]
+        
+        views.forEach { singleView in
+            view.addSubview(singleView)
+            singleView.translatesAutoresizingMaskIntoConstraints = false
+        }
         
         NSLayoutConstraint.activate([
-            categoryPicker.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
-            categoryPicker.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            categoryPicker.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            topView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
+            topView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            topView.heightAnchor.constraint(equalToConstant: 5),
+            topView.widthAnchor.constraint(equalToConstant: 70),
             
-            amountTextField.topAnchor.constraint(equalTo: categoryPicker.bottomAnchor, constant: 20),
+            categoryLabel.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 20),
+            categoryLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            categoryPicker.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor),
+            categoryPicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            categoryPicker.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            
+            amountLabel.topAnchor.constraint(equalTo: categoryPicker.bottomAnchor, constant: 5),
+            amountLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            
+            amountTextField.topAnchor.constraint(equalTo: amountLabel.bottomAnchor, constant: 3),
             amountTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            amountTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            amountTextField.trailingAnchor.constraint(equalTo: amountButton.leadingAnchor, constant: -20),
             
-            addButton.topAnchor.constraint(equalTo: amountTextField.bottomAnchor, constant: 20),
+            amountButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            amountButton.centerYAnchor.constraint(equalTo: amountTextField.centerYAnchor),
+
+            addButton.topAnchor.constraint(equalTo: amountTextField.bottomAnchor, constant: 30),
             addButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
     
+    // MARK: - Helper functions
     @objc private func addButtonTapped() {
         let selectedCategoryIndex = categoryPicker.selectedRow(inComponent: 0)
-        let selectedCategory = categories[selectedCategoryIndex]
+        let category = categories[selectedCategoryIndex]
+        
         guard let amountText = amountTextField.text, let amount = Double(amountText) else {
-            // Show an alert for invalid amount
-            showAlert(message: "Please enter a valid amount")
+            invalidInput()
             return
         }
         
-        if let delegate = delegate, delegate.checkForDuplicateCategory(selectedCategory) {
+        if let delegate = delegate, delegate.checkForDuplicateCategory(category) {
             // Show an alert for duplicate category
             showAlert(message: "Category already exists")
         } else {
-            delegate?.addCategory(selectedCategory, totalAmount: amount)
+            delegate?.addCategory(category, totalAmount: amount)
             dismiss(animated: true, completion: nil)
         }
     }
     
+    private func addDoneButtonToKeyboards() {
+        let doneToolbar = UIToolbar()
+        doneToolbar.sizeToFit()
+
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonTapped))
+
+        doneToolbar.items = [flexSpace, doneButton]
+
+        amountTextField.inputAccessoryView = doneToolbar
+    }
+
+    @objc private func doneButtonTapped() {
+        view.endEditing(true) // Dismiss the keyboard
+    }
+    
+    // MARK: - Information
+    private func inputAmountButtonTapped() {
+        let alert = UIAlertController(title: "Info about the input amount", message: "This number will be used to set the amount that you are going to budget every month for this payment", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
     private func showAlert(message: String) {
         let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func invalidInput() {
+        let alert = UIAlertController(title: "Invalid Input", message: "Please fill out all fields", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }

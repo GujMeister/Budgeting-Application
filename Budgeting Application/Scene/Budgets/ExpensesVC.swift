@@ -6,7 +6,7 @@ class ExpensesViewController: UIViewController {
     
     private var infoView: NavigationRectangle = {
         let screenSize = UIScreen.main.bounds.height
-        let view = NavigationRectangle(height: screenSize / 4, color: .customBlue, totalBudgetedMoney: NSMutableAttributedString(string: ""), descriptionLabelText: "Expenses Last Week")
+        let view = NavigationRectangle(height: screenSize / 4, color: .customBlue, totalBudgetedMoney: NSMutableAttributedString(string: ""), descriptionLabelText: "Expenses Last Month")
         view.totalBudgetedNumberLabel.textColor = .white
         view.descriptionLabel.textColor = .white
         return view
@@ -67,13 +67,11 @@ class ExpensesViewController: UIViewController {
         setupUI()
         setupBindings()
         viewModel.loadExpenses()
-        handleSegmentChange(selectedIndex: 1)
         configureTimePeriodMenu()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        customSegmentedControlView.setSelectedIndex(1)
         viewModel.loadExpenses()
     }
     
@@ -136,7 +134,11 @@ class ExpensesViewController: UIViewController {
     private func addExpense() {
         let addExpenseVC = AddExpenseViewController()
         addExpenseVC.delegate = viewModel
-        self.present(addExpenseVC, animated: true, completion: nil)
+        
+        if let presentationController = addExpenseVC.presentationController as? UISheetPresentationController {
+            presentationController.detents = [.large()]
+            present(addExpenseVC, animated: true, completion: nil)
+        }
     }
     
     // MARK: - Helper function
