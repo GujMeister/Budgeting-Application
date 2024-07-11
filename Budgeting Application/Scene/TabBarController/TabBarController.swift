@@ -20,15 +20,19 @@ class MainTabBarController: UITabBarController {
         let recurringVC = RecurringViewController()
         recurringVC.tabBarItem = UITabBarItem(title: "Recurring", image: UIImage(systemName: "repeat"), tag: 1)
         
-        let budgetsVC = BudgetsViewController()
+        let budgetsViewModel = BudgetsViewModel()
+        let budgetsVC = BudgetsViewController(viewModel: budgetsViewModel)
         budgetsVC.tabBarItem = UITabBarItem(title: "Budgets", image: UIImage(systemName: "book.closed"), tag: 2)
         
-        let viewControllerList = [dashboardVC, recurringVC, budgetsVC]
+        let calendarVC = CalendarViewController()
+        calendarVC.tabBarItem = UITabBarItem(title: "Calendar", image: UIImage(systemName: "calendar"), tag: 3)
+        
+        let viewControllerList = [dashboardVC, recurringVC, budgetsVC, calendarVC]
         
         viewControllers = viewControllerList.map {
             let navController = UINavigationController(rootViewController: $0)
             // Set delegate for navigation controllers
-            navController.delegate = self // Important!
+//            navController.delegate = self // Important!
             return navController
         }
     }
@@ -44,12 +48,12 @@ class RecurringViewController: UIHostingController<RecurringPage> {
         super.init(rootView: RecurringPage())
     }
 }
-
-// MARK: - UINavigationControllerDelegate
-extension MainTabBarController: UINavigationControllerDelegate {
-    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-        if let budgetsVC = viewController as? BudgetsViewController {
-            budgetsVC.shouldAnimateInfoView = navigationController.viewControllers.count == 1
-        }
-    }
-}
+//
+//// MARK: - UINavigationControllerDelegate
+//extension MainTabBarController: UINavigationControllerDelegate {
+//    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+//        if let budgetsVC = viewController as? BudgetsViewController {
+//            budgetsVC = navigationController.viewControllers.count == 1
+//        }
+//    }
+//}

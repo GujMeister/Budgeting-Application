@@ -7,8 +7,8 @@
 
 import UIKit
 
-class CustomBudgetCell: UITableViewCell {
-    
+final class CustomBudgetCell: UITableViewCell {
+    // MARK: - Properties
     static let reuseIdentifier = "CustomBudgetCell"
     
     private let emojiLabel: UILabel = {
@@ -19,28 +19,28 @@ class CustomBudgetCell: UITableViewCell {
     
     let categoryNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 14)
         return label
     }()
     
     var spentAmountLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 9, weight: .regular)
+        label.font = UIFont(name: "ChesnaGrotesk-Regular", size: 10)
         label.textColor = .gray
         return label
     }()
     
     let spentAmountTextLabel: UILabel = {
         let label = UILabel()
-        label.text = "Already spent:"
-        label.font = UIFont.systemFont(ofSize: 9, weight: .regular)
+        label.text = "Spent:"
+        label.font = UIFont(name: "ChesnaGrotesk-Regular", size: 10)
         label.textColor = .gray
         return label
     }()
     
     let totalAmountLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.font = UIFont(name: "ChesnaGrotesk-Bold", size: 14)
         return label
     }()
     
@@ -50,6 +50,7 @@ class CustomBudgetCell: UITableViewCell {
         return progressView
     }()
     
+    // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
@@ -59,6 +60,7 @@ class CustomBudgetCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Setup UI
     private func setupViews() {
         addSubview(emojiLabel)
         addSubview(categoryNameLabel)
@@ -97,8 +99,9 @@ class CustomBudgetCell: UITableViewCell {
         ])
     }
     
+    // MARK: - Helper function
     func configure(with budget: BasicExpenseBudget) {
-        emojiLabel.text = budget.category.emoji
+//        emojiLabel.text = budget.category.emoji
         categoryNameLabel.text = budget.category.rawValue
         
         spentAmountLabel.attributedText = NumberFormatterHelper.shared.format(amount: budget.spentAmount, baseFont: UIFont(name: "Heebo-SemiBold", size: 8) ?? UIFont(), sizeDifference: 1.1)

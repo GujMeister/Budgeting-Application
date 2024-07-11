@@ -11,8 +11,7 @@ protocol AddSubscriptionDelegate: AnyObject {
     func didAddSubscription(_ subscription: SubscriptionExpenseModel)
 }
 
-class AddSubscriptionVC: UIViewController {
-    
+final class AddSubscriptionVC: UIViewController {
     // MARK: - Properties
     weak var delegate: AddSubscriptionDelegate?
     
@@ -159,8 +158,10 @@ class AddSubscriptionVC: UIViewController {
         super.viewDidLoad()
         setupUI()
         addDoneButtonToKeyboards()
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-
+    
     // MARK: - Setup UI
     private func setupUI() {
         view.backgroundColor = .customBackground
@@ -256,6 +257,7 @@ class AddSubscriptionVC: UIViewController {
         }
     }
     
+    // MARK: - Keyboard Functions
     private func addDoneButtonToKeyboards() {
         let doneToolbar = UIToolbar()
         doneToolbar.sizeToFit()
@@ -271,10 +273,24 @@ class AddSubscriptionVC: UIViewController {
     }
 
     @objc private func doneButtonTapped() {
-        view.endEditing(true) // Dismiss the keyboard
+        view.endEditing(true)
     }
     
-    // MARK: - Information
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
+    
+    // MARK: - Information Alerts
     private func descriptionsButtonTapped() {
         let alert = UIAlertController(title: "Info about the description", message: "This description will be used to describe the subscription throughout the application for your convenience", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
