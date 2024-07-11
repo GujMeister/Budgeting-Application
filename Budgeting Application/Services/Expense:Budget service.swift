@@ -80,6 +80,22 @@ class BasicExpenseService {
         }
     }
     
+    func deleteBasicExpense(expense: BasicExpense) {
+        let request: NSFetchRequest<BasicExpenseModel> = BasicExpenseModel.fetchRequest() as! NSFetchRequest<BasicExpenseModel>
+        request.predicate = NSPredicate(format: "expenseDescription == %@ AND date == %@", expense.expenseDescription, expense.date as NSDate)
+        
+        do {
+            let coreDataExpenses = try context.fetch(request)
+            if let expenseToDelete = coreDataExpenses.first {
+                context.delete(expenseToDelete)
+                try context.save()
+            }
+        } catch {
+            print("Failed to delete expense: \(error)")
+        }
+    }
+    
+    // MARK: - Budgets
     private func updateBudget(for expense: BasicExpenseModel) {
         guard let categoryString = expense.category,
               let category = BasicExpenseCategory(rawValue: categoryString) else {

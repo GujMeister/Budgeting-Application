@@ -13,7 +13,7 @@ class ExpensesViewController: UIViewController {
     }()
     
     private lazy var customSegmentedControlView = CustomSegmentedControlView(
-        color: .customLightBlue,
+        color: UIColor(hex: "535C91"),
         controlItems: ["Budgets", "Expenses"],
         defaultIndex: 1 ) { [weak self] selectedIndex in
         self?.handleSegmentChange(selectedIndex: selectedIndex)
@@ -25,9 +25,11 @@ class ExpensesViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.setImage(UIImage(systemName: "plus"), for: .normal)
         button.tintColor = .black
+        
         button.addAction(UIAction(handler: { _ in
             self.addExpense()
         }), for: .touchUpInside)
+        
         return button
     }()
     
@@ -79,7 +81,7 @@ class ExpensesViewController: UIViewController {
     // MARK: - Setup UI
     private func setupUI() {
         view.backgroundColor = .customBackground
-        self.navigationController?.isNavigationBarHidden = true
+//        self.navigationController?.isNavigationBarHidden = true
         
         let views = [customSegmentedControlView, infoView, addExpenseButton, timePeriodButton, chevronImageView, expensesTableView]
         
@@ -189,27 +191,11 @@ extension ExpensesViewController: UITableViewDataSource, UITableViewDelegate {
         
         return cell
     }
-
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.transform = CGAffineTransform(translationX: 0, y: cell.contentView.frame.height)
-        UIView.animate(withDuration: 0.4, delay: 0.05 * Double(indexPath.row)) {
-            cell.transform = CGAffineTransform(translationX: cell.contentView.frame.width, y: cell.contentView.frame.height)
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            viewModel.deleteExpense(at: indexPath)
         }
-    }
-}
-
-// MARK: - AddExpenseDelegate
-extension ExpensesViewController: AddExpenseDelegate {
-    func updateBudgets(_ expense: BasicExpenseModel) {
-        let context = DataManager.shared.context
-        let service = BasicExpenseService(context: context)
-        service.addExpense(expense)
-    }
-
-    func didAddExpense(_ expense: BasicExpenseModel) {
-        viewModel.loadExpenses()
-        viewModel.loadBudgets()
-        viewModel.loadFavoritedBudgets() // Ensure favorite budgets are updated
     }
 }
 

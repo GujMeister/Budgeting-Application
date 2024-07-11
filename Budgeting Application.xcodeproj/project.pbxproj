@@ -30,7 +30,7 @@
 		853A3DBD2C3593A40042A0A4 /* Subscription Occurances.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3DA62C3593A40042A0A4 /* Subscription Occurances.swift */; };
 		853A3DBF2C35CBDA0042A0A4 /* PaymentExpenseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3DBE2C35CBDA0042A0A4 /* PaymentExpenseModel.swift */; };
 		853A3DC12C35CD190042A0A4 /* Payment Occurances.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3DC02C35CD190042A0A4 /* Payment Occurances.swift */; };
-		853A3DC32C35CF3E0042A0A4 /* BudgetsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3DC22C35CF3E0042A0A4 /* BudgetsVM.swift */; };
+		853A3DC32C35CF3E0042A0A4 /* Budgets + Expenses VM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3DC22C35CF3E0042A0A4 /* Budgets + Expenses VM.swift */; };
 		853A3DC52C35D1030042A0A4 /* BudgetsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3DC42C35D1030042A0A4 /* BudgetsVC.swift */; };
 		853A3DC72C35D22D0042A0A4 /* Expense:Budget service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3DC62C35D22D0042A0A4 /* Expense:Budget service.swift */; };
 		853A3DCA2C35DC210042A0A4 /* BudgetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3DC92C35DC210042A0A4 /* BudgetDetailViewController.swift */; };
@@ -87,7 +87,7 @@
 		853A3DA62C3593A40042A0A4 /* Subscription Occurances.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Subscription Occurances.swift"; sourceTree = "<group>"; };
 		853A3DBE2C35CBDA0042A0A4 /* PaymentExpenseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentExpenseModel.swift; sourceTree = "<group>"; };
 		853A3DC02C35CD190042A0A4 /* Payment Occurances.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Payment Occurances.swift"; sourceTree = "<group>"; };
-		853A3DC22C35CF3E0042A0A4 /* BudgetsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetsVM.swift; sourceTree = "<group>"; };
+		853A3DC22C35CF3E0042A0A4 /* Budgets + Expenses VM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Budgets + Expenses VM.swift"; sourceTree = "<group>"; };
 		853A3DC42C35D1030042A0A4 /* BudgetsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetsVC.swift; sourceTree = "<group>"; };
 		853A3DC62C35D22D0042A0A4 /* Expense:Budget service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expense:Budget service.swift"; sourceTree = "<group>"; };
 		853A3DC92C35DC210042A0A4 /* BudgetDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetDetailViewController.swift; sourceTree = "<group>"; };
@@ -221,9 +221,9 @@
 			isa = PBXGroup;
 			children = (
 				853A3DC82C35DC140042A0A4 /* Detail Views */,
-				853A3DCB2C35E4E50042A0A4 /* Table View Cell */,
-				853A3DC22C35CF3E0042A0A4 /* BudgetsVM.swift */,
+				853A3DCB2C35E4E50042A0A4 /* Table View Cells */,
 				853A3DC42C35D1030042A0A4 /* BudgetsVC.swift */,
+				853A3DC22C35CF3E0042A0A4 /* Budgets + Expenses VM.swift */,
 				853A3DD82C360B7C0042A0A4 /* ExpensesVC.swift */,
 			);
 			path = Budgets;
@@ -322,13 +322,13 @@
 			path = "Detail Views";
 			sourceTree = "<group>";
 		};
-		853A3DCB2C35E4E50042A0A4 /* Table View Cell */ = {
+		853A3DCB2C35E4E50042A0A4 /* Table View Cells */ = {
 			isa = PBXGroup;
 			children = (
 				853A3DCC2C35E4F00042A0A4 /* CustomBudgetCell.swift */,
 				85B85B062C36DB4C00AAD046 /* CustomExpenseCell.swift */,
 			);
-			path = "Table View Cell";
+			path = "Table View Cells";
 			sourceTree = "<group>";
 		};
 		85B85B0B2C3718BA00AAD046 /* Occurances */ = {
@@ -458,7 +458,7 @@
 				85B85B342C3C2E1900AAD046 /* BankPaymentCell.swift in Sources */,
 				853A3DB52C3593A40042A0A4 /* AddSubscriptionVC.swift in Sources */,
 				853A3DBC2C3593A40042A0A4 /* DataManager.swift in Sources */,
-				853A3DC32C35CF3E0042A0A4 /* BudgetsVM.swift in Sources */,
+				853A3DC32C35CF3E0042A0A4 /* Budgets + Expenses VM.swift in Sources */,
 				853A3DC12C35CD190042A0A4 /* Payment Occurances.swift in Sources */,
 				85B85B3C2C3EDEDD00AAD046 /* CalendarVC.swift in Sources */,
 				85B85B3E2C3EDEE800AAD046 /* CalendarVM.swift in Sources */,

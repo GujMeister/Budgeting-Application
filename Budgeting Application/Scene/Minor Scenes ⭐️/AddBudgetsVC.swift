@@ -7,14 +7,14 @@
 
 import UIKit
 
-protocol AddCategoriesDelegate: AnyObject {
+protocol AddBudgetsDelegate: AnyObject {
     func addCategory(_ category: BasicExpenseCategory, totalAmount: Double)
     func checkForDuplicateCategory(_ category: BasicExpenseCategory) -> Bool
 }
 
-class AddCategoriesViewController: UIViewController {
+class AddBudgetsViewController: UIViewController {
     
-    weak var delegate: AddCategoriesDelegate?
+    weak var delegate: AddBudgetsDelegate?
     
     // Your UI elements and other properties here
     
@@ -96,7 +96,7 @@ class AddCategoriesViewController: UIViewController {
     }
 }
 
-extension AddCategoriesViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+extension AddBudgetsViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }

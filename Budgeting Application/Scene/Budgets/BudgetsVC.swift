@@ -10,7 +10,6 @@ import UIKit
 class BudgetsViewController: UIViewController {
     // MARK: - Properties
     private var viewModel = BudgetsViewModel()
-    internal var shouldAnimateInfoView = true
     
     private var infoView: NavigationRectangle = {
         let screenSize = UIScreen.main.bounds.height
@@ -42,8 +41,8 @@ class BudgetsViewController: UIViewController {
     
     private var allBudgetsLabel: UILabel = {
         let label = UILabel()
-        label.text = "All Budgets"
-        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        label.text = "Budgets"
+        label.font = UIFont(name: "ChesnaGrotesk-Bold", size: 14)
         label.textColor = UIColor(hex: "0F1035")
         return label
     }()
@@ -54,9 +53,11 @@ class BudgetsViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.setImage(UIImage(systemName: "plus"), for: .normal)
         button.tintColor = UIColor(hex: "0F1035")
-        button.addAction(UIAction(handler: { _ in
-            self.addBudget()
+        
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.addBudget()
         }), for: .touchUpInside)
+        
         return button
     }()
     
@@ -81,9 +82,8 @@ class BudgetsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         customSegmentedControlView.setSelectedIndex(0)
-        animateSegmentedControlView()
-        viewModel.loadBudgets() // es ro ara budget table view updates ar aketebs
-        viewModel.loadFavoritedBudgets() // es ro ara bidget view updates ar aketebs
+        viewModel.loadBudgets()
+        viewModel.loadFavoritedBudgets()
     }
 
     // MARK: - Setup UI
@@ -142,22 +142,29 @@ class BudgetsViewController: UIViewController {
             self?.updateFavoriteBudgets()
         }
         
-//        viewModel.onExpensesUpdated = { [weak self] in
-//            self?.updateFavoriteBudgets()
-//            self?.viewModel.refreshFavoriteBudgets()
-//            self?.viewModel.loadBudgets()
-//            self?.viewModel.loadFavoritedBudgets()
-//        }
-        
         viewModel.onTotalBudgetedMoneyUpdated = { [weak self] in
             self?.updateInfoView()
+        }
+        
+        viewModel.showAlertForDuplicateCategory = { [weak self] in
+            let alert = UIAlertController(title: "Duplicate Category", message: "This category already exists.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self?.present(alert, animated: true, completion: nil)
+        }
+        
+        viewModel.showAlertForMaxFavorites = { [weak self] in
+            let alert = UIAlertController(title: "Favorites Limit",
+                                          message: "You can only have a maximum of 5 favorite budgets.",
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            self?.present(alert, animated: true, completion: nil)
         }
     }
     
     // MARK: - Button Action
     func addBudget() {
-        let addBudgetVC = AddCategoriesViewController()
-        addBudgetVC.delegate = self
+        let addBudgetVC = AddBudgetsViewController()
+        addBudgetVC.delegate = viewModel as? any AddBudgetsDelegate
         self.present(addBudgetVC, animated: true, completion: nil)
     }
     
@@ -180,108 +187,44 @@ class BudgetsViewController: UIViewController {
         if selectedIndex == 0 {
             return
         } else {
-            shouldAnimateInfoView = false
             let expensesViewController = ExpensesViewController()
             if let navigationController = navigationController {
                 navigationController.pushViewController(expensesViewController, animated: false)
             }
         }
     }
-    
-    private func animateSegmentedControlView() {
-        if shouldAnimateInfoView {
-            customSegmentedControlView.transform = CGAffineTransform(translationX: 0, y: -50)
-            UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: {
-                self.customSegmentedControlView.transform = .identity
-            }, completion: { _ in
-                self.shouldAnimateInfoView = false
-            })
-        } else {
-            customSegmentedControlView.transform = .identity
-        }
-    }
-}
-
-// MARK: - Add Categories Delegate
-extension BudgetsViewController: AddCategoriesDelegate {
-    func addCategory(_ category: BasicExpenseCategory, totalAmount: Double) {
-        if checkForDuplicateCategory(category) {
-            let alert = UIAlertController(title: "Duplicate Category", message: "This category already exists.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            present(alert, animated: true, completion: nil)
-            return
-        }
-        
-        let newBudget = BasicExpenseBudgetModel(context: DataManager.shared.context)
-        newBudget.category = category.rawValue
-        newBudget.totalAmount = NSNumber(value: totalAmount)
-        newBudget.spentAmount = 0
-        
-        do {
-            try DataManager.shared.context.save()
-            viewModel.loadBudgets()
-        } catch {
-            print("Failed to save new budget: \(error)")
-        }
-    }
-    
-    func checkForDuplicateCategory(_ category: BasicExpenseCategory) -> Bool {
-        return viewModel.allBudgets.contains(where: { $0.category == category })
-    }
 }
 
 // MARK: - UITableViewDataSource, UITableViewDelegate
-extension BudgetsViewController: UITableViewDataSource, UITableViewDelegate, BudgetDetailViewControllerDelegate {
+extension BudgetsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == allBudgetsTableView {
-            return viewModel.allBudgets.count
-        }
-        return 0
+        return viewModel.allBudgets.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if tableView == allBudgetsTableView {
-            let cell = tableView.dequeueReusableCell(withIdentifier: CustomBudgetCell.reuseIdentifier, for: indexPath) as! CustomBudgetCell
-            let budget = viewModel.allBudgets[indexPath.row]
-            cell.configure(with: budget)
-            cell.selectionStyle = .none
-            cell.backgroundColor = UIColor(hex: "f4f3f9")
-            return cell
-        }
-        
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: CustomBudgetCell.reuseIdentifier, for: indexPath) as! CustomBudgetCell
+        let budget = viewModel.allBudgets[indexPath.row]
+        cell.configure(with: budget)
+        cell.selectionStyle = .none
+        cell.backgroundColor = UIColor(hex: "f4f3f9")
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if tableView == allBudgetsTableView {
-            let detailVC = BudgetDetailViewController()
-            detailVC.budget = viewModel.allBudgets[indexPath.row]
-            detailVC.delegate = self
-            
-            if let presentationController = detailVC.presentationController as? UISheetPresentationController {
-                presentationController.detents = [.medium()]
-            }
-            
-            present(detailVC, animated: true, completion: nil)
+        let detailVC = BudgetDetailViewController()
+        detailVC.budget = viewModel.allBudgets[indexPath.row]
+        detailVC.delegate = viewModel as? any BudgetDetailViewControllerDelegate
+        
+        if let presentationController = detailVC.presentationController as? UISheetPresentationController {
+            presentationController.detents = [.medium()]
         }
+        
+        present(detailVC, animated: true, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             viewModel.deleteBudget(at: indexPath.row)
-            
         }
     }
-    
-    func didUpdateFavoriteStatus(for budget: BasicExpenseBudget) {
-        if viewModel.favoritedBudgets.contains(where: { $0.category == budget.category }) {
-            viewModel.removeBudgetFromFavorites(budget)
-        } else {
-            viewModel.addBudgetToFavorites(budget)
-        }
-    }
-}
-
-#Preview {
-    BudgetsViewController()
 }
