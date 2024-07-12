@@ -45,6 +45,8 @@
 		85835EC72C407B0A0007F180 /* CalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835EC62C407B0A0007F180 /* CalendarTableViewCell.swift */; };
 		85835ECA2C41A25E0007F180 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85835EC82C41A25E0007F180 /* Montserrat-Medium.ttf */; };
 		85835ECB2C41A25E0007F180 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85835EC92C41A25E0007F180 /* Montserrat-Regular.ttf */; };
+		85835ECE2C41A7E70007F180 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835ECD2C41A7E70007F180 /* LoginView.swift */; };
+		85835ED02C41A7F20007F180 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835ECF2C41A7F20007F180 /* LoginViewModel.swift */; };
 		85B85B052C36D83100AAD046 /* AddExpenseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B042C36D83100AAD046 /* AddExpenseVC.swift */; };
 		85B85B072C36DB4C00AAD046 /* CustomExpenseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B062C36DB4C00AAD046 /* CustomExpenseCell.swift */; };
 		85B85B092C36FC9400AAD046 /* FavoriteBudgetsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B082C36FC9400AAD046 /* FavoriteBudgetsModel.swift */; };
@@ -105,6 +107,8 @@
 		85835EC62C407B0A0007F180 /* CalendarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTableViewCell.swift; sourceTree = "<group>"; };
 		85835EC82C41A25E0007F180 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
 		85835EC92C41A25E0007F180 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		85835ECD2C41A7E70007F180 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		85835ECF2C41A7F20007F180 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		85B85B042C36D83100AAD046 /* AddExpenseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseVC.swift; sourceTree = "<group>"; };
 		85B85B062C36DB4C00AAD046 /* CustomExpenseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomExpenseCell.swift; sourceTree = "<group>"; };
 		85B85B082C36FC9400AAD046 /* FavoriteBudgetsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteBudgetsModel.swift; sourceTree = "<group>"; };
@@ -276,6 +280,7 @@
 		853A3DA02C3593A40042A0A4 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				85835ECC2C41A7AE0007F180 /* Login */,
 				85835EC42C402D3D0007F180 /* TabBarController */,
 				85835EBF2C402CCE0007F180 /* Calendar */,
 				853A3D8F2C3593A40042A0A4 /* Budgets */,
@@ -352,6 +357,15 @@
 				85835EC62C407B0A0007F180 /* CalendarTableViewCell.swift */,
 			);
 			path = "Table View Cell";
+			sourceTree = "<group>";
+		};
+		85835ECC2C41A7AE0007F180 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				85835ECD2C41A7E70007F180 /* LoginView.swift */,
+				85835ECF2C41A7F20007F180 /* LoginViewModel.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		85B85B0B2C3718BA00AAD046 /* Occurances */ = {
@@ -484,6 +498,7 @@
 				85B85B302C3AE06800AAD046 /* AddPaymentVC.swift in Sources */,
 				85B85B342C3C2E1900AAD046 /* BankPaymentCell.swift in Sources */,
 				85835EC72C407B0A0007F180 /* CalendarTableViewCell.swift in Sources */,
+				85835ED02C41A7F20007F180 /* LoginViewModel.swift in Sources */,
 				853A3DB52C3593A40042A0A4 /* AddSubscriptionVC.swift in Sources */,
 				853A3DBC2C3593A40042A0A4 /* DataManager.swift in Sources */,
 				853A3DC32C35CF3E0042A0A4 /* ViewModel.swift in Sources */,
@@ -500,6 +515,7 @@
 				853A3DA92C3593A40042A0A4 /* Model.xcdatamodeld in Sources */,
 				853A3DB12C3593A40042A0A4 /* NavigationRectangle.swift in Sources */,
 				853A3DCD2C35E4F00042A0A4 /* CustomBudgetCell.swift in Sources */,
+				85835ECE2C41A7E70007F180 /* LoginView.swift in Sources */,
 				85B85B072C36DB4C00AAD046 /* CustomExpenseCell.swift in Sources */,
 				853A3DC52C35D1030042A0A4 /* BudgetsVC.swift in Sources */,
 				853A3DB62C3593A40042A0A4 /* AddBudgetsVC.swift in Sources */,
