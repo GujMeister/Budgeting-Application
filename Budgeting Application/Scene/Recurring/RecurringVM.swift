@@ -4,7 +4,7 @@ import CoreData
 final class RecurringPageViewModel: ObservableObject {
     // MARK: - Properties
     private var allSubscriptionOccurrences: [SubscriptionOccurrence] = []
-    private var allPaymentOccurrences: [PaymentOccurance] = []
+    private var allPaymentOccurrences: [PaymentOccurrence] = []
     private var context: NSManagedObjectContext {
         return DataManager.shared.context
     }
@@ -12,7 +12,7 @@ final class RecurringPageViewModel: ObservableObject {
     @Published var allSubscriptionExpenses: [SubscriptionExpense] = []
     @Published var allPaymentExpenses: [PaymentExpense] = []
     @Published var filteredSubscriptionOccurrences: [SubscriptionOccurrence] = []
-    @Published var filteredPaymentOccurrences: [PaymentOccurance] = []
+    @Published var filteredPaymentOccurrences: [PaymentOccurrence] = []
     @Published var totalBudgeted: Double = 0.0
     @Published var listTotalBudgeted: Double = 0.0
     @Published var descriptionLabelText: String = ""

@@ -219,7 +219,7 @@ extension BudgetsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailVC = BudgetDetailViewController()
         detailVC.budget = viewModel.allBudgets[indexPath.row]
-        detailVC.delegate = viewModel as? any BudgetDetailViewControllerDelegate
+        detailVC.delegate = viewModel as any BudgetDetailViewControllerDelegate // as? iyo
         
         if let presentationController = detailVC.presentationController as? UISheetPresentationController {
             presentationController.detents = [.medium()]

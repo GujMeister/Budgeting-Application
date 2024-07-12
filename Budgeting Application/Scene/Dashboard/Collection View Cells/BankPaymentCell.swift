@@ -118,7 +118,7 @@ final class BankPaymentCollectionViewCell: UICollectionViewCell {
     }
     
     // MARK: - Configure
-    func configure(with payment: PaymentOccurance, textColor: UIColor) {
+    func configure(with payment: PaymentOccurrence, textColor: UIColor) {
         dateLabel.text = formattedDate(payment.date)
         categoryLabel.text = payment.subscriptionDescription
         

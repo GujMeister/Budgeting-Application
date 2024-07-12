@@ -20,7 +20,7 @@ final class DashboardViewModel {
         }
     }
     
-    var filteredPayments: [PaymentOccurance] = [] {
+    var filteredPayments: [PaymentOccurrence] = [] {
         didSet {
             onPaymentsUpdated?()
         }
