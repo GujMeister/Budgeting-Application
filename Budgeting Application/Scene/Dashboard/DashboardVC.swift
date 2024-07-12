@@ -116,7 +116,8 @@ final class DashboardViewController: UIViewController {
         let label = UILabel()
         label.text = "No subscriptions saved"
         label.textColor = .systemGray
-        label.font = .systemFont(ofSize: 16)
+//        label.font = .systemFont(ofSize: 16)
+        label.font = UIFont(name: "Montserrat-Medium.ttf", size: 16)
         label.textAlignment = .center
         label.isHidden = true
         return label
@@ -126,7 +127,18 @@ final class DashboardViewController: UIViewController {
         let label = UILabel()
         label.text = "No bank payments saved"
         label.textColor = .systemGray
-        label.font = .systemFont(ofSize: 16)
+//        label.font = .systemFont(ofSize: 16)
+        label.font = UIFont(name: "Montserrat-Medium.ttf", size: 16)
+        label.textAlignment = .center
+        label.isHidden = true
+        return label
+    }()
+    
+    private lazy var noFavoriteBudgetsLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .systemGray
+        label.text = "No Budgets Favorited"
+        label.font = UIFont(name: "Montserrat-Medium.ttf", size: 16)
         label.textAlignment = .center
         label.isHidden = true
         return label
@@ -177,7 +189,7 @@ final class DashboardViewController: UIViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         
-        let views = [subscriptionBackgroundView, noSubscriptionsLabel, paymentsBackgroundView, noPaymentsLabel, budgetsStackViewBackground, budgetingButton, budgetStackView, infoView, upcomingButton, subscriptionCollectionView, paymentCollectionView]
+        let views = [subscriptionBackgroundView, noSubscriptionsLabel, paymentsBackgroundView, noPaymentsLabel, budgetsStackViewBackground, budgetingButton, budgetStackView, infoView, upcomingButton, subscriptionCollectionView, paymentCollectionView, noFavoriteBudgetsLabel]
         
         views.forEach { view in
             contentView.addSubview(view)
@@ -212,6 +224,9 @@ final class DashboardViewController: UIViewController {
             budgetsStackViewBackground.leadingAnchor.constraint(equalTo: budgetStackView.leadingAnchor, constant: -10),
             budgetsStackViewBackground.trailingAnchor.constraint(equalTo: budgetStackView.trailingAnchor, constant: 10),
             budgetsStackViewBackground.bottomAnchor.constraint(equalTo: budgetStackView.bottomAnchor, constant: 25),
+            
+            noFavoriteBudgetsLabel.centerXAnchor.constraint(equalTo: budgetsStackViewBackground.centerXAnchor),
+            noFavoriteBudgetsLabel.centerYAnchor.constraint(equalTo: budgetsStackViewBackground.centerYAnchor),
             
             upcomingButton.topAnchor.constraint(equalTo: budgetStackView.bottomAnchor, constant: 40),
             upcomingButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
@@ -250,6 +265,7 @@ final class DashboardViewController: UIViewController {
     private func setupBindings() {
         viewModel.onFavoritedBudgetsUpdated = { [weak self] in
             self?.updateBudgets()
+            self?.updateBudgetsPlaceholder()
         }
         
         viewModel.onSubscriptionsUpdated = { [weak self] in
@@ -277,6 +293,9 @@ final class DashboardViewController: UIViewController {
     }
     
     // MARK: - Helper Functions
+    private func updateBudgetsPlaceholder() {
+        noFavoriteBudgetsLabel.isHidden = !viewModel.favoritedBudgets.isEmpty
+    }
     
     private func updateSubscriptionsPlaceholder() {
         noSubscriptionsLabel.isHidden = !viewModel.filteredSubscriptions.isEmpty

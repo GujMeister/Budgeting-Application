@@ -7,7 +7,7 @@
 
 import CoreData
 
-struct PaymentOccurance {
+struct PaymentOccurrence {
     var category: String
     var subscriptionDescription: String
     var amount: Double
@@ -21,8 +21,8 @@ class PaymentService {
         self.context = context
     }
     
-    func fetchPaymentOccurrences() -> [PaymentOccurance] {
-        var occurrences: [PaymentOccurance] = []
+    func fetchPaymentOccurrences() -> [PaymentOccurrence] {
+        var occurrences: [PaymentOccurrence] = []
         
         let request: NSFetchRequest<PaymentExpenseModel> = PaymentExpenseModel.fetchRequest() as! NSFetchRequest<PaymentExpenseModel>
         
@@ -33,7 +33,7 @@ class PaymentService {
                 if let startDate = payment.startDate {
                     for i in 0..<payment.repeatCount {
                         if let newDate = Calendar.current.date(byAdding: .month, value: Int(i), to: startDate) {
-                            let occurrence = PaymentOccurance(
+                            let occurrence = PaymentOccurrence(
                                 category: payment.category ?? "Unknown",
                                 subscriptionDescription: payment.paymentDescription ?? "No Description",
                                 amount: payment.amount,
