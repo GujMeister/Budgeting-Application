@@ -31,6 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            }
 //        }
         
+//        deleteAllKeychainData()
+        
         let window = UIWindow(frame: UIScreen.main.bounds)
         let mainTabBarController = MainTabBarController()
 
@@ -39,5 +41,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window.makeKeyAndVisible()
 
         return true
+    }
+    
+    private func deleteAllKeychainData() {
+        let service = "com.yvelazeMagariKompania.ge.Budgeting-Application"
+        let account = "userPasscode"
+
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: service,
+            kSecAttrAccount as String: account
+        ]
+
+        let status = SecItemDelete(query as CFDictionary)
+        if status == errSecSuccess {
+            print("Successfully deleted keychain item.")
+        } else {
+            print("Failed to delete keychain item with error: \(status)")
+        }
     }
 }
