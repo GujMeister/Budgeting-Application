@@ -5,14 +5,12 @@
 //  Created by Luka Gujejiani on 03.07.24.
 //
 
-import CoreData
+// Documentation:
+// Payment expense model has 2 properties named repeat count and date
+// PaymentService makes as many Payment Occurrance objects as there are "repeat counts" on the payment
+// If payment expense has 12 repeat count on specific date, this service produces 12 objects on dates 1 month apart
 
-struct PaymentOccurrence {
-    var category: String
-    var subscriptionDescription: String
-    var amount: Double
-    var date: Date
-}
+import CoreData
 
 class PaymentService {
     private var context: NSManagedObjectContext
@@ -49,5 +47,13 @@ class PaymentService {
         }
         
         return occurrences
+    }
+    
+    //Widget Kit
+    func fetchTopTwoUpcomingPayments() -> [PaymentOccurrence] {
+        let allOccurrences = fetchPaymentOccurrences()
+        let upcomingOccurrences = allOccurrences.filter { $0.date >= Date() }
+        let sortedOccurrences = upcomingOccurrences.sorted { $0.date < $1.date }
+        return Array(sortedOccurrences.prefix(2))
     }
 }

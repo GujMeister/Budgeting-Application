@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import DGCharts
 
 class NumberFormatterHelper {
     static let shared = NumberFormatterHelper()
@@ -29,14 +30,11 @@ class NumberFormatterHelper {
         
         let attributedString = NSMutableAttributedString(string: fullString)
         
-        // Calculate smaller font sizes relative to the base font size
         let smallerFontSize = baseFont.pointSize * sizeDifference
         let smallerFont = baseFont.withSize(smallerFontSize)
         
-        // Apply smaller font to the dollar sign
         attributedString.addAttribute(.font, value: smallerFont, range: NSRange(location: 0, length: 1))
         
-        // Apply smaller font to the numbers after the decimal point
         if let range = fullString.range(of: ",") {
             let nsRange = NSRange(range, in: fullString)
             let decimalRange = NSRange(location: nsRange.location, length: fullString.count - nsRange.location)
@@ -58,7 +56,6 @@ class PlainNumberFormatterHelper {
         formatter.locale = Locale(identifier: "en_US") // Ensures the dollar sign is in the front
         formatter.currencySymbol = "$"
         
-        // Custom logic to handle the fraction digits
         if floor(amount) == amount {
             formatter.minimumFractionDigits = 0
         } else {
@@ -68,5 +65,11 @@ class PlainNumberFormatterHelper {
         
         let formattedNumber = formatter.string(from: NSNumber(value: amount)) ?? "$0.00"
         return formattedNumber
+    }
+}
+
+class DollarValueFormatter: NSObject, ValueFormatter {
+    func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
+        return "$\(value)"
     }
 }

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		853A3DA82C3593A40042A0A4 /* Payment Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D7E2C3593A40042A0A4 /* Payment Models.swift */; };
 		853A3DA92C3593A40042A0A4 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D812C3593A40042A0A4 /* Model.xcdatamodeld */; };
 		853A3DAA2C3593A40042A0A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D842C3593A40042A0A4 /* AppDelegate.swift */; };
 		853A3DAB2C3593A40042A0A4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D852C3593A40042A0A4 /* SceneDelegate.swift */; };
@@ -47,6 +46,15 @@
 		85835ECB2C41A25E0007F180 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85835EC92C41A25E0007F180 /* Montserrat-Regular.ttf */; };
 		85835ECE2C41A7E70007F180 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835ECD2C41A7E70007F180 /* LoginView.swift */; };
 		85835ED02C41A7F20007F180 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835ECF2C41A7F20007F180 /* LoginViewModel.swift */; };
+		85835ED82C4201CE0007F180 /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = 85835ED72C4201CE0007F180 /* DGCharts */; };
+		85835EDA2C4201CE0007F180 /* DGChartsDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 85835ED92C4201CE0007F180 /* DGChartsDynamic */; };
+		85835EDC2C42E1470007F180 /* TimeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835EDB2C42E1470007F180 /* TimeModels.swift */; };
+		85835EDF2C42E1A00007F180 /* BasicExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835EDE2C42E1A00007F180 /* BasicExpense.swift */; };
+		85835EE12C42E1D20007F180 /* SubscriptionExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835EE02C42E1D20007F180 /* SubscriptionExpense.swift */; };
+		85835EE32C42E1FB0007F180 /* BankPaymentExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835EE22C42E1FB0007F180 /* BankPaymentExpense.swift */; };
+		85835EE62C42E3570007F180 /* SubscriptionOccurrence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835EE52C42E3570007F180 /* SubscriptionOccurrence.swift */; };
+		85835EE82C42E44E0007F180 /* PaymentOccurrence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835EE72C42E44E0007F180 /* PaymentOccurrence.swift */; };
+		85835EEA2C42E67A0007F180 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835EE92C42E67A0007F180 /* Alert.swift */; };
 		85B85B052C36D83100AAD046 /* AddExpenseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B042C36D83100AAD046 /* AddExpenseVC.swift */; };
 		85B85B072C36DB4C00AAD046 /* CustomExpenseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B062C36DB4C00AAD046 /* CustomExpenseCell.swift */; };
 		85B85B092C36FC9400AAD046 /* FavoriteBudgetsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B082C36FC9400AAD046 /* FavoriteBudgetsModel.swift */; };
@@ -59,17 +67,29 @@
 		85B85B2C2C38D44B00AAD046 /* Inter-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85B85B2B2C38D44B00AAD046 /* Inter-Bold.ttf */; };
 		85B85B2E2C38D67300AAD046 /* Inter-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85B85B2D2C38D67200AAD046 /* Inter-SemiBold.ttf */; };
 		85B85B302C3AE06800AAD046 /* AddPaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B2F2C3AE06800AAD046 /* AddPaymentVC.swift */; };
-		85B85B322C3B308200AAD046 /* Day Suffix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B312C3B308200AAD046 /* Day Suffix.swift */; };
+		85B85B322C3B308200AAD046 /* DaySuffix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B312C3B308200AAD046 /* DaySuffix.swift */; };
 		85B85B342C3C2E1900AAD046 /* BankPaymentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B332C3C2E1900AAD046 /* BankPaymentCell.swift */; };
 		85B85B362C3DFBDD00AAD046 /* ChesnaGrotesk-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85B85B352C3DFBDD00AAD046 /* ChesnaGrotesk-Regular.ttf */; };
 		85B85B382C3DFD2000AAD046 /* ChesnaGrotesk-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85B85B372C3DFD2000AAD046 /* ChesnaGrotesk-Bold.ttf */; };
 		85B85B3A2C3DFD7F00AAD046 /* ChesnaGrotesk-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85B85B392C3DFD7F00AAD046 /* ChesnaGrotesk-Medium.ttf */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		85835F052C4419E30007F180 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		853A3D672C3592BF0042A0A4 /* Budgeting Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Budgeting Application.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		853A3D782C3592C20042A0A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		853A3D7E2C3593A40042A0A4 /* Payment Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Payment Models.swift"; sourceTree = "<group>"; };
 		853A3D832C3593A40042A0A4 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		853A3D842C3593A40042A0A4 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		853A3D852C3593A40042A0A4 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -109,6 +129,14 @@
 		85835EC92C41A25E0007F180 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		85835ECD2C41A7E70007F180 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		85835ECF2C41A7F20007F180 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		85835EDB2C42E1470007F180 /* TimeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeModels.swift; sourceTree = "<group>"; };
+		85835EDE2C42E1A00007F180 /* BasicExpense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicExpense.swift; sourceTree = "<group>"; };
+		85835EE02C42E1D20007F180 /* SubscriptionExpense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionExpense.swift; sourceTree = "<group>"; };
+		85835EE22C42E1FB0007F180 /* BankPaymentExpense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankPaymentExpense.swift; sourceTree = "<group>"; };
+		85835EE52C42E3570007F180 /* SubscriptionOccurrence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionOccurrence.swift; sourceTree = "<group>"; };
+		85835EE72C42E44E0007F180 /* PaymentOccurrence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentOccurrence.swift; sourceTree = "<group>"; };
+		85835EE92C42E67A0007F180 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		85835EF32C4419E10007F180 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		85B85B042C36D83100AAD046 /* AddExpenseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseVC.swift; sourceTree = "<group>"; };
 		85B85B062C36DB4C00AAD046 /* CustomExpenseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomExpenseCell.swift; sourceTree = "<group>"; };
 		85B85B082C36FC9400AAD046 /* FavoriteBudgetsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteBudgetsModel.swift; sourceTree = "<group>"; };
@@ -121,7 +149,7 @@
 		85B85B2B2C38D44B00AAD046 /* Inter-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Bold.ttf"; sourceTree = "<group>"; };
 		85B85B2D2C38D67200AAD046 /* Inter-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-SemiBold.ttf"; sourceTree = "<group>"; };
 		85B85B2F2C3AE06800AAD046 /* AddPaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPaymentVC.swift; sourceTree = "<group>"; };
-		85B85B312C3B308200AAD046 /* Day Suffix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Day Suffix.swift"; sourceTree = "<group>"; };
+		85B85B312C3B308200AAD046 /* DaySuffix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaySuffix.swift; sourceTree = "<group>"; };
 		85B85B332C3C2E1900AAD046 /* BankPaymentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankPaymentCell.swift; sourceTree = "<group>"; };
 		85B85B352C3DFBDD00AAD046 /* ChesnaGrotesk-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ChesnaGrotesk-Regular.ttf"; sourceTree = "<group>"; };
 		85B85B372C3DFD2000AAD046 /* ChesnaGrotesk-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ChesnaGrotesk-Bold.ttf"; sourceTree = "<group>"; };
@@ -133,6 +161,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85835EDA2C4201CE0007F180 /* DGChartsDynamic in Frameworks */,
+				85835ED82C4201CE0007F180 /* DGCharts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				853A3D692C3592BF0042A0A4 /* Budgeting Application */,
+				85835EF02C4419E00007F180 /* Frameworks */,
 				853A3D682C3592BF0042A0A4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -174,7 +205,10 @@
 		853A3D7F2C3593A40042A0A4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				853A3D7E2C3593A40042A0A4 /* Payment Models.swift */,
+				85835EE42C42E3430007F180 /* Occurrences */,
+				85835EDD2C42E1820007F180 /* Expense Categories */,
+				853A3DA42C3593A40042A0A4 /* CoreData Models */,
+				85835EDB2C42E1470007F180 /* TimeModels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -186,6 +220,7 @@
 				853A3D922C3593A40042A0A4 /* NavigationRectangle.swift */,
 				853A3DD42C35FC990042A0A4 /* SegmentedControlView.swift */,
 				85B85B0C2C38A54A00AAD046 /* BorderLabelView.swift */,
+				85835EE92C42E67A0007F180 /* Alert.swift */,
 			);
 			path = Reusable;
 			sourceTree = "<group>";
@@ -291,7 +326,7 @@
 			path = Scene;
 			sourceTree = "<group>";
 		};
-		853A3DA42C3593A40042A0A4 /* Data Models */ = {
+		853A3DA42C3593A40042A0A4 /* CoreData Models */ = {
 			isa = PBXGroup;
 			children = (
 				853A3DA12C3593A40042A0A4 /* BasicExpenseBudgetModel.swift */,
@@ -300,18 +335,17 @@
 				853A3DBE2C35CBDA0042A0A4 /* PaymentExpenseModel.swift */,
 				85B85B082C36FC9400AAD046 /* FavoriteBudgetsModel.swift */,
 			);
-			path = "Data Models";
+			path = "CoreData Models";
 			sourceTree = "<group>";
 		};
 		853A3DA72C3593A40042A0A4 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				853A3DA52C3593A40042A0A4 /* DataManager.swift */,
-				853A3DA42C3593A40042A0A4 /* Data Models */,
 				85B85B0B2C3718BA00AAD046 /* Occurances */,
+				853A3DA52C3593A40042A0A4 /* DataManager.swift */,
 				853A3DC62C35D22D0042A0A4 /* Expense:Budget service.swift */,
 				853A3DCE2C35E84D0042A0A4 /* NumberFormatter.swift */,
-				85B85B312C3B308200AAD046 /* Day Suffix.swift */,
+				85B85B312C3B308200AAD046 /* DaySuffix.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -368,6 +402,33 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		85835EDD2C42E1820007F180 /* Expense Categories */ = {
+			isa = PBXGroup;
+			children = (
+				85835EDE2C42E1A00007F180 /* BasicExpense.swift */,
+				85835EE02C42E1D20007F180 /* SubscriptionExpense.swift */,
+				85835EE22C42E1FB0007F180 /* BankPaymentExpense.swift */,
+			);
+			path = "Expense Categories";
+			sourceTree = "<group>";
+		};
+		85835EE42C42E3430007F180 /* Occurrences */ = {
+			isa = PBXGroup;
+			children = (
+				85835EE52C42E3570007F180 /* SubscriptionOccurrence.swift */,
+				85835EE72C42E44E0007F180 /* PaymentOccurrence.swift */,
+			);
+			path = Occurrences;
+			sourceTree = "<group>";
+		};
+		85835EF02C4419E00007F180 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				85835EF32C4419E10007F180 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		85B85B0B2C3718BA00AAD046 /* Occurances */ = {
 			isa = PBXGroup;
 			children = (
@@ -406,12 +467,17 @@
 				853A3D632C3592BF0042A0A4 /* Sources */,
 				853A3D642C3592BF0042A0A4 /* Frameworks */,
 				853A3D652C3592BF0042A0A4 /* Resources */,
+				85835F052C4419E30007F180 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = "Budgeting Application";
+			packageProductDependencies = (
+				85835ED72C4201CE0007F180 /* DGCharts */,
+				85835ED92C4201CE0007F180 /* DGChartsDynamic */,
+			);
 			productName = "Budgeting Application";
 			productReference = 853A3D672C3592BF0042A0A4 /* Budgeting Application.app */;
 			productType = "com.apple.product-type.application";
@@ -440,6 +506,9 @@
 				Base,
 			);
 			mainGroup = 853A3D5E2C3592BF0042A0A4;
+			packageReferences = (
+				85835ED62C4201CE0007F180 /* XCRemoteSwiftPackageReference "Charts" */,
+			);
 			productRefGroup = 853A3D682C3592BF0042A0A4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -478,12 +547,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85835EE32C42E1FB0007F180 /* BankPaymentExpense.swift in Sources */,
 				853A3DB92C3593A40042A0A4 /* BasicExpenseBudgetModel.swift in Sources */,
 				853A3DD92C360B7C0042A0A4 /* ExpensesVC.swift in Sources */,
 				853A3DD12C35F6460042A0A4 /* UIColor.swift in Sources */,
+				85835EE62C42E3570007F180 /* SubscriptionOccurrence.swift in Sources */,
 				853A3DCA2C35DC210042A0A4 /* BudgetDetailViewController.swift in Sources */,
 				85B85B092C36FC9400AAD046 /* FavoriteBudgetsModel.swift in Sources */,
 				85B85B0D2C38A54A00AAD046 /* BorderLabelView.swift in Sources */,
+				85835EDC2C42E1470007F180 /* TimeModels.swift in Sources */,
+				85835EE82C42E44E0007F180 /* PaymentOccurrence.swift in Sources */,
 				853A3DAA2C3593A40042A0A4 /* AppDelegate.swift in Sources */,
 				853A3DB42C3593A40042A0A4 /* DashboardVM.swift in Sources */,
 				853A3DB32C3593A40042A0A4 /* DashboardVC.swift in Sources */,
@@ -491,14 +564,17 @@
 				853A3DB22C3593A40042A0A4 /* SubscriptionCell.swift in Sources */,
 				853A3DC72C35D22D0042A0A4 /* Expense:Budget service.swift in Sources */,
 				853A3DAC2C3593A40042A0A4 /* TabBarController.swift in Sources */,
+				85835EDF2C42E1A00007F180 /* BasicExpense.swift in Sources */,
 				853A3DAB2C3593A40042A0A4 /* SceneDelegate.swift in Sources */,
 				853A3DBD2C3593A40042A0A4 /* Subscription Occurances.swift in Sources */,
 				853A3DD52C35FC990042A0A4 /* SegmentedControlView.swift in Sources */,
 				853A3DB72C3593A40042A0A4 /* RecurringVC.swift in Sources */,
+				85835EE12C42E1D20007F180 /* SubscriptionExpense.swift in Sources */,
 				85B85B302C3AE06800AAD046 /* AddPaymentVC.swift in Sources */,
 				85B85B342C3C2E1900AAD046 /* BankPaymentCell.swift in Sources */,
 				85835EC72C407B0A0007F180 /* CalendarTableViewCell.swift in Sources */,
 				85835ED02C41A7F20007F180 /* LoginViewModel.swift in Sources */,
+				85835EEA2C42E67A0007F180 /* Alert.swift in Sources */,
 				853A3DB52C3593A40042A0A4 /* AddSubscriptionVC.swift in Sources */,
 				853A3DBC2C3593A40042A0A4 /* DataManager.swift in Sources */,
 				853A3DC32C35CF3E0042A0A4 /* ViewModel.swift in Sources */,
@@ -509,8 +585,7 @@
 				853A3DD32C35F66A0042A0A4 /* Color.swift in Sources */,
 				853A3DCF2C35E84D0042A0A4 /* NumberFormatter.swift in Sources */,
 				853A3DB02C3593A40042A0A4 /* BudgetView.swift in Sources */,
-				853A3DA82C3593A40042A0A4 /* Payment Models.swift in Sources */,
-				85B85B322C3B308200AAD046 /* Day Suffix.swift in Sources */,
+				85B85B322C3B308200AAD046 /* DaySuffix.swift in Sources */,
 				853A3DB82C3593A40042A0A4 /* RecurringVM.swift in Sources */,
 				853A3DA92C3593A40042A0A4 /* Model.xcdatamodeld in Sources */,
 				853A3DB12C3593A40042A0A4 /* NavigationRectangle.swift in Sources */,
@@ -660,11 +735,13 @@
 		853A3D7C2C3592C20042A0A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Budgeting Application/Budgeting Application.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 9S26B8AV5C;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Budgeting Application/Info.plist";
@@ -694,11 +771,13 @@
 		853A3D7D2C3592C20042A0A4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Budgeting Application/Budgeting Application.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 9S26B8AV5C;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Budgeting Application/Info.plist";
@@ -747,6 +826,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		85835ED62C4201CE0007F180 /* XCRemoteSwiftPackageReference "Charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielgindi/Charts.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		85835ED72C4201CE0007F180 /* DGCharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 85835ED62C4201CE0007F180 /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = DGCharts;
+		};
+		85835ED92C4201CE0007F180 /* DGChartsDynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 85835ED62C4201CE0007F180 /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = DGChartsDynamic;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		853A3D812C3593A40042A0A4 /* Model.xcdatamodeld */ = {

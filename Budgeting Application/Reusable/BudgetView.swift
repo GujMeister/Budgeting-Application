@@ -84,7 +84,7 @@ class BudgetView: UIView {
         
         progressLayer.path = circularPath.cgPath
         progressLayer.fillColor = UIColor.clear.cgColor
-        progressLayer.strokeColor = remainingAmount ?? 1 < 0 ? UIColor.red.cgColor : UIColor.green.cgColor
+        progressLayer.strokeColor = remainingAmount ?? 1 < 0 ? UIColor(hex: "#b30000").cgColor : UIColor(hex: "#008000").cgColor
         progressLayer.lineWidth = 5
         progressLayer.lineCap = .round
     }

@@ -35,9 +35,9 @@ final class SubscriptionCollectionViewCell: UICollectionViewCell {
     
     private let categoryLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(hex: "#28282B")
+        label.textColor = UIColor(hex: "#252524")
         label.textAlignment = .left
-        label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 16)
+        label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 14)
         return label
     }()
     
@@ -75,12 +75,12 @@ final class SubscriptionCollectionViewCell: UICollectionViewCell {
         costLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            customBackgroundView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            customBackgroundView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
             customBackgroundView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
             customBackgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
             customBackgroundView.topAnchor.constraint(equalTo: topAnchor, constant: 5),
             
-            dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 23),
+            dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             dateLabel.bottomAnchor.constraint(equalTo: customBackgroundView.topAnchor, constant: -2),
             
             emojiLabel.leadingAnchor.constraint(equalTo: customBackgroundView.leadingAnchor, constant: 10),

@@ -186,7 +186,6 @@ class DataManager {
     }
     
     // MARK: - Core Data Saving support
-    
     func saveContext() {
         if context.hasChanges {
             do {

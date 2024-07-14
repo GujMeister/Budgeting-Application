@@ -5,14 +5,12 @@
 //  Created by Luka Gujejiani on 01.07.24.
 //
 
-import CoreData
+// Documentation:
+// Subscription expense model has 2 properties named repeat count and date
+// SubscriptionService makes as many Subscription Occurrance objects as there are "repeat counts" on the subscription
+// If subscription expense has 12 repeat count on specific date, this service produces 12 objects on dates 1 month apart
 
-struct SubscriptionOccurrence {
-    var category: String
-    var subscriptionDescription: String
-    var amount: Double
-    var date: Date
-}
+import CoreData
 
 class SubscriptionService {
     private var context: NSManagedObjectContext

@@ -151,7 +151,7 @@ final class AddExpenseViewController: UIViewController {
             topView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
             topView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             topView.heightAnchor.constraint(equalToConstant: 5),
-            topView.widthAnchor.constraint(equalToConstant: 100),
+            topView.widthAnchor.constraint(equalToConstant: 70),
             
             categoryLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
             categoryLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -194,7 +194,7 @@ final class AddExpenseViewController: UIViewController {
         let category = categories[selectedCategoryIndex]
         
         guard let description = descriptionTextField.text, !description.isEmpty,
-              let amountText = amountTextField.text, let amount = Double(amountText) else {
+              let amountText = amountTextField.text?.replacingOccurrences(of: ",", with: "."), let amount = Double(amountText) else {
             invalidInput()
             return
         }
@@ -249,21 +249,15 @@ final class AddExpenseViewController: UIViewController {
     
     // MARK: - Information Alerts
     private func descriptionsButtonTapped() {
-        let alert = UIAlertController(title: "Info about the description", message: "This description will be used to describe the expense throughout the application for your convinience", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
+        presentAlert(from: self, title: "Info about the description", message: "This description will be used to describe the expense throughout the application for your convenience")
     }
-    
+
     private func inputAmountButtonTapped() {
-        let alert = UIAlertController(title: "Info about the input amount", message: "This number will be used to set the amount that you are going to input for this expense", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
+        presentAlert(from: self, title: "Info about the input amount", message: "This number will be used to set the amount that you are going to input for this expense")
     }
-    
+
     private func invalidInput() {
-        let alert = UIAlertController(title: "Invalid Input", message: "Please fill out all fields", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
+        presentAlert(from: self, title: "Invalid Input", message: "Please fill out all fields")
     }
 }
 
