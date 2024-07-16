@@ -1,5 +1,5 @@
 //
-//  Day Suffix.swift
+//  DaySuffix.swift
 //  Budgeting Application
 //
 //  Created by Luka Gujejiani on 08.07.24.

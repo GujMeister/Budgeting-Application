@@ -41,7 +41,7 @@ final class BankPaymentCollectionViewCell: UICollectionViewCell {
         label.textColor = .label
         label.textAlignment = .left
         label.numberOfLines = 2
-        label.font = UIFont(name: "ChesnaGrotesk-Bold", size: 20)
+        label.font = UIFont(name: "ChesnaGrotesk-Bold", size: 18)
         return label
     }()
     
@@ -49,7 +49,7 @@ final class BankPaymentCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = UIColor(hex: "#252525")
         label.textAlignment = .left
-        label.font = UIFont(name: "ChesnaGrotesk-Bold", size: 17)
+        label.font = UIFont(name: "ChesnaGrotesk-Bold", size: 14)
         return label
     }()
 
@@ -118,14 +118,14 @@ final class BankPaymentCollectionViewCell: UICollectionViewCell {
     }
     
     // MARK: - Configure
-    func configure(with payment: PaymentOccurrence, textColor: UIColor) {
+    func configure(with payment: PaymentOccurrence/*, textColor: UIColor*/) {
         dateLabel.text = formattedDate(payment.date)
         categoryLabel.text = payment.subscriptionDescription
         
         costLabel.attributedText = NumberFormatterHelper.shared.format(amount: payment.amount, baseFont: UIFont(name: "Heebo-SemiBold", size: 17) ?? UIFont(), sizeDifference: 0.8)
         
-        categoryLabel.textColor = textColor
-        costLabel.textColor = textColor
+//        categoryLabel.textColor = textColor
+//        costLabel.textColor = textColor
         
         if let category = PaymentsCategory(rawValue: payment.category) {
             emojiLabel.text = category.emoji

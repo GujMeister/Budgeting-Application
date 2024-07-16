@@ -143,8 +143,8 @@ final class AddBudgetsViewController: UIViewController {
     @objc private func addButtonTapped() {
         let selectedCategoryIndex = categoryPicker.selectedRow(inComponent: 0)
         let category = categories[selectedCategoryIndex]
-        
-        guard let amountText = amountTextField.text, let amount = Double(amountText) else {
+
+        guard let amountText = amountTextField.text?.replacingOccurrences(of: ",", with: "."), let amount = Double(amountText) else {
             invalidInput()
             return
         }
@@ -190,21 +190,15 @@ final class AddBudgetsViewController: UIViewController {
     
     // MARK: - Information Alerts
     private func inputAmountButtonTapped() {
-        let alert = UIAlertController(title: "Info about the input amount", message: "This number will be used to set the amount that you are going to budget every month for this payment", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
+        presentAlert(from: self, title: "Info about the input amount", message: "This number will be used to set the amount that you are going to budget every month for this payment")
     }
-    
-    private func showAlert(message: String) {
-        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
-    }
-    
+
     private func invalidInput() {
-        let alert = UIAlertController(title: "Invalid Input", message: "Please fill out all fields", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
+        presentAlert(from: self, title: "Invalid Input", message: "Please fill out all fields")
+    }
+
+    private func showAlert(message: String) {
+        presentAlert(from: self, title: "Error", message: message)
     }
 }
 

@@ -13,6 +13,10 @@ final class DashboardViewModel {
     var subscriptions: [SubscriptionExpenseModel] = []
     var payments: [PaymentExpenseModel] = []
     
+    var totalBudgets: Double = 0.0
+    var totalPayments: Double = 0.0
+    var totalSubscriptions: Double = 0.0
+    
     //Data To Show
     var filteredSubscriptions: [SubscriptionOccurrence] = [] {
         didSet {
@@ -61,6 +65,7 @@ final class DashboardViewModel {
     }
     
     // MARK: - Helper Functions
+    
     func loadData() {
         fetchSubscriptions()
         fetchPayments()
@@ -70,11 +75,11 @@ final class DashboardViewModel {
     }
     
     private func calculateTotalBudgetedThisMonth() {
-        let totalBudgeted = budgets.reduce(0) { $0 + $1.totalAmount }
-        let totalPayments = payments.reduce(0) { $0 + $1.amount }
-        let totalSubscriptions = subscriptions.reduce(0) { $0 + $1.amount }
+        totalBudgets = budgets.reduce(0) { $0 + $1.totalAmount }
+        totalPayments = payments.reduce(0) { $0 + $1.amount }
+        totalSubscriptions = subscriptions.reduce(0) { $0 + $1.amount }
 
-        totalBudgetedThisMonth = totalBudgeted + totalPayments + totalSubscriptions
+        totalBudgetedThisMonth = totalBudgets + totalPayments + totalSubscriptions
     }
     
     private func loadFilteredOccurrences() {

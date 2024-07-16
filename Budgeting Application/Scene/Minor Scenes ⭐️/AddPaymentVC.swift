@@ -180,7 +180,7 @@ final class AddPaymentVC: UIViewController {
             topView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
             topView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             topView.heightAnchor.constraint(equalToConstant: 5),
-            topView.widthAnchor.constraint(equalToConstant: 100),
+            topView.widthAnchor.constraint(equalToConstant: 70),
             
             categoryLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
             categoryLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -233,7 +233,8 @@ final class AddPaymentVC: UIViewController {
         let category = categories[selectedCategoryIndex]
         
         guard let description = descriptionTextField.text, !description.isEmpty,
-              let amountText = amountTextField.text, let amount = Double(amountText),
+              let amountText = amountTextField.text?.replacingOccurrences(of: ",", with: "."),
+              let amount = Double(amountText),
               let repeatCountText = repeatCountTextField.text, let repeatCount = Int(repeatCountText) else {
             invalidInput()
             return
@@ -251,7 +252,7 @@ final class AddPaymentVC: UIViewController {
         do {
             try context.save()
             delegate?.didAddPayment(subscription)
-            dismiss(animated: true) 
+            dismiss(animated: true)
         } catch {
             print("Failed to save subscription: \(error)")
         }
@@ -292,27 +293,19 @@ final class AddPaymentVC: UIViewController {
     
     // MARK: - Information Alerts
     private func descriptionsButtonTapped() {
-        let alert = UIAlertController(title: "Info about the description", message: "This description will be used to describe the payment throughout the application for your convinience", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
+        presentAlert(from: self, title: "Info about the description", message: "This description will be used to describe the payment throughout the application for your convenience")
     }
-    
+
     private func inputAmountButtonTapped() {
-        let alert = UIAlertController(title: "Info about the input amount", message: "This number will be used to set the amount that you are going to budget every month for this payment", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
+        presentAlert(from: self, title: "Info about the input amount", message: "This number will be used to set the amount that you are going to budget every month for this payment")
     }
-    
+
     private func monthsButtonTapped() {
-        let alert = UIAlertController(title: "Info about the number of months", message: "This is an input for number of months you want your payement to occur. Inputting 12 will repeat the payment 12 times (1 Year)", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
+        presentAlert(from: self, title: "Info about the number of months", message: "This is an input for the number of months you want your payment to occur. Inputting 12 will repeat the payment 12 times (1 Year)")
     }
-    
+
     private func invalidInput() {
-        let alert = UIAlertController(title: "Invalid Input", message: "Please fill out all fields", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
+        presentAlert(from: self, title: "Invalid Input", message: "Please fill out all fields correctly")
     }
 }
 
