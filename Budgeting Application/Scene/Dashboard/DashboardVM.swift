@@ -65,7 +65,6 @@ final class DashboardViewModel {
     }
     
     // MARK: - Helper Functions
-    
     func loadData() {
         fetchSubscriptions()
         fetchPayments()

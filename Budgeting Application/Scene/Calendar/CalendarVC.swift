@@ -36,9 +36,28 @@ class CalendarViewController: UIViewController {
         label.textColor = .white
         label.textAlignment = .center
         label.font = UIFont(name: "ChesnaGrotesk-Bold", size: 26)
-        label.text = "Calendar"
+        label.text = ""
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    
+    private lazy var calendarInfoButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Calendar ", for: .normal)
+        button.titleLabel?.font = UIFont(name: "ChesnaGrotesk-Bold", size: 14)
+        
+        let config = UIImage.SymbolConfiguration(pointSize: 9)
+        let chevron = UIImage(systemName: "info.circle.fill", withConfiguration: config)
+        button.setImage(chevron, for: .normal)
+        button.tintColor = .customBlue
+        button.semanticContentAttribute = .forceRightToLeft
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.didTapCalendarInfoButton()
+        }), for: .touchUpInside)
+        
+        return button
     }()
 
     private lazy var calendar: UICalendarView = {
@@ -52,6 +71,25 @@ class CalendarViewController: UIViewController {
         return calendar
     }()
     
+    private lazy var tableViewInfoButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Information Table ", for: .normal)
+        button.titleLabel?.font = UIFont(name: "ChesnaGrotesk-Bold", size: 14)
+        
+        let config = UIImage.SymbolConfiguration(pointSize: 9)
+        let chevron = UIImage(systemName: "info.circle.fill", withConfiguration: config)
+        button.setImage(chevron, for: .normal)
+        button.tintColor = .customBlue
+        button.semanticContentAttribute = .forceRightToLeft
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.didTapInformationTableButton()
+        }), for: .touchUpInside)
+        
+        return button
+    }()
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.register(CalendarTableViewCell.self, forCellReuseIdentifier: CalendarTableViewCell.reuseIdentifier)
@@ -59,6 +97,7 @@ class CalendarViewController: UIViewController {
         tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.isHidden = true
+        tableView.allowsSelection = false
         tableView.showsVerticalScrollIndicator = false
         return tableView
     }()
@@ -103,7 +142,9 @@ class CalendarViewController: UIViewController {
             scrollView.addSubview(contentView)
             contentView.addSubview(topView)
             contentView.addSubview(calendarLabel)
+            contentView.addSubview(calendarInfoButton)
             contentView.addSubview(calendar)
+            contentView.addSubview(tableViewInfoButton)
             contentView.addSubview(tableView)
             contentView.addSubview(noDataBackgroundView)
             noDataBackgroundView.addSubview(noDataLabel)
@@ -128,17 +169,23 @@ class CalendarViewController: UIViewController {
                 calendarLabel.centerYAnchor.constraint(equalTo: topView.centerYAnchor, constant: 20),
                 calendarLabel.centerXAnchor.constraint(equalTo: topView.centerXAnchor),
                 
-                calendar.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 10),
+                calendarInfoButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+                calendarInfoButton.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 20),
+                
+                calendar.topAnchor.constraint(equalTo: calendarInfoButton.bottomAnchor, constant: 10),
                 calendar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
                 calendar.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
                 
-                tableView.topAnchor.constraint(equalTo: calendar.bottomAnchor, constant: 20),
+                tableViewInfoButton.topAnchor.constraint(equalTo: calendar.bottomAnchor, constant: 20),
+                tableViewInfoButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+                
+                tableView.topAnchor.constraint(equalTo: tableViewInfoButton.bottomAnchor, constant: 10),
                 tableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
                 tableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
                 tableView.heightAnchor.constraint(equalToConstant: 350),
-                tableView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -100),
+                tableView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -50),
                 
-                noDataBackgroundView.topAnchor.constraint(equalTo: calendar.bottomAnchor, constant: 20),
+                noDataBackgroundView.topAnchor.constraint(equalTo: tableViewInfoButton.bottomAnchor, constant: 10),
                 noDataBackgroundView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
                 noDataBackgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
                 noDataBackgroundView.heightAnchor.constraint(equalToConstant: 100),
@@ -148,6 +195,7 @@ class CalendarViewController: UIViewController {
             ])
         }
     
+    // MARK: - View Model
     private func setupViewModelCallbacks() {
         viewModel.onEventsUpdated = { [weak self] in
             DispatchQueue.main.async {
@@ -160,6 +208,18 @@ class CalendarViewController: UIViewController {
         }
     }
     
+    // MARK: - Actions
+    
+    func didTapCalendarInfoButton() {
+        presentAlert(from: self, title: "Calendar Information", message: "Calendar displays all your Subscriptions, Payments and Expenses that you have saved. It helps you to visually understand when you should make/had made Subscriptions or Bank Payments. Every expense that you've made so far is in the calendar also. The numbers show you how many catogories of payments are in the calendar. 3 means there are Subscriptions, Payments and Expenses for the specific date and so on")
+    }
+    
+    func didTapInformationTableButton() {
+        presentAlert(from: self, title: "Information Table", message: "Information Table gives you all the expenses you have made or will have to make based on the date that you have chosen in the calendar")
+    }
+    
+    
+    // MARK: - Helper Functions
     @objc private func dateChanged(_ sender: UIDatePicker) {
         viewModel.events(for: sender.date)
     }

@@ -6,6 +6,7 @@
 
 import UIKit
 import DGCharts
+import SwiftUI
 
 final class DashboardViewController: UIViewController {
     // MARK: - Properties
@@ -31,7 +32,16 @@ final class DashboardViewController: UIViewController {
     
     private lazy var infoView: NavigationRectangle = {
         let screenSize = UIScreen.main.bounds.height
-        let view = NavigationRectangle(height: screenSize / 4, color: UIColor.customBlue, totalBudgetedMoney: NSMutableAttributedString(string: "1234"), descriptionLabelText: "Total Budgeted")
+        let view = NavigationRectangle(
+            height: screenSize / 4,
+            color: UIColor.customBlue,
+            totalBudgetedMoney: NSMutableAttributedString(string: "1234"),
+            descriptionLabelText: "Total Budgeted",
+            settingsButtonAction: {
+                let settingsVC = UIHostingController(rootView: SettingsView())
+                self.navigationController?.pushViewController(settingsVC, animated: true)
+            }
+        )
         return view
     }()
     
@@ -197,6 +207,7 @@ final class DashboardViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("✅ DashboardVC viewDidLoad")
         setupUI()
         setupBindings()
         viewModel.loadData()
@@ -204,6 +215,7 @@ final class DashboardViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print("✅ DashboardVC viewWillAppear")
         viewModel.loadData()
     }
     

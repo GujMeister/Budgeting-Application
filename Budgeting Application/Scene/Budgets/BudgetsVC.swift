@@ -83,6 +83,7 @@ final class BudgetsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("✅ BudgetsVC viewDidLoad")
         setupBindings()
         setupUI()
         viewModel.loadBudgets()
@@ -91,6 +92,7 @@ final class BudgetsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print("✅ BudgetsVC viewWillAppear")
         customSegmentedControlView.setSelectedIndex(0)
         viewModel.loadBudgets()
         viewModel.loadFavoritedBudgets()

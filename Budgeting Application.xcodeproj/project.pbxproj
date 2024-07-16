@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		851DCFD32C46591300A0E302 /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = 851DCFD22C46591300A0E302 /* DGCharts */; };
+		851DCFD72C4672E000A0E302 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851DCFD62C4672DF00A0E302 /* ChangePasswordView.swift */; };
+		851DCFD92C4672EC00A0E302 /* ChangePasswordVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851DCFD82C4672EC00A0E302 /* ChangePasswordVM.swift */; };
+		851DCFDC2C4679F300A0E302 /* ChangeNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851DCFDB2C4679F300A0E302 /* ChangeNameView.swift */; };
 		853A3DA92C3593A40042A0A4 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D812C3593A40042A0A4 /* Model.xcdatamodeld */; };
 		853A3DAA2C3593A40042A0A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D842C3593A40042A0A4 /* AppDelegate.swift */; };
 		853A3DAB2C3593A40042A0A4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D852C3593A40042A0A4 /* SceneDelegate.swift */; };
@@ -46,8 +50,6 @@
 		85835ECB2C41A25E0007F180 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85835EC92C41A25E0007F180 /* Montserrat-Regular.ttf */; };
 		85835ECE2C41A7E70007F180 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835ECD2C41A7E70007F180 /* LoginView.swift */; };
 		85835ED02C41A7F20007F180 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835ECF2C41A7F20007F180 /* LoginViewModel.swift */; };
-		85835ED82C4201CE0007F180 /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = 85835ED72C4201CE0007F180 /* DGCharts */; };
-		85835EDA2C4201CE0007F180 /* DGChartsDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 85835ED92C4201CE0007F180 /* DGChartsDynamic */; };
 		85835EDC2C42E1470007F180 /* TimeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835EDB2C42E1470007F180 /* TimeModels.swift */; };
 		85835EDF2C42E1A00007F180 /* BasicExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835EDE2C42E1A00007F180 /* BasicExpense.swift */; };
 		85835EE12C42E1D20007F180 /* SubscriptionExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835EE02C42E1D20007F180 /* SubscriptionExpense.swift */; };
@@ -55,6 +57,9 @@
 		85835EE62C42E3570007F180 /* SubscriptionOccurrence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835EE52C42E3570007F180 /* SubscriptionOccurrence.swift */; };
 		85835EE82C42E44E0007F180 /* PaymentOccurrence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835EE72C42E44E0007F180 /* PaymentOccurrence.swift */; };
 		85835EEA2C42E67A0007F180 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835EE92C42E67A0007F180 /* Alert.swift */; };
+		85835F292C4533470007F180 /* LaunchScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835F282C4533460007F180 /* LaunchScreenVC.swift */; };
+		85835F2C2C457C3D0007F180 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835F2B2C457C3D0007F180 /* SettingsVC.swift */; };
+		85835F2E2C457C430007F180 /* SettingsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835F2D2C457C430007F180 /* SettingsVM.swift */; };
 		85B85B052C36D83100AAD046 /* AddExpenseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B042C36D83100AAD046 /* AddExpenseVC.swift */; };
 		85B85B072C36DB4C00AAD046 /* CustomExpenseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B062C36DB4C00AAD046 /* CustomExpenseCell.swift */; };
 		85B85B092C36FC9400AAD046 /* FavoriteBudgetsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B082C36FC9400AAD046 /* FavoriteBudgetsModel.swift */; };
@@ -85,9 +90,22 @@
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		85AAEB912C45814F00C47952 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		851DCFD62C4672DF00A0E302 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
+		851DCFD82C4672EC00A0E302 /* ChangePasswordVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVM.swift; sourceTree = "<group>"; };
+		851DCFDB2C4679F300A0E302 /* ChangeNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeNameView.swift; sourceTree = "<group>"; };
 		853A3D672C3592BF0042A0A4 /* Budgeting Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Budgeting Application.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		853A3D782C3592C20042A0A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		853A3D832C3593A40042A0A4 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -136,7 +154,9 @@
 		85835EE52C42E3570007F180 /* SubscriptionOccurrence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionOccurrence.swift; sourceTree = "<group>"; };
 		85835EE72C42E44E0007F180 /* PaymentOccurrence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentOccurrence.swift; sourceTree = "<group>"; };
 		85835EE92C42E67A0007F180 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
-		85835EF32C4419E10007F180 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		85835F282C4533460007F180 /* LaunchScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenVC.swift; sourceTree = "<group>"; };
+		85835F2B2C457C3D0007F180 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		85835F2D2C457C430007F180 /* SettingsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVM.swift; sourceTree = "<group>"; };
 		85B85B042C36D83100AAD046 /* AddExpenseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseVC.swift; sourceTree = "<group>"; };
 		85B85B062C36DB4C00AAD046 /* CustomExpenseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomExpenseCell.swift; sourceTree = "<group>"; };
 		85B85B082C36FC9400AAD046 /* FavoriteBudgetsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteBudgetsModel.swift; sourceTree = "<group>"; };
@@ -161,20 +181,45 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				85835EDA2C4201CE0007F180 /* DGChartsDynamic in Frameworks */,
-				85835ED82C4201CE0007F180 /* DGCharts in Frameworks */,
+				851DCFD32C46591300A0E302 /* DGCharts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		851DCFD42C4672CD00A0E302 /* Helper Views */ = {
+			isa = PBXGroup;
+			children = (
+				851DCFDA2C4679EC00A0E302 /* ChangeName */,
+				851DCFD52C4672D200A0E302 /* ChangePass */,
+			);
+			path = "Helper Views";
+			sourceTree = "<group>";
+		};
+		851DCFD52C4672D200A0E302 /* ChangePass */ = {
+			isa = PBXGroup;
+			children = (
+				851DCFD62C4672DF00A0E302 /* ChangePasswordView.swift */,
+				851DCFD82C4672EC00A0E302 /* ChangePasswordVM.swift */,
+			);
+			path = ChangePass;
+			sourceTree = "<group>";
+		};
+		851DCFDA2C4679EC00A0E302 /* ChangeName */ = {
+			isa = PBXGroup;
+			children = (
+				851DCFDB2C4679F300A0E302 /* ChangeNameView.swift */,
+			);
+			path = ChangeName;
+			sourceTree = "<group>";
+		};
 		853A3D5E2C3592BF0042A0A4 = {
 			isa = PBXGroup;
 			children = (
 				853A3D692C3592BF0042A0A4 /* Budgeting Application */,
-				85835EF02C4419E00007F180 /* Frameworks */,
 				853A3D682C3592BF0042A0A4 /* Products */,
+				85AAEB9D2C45B99100C47952 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -315,6 +360,8 @@
 		853A3DA02C3593A40042A0A4 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				85835F2A2C457C310007F180 /* Settings */,
+				85835F272C4533220007F180 /* Launch Screen */,
 				85835ECC2C41A7AE0007F180 /* Login */,
 				85835EC42C402D3D0007F180 /* TabBarController */,
 				85835EBF2C402CCE0007F180 /* Calendar */,
@@ -421,10 +468,27 @@
 			path = Occurrences;
 			sourceTree = "<group>";
 		};
-		85835EF02C4419E00007F180 /* Frameworks */ = {
+		85835F272C4533220007F180 /* Launch Screen */ = {
 			isa = PBXGroup;
 			children = (
-				85835EF32C4419E10007F180 /* SwiftUI.framework */,
+				85835F282C4533460007F180 /* LaunchScreenVC.swift */,
+			);
+			path = "Launch Screen";
+			sourceTree = "<group>";
+		};
+		85835F2A2C457C310007F180 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				851DCFD42C4672CD00A0E302 /* Helper Views */,
+				85835F2B2C457C3D0007F180 /* SettingsVC.swift */,
+				85835F2D2C457C430007F180 /* SettingsVM.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		85AAEB9D2C45B99100C47952 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -468,6 +532,7 @@
 				853A3D642C3592BF0042A0A4 /* Frameworks */,
 				853A3D652C3592BF0042A0A4 /* Resources */,
 				85835F052C4419E30007F180 /* Embed Foundation Extensions */,
+				85AAEB912C45814F00C47952 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -475,8 +540,7 @@
 			);
 			name = "Budgeting Application";
 			packageProductDependencies = (
-				85835ED72C4201CE0007F180 /* DGCharts */,
-				85835ED92C4201CE0007F180 /* DGChartsDynamic */,
+				851DCFD22C46591300A0E302 /* DGCharts */,
 			);
 			productName = "Budgeting Application";
 			productReference = 853A3D672C3592BF0042A0A4 /* Budgeting Application.app */;
@@ -507,7 +571,7 @@
 			);
 			mainGroup = 853A3D5E2C3592BF0042A0A4;
 			packageReferences = (
-				85835ED62C4201CE0007F180 /* XCRemoteSwiftPackageReference "Charts" */,
+				851DCFD12C46591300A0E302 /* XCRemoteSwiftPackageReference "Charts" */,
 			);
 			productRefGroup = 853A3D682C3592BF0042A0A4 /* Products */;
 			projectDirPath = "";
@@ -554,15 +618,19 @@
 				85835EE62C42E3570007F180 /* SubscriptionOccurrence.swift in Sources */,
 				853A3DCA2C35DC210042A0A4 /* BudgetDetailViewController.swift in Sources */,
 				85B85B092C36FC9400AAD046 /* FavoriteBudgetsModel.swift in Sources */,
+				85835F292C4533470007F180 /* LaunchScreenVC.swift in Sources */,
 				85B85B0D2C38A54A00AAD046 /* BorderLabelView.swift in Sources */,
 				85835EDC2C42E1470007F180 /* TimeModels.swift in Sources */,
 				85835EE82C42E44E0007F180 /* PaymentOccurrence.swift in Sources */,
+				85835F2E2C457C430007F180 /* SettingsVM.swift in Sources */,
 				853A3DAA2C3593A40042A0A4 /* AppDelegate.swift in Sources */,
 				853A3DB42C3593A40042A0A4 /* DashboardVM.swift in Sources */,
 				853A3DB32C3593A40042A0A4 /* DashboardVC.swift in Sources */,
 				85B85B052C36D83100AAD046 /* AddExpenseVC.swift in Sources */,
 				853A3DB22C3593A40042A0A4 /* SubscriptionCell.swift in Sources */,
+				851DCFD72C4672E000A0E302 /* ChangePasswordView.swift in Sources */,
 				853A3DC72C35D22D0042A0A4 /* Expense:Budget service.swift in Sources */,
+				85835F2C2C457C3D0007F180 /* SettingsVC.swift in Sources */,
 				853A3DAC2C3593A40042A0A4 /* TabBarController.swift in Sources */,
 				85835EDF2C42E1A00007F180 /* BasicExpense.swift in Sources */,
 				853A3DAB2C3593A40042A0A4 /* SceneDelegate.swift in Sources */,
@@ -580,6 +648,7 @@
 				853A3DC32C35CF3E0042A0A4 /* ViewModel.swift in Sources */,
 				853A3DC12C35CD190042A0A4 /* Payment Occurances.swift in Sources */,
 				85835EC12C402CDD0007F180 /* CalendarVC.swift in Sources */,
+				851DCFD92C4672EC00A0E302 /* ChangePasswordVM.swift in Sources */,
 				85835EC32C402CE60007F180 /* CalendarVM.swift in Sources */,
 				853A3DBA2C3593A40042A0A4 /* BasicExpenseModel.swift in Sources */,
 				853A3DD32C35F66A0042A0A4 /* Color.swift in Sources */,
@@ -589,6 +658,7 @@
 				853A3DB82C3593A40042A0A4 /* RecurringVM.swift in Sources */,
 				853A3DA92C3593A40042A0A4 /* Model.xcdatamodeld in Sources */,
 				853A3DB12C3593A40042A0A4 /* NavigationRectangle.swift in Sources */,
+				851DCFDC2C4679F300A0E302 /* ChangeNameView.swift in Sources */,
 				853A3DCD2C35E4F00042A0A4 /* CustomBudgetCell.swift in Sources */,
 				85835ECE2C41A7E70007F180 /* LoginView.swift in Sources */,
 				85B85B072C36DB4C00AAD046 /* CustomExpenseCell.swift in Sources */,
@@ -741,7 +811,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Budgeting Application/Budgeting Application.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9S26B8AV5C;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Budgeting Application/Info.plist";
@@ -777,7 +847,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Budgeting Application/Budgeting Application.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9S26B8AV5C;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Budgeting Application/Info.plist";
@@ -828,7 +898,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		85835ED62C4201CE0007F180 /* XCRemoteSwiftPackageReference "Charts" */ = {
+		851DCFD12C46591300A0E302 /* XCRemoteSwiftPackageReference "Charts" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/danielgindi/Charts.git";
 			requirement = {
@@ -839,15 +909,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		85835ED72C4201CE0007F180 /* DGCharts */ = {
+		851DCFD22C46591300A0E302 /* DGCharts */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 85835ED62C4201CE0007F180 /* XCRemoteSwiftPackageReference "Charts" */;
+			package = 851DCFD12C46591300A0E302 /* XCRemoteSwiftPackageReference "Charts" */;
 			productName = DGCharts;
-		};
-		85835ED92C4201CE0007F180 /* DGChartsDynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 85835ED62C4201CE0007F180 /* XCRemoteSwiftPackageReference "Charts" */;
-			productName = DGChartsDynamic;
 		};
 /* End XCSwiftPackageProductDependency section */
 

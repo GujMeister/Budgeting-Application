@@ -10,6 +10,7 @@ import SwiftUI
 struct LoginView: View {
     // MARK: - Properties
     @ObservedObject var viewModel: LoginPageViewModel
+    @AppStorage("userName") private var userName: String = ""
 
     @State private var passcode = ""
     @State private var isConfirmingPasscode = false
@@ -51,7 +52,8 @@ struct LoginView: View {
         .padding()
         .onAppear {
             if viewModel.isPasscodeSet {
-                topPasswordText = "Welcome back"
+                // TODO: Insert name of the user
+                topPasswordText = "Welcome back \(userName)"
                 bottomPasswordText = "Enter your 4-digit PIN to log in to your personal budgeting application"
             }
         }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class NavigationRectangle: UIView {
     // MARK: - Properties
@@ -13,6 +14,7 @@ class NavigationRectangle: UIView {
     private let rectangleColor: UIColor
     private let totalBudgetedMoney: NSAttributedString
     private let descriptionLabelText: String
+    private let settingsButtonAction: (() -> Void)?
     
     lazy var totalBudgetedNumberLabel: UILabel = {
         let label = UILabel()
@@ -34,12 +36,29 @@ class NavigationRectangle: UIView {
         return label
     }()
     
+    private lazy var settingsButton: UIButton = {
+        let button = UIButton(type: .system)
+        let config = UIImage.SymbolConfiguration(pointSize: 16)
+        let chevron = UIImage(systemName: "gearshape", withConfiguration: config)
+        button.setImage(chevron, for: .normal)
+        button.tintColor = .white
+        button.semanticContentAttribute = .forceRightToLeft
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.settingsButtonAction?()
+        }), for: .touchUpInside)
+        
+        return button
+    }()
+    
     // MARK: - Initializers
-    init(height: CGFloat, color: UIColor, totalBudgetedMoney: NSAttributedString, descriptionLabelText: String) {
+    init(height: CGFloat, color: UIColor, totalBudgetedMoney: NSAttributedString, descriptionLabelText: String, settingsButtonAction: (() -> Void)? = nil) {
         self.height = height
         self.rectangleColor = color
         self.totalBudgetedMoney = totalBudgetedMoney
         self.descriptionLabelText = descriptionLabelText
+        self.settingsButtonAction = settingsButtonAction
         super.init(frame: .zero)
         setupView()
     }
@@ -56,17 +75,21 @@ class NavigationRectangle: UIView {
         
         addSubview(totalBudgetedNumberLabel)
         addSubview(descriptionLabel)
+        addSubview(settingsButton)
         NSLayoutConstraint.activate([
             totalBudgetedNumberLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             totalBudgetedNumberLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             
             descriptionLabel.topAnchor.constraint(equalTo: totalBudgetedNumberLabel.bottomAnchor),
-            descriptionLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+            descriptionLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
+            settingsButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            settingsButton.topAnchor.constraint(equalTo: topAnchor, constant: 60)
         ])
         
         heightAnchor.constraint(equalToConstant: height).isActive = true
     }
-    
+
     // MARK: - Bottom corner radius
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -82,8 +105,3 @@ class NavigationRectangle: UIView {
         layer.mask = shape
     }
 }
-
-#Preview {
-    NavigationRectangle(height: 100, color: .blue, totalBudgetedMoney: NSAttributedString(string: "$100.00"), descriptionLabelText: "Total Budgeted")
-}
-
