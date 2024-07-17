@@ -11,6 +11,16 @@
 		851DCFD72C4672E000A0E302 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851DCFD62C4672DF00A0E302 /* ChangePasswordView.swift */; };
 		851DCFD92C4672EC00A0E302 /* ChangePasswordVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851DCFD82C4672EC00A0E302 /* ChangePasswordVM.swift */; };
 		851DCFDC2C4679F300A0E302 /* ChangeNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851DCFDB2C4679F300A0E302 /* ChangeNameView.swift */; };
+		851DCFE22C47F4DD00A0E302 /* ChangeIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851DCFE12C47F4DD00A0E302 /* ChangeIconView.swift */; };
+		851DCFE42C47F6A600A0E302 /* ChangeIconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851DCFE32C47F6A600A0E302 /* ChangeIconViewModel.swift */; };
+		851DCFEB2C47FF3700A0E302 /* Green Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 851DCFE52C47FF3600A0E302 /* Green Icon.png */; };
+		851DCFEC2C47FF3700A0E302 /* Orange Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 851DCFE62C47FF3700A0E302 /* Orange Icon.png */; };
+		851DCFED2C47FF3700A0E302 /* Green Dark Mode.png in Resources */ = {isa = PBXBuildFile; fileRef = 851DCFE72C47FF3700A0E302 /* Green Dark Mode.png */; };
+		851DCFEE2C47FF3700A0E302 /* Purple Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 851DCFE82C47FF3700A0E302 /* Purple Icon.png */; };
+		851DCFEF2C47FF3700A0E302 /* Default Dark Mode.png in Resources */ = {isa = PBXBuildFile; fileRef = 851DCFE92C47FF3700A0E302 /* Default Dark Mode.png */; };
+		851DCFF02C47FF3700A0E302 /* Purple Dark Mode.png in Resources */ = {isa = PBXBuildFile; fileRef = 851DCFEA2C47FF3700A0E302 /* Purple Dark Mode.png */; };
+		851DCFF32C48090400A0E302 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851DCFF22C48090400A0E302 /* AboutView.swift */; };
+		851DCFF52C480D4000A0E302 /* UITabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851DCFF42C480D4000A0E302 /* UITabBar.swift */; };
 		853A3DA92C3593A40042A0A4 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D812C3593A40042A0A4 /* Model.xcdatamodeld */; };
 		853A3DAA2C3593A40042A0A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D842C3593A40042A0A4 /* AppDelegate.swift */; };
 		853A3DAB2C3593A40042A0A4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D852C3593A40042A0A4 /* SceneDelegate.swift */; };
@@ -106,6 +116,16 @@
 		851DCFD62C4672DF00A0E302 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		851DCFD82C4672EC00A0E302 /* ChangePasswordVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVM.swift; sourceTree = "<group>"; };
 		851DCFDB2C4679F300A0E302 /* ChangeNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeNameView.swift; sourceTree = "<group>"; };
+		851DCFE12C47F4DD00A0E302 /* ChangeIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeIconView.swift; sourceTree = "<group>"; };
+		851DCFE32C47F6A600A0E302 /* ChangeIconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeIconViewModel.swift; sourceTree = "<group>"; };
+		851DCFE52C47FF3600A0E302 /* Green Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Green Icon.png"; sourceTree = "<group>"; };
+		851DCFE62C47FF3700A0E302 /* Orange Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Orange Icon.png"; sourceTree = "<group>"; };
+		851DCFE72C47FF3700A0E302 /* Green Dark Mode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Green Dark Mode.png"; sourceTree = "<group>"; };
+		851DCFE82C47FF3700A0E302 /* Purple Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Purple Icon.png"; sourceTree = "<group>"; };
+		851DCFE92C47FF3700A0E302 /* Default Dark Mode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default Dark Mode.png"; sourceTree = "<group>"; };
+		851DCFEA2C47FF3700A0E302 /* Purple Dark Mode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Purple Dark Mode.png"; sourceTree = "<group>"; };
+		851DCFF22C48090400A0E302 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		851DCFF42C480D4000A0E302 /* UITabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBar.swift; sourceTree = "<group>"; };
 		853A3D672C3592BF0042A0A4 /* Budgeting Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Budgeting Application.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		853A3D782C3592C20042A0A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		853A3D832C3593A40042A0A4 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -191,6 +211,8 @@
 		851DCFD42C4672CD00A0E302 /* Helper Views */ = {
 			isa = PBXGroup;
 			children = (
+				851DCFF12C4808FC00A0E302 /* AboutPage */,
+				851DCFE02C47F4C900A0E302 /* ChangeIcon */,
 				851DCFDA2C4679EC00A0E302 /* ChangeName */,
 				851DCFD52C4672D200A0E302 /* ChangePass */,
 			);
@@ -212,6 +234,36 @@
 				851DCFDB2C4679F300A0E302 /* ChangeNameView.swift */,
 			);
 			path = ChangeName;
+			sourceTree = "<group>";
+		};
+		851DCFDD2C47F45C00A0E302 /* App Icons */ = {
+			isa = PBXGroup;
+			children = (
+				851DCFE92C47FF3700A0E302 /* Default Dark Mode.png */,
+				851DCFE72C47FF3700A0E302 /* Green Dark Mode.png */,
+				851DCFE52C47FF3600A0E302 /* Green Icon.png */,
+				851DCFE62C47FF3700A0E302 /* Orange Icon.png */,
+				851DCFEA2C47FF3700A0E302 /* Purple Dark Mode.png */,
+				851DCFE82C47FF3700A0E302 /* Purple Icon.png */,
+			);
+			path = "App Icons";
+			sourceTree = "<group>";
+		};
+		851DCFE02C47F4C900A0E302 /* ChangeIcon */ = {
+			isa = PBXGroup;
+			children = (
+				851DCFE12C47F4DD00A0E302 /* ChangeIconView.swift */,
+				851DCFE32C47F6A600A0E302 /* ChangeIconViewModel.swift */,
+			);
+			path = ChangeIcon;
+			sourceTree = "<group>";
+		};
+		851DCFF12C4808FC00A0E302 /* AboutPage */ = {
+			isa = PBXGroup;
+			children = (
+				851DCFF22C48090400A0E302 /* AboutView.swift */,
+			);
+			path = AboutPage;
 			sourceTree = "<group>";
 		};
 		853A3D5E2C3592BF0042A0A4 = {
@@ -290,6 +342,7 @@
 		853A3D8D2C3593A40042A0A4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				851DCFDD2C47F45C00A0E302 /* App Icons */,
 				85B85B0E2C38AB5600AAD046 /* Fonts */,
 				853A3D882C3593A40042A0A4 /* Assets.xcassets */,
 				853A3D8A2C3593A40042A0A4 /* LaunchScreen.storyboard */,
@@ -302,6 +355,7 @@
 			children = (
 				853A3DD02C35F6460042A0A4 /* UIColor.swift */,
 				853A3DD22C35F66A0042A0A4 /* Color.swift */,
+				851DCFF42C480D4000A0E302 /* UITabBar.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -587,16 +641,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				851DCFEF2C47FF3700A0E302 /* Default Dark Mode.png in Resources */,
 				85B85B382C3DFD2000AAD046 /* ChesnaGrotesk-Bold.ttf in Resources */,
+				851DCFEE2C47FF3700A0E302 /* Purple Icon.png in Resources */,
 				853A3DAE2C3593A40042A0A4 /* LaunchScreen.storyboard in Resources */,
+				851DCFEC2C47FF3700A0E302 /* Orange Icon.png in Resources */,
 				85835ECB2C41A25E0007F180 /* Montserrat-Regular.ttf in Resources */,
 				853A3DAD2C3593A40042A0A4 /* Assets.xcassets in Resources */,
 				85B85B3A2C3DFD7F00AAD046 /* ChesnaGrotesk-Medium.ttf in Resources */,
 				85B85B2C2C38D44B00AAD046 /* Inter-Bold.ttf in Resources */,
+				851DCFED2C47FF3700A0E302 /* Green Dark Mode.png in Resources */,
+				851DCFF02C47FF3700A0E302 /* Purple Dark Mode.png in Resources */,
 				85B85B282C38C46900AAD046 /* OpenSans-SemiBold.ttf in Resources */,
 				85B85B122C38ACFF00AAD046 /* Heebo-SemiBold.ttf in Resources */,
 				85B85B1C2C38BD6900AAD046 /* Inter-Regular.ttf in Resources */,
 				85B85B362C3DFBDD00AAD046 /* ChesnaGrotesk-Regular.ttf in Resources */,
+				851DCFEB2C47FF3700A0E302 /* Green Icon.png in Resources */,
 				85B85B292C38C46900AAD046 /* OpenSans-Regular.ttf in Resources */,
 				85835ECA2C41A25E0007F180 /* Montserrat-Medium.ttf in Resources */,
 				85B85B2E2C38D67300AAD046 /* Inter-SemiBold.ttf in Resources */,
@@ -617,6 +677,7 @@
 				853A3DD12C35F6460042A0A4 /* UIColor.swift in Sources */,
 				85835EE62C42E3570007F180 /* SubscriptionOccurrence.swift in Sources */,
 				853A3DCA2C35DC210042A0A4 /* BudgetDetailViewController.swift in Sources */,
+				851DCFE42C47F6A600A0E302 /* ChangeIconViewModel.swift in Sources */,
 				85B85B092C36FC9400AAD046 /* FavoriteBudgetsModel.swift in Sources */,
 				85835F292C4533470007F180 /* LaunchScreenVC.swift in Sources */,
 				85B85B0D2C38A54A00AAD046 /* BorderLabelView.swift in Sources */,
@@ -636,11 +697,13 @@
 				853A3DAB2C3593A40042A0A4 /* SceneDelegate.swift in Sources */,
 				853A3DBD2C3593A40042A0A4 /* Subscription Occurances.swift in Sources */,
 				853A3DD52C35FC990042A0A4 /* SegmentedControlView.swift in Sources */,
+				851DCFE22C47F4DD00A0E302 /* ChangeIconView.swift in Sources */,
 				853A3DB72C3593A40042A0A4 /* RecurringVC.swift in Sources */,
 				85835EE12C42E1D20007F180 /* SubscriptionExpense.swift in Sources */,
 				85B85B302C3AE06800AAD046 /* AddPaymentVC.swift in Sources */,
 				85B85B342C3C2E1900AAD046 /* BankPaymentCell.swift in Sources */,
 				85835EC72C407B0A0007F180 /* CalendarTableViewCell.swift in Sources */,
+				851DCFF32C48090400A0E302 /* AboutView.swift in Sources */,
 				85835ED02C41A7F20007F180 /* LoginViewModel.swift in Sources */,
 				85835EEA2C42E67A0007F180 /* Alert.swift in Sources */,
 				853A3DB52C3593A40042A0A4 /* AddSubscriptionVC.swift in Sources */,
@@ -653,6 +716,7 @@
 				853A3DBA2C3593A40042A0A4 /* BasicExpenseModel.swift in Sources */,
 				853A3DD32C35F66A0042A0A4 /* Color.swift in Sources */,
 				853A3DCF2C35E84D0042A0A4 /* NumberFormatter.swift in Sources */,
+				851DCFF52C480D4000A0E302 /* UITabBar.swift in Sources */,
 				853A3DB02C3593A40042A0A4 /* BudgetView.swift in Sources */,
 				85B85B322C3B308200AAD046 /* DaySuffix.swift in Sources */,
 				853A3DB82C3593A40042A0A4 /* RecurringVM.swift in Sources */,

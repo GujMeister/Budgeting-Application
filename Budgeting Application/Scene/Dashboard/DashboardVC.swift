@@ -12,9 +12,9 @@ final class DashboardViewController: UIViewController {
     // MARK: - Properties
     private let viewModel: DashboardViewModel
     private var viewBackgroundColors = UIColor.customLightBlue
-    private var backgroundColor = UIColor.customBackground
-    private var textColor = UIColor.black
-    private var cellTextColors = UIColor.black
+    private var backgroundColor = UIColor(hex: "#F0F0F0")
+    private var textColor = UIColor.gray
+    private var cellTextColors = UIColor.gray
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -33,14 +33,10 @@ final class DashboardViewController: UIViewController {
     private lazy var infoView: NavigationRectangle = {
         let screenSize = UIScreen.main.bounds.height
         let view = NavigationRectangle(
-            height: screenSize / 4,
-            color: UIColor.customBlue,
+            height: screenSize / 4.5,
+            color: UIColor(hex: "468585"),
             totalBudgetedMoney: NSMutableAttributedString(string: "1234"),
-            descriptionLabelText: "Total Budgeted",
-            settingsButtonAction: {
-                let settingsVC = UIHostingController(rootView: SettingsView())
-                self.navigationController?.pushViewController(settingsVC, animated: true)
-            }
+            descriptionLabelText: "Total Budgeted"
         )
         return view
     }()
@@ -379,9 +375,9 @@ final class DashboardViewController: UIViewController {
     
     private func updatePieChart() {
         let entries = [
-            PieChartDataEntry(value: viewModel.totalBudgets, label: "Budgets"),
-            PieChartDataEntry(value: viewModel.totalPayments, label: "Bank Payments"),
-            PieChartDataEntry(value: viewModel.totalSubscriptions, label: "Subscriptions")
+            PieChartDataEntry(value: Double(round(100 * viewModel.totalBudgets) / 100), label: "Budgets"),
+            PieChartDataEntry(value: Double(round(100 * viewModel.totalPayments) / 100), label: "Bank Payments"),
+            PieChartDataEntry(value: Double(round(100 * viewModel.totalSubscriptions) / 100), label: "Subscriptions")
         ]
 
         let dataSet = PieChartDataSet(entries: entries, label: "")
@@ -453,8 +449,8 @@ extension DashboardViewController: UICollectionViewDelegateFlowLayout {
             
             let subscription = viewModel.filteredSubscriptions[indexPath.row]
             let label = UILabel()
-            label.font = .systemFont(ofSize: 14, weight: .regular)
-            label.text = subscription.subscriptionDescription + String(subscription.amount)
+            label.font = .systemFont(ofSize: 11, weight: .regular)
+            label.text = subscription.subscriptionDescription + PlainNumberFormatterHelper.shared.format(amount: subscription.amount)
             label.sizeToFit()
             let width = max(label.frame.width + 45, label.frame.width + 55)
             return CGSize(width: width, height: UIScreen.main.bounds.height / 22)

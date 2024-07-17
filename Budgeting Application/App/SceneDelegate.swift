@@ -18,7 +18,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
 //        let rootViewController = UIHostingController(rootView: LoginView(viewModel: LoginPageViewModel()))
         let rootViewController = InitialViewController()
-
+//        let rootViewController = MainTabBarController()
+        
         window.rootViewController = rootViewController
         self.window = window
         window.makeKeyAndVisible()

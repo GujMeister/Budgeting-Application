@@ -14,6 +14,11 @@ struct ChangeNameView: View {
 
     var body: some View {
         VStack {
+            Text(userName.isEmpty ? "You don't have a name set" : "Your current name is set to \"\(userName)\"")
+                .font(.title2)
+                .bold()
+                .padding()
+            
             TextField("Enter new name", text: $newName)
                 .padding()
                 .background(Color.gray.opacity(0.2))
@@ -24,7 +29,7 @@ struct ChangeNameView: View {
                     .foregroundColor(.white)
                     .padding()
                     .background(Color.blue)
-                    .cornerRadius(8)
+                    .cornerRadius(18)
             }
             .padding()
         }

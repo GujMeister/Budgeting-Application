@@ -19,12 +19,6 @@ class InitialViewController: UIViewController {
         return label
     }()
     
-    private let rightsLabel: UILabel = {
-        let label = UILabel()
-        label.text = "© All Rights Reserved"
-        return label
-    }()
-    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()

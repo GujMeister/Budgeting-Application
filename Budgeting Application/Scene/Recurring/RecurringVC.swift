@@ -83,7 +83,7 @@ struct RecurringPage: View {
                 }
             }
             .padding([.leading, .trailing])
-            .padding(.top, -145)
+            .padding(.top, -145) // 1
             
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 20) {
@@ -158,7 +158,7 @@ struct RecurringPage: View {
                 }
                 .padding()
             }
-            .padding(.top, -80)
+            .padding(.top, -120) //2
         }
         .background(
             Color(UIColor.customBackground)
@@ -202,6 +202,7 @@ struct RecurringPage: View {
         }
     }
 }
+
 // MARK: - Extracted Views
 // MARK: Editable Payment Cell
 struct EditableRecurringView: View {

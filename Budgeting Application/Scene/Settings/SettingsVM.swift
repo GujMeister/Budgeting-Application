@@ -14,6 +14,8 @@ class SettingsVM: ObservableObject {
     
     @Published var showChangePasswordView = false
     @Published var showChangeNameView = false
+    @Published var showChangeIcon = false
+    @Published var showAboutView = false
     @Published var alert: UIAlertController?
 
     func deleteBasicExpenses() {

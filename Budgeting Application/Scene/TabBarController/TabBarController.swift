@@ -5,7 +5,7 @@
 //  Created by Luka Gujejiani on 01.07.24.
 //
 
-import UIKit
+//import UIKit
 import SwiftUI
 
 class MainTabBarController: UITabBarController {
@@ -32,7 +32,10 @@ class MainTabBarController: UITabBarController {
         let calendarVC = CalendarViewController()
         calendarVC.tabBarItem = UITabBarItem(title: "Calendar", image: UIImage(systemName: "calendar"), tag: 3)
         
-        let viewControllerList = [dashboardVC, recurringVC, budgetsVC, calendarVC]
+        let settingsVC = SettingsViewController()
+        settingsVC.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(systemName: "gear"), tag: 4)
+        
+        let viewControllerList = [dashboardVC, recurringVC, budgetsVC, calendarVC, settingsVC]
         
         viewControllers = viewControllerList.map {
             let navController = UINavigationController(rootViewController: $0)
@@ -43,31 +46,18 @@ class MainTabBarController: UITabBarController {
     
     private func setupCustomTabBar() {
         tabBar.configureMaterialBackground(
-            selectedItemColor: .red,
-            unselectedItemColor: .white,
+            selectedItemColor: .black,
+            unselectedItemColor: .gray,
             blurStyle: .prominent
         )
-        self.tabBar.backgroundColor = .customBlue
+        self.tabBar.backgroundColor = .white
     }
-//    
-//    func changeUnSelectedColor(){
-//        self.tabBar.unselectedItemTintColor = .white
-//        self.tabBar.tintColor = .red //Selected Item Color
-//     }
     
-    func ChangeRadiusOfTabbar(){
+    private func ChangeRadiusOfTabbar(){
      self.tabBar.layer.masksToBounds = true
      self.tabBar.isTranslucent = true
-     self.tabBar.layer.cornerRadius = 30
+     self.tabBar.layer.cornerRadius = 10
      self.tabBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
- 
-    }
-}
-
-// Helper extension for Int to CGFloat conversion
-private extension Int {
-    func toCGFloat() -> CGFloat {
-        return CGFloat(self)
     }
 }
 
@@ -82,28 +72,12 @@ class RecurringViewController: UIHostingController<RecurringPage> {
     }
 }
 
-public extension UITabBar {
-    func configureMaterialBackground(
-        selectedItemColor: UIColor = .systemBlue,
-        unselectedItemColor: UIColor = .secondaryLabel,
-        blurStyle: UIBlurEffect.Style = .regular
-    ) {
-        // Make tabBar fully tranparent
-        isTranslucent = true
-        backgroundImage = UIImage()
-        shadowImage = UIImage() // no separator
-        barTintColor = .clear
-        layer.backgroundColor = UIColor.clear.cgColor
+class SettingsViewController: UIHostingController<SettingsView> {
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder, rootView: SettingsView())
+    }
     
-        // Apply icon colors
-        tintColor = selectedItemColor
-        unselectedItemTintColor = unselectedItemColor
-    
-        // Add material blur
-        let blurEffect = UIBlurEffect(style: blurStyle)
-        let blurView = UIVisualEffectView(effect: blurEffect)
-        blurView.frame = bounds
-        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        insertSubview(blurView, at: 0)
+    init() {
+        super.init(rootView: SettingsView())
     }
 }

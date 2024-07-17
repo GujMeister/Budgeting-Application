@@ -10,131 +10,150 @@ import SwiftUI
 struct SettingsView: View {
     @StateObject private var viewModel = SettingsVM()
     
-
     var body: some View {
-        VStack {
-            HStack {
-                Text("Back")
-                Spacer()
-                Text("Settings")
-                    .font(.title)
-                    .bold()
-                Spacer()
-                Text("Back")
-                    .foregroundStyle(.white)
+        Form {
+            Section {
+                HStack {
+                    Spacer()
+                    
+                    VStack(spacing: 10) {
+                        Image(systemName: "gear")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 50)
+                            .foregroundColor(Color(UIColor.systemBackground))
+                            .padding(10)
+                            .background(
+                            RoundedRectangle(cornerRadius: 15)
+                                .fill(Color(UIColor.systemGray))
+                            )
+                            .padding(.top)
+                        
+                        Text("Settings")
+                            .font(.largeTitle)
+                            .bold()
+                        
+                        Text("Manage or delete your data, read about the app and change password, app icons or name")
+                            .multilineTextAlignment(.center)
+                            .font(.system(size: 14))
+                            .padding(.bottom)
+                    }
+                    
+                    Spacer()
+                }
             }
-            .padding()
-
+            .listRowSeparator(.hidden)
+            
             Button {
-                // About action
+                viewModel.showAboutView = true
             } label: {
                 HStack {
                     Text("About")
-                        .foregroundStyle(.black)
                     Spacer()
                     Image(systemName: "chevron.right")
                 }
             }
-            .padding()
-
-            Button {
-                // Version action
-            } label: {
-                HStack {
-                    Text("Version")
-                        .foregroundStyle(.black)
-                    Spacer()
-                    Image(systemName: "chevron.right")
+            .sheet(isPresented: $viewModel.showAboutView) {
+                AboutView()
+            }
+            
+            Section(header: Text("Delete")) {
+                Button {
+                    viewModel.deleteBasicExpenses()
+                } label: {
+                    HStack {
+                        Text("Expenses")
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                    }
+                }
+                
+                Button {
+                    viewModel.deleteSubscriptionExpenses()
+                } label: {
+                    HStack {
+                        Text("Subscriptions")
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                    }
+                }
+                
+                Button {
+                    viewModel.deletePaymentExpenses()
+                } label: {
+                    HStack {
+                        Text("Bank Payments")
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                    }
+                }
+                
+                Button {
+                    viewModel.deleteAllData()
+                } label: {
+                    HStack {
+                        Text("All Data")
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                    }
                 }
             }
-            .padding()
-
-            Text("Delete")
-
-            Button {
-                viewModel.deleteBasicExpenses()
-            } label: {
-                HStack {
-                    Text("Delete Expenses")
-                        .foregroundStyle(.black)
-                    Spacer()
-                    Image(systemName: "chevron.right")
+            
+            Section {
+                Button {
+                    viewModel.showChangePasswordView = true
+                } label: {
+                    HStack {
+                        Text("Change Password")
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                    }
+                }
+                .sheet(isPresented: $viewModel.showChangePasswordView) {
+                    ChangePasswordView(viewModel: ChangePasswordViewModel())
+                }
+                
+                
+                Button {
+                    viewModel.showChangeIcon = true
+                } label: {
+                    HStack {
+                        Text("Change App Icon")
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                    }
+                }
+                .sheet(isPresented: $viewModel.showChangeIcon) {
+                    ChangeIconView()
+                }
+                
+                
+                Button {
+                    viewModel.showChangeNameView = true
+                } label: {
+                    HStack {
+                        Text("Change Name")
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                    }
+                }
+                .sheet(isPresented: $viewModel.showChangeNameView) {
+                    ChangeNameView()
                 }
             }
-            .padding()
-
-            Button {
-                viewModel.deleteSubscriptionExpenses()
-            } label: {
-                HStack {
-                    Text("Delete Subscriptions")
-                        .foregroundStyle(.black)
-                    Spacer()
-                    Image(systemName: "chevron.right")
-                }
+            
+            Section {
+                Text("Version 2.2")
+                Text("© All Rights Reserved")
+            } header: {
+                Text("App")
+            } footer: {
+                Text("Owner of this application gives all the rights imaginable regarding the usage of his assets and code used in this application")
+                    .foregroundStyle(Color(UIColor.systemGray2))
             }
-            .padding()
-
-            Button {
-                viewModel.deletePaymentExpenses()
-            } label: {
-                HStack {
-                    Text("Delete Bank Payments")
-                        .foregroundStyle(.black)
-                    Spacer()
-                    Image(systemName: "chevron.right")
-                }
-            }
-            .padding()
-
-            Button {
-                viewModel.deleteAllData()
-            } label: {
-                HStack {
-                    Text("Delete All Data")
-                        .foregroundStyle(.black)
-                    Spacer()
-                    Image(systemName: "chevron.right")
-                }
-            }
-            .padding()
-
-            Text("Password")
-
-            Button {
-                viewModel.showChangePasswordView = true
-            } label: {
-                HStack {
-                    Text("Change Password")
-                        .foregroundStyle(.black)
-                    Spacer()
-                    Image(systemName: "chevron.right")
-                }
-            }
-            .padding()
-            .sheet(isPresented: $viewModel.showChangePasswordView) {
-                ChangePasswordView(viewModel: ChangePasswordViewModel())
-            }
-
-            Text("Name")
-
-            Button {
-                viewModel.showChangeNameView = true
-            } label: {
-                HStack {
-                    Text("Add/Change Name")
-                        .foregroundStyle(.black)
-                    Spacer()
-                    Image(systemName: "chevron.right")
-                }
-            }
-            .padding()
-            .sheet(isPresented: $viewModel.showChangeNameView) {
-                ChangeNameView()
-            }
-
-            Spacer()
         }
+        .padding(.top, -30)
+        .foregroundColor(Color(UIColor.label))
         .background(
             SwiftUIViewController(alert: viewModel.alert)
                 .frame(width: 0, height: 0)
