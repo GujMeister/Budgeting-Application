@@ -5,14 +5,19 @@
 //  Created by Luka Gujejiani on 01.07.24.
 //
 
-import UIKit
+//import UIKit
 import SwiftUI
 
 class MainTabBarController: UITabBarController {
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupViewControllers()
+        setupCustomTabBar()
+        ChangeRadiusOfTabbar()
+    }
+    
+    private func setupViewControllers() {
         let dashboardViewModel = DashboardViewModel()
         let dashboardVC = DashboardViewController(viewModel: dashboardViewModel)
         dashboardVC.tabBarItem = UITabBarItem(title: "Dashboard", image: UIImage(systemName: "house"), tag: 0)
@@ -27,17 +32,35 @@ class MainTabBarController: UITabBarController {
         let calendarVC = CalendarViewController()
         calendarVC.tabBarItem = UITabBarItem(title: "Calendar", image: UIImage(systemName: "calendar"), tag: 3)
         
-        let viewControllerList = [dashboardVC, recurringVC, budgetsVC, calendarVC]
+        let settingsVC = SettingsViewController()
+        settingsVC.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(systemName: "gear"), tag: 4)
+        
+        let viewControllerList = [dashboardVC, recurringVC, budgetsVC, calendarVC, settingsVC]
         
         viewControllers = viewControllerList.map {
             let navController = UINavigationController(rootViewController: $0)
-            // Set delegate for navigation controllers
-//            navController.delegate = self // Important!
+            navController.navigationBar.prefersLargeTitles = true
             return navController
         }
     }
     
+    private func setupCustomTabBar() {
+        tabBar.configureMaterialBackground(
+            selectedItemColor: .black,
+            unselectedItemColor: .gray,
+            blurStyle: .prominent
+        )
+        self.tabBar.backgroundColor = .white
+    }
+    
+    private func ChangeRadiusOfTabbar(){
+     self.tabBar.layer.masksToBounds = true
+     self.tabBar.isTranslucent = true
+     self.tabBar.layer.cornerRadius = 10
+     self.tabBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    }
 }
+
 // MARK: - SwiftUI to UIKit
 class RecurringViewController: UIHostingController<RecurringPage> {
     required init?(coder aDecoder: NSCoder) {
@@ -48,12 +71,13 @@ class RecurringViewController: UIHostingController<RecurringPage> {
         super.init(rootView: RecurringPage())
     }
 }
-//
-//// MARK: - UINavigationControllerDelegate
-//extension MainTabBarController: UINavigationControllerDelegate {
-//    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-//        if let budgetsVC = viewController as? BudgetsViewController {
-//            budgetsVC = navigationController.viewControllers.count == 1
-//        }
-//    }
-//}
+
+class SettingsViewController: UIHostingController<SettingsView> {
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder, rootView: SettingsView())
+    }
+    
+    init() {
+        super.init(rootView: SettingsView())
+    }
+}

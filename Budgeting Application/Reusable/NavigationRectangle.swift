@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class NavigationRectangle: UIView {
     // MARK: - Properties
@@ -33,7 +34,7 @@ class NavigationRectangle: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     // MARK: - Initializers
     init(height: CGFloat, color: UIColor, totalBudgetedMoney: NSAttributedString, descriptionLabelText: String) {
         self.height = height
@@ -61,12 +62,12 @@ class NavigationRectangle: UIView {
             totalBudgetedNumberLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             
             descriptionLabel.topAnchor.constraint(equalTo: totalBudgetedNumberLabel.bottomAnchor),
-            descriptionLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+            descriptionLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
         
         heightAnchor.constraint(equalToConstant: height).isActive = true
     }
-    
+
     // MARK: - Bottom corner radius
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -82,8 +83,3 @@ class NavigationRectangle: UIView {
         layer.mask = shape
     }
 }
-
-#Preview {
-    NavigationRectangle(height: 100, color: .blue, totalBudgetedMoney: NSAttributedString(string: "$100.00"), descriptionLabelText: "Total Budgeted")
-}
-

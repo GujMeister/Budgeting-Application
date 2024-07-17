@@ -33,5 +33,53 @@
 		<string>Montserrat-Medium.ttf</string>
 		<string>Montserrat-Regular.ttf</string>
 	</array>
+	<key>CFBundleIcons</key>
+	<dict>
+		<key>CFBundleAlternateIcons</key>
+		<dict>
+			<key>Default Dark Mode</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Default Dark Mode</string>
+				</array>
+			</dict>
+			<key>Green Dark Mode</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Green Dark Mode</string>
+				</array>
+			</dict>
+			<key>Green Icon</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Green Icon</string>
+				</array>
+			</dict>
+			<key>Orange Icon</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Orange Icon</string>
+				</array>
+			</dict>
+			<key>Purple Dark Mode</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Purple Dark Mode</string>
+				</array>
+			</dict>
+			<key>Purple Icon</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Purple Icon</string>
+				</array>
+			</dict>
+		</dict>
+	</dict>
 </dict>
 </plist>

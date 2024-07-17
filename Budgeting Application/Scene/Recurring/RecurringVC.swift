@@ -83,7 +83,7 @@ struct RecurringPage: View {
                 }
             }
             .padding([.leading, .trailing])
-            .padding(.top, -105)
+            .padding(.top, -145) // 1
             
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 20) {
@@ -158,7 +158,7 @@ struct RecurringPage: View {
                 }
                 .padding()
             }
-            .padding(.top, -80)
+            .padding(.top, -120) //2
         }
         .background(
             Color(UIColor.customBackground)
@@ -168,21 +168,29 @@ struct RecurringPage: View {
     // MARK: - Helper Functions
     private func presentAddSubscriptionVC() {
         let addSubscriptionVC = AddSubscriptionVC()
-        addSubscriptionVC.delegate = viewModel as any AddSubscriptionDelegate as any AddSubscriptionDelegate
+        addSubscriptionVC.delegate = viewModel as any AddSubscriptionDelegate
         
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let window = windowScene.windows.first {
-            window.rootViewController?.present(addSubscriptionVC, animated: true, completion: nil)
+           let rootViewController = windowScene.windows.first?.rootViewController {
+            var topController = rootViewController
+            while let presentedViewController = topController.presentedViewController {
+                topController = presentedViewController
+            }
+            topController.present(addSubscriptionVC, animated: true, completion: nil)
         }
     }
     
     private func presentAddPaymentVC() {
         let addPaymentVC = AddPaymentVC()
-        addPaymentVC.delegate = viewModel as any AddPaymentDelegate as any AddPaymentDelegate
+        addPaymentVC.delegate = viewModel as any AddPaymentDelegate
         
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let window = windowScene.windows.first {
-            window.rootViewController?.present(addPaymentVC, animated: true, completion: nil)
+           let rootViewController = windowScene.windows.first?.rootViewController {
+            var topController = rootViewController
+            while let presentedViewController = topController.presentedViewController {
+                topController = presentedViewController
+            }
+            topController.present(addPaymentVC, animated: true, completion: nil)
         }
     }
     
@@ -194,6 +202,7 @@ struct RecurringPage: View {
         }
     }
 }
+
 // MARK: - Extracted Views
 // MARK: Editable Payment Cell
 struct EditableRecurringView: View {

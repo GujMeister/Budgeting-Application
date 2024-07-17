@@ -1,13 +1,13 @@
 //
-//  LoginViewModel.swift
+//  ChangePasswordVM.swift
 //  Budgeting Application
 //
-//  Created by Luka Gujejiani on 12.07.24.
+//  Created by Luka Gujejiani on 16.07.24.
 //
 
 import Foundation
 
-class LoginPageViewModel: ObservableObject {
+class ChangePasswordViewModel: ObservableObject {
     @Published var temporaryPasscode: String = ""
 
     var isPasscodeSet: Bool {

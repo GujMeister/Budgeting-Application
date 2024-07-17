@@ -27,13 +27,25 @@ class DataManager {
         return Self.persistentContainer.viewContext
     }
     
-    // MARK: - Delete All Records
+    // MARK: - Delete Records
     func deleteAllRecords() {
         deleteAll(entityName: "SubscriptionExpenseModel")
         deleteAll(entityName: "BasicExpenseBudgetModel")
         deleteAll(entityName: "BasicExpenseModel")
         deleteAll(entityName: "PaymentExpenseModel")
         deleteAll(entityName: "FavoriteBudgetsModel")
+    }
+    
+    func deleteBasicExpenses() {
+        deleteAll(entityName: "BasicExpenseModel")
+    }
+
+    func deleteSubscriptionExpenses() {
+        deleteAll(entityName: "SubscriptionExpenseModel")
+    }
+
+    func deletePaymentExpenses() {
+        deleteAll(entityName: "PaymentExpenseModel")
     }
     
     private func deleteAll(entityName: String) {

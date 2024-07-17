@@ -9,10 +9,10 @@ final class SubscriptionCollectionViewCell: UICollectionViewCell {
         view.layer.cornerRadius = 10
         view.backgroundColor = .white
         view.layer.masksToBounds = false
-        view.layer.shadowColor = UIColor.customBlue.cgColor
-        view.layer.shadowOffset = CGSize(width: 3, height: 3)
-        view.layer.shadowOpacity = 0.2
-        view.layer.shadowRadius = 5
+//        view.layer.shadowColor = UIColor.customBlue.cgColor
+//        view.layer.shadowOffset = CGSize(width: 3, height: 3)
+//        view.layer.shadowOpacity = 0.2
+//        view.layer.shadowRadius = 5
         return view
     }()
     
@@ -29,13 +29,13 @@ final class SubscriptionCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .label
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 16, weight: .regular)
+        label.font = .systemFont(ofSize: 13, weight: .regular)
         return label
     }()
     
     private let categoryLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(hex: "#252524")
+        label.textColor = UIColor(hex: "#71797E")
         label.textAlignment = .left
         label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 14)
         return label
@@ -45,7 +45,7 @@ final class SubscriptionCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .gray
         label.textAlignment = .center
-        label.font = UIFont(name: "Heebo-SemiBold", size: 12)
+        label.font = UIFont(name: "Heebo-SemiBold", size: 10)
         return label
     }()
     
@@ -89,8 +89,8 @@ final class SubscriptionCollectionViewCell: UICollectionViewCell {
             categoryLabel.leadingAnchor.constraint(equalTo: emojiLabel.trailingAnchor, constant: 5),
             categoryLabel.centerYAnchor.constraint(equalTo: customBackgroundView.centerYAnchor),
             
-            costLabel.trailingAnchor.constraint(equalTo: customBackgroundView.trailingAnchor, constant: -10),
-            costLabel.centerYAnchor.constraint(equalTo: customBackgroundView.centerYAnchor),
+            costLabel.leadingAnchor.constraint(equalTo: categoryLabel.trailingAnchor, constant: 5),
+            costLabel.centerYAnchor.constraint(equalTo: customBackgroundView.centerYAnchor, constant: 1),
         ])
     }
     

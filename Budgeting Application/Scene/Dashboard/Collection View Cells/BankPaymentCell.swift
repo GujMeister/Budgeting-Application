@@ -38,7 +38,7 @@ final class BankPaymentCollectionViewCell: UICollectionViewCell {
     
     private let categoryLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .label
+        label.textColor = UIColor(hex: "#4b4b4b")
         label.textAlignment = .left
         label.numberOfLines = 2
         label.font = UIFont(name: "ChesnaGrotesk-Bold", size: 18)
@@ -47,7 +47,7 @@ final class BankPaymentCollectionViewCell: UICollectionViewCell {
     
     private let costLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(hex: "#252525")
+        label.textColor = UIColor(hex: "#4b4b4b")
         label.textAlignment = .left
         label.font = UIFont(name: "ChesnaGrotesk-Bold", size: 14)
         return label
