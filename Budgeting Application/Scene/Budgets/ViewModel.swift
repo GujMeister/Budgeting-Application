@@ -70,7 +70,7 @@ class BudgetsViewModel: NSObject {
     }
     
     static let shared = BudgetsViewModel()
-    private let service: BasicExpenseService
+    private var service: BasicExpenseService
     
     // MARK: - Lifecycle
     override init() {
@@ -162,9 +162,6 @@ class BudgetsViewModel: NSObject {
         case .today:
             let startOfToday = calendar.startOfDay(for: now)
             filtered = expenses.filter { $0.date >= startOfToday }
-//        case .lastDay:
-//            let dayAgo = calendar.date(byAdding: .day, value: -1, to: now) ?? now
-//            filtered = expenses.filter { $0.date >= dayAgo }
         case .lastThreeDays:
             let threeDaysAgo = calendar.date(byAdding: .day, value: -3, to: now) ?? now
             filtered = expenses.filter { $0.date >= threeDaysAgo }
@@ -192,8 +189,6 @@ class BudgetsViewModel: NSObject {
         switch selectedTimePeriod {
         case .today:
             description = "Expenses Today"
-//        case .lastDay:
-//            description = "Expenses Last Day"
         case .lastThreeDays:
             description = "Expenses Last 3 Days"
         case .lastWeek:
@@ -238,7 +233,7 @@ extension BudgetsViewModel: AddBudgetsDelegate {
             print("Failed to save new budget: \(error)")
         }
     }
-
+    
     func checkForDuplicateCategory(_ category: BasicExpenseCategory) -> Bool {
         return allBudgets.contains { $0.category == category }
     }
@@ -247,14 +242,9 @@ extension BudgetsViewModel: AddBudgetsDelegate {
 
 // MARK: - AddExpenseDelegate
 extension BudgetsViewModel: AddExpenseDelegate {
-    func updateBudgets(_ expense: BasicExpenseModel) {
-        let context = DataManager.shared.context
-        let service = BasicExpenseService(context: context)
-        service.addExpense(expense)
-    }
-
     func didAddExpense(_ expense: BasicExpenseModel) {
+        loadBudgets()
+        loadFavoritedBudgets()
         loadExpenses()
-        onExpensesUpdated?()
     }
 }

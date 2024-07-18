@@ -9,7 +9,6 @@ import UIKit
 
 protocol AddExpenseDelegate: AnyObject {
     func didAddExpense(_ expense: BasicExpenseModel)
-    func updateBudgets(_ expense: BasicExpenseModel)
 }
 
 final class AddExpenseViewController: UIViewController {
@@ -28,7 +27,7 @@ final class AddExpenseViewController: UIViewController {
         label.textColor = .label
         label.textAlignment = .center
         label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 20)
-        label.text = "Choose Expense Category" // Changed text
+        label.text = "Choose Expense Category WHAAAAAT" // Changed text
         return label
     }()
     
@@ -100,6 +99,7 @@ final class AddExpenseViewController: UIViewController {
     private let datePicker: UIDatePicker = {
         let picker = UIDatePicker()
         picker.datePickerMode = .date
+        picker.maximumDate = Date()
         picker.translatesAutoresizingMaskIntoConstraints = false
         return picker
     }()
@@ -206,10 +206,7 @@ final class AddExpenseViewController: UIViewController {
         expense.expenseDescription = description
         expense.amount = amount as NSNumber
         expense.date = datePicker.date
-        
-        let expenseService = BasicExpenseService(context: context)
-        expenseService.addExpense(expense)
-        
+
         delegate?.didAddExpense(expense)
         
         dismiss(animated: true, completion: nil)

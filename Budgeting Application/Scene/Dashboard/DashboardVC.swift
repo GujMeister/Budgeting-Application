@@ -207,12 +207,25 @@ final class DashboardViewController: UIViewController {
         setupUI()
         setupBindings()
         viewModel.loadData()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(budgetTapped(_:)), name: NSNotification.Name("BudgetTapped"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("✅ DashboardVC viewWillAppear")
+        setupUI()
         viewModel.loadData()
+    }
+    
+    // MARK: - Testing Tapping
+    @objc private func budgetTapped(_ notification: Notification) {
+        if let budget = notification.object as? BasicExpenseBudget {
+            let budgetDetailVC = DashboardBudgetDetailViewController(budget: budget, delegate: viewModel)
+            self.hidesBottomBarWhenPushed  = true
+            self.navigationController?.pushViewController(budgetDetailVC, animated: true)
+            self.hidesBottomBarWhenPushed = false
+        }
     }
     
     // MARK: - Setup UI

@@ -45,6 +45,12 @@ class BudgetView: UIView {
         setupView()
     }
     
+    init(budget: BasicExpenseBudget) {
+        self.budget = budget
+        super.init(frame: .zero)
+        setupView()
+    }
+    
     // MARK: - Setup UI
     private func setupView() {
         layer.addSublayer(circleLayer)
@@ -64,6 +70,10 @@ class BudgetView: UIView {
             statusLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             statusLabel.topAnchor.constraint(equalTo: amountLabel.bottomAnchor)
         ])
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(budgetTapped))
+        addGestureRecognizer(tapGesture)
+        isUserInteractionEnabled = true
     }
     
     // MARK: - Layout
@@ -87,6 +97,11 @@ class BudgetView: UIView {
         progressLayer.strokeColor = remainingAmount ?? 1 < 0 ? UIColor(hex: "#b30000").cgColor : UIColor(hex: "#008000").cgColor
         progressLayer.lineWidth = 5
         progressLayer.lineCap = .round
+    }
+    
+    @objc private func budgetTapped() {
+        guard let budget = budget else { return }
+        NotificationCenter.default.post(name: NSNotification.Name("BudgetTapped"), object: budget)
     }
     
     // MARK: - Update View
