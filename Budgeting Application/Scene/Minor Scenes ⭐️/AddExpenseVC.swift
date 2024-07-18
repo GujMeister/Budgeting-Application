@@ -9,7 +9,6 @@ import UIKit
 
 protocol AddExpenseDelegate: AnyObject {
     func didAddExpense(_ expense: BasicExpenseModel)
-    func updateBudgets(_ expense: BasicExpenseModel)
 }
 
 final class AddExpenseViewController: UIViewController {
@@ -28,7 +27,7 @@ final class AddExpenseViewController: UIViewController {
         label.textColor = .label
         label.textAlignment = .center
         label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 20)
-        label.text = "Choose Expense Category" // Changed text
+        label.text = "Choose Expense Category WHAAAAAT" // Changed text
         return label
     }()
     
@@ -57,7 +56,7 @@ final class AddExpenseViewController: UIViewController {
     
     private lazy var descriptionButton: UIButton = {
         let button = UIButton()
-        button.tintColor = .customBlue
+        button.tintColor = .infoViewColor
         button.setImage(UIImage(systemName: "info.circle.fill"), for: .normal)
         
         button.addAction(UIAction(handler: { [weak self] _ in
@@ -88,7 +87,7 @@ final class AddExpenseViewController: UIViewController {
     private lazy var amountButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "info.circle.fill"), for: .normal)
-        button.tintColor = .customBlue
+        button.tintColor = .infoViewColor
         
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.inputAmountButtonTapped()
@@ -100,6 +99,7 @@ final class AddExpenseViewController: UIViewController {
     private let datePicker: UIDatePicker = {
         let picker = UIDatePicker()
         picker.datePickerMode = .date
+        picker.maximumDate = Date()
         picker.translatesAutoresizingMaskIntoConstraints = false
         return picker
     }()
@@ -117,7 +117,7 @@ final class AddExpenseViewController: UIViewController {
         button.heightAnchor.constraint(equalToConstant: 40).isActive = true
         button.titleLabel?.font = UIFont(name: "ChesnaGrotesk-Regular", size: 18)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .customBlue
+        button.backgroundColor = .infoViewColor
         button.layer.cornerRadius = 15
         return button
     }()
@@ -135,7 +135,7 @@ final class AddExpenseViewController: UIViewController {
 
     // MARK: - Setup UI
     private func setupUI() {
-        view.backgroundColor = .customBackground
+        view.backgroundColor = .backgroundColor
         
         categoryPicker.dataSource = self
         categoryPicker.delegate = self
@@ -206,10 +206,7 @@ final class AddExpenseViewController: UIViewController {
         expense.expenseDescription = description
         expense.amount = amount as NSNumber
         expense.date = datePicker.date
-        
-        let expenseService = BasicExpenseService(context: context)
-        expenseService.addExpense(expense)
-        
+
         delegate?.didAddExpense(expense)
         
         dismiss(animated: true, completion: nil)

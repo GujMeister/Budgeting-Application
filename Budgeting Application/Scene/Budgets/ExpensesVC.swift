@@ -6,14 +6,14 @@ class ExpensesViewController: UIViewController {
     
     private var infoView: NavigationRectangle = {
         let screenSize = UIScreen.main.bounds.height
-        let view = NavigationRectangle(height: screenSize / 4, color: .customBlue, totalBudgetedMoney: NSMutableAttributedString(string: ""), descriptionLabelText: "Expenses Last Month")
+        let view = NavigationRectangle(height: screenSize / 4, color: .infoViewColor, totalBudgetedMoney: NSMutableAttributedString(string: ""), descriptionLabelText: "Expenses Last Month")
         view.totalBudgetedNumberLabel.textColor = .white
         view.descriptionLabel.textColor = .white
         return view
     }()
     
     private lazy var customSegmentedControlView = CustomSegmentedControlView(
-        color: UIColor(hex: "535C91"),
+        color: .NavigationRectangleColor,
         controlItems: ["Budgets", "Expenses"],
         defaultIndex: 1 ) { [weak self] selectedIndex in
             self?.handleSegmentChange(selectedIndex: selectedIndex)
@@ -24,7 +24,7 @@ class ExpensesViewController: UIViewController {
         button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
         button.layer.cornerRadius = 10
         button.setImage(UIImage(systemName: "plus"), for: .normal)
-        button.tintColor = .black
+        button.tintColor = .primaryTextColor
         
         button.addAction(UIAction(handler: { _ in
             self.addExpense()
@@ -36,15 +36,16 @@ class ExpensesViewController: UIViewController {
     private lazy var timePeriodButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle(TimePeriodBackwards.lastMonth.rawValue, for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.primaryTextColor, for: .normal)
         button.titleLabel?.font = UIFont(name: "ChesnaGrotesk-Medium", size: 14)
         button.contentHorizontalAlignment = .left
+        button.tintColor = .primaryTextColor
         return button
     }()
     
     private var chevronImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(systemName: "chevron.down"))
-        imageView.tintColor = .black
+        imageView.tintColor = .primaryTextColor
         return imageView
     }()
     
@@ -53,7 +54,7 @@ class ExpensesViewController: UIViewController {
         tableView.register(CustomExpenseCell.self, forCellReuseIdentifier: CustomExpenseCell.reuseIdentifier)
         tableView.showsHorizontalScrollIndicator = false
         tableView.showsVerticalScrollIndicator = false
-        tableView.backgroundColor = .customBackground
+        tableView.backgroundColor = .backgroundColor
         tableView.separatorStyle = .singleLine
         tableView.delegate = self
         tableView.dataSource = self
@@ -78,7 +79,7 @@ class ExpensesViewController: UIViewController {
     
     // MARK: - Setup UI
     private func setupUI() {
-        view.backgroundColor = .customBackground
+        view.backgroundColor = .backgroundColor
         
         let views = [customSegmentedControlView, infoView, addExpenseButton, timePeriodButton, chevronImageView, expensesTableView]
         
@@ -190,7 +191,7 @@ extension ExpensesViewController: UITableViewDataSource, UITableViewDelegate {
             cell.configure(with: expense)
         }
         
-        cell.backgroundColor = .customBackground
+        cell.backgroundColor = .backgroundColor
         cell.selectionStyle = .none
         
         return cell

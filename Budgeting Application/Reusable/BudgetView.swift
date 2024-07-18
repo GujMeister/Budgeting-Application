@@ -15,6 +15,7 @@ class BudgetView: UIView {
     private let amountLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
+        label.textColor = .primaryTextColor
         label.font = UIFont(name: "ChesnaGrotesk-Bold", size: 12)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -23,6 +24,7 @@ class BudgetView: UIView {
     private let statusLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
+        label.textColor = .quaternaryTextColor
         label.font = UIFont(name: "ChesnaGrotesk-Regular", size: 10)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -30,7 +32,7 @@ class BudgetView: UIView {
     
     var budget: BasicExpenseBudget? {
         didSet {
-            updateView(textColor: .black)
+            updateView()
         }
     }
     
@@ -42,6 +44,12 @@ class BudgetView: UIView {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        setupView()
+    }
+    
+    init(budget: BasicExpenseBudget) {
+        self.budget = budget
+        super.init(frame: .zero)
         setupView()
     }
     
@@ -64,6 +72,10 @@ class BudgetView: UIView {
             statusLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             statusLabel.topAnchor.constraint(equalTo: amountLabel.bottomAnchor)
         ])
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(budgetTapped))
+        addGestureRecognizer(tapGesture)
+        isUserInteractionEnabled = true
     }
     
     // MARK: - Layout
@@ -76,7 +88,7 @@ class BudgetView: UIView {
         
         circleLayer.path = circularPath.cgPath
         circleLayer.fillColor = UIColor.clear.cgColor
-        circleLayer.strokeColor = UIColor.systemGray5.cgColor
+        circleLayer.strokeColor = UIColor.quaternaryTextColor.cgColor
         circleLayer.lineWidth = 5
         circleLayer.lineCap = .round
         
@@ -89,8 +101,13 @@ class BudgetView: UIView {
         progressLayer.lineCap = .round
     }
     
+    @objc private func budgetTapped() {
+        guard let budget = budget else { return }
+        NotificationCenter.default.post(name: NSNotification.Name("BudgetTapped"), object: budget)
+    }
+    
     // MARK: - Update View
-    private func updateView(textColor: UIColor) {
+    private func updateView() {
         guard let budget = budget else { return }
         
         let remainingPercentage = min(CGFloat(budget.remainingPercentage), 1.0)
@@ -111,9 +128,6 @@ class BudgetView: UIView {
         statusLabel.text = remainingAmount < 0 ? "over" : "under"
         
         emojiView.text = budget.category.emoji
-        
-        amountLabel.textColor = textColor
-        statusLabel.textColor = textColor
     }
 }
 

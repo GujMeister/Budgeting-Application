@@ -19,9 +19,9 @@ class BorderLabelView: UIView {
 
         let contentView = UIView()
 
-        contentView.backgroundColor = UIColor(hex: "f4f3f9")
+        contentView.backgroundColor = .backgroundColor
         contentView.layer.borderWidth = 3
-        contentView.layer.borderColor = UIColor(hex: "1B1A55").cgColor
+        contentView.layer.borderColor = UIColor.NavigationRectangleColor.cgColor
         contentView.layer.cornerRadius = 20
         contentView.layer.masksToBounds = true
 
@@ -35,9 +35,9 @@ class BorderLabelView: UIView {
 
         let label = PaddedLabel()
         label.text = labelName
-        label.backgroundColor = UIColor(hex: "f4f3f9")
+        label.backgroundColor = .backgroundColor
         label.font = UIFont(name: "ChesnaGrotesk-Bold", size: 12)
-        label.textColor = UIColor.black
+        label.textColor = .primaryTextColor
         label.textAlignment = .center
 
         addSubview(label)

@@ -20,12 +20,14 @@ final class CustomExpenseCell: UITableViewCell {
     let descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 14)
+        label.textColor = .primaryTextColor
         return label
     }()
     
     let amountLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Heebo-SemiBold", size: 14)
+        label.textColor = .primaryTextColor
         return label
     }()
     

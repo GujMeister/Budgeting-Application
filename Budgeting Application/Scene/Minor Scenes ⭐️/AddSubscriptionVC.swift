@@ -56,7 +56,7 @@ final class AddSubscriptionVC: UIViewController {
     
     private lazy var descriptionButton: UIButton = {
         let button = UIButton()
-        button.tintColor = .customBlue
+        button.tintColor = .infoViewColor
         button.setImage(UIImage(systemName: "info.circle.fill"), for: .normal)
         
         button.addAction(UIAction(handler: { [weak self] _ in
@@ -87,7 +87,7 @@ final class AddSubscriptionVC: UIViewController {
     private lazy var amountButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "info.circle.fill"), for: .normal)
-        button.tintColor = .customBlue
+        button.tintColor = .infoViewColor
         
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.inputAmountButtonTapped()
@@ -124,7 +124,7 @@ final class AddSubscriptionVC: UIViewController {
     private lazy var repeatButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "info.circle.fill"), for: .normal)
-        button.tintColor = .customBlue
+        button.tintColor = .infoViewColor
         
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.monthsButtonTapped()
@@ -146,7 +146,7 @@ final class AddSubscriptionVC: UIViewController {
         button.heightAnchor.constraint(equalToConstant: 40).isActive = true
         button.titleLabel?.font = UIFont(name: "ChesnaGrotesk-Regular", size: 18)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .customBlue
+        button.backgroundColor = .infoViewColor
         button.layer.cornerRadius = 15
         return button
     }()
@@ -164,7 +164,7 @@ final class AddSubscriptionVC: UIViewController {
     
     // MARK: - Setup UI
     private func setupUI() {
-        view.backgroundColor = .customBackground
+        view.backgroundColor = .backgroundColor
         
         categoryPicker.dataSource = self
         categoryPicker.delegate = self

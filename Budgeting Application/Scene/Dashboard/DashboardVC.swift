@@ -6,15 +6,10 @@
 
 import UIKit
 import DGCharts
-import SwiftUI
 
 final class DashboardViewController: UIViewController {
     // MARK: - Properties
     private let viewModel: DashboardViewModel
-    private var viewBackgroundColors = UIColor.customLightBlue
-    private var backgroundColor = UIColor(hex: "#F0F0F0")
-    private var textColor = UIColor.gray
-    private var cellTextColors = UIColor.gray
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -26,6 +21,7 @@ final class DashboardViewController: UIViewController {
     
     private lazy var contentView: UIView = {
         let view = UIView()
+        view.backgroundColor = .backgroundColor
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -49,7 +45,7 @@ final class DashboardViewController: UIViewController {
         let config = UIImage.SymbolConfiguration(pointSize: 9)
         let chevron = UIImage(systemName: "chevron.right", withConfiguration: config)
         button.setImage(chevron, for: .normal)
-        button.tintColor = textColor
+        button.tintColor = .tertiaryTextColor
         button.semanticContentAttribute = .forceRightToLeft
         
         button.addAction(UIAction(handler: { [weak self] _ in
@@ -62,7 +58,7 @@ final class DashboardViewController: UIViewController {
     private lazy var budgetsStackViewBackground: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 35
-        view.backgroundColor = .white
+        view.backgroundColor = .cellBackgroundColor
         return view
     }()
     
@@ -81,7 +77,7 @@ final class DashboardViewController: UIViewController {
         let config = UIImage.SymbolConfiguration(pointSize: 9)
         let chevron = UIImage(systemName: "chevron.right", withConfiguration: config)
         button.setImage(chevron, for: .normal)
-        button.tintColor = textColor
+        button.tintColor = .tertiaryTextColor
         button.semanticContentAttribute = .forceRightToLeft
         
         button.addAction(UIAction(handler: { [weak self] _ in
@@ -123,6 +119,7 @@ final class DashboardViewController: UIViewController {
         pieChart.translatesAutoresizingMaskIntoConstraints = false
         pieChart.chartDescription.enabled = false
         pieChart.legend.enabled = true
+        pieChart.holeColor = .backgroundColor
         return pieChart
     }()
     
@@ -134,7 +131,7 @@ final class DashboardViewController: UIViewController {
         let config = UIImage.SymbolConfiguration(pointSize: 9)
         let chevron = UIImage(systemName: "info.circle.fill", withConfiguration: config)
         button.setImage(chevron, for: .normal)
-        button.tintColor = textColor
+        button.tintColor = .tertiaryTextColor
         button.semanticContentAttribute = .forceRightToLeft
         
         button.addAction(UIAction(handler: { [weak self] _ in
@@ -148,8 +145,8 @@ final class DashboardViewController: UIViewController {
     private lazy var noSubscriptionsLabel: UILabel = {
         let label = UILabel()
         label.text = "No subscriptions saved"
-        label.textColor = .systemGray
-        label.font = UIFont(name: "Montserrat-Medium", size: 16)
+        label.textColor = .primaryTextColor
+        label.font = UIFont(name: "Montserrat-Medium", size: 12)
         label.textAlignment = .center
         label.isHidden = true
         return label
@@ -157,9 +154,9 @@ final class DashboardViewController: UIViewController {
     
     private lazy var noPaymentsLabel: UILabel = {
         let label = UILabel()
-        label.text = "No bank payments saved"
-        label.textColor = .systemGray
-        label.font = UIFont(name: "Montserrat-Medium", size: 16)
+        label.text = "No bank payments to display"
+        label.textColor = .primaryTextColor
+        label.font = UIFont(name: "Montserrat-Medium", size: 13)
         label.textAlignment = .center
         label.isHidden = true
         return label
@@ -167,9 +164,9 @@ final class DashboardViewController: UIViewController {
     
     private lazy var noFavoriteBudgetsLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .systemGray
+        label.textColor = .primaryTextColor
         label.text = "No Budgets Favorited"
-        label.font = UIFont(name: "Montserrat-Medium", size: 16)
+        label.font = UIFont(name: "Montserrat-Medium", size: 12)
         label.textAlignment = .center
         label.isHidden = true
         return label
@@ -178,7 +175,7 @@ final class DashboardViewController: UIViewController {
     private lazy var subscriptionBackgroundView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 25
-        view.backgroundColor = .white
+        view.backgroundColor = .cellBackgroundColor
         view.isHidden = true
         return view
     }()
@@ -186,7 +183,7 @@ final class DashboardViewController: UIViewController {
     private lazy var paymentsBackgroundView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 25
-        view.backgroundColor = .white
+        view.backgroundColor = .cellBackgroundColor
         view.isHidden = true
         return view
     }()
@@ -207,18 +204,31 @@ final class DashboardViewController: UIViewController {
         setupUI()
         setupBindings()
         viewModel.loadData()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(budgetTapped(_:)), name: NSNotification.Name("BudgetTapped"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("✅ DashboardVC viewWillAppear")
+        setupUI()
         viewModel.loadData()
+    }
+    
+    // MARK: - Testing Tapping
+    @objc private func budgetTapped(_ notification: Notification) {
+        if let budget = notification.object as? BasicExpenseBudget {
+            let budgetDetailVC = DashboardBudgetDetailViewController(budget: budget, delegate: viewModel)
+            self.hidesBottomBarWhenPushed  = true
+            self.navigationController?.pushViewController(budgetDetailVC, animated: true)
+            self.hidesBottomBarWhenPushed = false
+        }
     }
     
     // MARK: - Setup UI
     private func setupUI() {
         self.navigationController?.isNavigationBarHidden = true
-        view.backgroundColor = backgroundColor
+        view.backgroundColor = .infoViewColor
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         
@@ -273,12 +283,12 @@ final class DashboardViewController: UIViewController {
             noSubscriptionsLabel.centerXAnchor.constraint(equalTo: subscriptionCollectionView.centerXAnchor),
             noSubscriptionsLabel.centerYAnchor.constraint(equalTo: subscriptionCollectionView.centerYAnchor),
             
-            subscriptionCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            subscriptionCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
             subscriptionCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
             subscriptionCollectionView.topAnchor.constraint(equalTo: upcomingButton.bottomAnchor, constant: 5),
-            subscriptionCollectionView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 12),
+            subscriptionCollectionView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 13),
 
-            paymentsBackgroundView.topAnchor.constraint(equalTo: paymentCollectionView.topAnchor, constant: 0),
+            paymentsBackgroundView.topAnchor.constraint(equalTo: paymentCollectionView.topAnchor, constant: 10),
             paymentsBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             paymentsBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             paymentsBackgroundView.bottomAnchor.constraint(equalTo: paymentCollectionView.bottomAnchor, constant: 0),
@@ -287,8 +297,8 @@ final class DashboardViewController: UIViewController {
             noPaymentsLabel.centerYAnchor.constraint(equalTo: paymentCollectionView.centerYAnchor),
             
             paymentCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            paymentCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            paymentCollectionView.topAnchor.constraint(equalTo: subscriptionCollectionView.bottomAnchor, constant: 5),
+            paymentCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
+            paymentCollectionView.topAnchor.constraint(equalTo: subscriptionCollectionView.bottomAnchor, constant: -10),
             paymentCollectionView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 3.6),
             
             paymentCollectionView.bottomAnchor.constraint(equalTo: pieChartView.topAnchor, constant: -20),
@@ -381,10 +391,10 @@ final class DashboardViewController: UIViewController {
         ]
 
         let dataSet = PieChartDataSet(entries: entries, label: "")
-        dataSet.entryLabelFont = UIFont(name: "ChesnaGrotesk-Bold", size: 14)
-        dataSet.valueFont = UIFont(name: "Heebo-SemiBold", size: 12)!
-        dataSet.entryLabelColor = .customBlue
-        dataSet.valueTextColor = .customBlue
+        dataSet.entryLabelFont = UIFont(name: "ChesnaGrotesk-Bold", size: 12)
+        dataSet.valueFont = UIFont(name: "Heebo-SemiBold", size: 10)!
+        dataSet.entryLabelColor = .infoViewColor
+        dataSet.valueTextColor = .infoViewColor
         dataSet.colors = [
             UIColor(hex: "#ffb3ba"), // Color for Total Budgets
             UIColor(hex: "#baffc9"), // Color for Total Payments
@@ -470,4 +480,8 @@ extension DashboardViewController: UICollectionViewDelegateFlowLayout {
             return .zero
         }
     }
+}
+
+#Preview {
+    DashboardViewController(viewModel: DashboardViewModel())
 }

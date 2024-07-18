@@ -20,7 +20,7 @@ class MainTabBarController: UITabBarController {
     private func setupViewControllers() {
         let dashboardViewModel = DashboardViewModel()
         let dashboardVC = DashboardViewController(viewModel: dashboardViewModel)
-        dashboardVC.tabBarItem = UITabBarItem(title: "Dashboard", image: UIImage(systemName: "house"), tag: 0)
+        dashboardVC.tabBarItem = UITabBarItem(title: "Dashboard", image: UIImage(systemName: "house.fill"), tag: 0)
         
         let recurringVC = RecurringViewController()
         recurringVC.tabBarItem = UITabBarItem(title: "Recurring", image: UIImage(systemName: "repeat"), tag: 1)
@@ -46,11 +46,11 @@ class MainTabBarController: UITabBarController {
     
     private func setupCustomTabBar() {
         tabBar.configureMaterialBackground(
-            selectedItemColor: .black,
+            selectedItemColor: .primaryTextColor,
             unselectedItemColor: .gray,
             blurStyle: .prominent
         )
-        self.tabBar.backgroundColor = .white
+        self.tabBar.backgroundColor = .backgroundColor
     }
     
     private func ChangeRadiusOfTabbar(){

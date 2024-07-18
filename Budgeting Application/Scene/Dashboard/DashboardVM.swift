@@ -10,6 +10,11 @@ import CoreData
 final class DashboardViewModel {
     // MARK: - Properties
     var budgets: [BasicExpenseBudget] = []
+    var allExpenses: [BasicExpense] = [] {
+        didSet {
+            
+        }
+    }
     var subscriptions: [SubscriptionExpenseModel] = []
     var payments: [PaymentExpenseModel] = []
     
@@ -53,7 +58,6 @@ final class DashboardViewModel {
     
     // MARK: - Initialization
     init() {
-        fetchFavoritedBudgets()
         fetchPayments()
         fetchSubscriptions()
         calculateTotalBudgetedThisMonth()
@@ -68,7 +72,7 @@ final class DashboardViewModel {
     func loadData() {
         fetchSubscriptions()
         fetchPayments()
-        fetchFavoritedBudgets()
+        loadFavoritedBudgets()
         calculateTotalBudgetedThisMonth()
         loadFilteredOccurrences()
     }
@@ -96,18 +100,16 @@ final class DashboardViewModel {
         self.filteredPayments = Array(filteredPayments.sorted(by: { $0.date < $1.date }).prefix(4))
     }
     
-    private func fetchFavoritedBudgets() {
+    func loadFavoritedBudgets() {
         loadBudgets()
         DataManager.shared.fetchFavoriteBudgets()
-        
         let favoriteCategories = DataManager.shared.favoriteBudgets.map { $0.category }
         favoritedBudgets = budgets.filter { favoriteCategories.contains($0.category.rawValue) }
         onFavoritedBudgetsUpdated?()
     }
     
     private func loadBudgets() {
-        let service = BasicExpenseService(context: context)
-        budgets = service.fetchBasicExpenseBudgets()
+        budgets = BasicExpenseService(context: DataManager.shared.context).fetchBasicExpenseBudgets()
     }
 
     private func fetchSubscriptions() {
@@ -118,5 +120,12 @@ final class DashboardViewModel {
     private func fetchPayments() {
         DataManager.shared.FetchPaymentExpenses()
         payments = DataManager.shared.PaymentExpenseModelList
+    }
+}
+
+extension DashboardViewModel: AddExpenseDelegate {
+    func didAddExpense(_ expense: BasicExpenseModel) {
+        loadBudgets()
+        loadFavoritedBudgets()
     }
 }

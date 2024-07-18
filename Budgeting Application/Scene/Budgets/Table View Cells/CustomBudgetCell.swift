@@ -19,6 +19,7 @@ final class CustomBudgetCell: UITableViewCell {
     
     let categoryNameLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .primaryTextColor
         label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 14)
         return label
     }()
@@ -26,7 +27,7 @@ final class CustomBudgetCell: UITableViewCell {
     var spentAmountLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "ChesnaGrotesk-Regular", size: 10)
-        label.textColor = .gray
+        label.textColor = .quaternaryTextColor
         return label
     }()
     
@@ -34,12 +35,13 @@ final class CustomBudgetCell: UITableViewCell {
         let label = UILabel()
         label.text = "Spent:"
         label.font = UIFont(name: "ChesnaGrotesk-Regular", size: 10)
-        label.textColor = .gray
+        label.textColor = .quaternaryTextColor
         return label
     }()
     
     let totalAmountLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .primaryTextColor
         label.font = UIFont(name: "ChesnaGrotesk-Bold", size: 14)
         return label
     }()

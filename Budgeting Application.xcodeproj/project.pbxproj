@@ -21,6 +21,8 @@
 		851DCFF02C47FF3700A0E302 /* Purple Dark Mode.png in Resources */ = {isa = PBXBuildFile; fileRef = 851DCFEA2C47FF3700A0E302 /* Purple Dark Mode.png */; };
 		851DCFF32C48090400A0E302 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851DCFF22C48090400A0E302 /* AboutView.swift */; };
 		851DCFF52C480D4000A0E302 /* UITabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851DCFF42C480D4000A0E302 /* UITabBar.swift */; };
+		851DCFF72C4824B700A0E302 /* BudgetDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851DCFF62C4824B700A0E302 /* BudgetDetailVC.swift */; };
+		851DCFF92C48823400A0E302 /* KeyboardHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851DCFF82C48823400A0E302 /* KeyboardHandler.swift */; };
 		853A3DA92C3593A40042A0A4 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D812C3593A40042A0A4 /* Model.xcdatamodeld */; };
 		853A3DAA2C3593A40042A0A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D842C3593A40042A0A4 /* AppDelegate.swift */; };
 		853A3DAB2C3593A40042A0A4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D852C3593A40042A0A4 /* SceneDelegate.swift */; };
@@ -126,6 +128,8 @@
 		851DCFEA2C47FF3700A0E302 /* Purple Dark Mode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Purple Dark Mode.png"; sourceTree = "<group>"; };
 		851DCFF22C48090400A0E302 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		851DCFF42C480D4000A0E302 /* UITabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBar.swift; sourceTree = "<group>"; };
+		851DCFF62C4824B700A0E302 /* BudgetDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetDetailVC.swift; sourceTree = "<group>"; };
+		851DCFF82C48823400A0E302 /* KeyboardHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHandler.swift; sourceTree = "<group>"; };
 		853A3D672C3592BF0042A0A4 /* Budgeting Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Budgeting Application.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		853A3D782C3592C20042A0A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		853A3D832C3593A40042A0A4 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -315,8 +319,8 @@
 			children = (
 				853A3D912C3593A40042A0A4 /* BudgetView.swift */,
 				853A3D922C3593A40042A0A4 /* NavigationRectangle.swift */,
-				853A3DD42C35FC990042A0A4 /* SegmentedControlView.swift */,
 				85B85B0C2C38A54A00AAD046 /* BorderLabelView.swift */,
+				853A3DD42C35FC990042A0A4 /* SegmentedControlView.swift */,
 				85835EE92C42E67A0007F180 /* Alert.swift */,
 			);
 			path = Reusable;
@@ -356,6 +360,7 @@
 				853A3DD02C35F6460042A0A4 /* UIColor.swift */,
 				853A3DD22C35F66A0042A0A4 /* Color.swift */,
 				851DCFF42C480D4000A0E302 /* UITabBar.swift */,
+				851DCFF82C48823400A0E302 /* KeyboardHandler.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -398,6 +403,7 @@
 				853A3D982C3593A40042A0A4 /* AddSubscriptionVC.swift */,
 				853A3D9A2C3593A40042A0A4 /* AddBudgetsVC.swift */,
 				85B85B042C36D83100AAD046 /* AddExpenseVC.swift */,
+				851DCFF62C4824B700A0E302 /* BudgetDetailVC.swift */,
 			);
 			path = "Minor Scenes ⭐️";
 			sourceTree = "<group>";
@@ -709,6 +715,7 @@
 				853A3DB52C3593A40042A0A4 /* AddSubscriptionVC.swift in Sources */,
 				853A3DBC2C3593A40042A0A4 /* DataManager.swift in Sources */,
 				853A3DC32C35CF3E0042A0A4 /* ViewModel.swift in Sources */,
+				851DCFF72C4824B700A0E302 /* BudgetDetailVC.swift in Sources */,
 				853A3DC12C35CD190042A0A4 /* Payment Occurances.swift in Sources */,
 				85835EC12C402CDD0007F180 /* CalendarVC.swift in Sources */,
 				851DCFD92C4672EC00A0E302 /* ChangePasswordVM.swift in Sources */,
@@ -724,6 +731,7 @@
 				853A3DB12C3593A40042A0A4 /* NavigationRectangle.swift in Sources */,
 				851DCFDC2C4679F300A0E302 /* ChangeNameView.swift in Sources */,
 				853A3DCD2C35E4F00042A0A4 /* CustomBudgetCell.swift in Sources */,
+				851DCFF92C48823400A0E302 /* KeyboardHandler.swift in Sources */,
 				85835ECE2C41A7E70007F180 /* LoginView.swift in Sources */,
 				85B85B072C36DB4C00AAD046 /* CustomExpenseCell.swift in Sources */,
 				853A3DC52C35D1030042A0A4 /* BudgetsVC.swift in Sources */,

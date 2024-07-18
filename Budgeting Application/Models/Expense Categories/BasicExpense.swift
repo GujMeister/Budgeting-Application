@@ -16,6 +16,7 @@ struct BasicExpense: Codable {
 }
 
 struct BasicExpenseBudget: Codable {
+    var id: UUID = UUID()
     var category: BasicExpenseCategory
     var totalAmount: Double
     var spentAmount: Double
