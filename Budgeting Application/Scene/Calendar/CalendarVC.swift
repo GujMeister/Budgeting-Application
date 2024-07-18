@@ -7,7 +7,8 @@
 
 import UIKit
 
-class CalendarViewController: UIViewController {
+final class CalendarViewController: UIViewController {
+    // MARK: - Properties
     private var viewModel = CalendarViewModel()
     
     private lazy var scrollView: UIScrollView = {
@@ -26,8 +27,9 @@ class CalendarViewController: UIViewController {
     
     private var topView: UIView = {
         let view = UIView()
-        view.backgroundColor = .customBlue
+        view.backgroundColor = .infoViewColor
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 25
         return view
     }()
     
@@ -49,7 +51,7 @@ class CalendarViewController: UIViewController {
         let config = UIImage.SymbolConfiguration(pointSize: 9)
         let chevron = UIImage(systemName: "info.circle.fill", withConfiguration: config)
         button.setImage(chevron, for: .normal)
-        button.tintColor = .customBlue
+        button.tintColor = .infoViewColor
         button.semanticContentAttribute = .forceRightToLeft
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -59,10 +61,10 @@ class CalendarViewController: UIViewController {
         
         return button
     }()
-
+    
     private lazy var calendar: UICalendarView = {
         let calendar = UICalendarView()
-        calendar.backgroundColor = .customBackground
+        calendar.backgroundColor = .backgroundColor
         calendar.calendar = Calendar(identifier: .gregorian)
         calendar.translatesAutoresizingMaskIntoConstraints = false
         let selection = UICalendarSelectionSingleDate(delegate: self)
@@ -79,7 +81,7 @@ class CalendarViewController: UIViewController {
         let config = UIImage.SymbolConfiguration(pointSize: 9)
         let chevron = UIImage(systemName: "info.circle.fill", withConfiguration: config)
         button.setImage(chevron, for: .normal)
-        button.tintColor = .customBlue
+        button.tintColor = .infoViewColor
         button.semanticContentAttribute = .forceRightToLeft
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -112,7 +114,7 @@ class CalendarViewController: UIViewController {
     
     private lazy var noDataBackgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = .customLightBlue
+        view.backgroundColor = .NavigationRectangleColor
         view.layer.cornerRadius = 20
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -127,73 +129,76 @@ class CalendarViewController: UIViewController {
         return label
     }()
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         setupViewModelCallbacks()
         viewModel.loadEvents()
     }
-    
+
+    // MARK: - Setup UI
     private func setupUI() {
-            self.navigationController?.isNavigationBarHidden = true
-            view.backgroundColor = .customBackground
-            view.addSubview(scrollView)
+        self.navigationController?.isNavigationBarHidden = true
+        view.backgroundColor = .backgroundColor
+        
+        view.addSubview(scrollView)
+        
+        scrollView.addSubview(contentView)
+        contentView.addSubview(topView)
+        contentView.addSubview(calendarLabel)
+        contentView.addSubview(calendarInfoButton)
+        contentView.addSubview(calendar)
+        contentView.addSubview(tableViewInfoButton)
+        contentView.addSubview(tableView)
+        contentView.addSubview(noDataBackgroundView)
+        noDataBackgroundView.addSubview(noDataLabel)
+        
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            scrollView.addSubview(contentView)
-            contentView.addSubview(topView)
-            contentView.addSubview(calendarLabel)
-            contentView.addSubview(calendarInfoButton)
-            contentView.addSubview(calendar)
-            contentView.addSubview(tableViewInfoButton)
-            contentView.addSubview(tableView)
-            contentView.addSubview(noDataBackgroundView)
-            noDataBackgroundView.addSubview(noDataLabel)
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             
-            NSLayoutConstraint.activate([
-                scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-                scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                
-                contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-                contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-                contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-                contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-                contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-                
-                topView.topAnchor.constraint(equalTo: contentView.topAnchor),
-                topView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-                topView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-                topView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 8),
-                
-                calendarLabel.centerYAnchor.constraint(equalTo: topView.centerYAnchor, constant: 20),
-                calendarLabel.centerXAnchor.constraint(equalTo: topView.centerXAnchor),
-                
-                calendarInfoButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-                calendarInfoButton.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 20),
-                
-                calendar.topAnchor.constraint(equalTo: calendarInfoButton.bottomAnchor, constant: 10),
-                calendar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-                calendar.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-                
-                tableViewInfoButton.topAnchor.constraint(equalTo: calendar.bottomAnchor, constant: 20),
-                tableViewInfoButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-                
-                tableView.topAnchor.constraint(equalTo: tableViewInfoButton.bottomAnchor, constant: 10),
-                tableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-                tableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-                tableView.heightAnchor.constraint(equalToConstant: 350),
-                tableView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -50),
-                
-                noDataBackgroundView.topAnchor.constraint(equalTo: tableViewInfoButton.bottomAnchor, constant: 10),
-                noDataBackgroundView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-                noDataBackgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-                noDataBackgroundView.heightAnchor.constraint(equalToConstant: 100),
-                
-                noDataLabel.centerYAnchor.constraint(equalTo: noDataBackgroundView.centerYAnchor),
-                noDataLabel.centerXAnchor.constraint(equalTo: noDataBackgroundView.centerXAnchor),
-            ])
-        }
+            topView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            topView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            topView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            topView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 8),
+            
+            calendarLabel.centerYAnchor.constraint(equalTo: topView.centerYAnchor, constant: 20),
+            calendarLabel.centerXAnchor.constraint(equalTo: topView.centerXAnchor),
+            
+            calendarInfoButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            calendarInfoButton.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 20),
+            
+            calendar.topAnchor.constraint(equalTo: calendarInfoButton.bottomAnchor, constant: 10),
+            calendar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            calendar.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            
+            tableViewInfoButton.topAnchor.constraint(equalTo: calendar.bottomAnchor, constant: 20),
+            tableViewInfoButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            
+            tableView.topAnchor.constraint(equalTo: tableViewInfoButton.bottomAnchor, constant: 10),
+            tableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            tableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            tableView.heightAnchor.constraint(equalToConstant: 350),
+            tableView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -150),
+            
+            noDataBackgroundView.topAnchor.constraint(equalTo: tableViewInfoButton.bottomAnchor, constant: 10),
+            noDataBackgroundView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            noDataBackgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            noDataBackgroundView.heightAnchor.constraint(equalToConstant: 100),
+            
+            noDataLabel.centerYAnchor.constraint(equalTo: noDataBackgroundView.centerYAnchor),
+            noDataLabel.centerXAnchor.constraint(equalTo: noDataBackgroundView.centerXAnchor),
+        ])
+    }
     
     // MARK: - View Model
     private func setupViewModelCallbacks() {
@@ -238,12 +243,12 @@ extension CalendarViewController: UICalendarViewDelegate {
         guard let date = Calendar.current.date(from: dateComponents) else {
             return nil
         }
-
+        
         let startOfDay = Calendar.current.startOfDay(for: date)
         let hasExpenses = viewModel.expensesByDate[startOfDay] != nil
         let hasSubscriptions = viewModel.subscriptionsByDate[startOfDay] != nil
         let hasPayments = viewModel.paymentsByDate[startOfDay] != nil
-
+        
         if hasExpenses && hasSubscriptions && hasPayments {
             return createTripleDotDecorationImage()
         } else if (hasExpenses && hasSubscriptions) || (hasExpenses && hasPayments) || (hasSubscriptions && hasPayments) {
@@ -254,19 +259,19 @@ extension CalendarViewController: UICalendarViewDelegate {
             return nil
         }
     }
-
+    
     private func createTripleDotDecorationImage() -> UICalendarView.Decoration {
-        let image = UIImage(systemName: "3.circle")?.withTintColor(.customBlue, renderingMode: .alwaysOriginal)
+        let image = UIImage(systemName: "3.circle")?.withTintColor(.NavigationRectangleColor, renderingMode: .alwaysOriginal)
         return .image(image)
     }
-
+    
     private func createDoubleDotDecorationImage() -> UICalendarView.Decoration {
-        let image = UIImage(systemName: "2.circle")?.withTintColor(.customBlue, renderingMode: .alwaysOriginal)
+        let image = UIImage(systemName: "2.circle")?.withTintColor(.NavigationRectangleColor, renderingMode: .alwaysOriginal)
         return .image(image)
     }
-
+    
     private func createSingleDotDecorationImage() -> UICalendarView.Decoration {
-        let image = UIImage(systemName: "1.circle")?.withTintColor(.customBlue, renderingMode: .alwaysOriginal)
+        let image = UIImage(systemName: "1.circle")?.withTintColor(.NavigationRectangleColor, renderingMode: .alwaysOriginal)
         return .image(image)
     }
 }
@@ -298,14 +303,14 @@ extension CalendarViewController: UITableViewDataSource {
         let sectionTitle = viewModel.sections[indexPath.section]
         let events = viewModel.selectedDateEvents
         let event: Any
-
+        
         switch sectionTitle {
         case "Expenses": event = events.filter { $0 is BasicExpense }[indexPath.row]
         case "Subscriptions": event = events.filter { $0 is SubscriptionOccurrence }[indexPath.row]
         case "Payments": event = events.filter { $0 is PaymentOccurrence }[indexPath.row]
         default: return cell
         }
-
+        
         if let expense = event as? BasicExpense {
             cell.configure(emoji: expense.category.rawValue, categoryName: expense.expenseDescription, amount: expense.amount)
             cell.backgroundColor = .clear

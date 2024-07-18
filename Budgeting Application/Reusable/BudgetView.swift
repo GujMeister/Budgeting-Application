@@ -15,6 +15,7 @@ class BudgetView: UIView {
     private let amountLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
+        label.textColor = .primaryTextColor
         label.font = UIFont(name: "ChesnaGrotesk-Bold", size: 12)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -23,6 +24,7 @@ class BudgetView: UIView {
     private let statusLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
+        label.textColor = .quaternaryTextColor
         label.font = UIFont(name: "ChesnaGrotesk-Regular", size: 10)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -30,7 +32,7 @@ class BudgetView: UIView {
     
     var budget: BasicExpenseBudget? {
         didSet {
-            updateView(textColor: .black)
+            updateView()
         }
     }
     
@@ -86,7 +88,7 @@ class BudgetView: UIView {
         
         circleLayer.path = circularPath.cgPath
         circleLayer.fillColor = UIColor.clear.cgColor
-        circleLayer.strokeColor = UIColor.systemGray5.cgColor
+        circleLayer.strokeColor = UIColor.quaternaryTextColor.cgColor
         circleLayer.lineWidth = 5
         circleLayer.lineCap = .round
         
@@ -105,7 +107,7 @@ class BudgetView: UIView {
     }
     
     // MARK: - Update View
-    private func updateView(textColor: UIColor) {
+    private func updateView() {
         guard let budget = budget else { return }
         
         let remainingPercentage = min(CGFloat(budget.remainingPercentage), 1.0)
@@ -126,9 +128,6 @@ class BudgetView: UIView {
         statusLabel.text = remainingAmount < 0 ? "over" : "under"
         
         emojiView.text = budget.category.emoji
-        
-        amountLabel.textColor = textColor
-        statusLabel.textColor = textColor
     }
 }
 

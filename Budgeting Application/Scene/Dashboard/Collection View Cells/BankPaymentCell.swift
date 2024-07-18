@@ -15,13 +15,13 @@ final class BankPaymentCollectionViewCell: UICollectionViewCell {
     private let customBackgroundView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 15
-        view.backgroundColor = .white
+        view.backgroundColor = .cellBackgroundColor
         return view
     }()
     
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .systemGray2
+        label.textColor = .quaternaryTextColor
         label.textAlignment = .left
         label.text = "1 Apr"
         label.font = UIFont(name: "ChesnaGrotesk-Regular", size: 12)
@@ -38,7 +38,7 @@ final class BankPaymentCollectionViewCell: UICollectionViewCell {
     
     private let categoryLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(hex: "#4b4b4b")
+        label.textColor = UIColor.primaryTextColor
         label.textAlignment = .left
         label.numberOfLines = 2
         label.font = UIFont(name: "ChesnaGrotesk-Bold", size: 18)
@@ -47,7 +47,7 @@ final class BankPaymentCollectionViewCell: UICollectionViewCell {
     
     private let costLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(hex: "#4b4b4b")
+        label.textColor = UIColor.primaryTextColor
         label.textAlignment = .left
         label.font = UIFont(name: "ChesnaGrotesk-Bold", size: 14)
         return label

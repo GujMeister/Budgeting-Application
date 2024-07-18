@@ -13,14 +13,14 @@ final class BudgetsViewController: UIViewController {
     
     private var infoView: NavigationRectangle = {
         let screenSize = UIScreen.main.bounds.height
-        let view = NavigationRectangle(height: screenSize / 4, color: UIColor(hex: "1B1A55"), totalBudgetedMoney: NSMutableAttributedString(string: ""), descriptionLabelText: "Budget limit")
+        let view = NavigationRectangle(height: screenSize / 4, color: .infoViewColor, totalBudgetedMoney: NSMutableAttributedString(string: ""), descriptionLabelText: "Budget limit")
         view.totalBudgetedNumberLabel.textColor = .white
         view.descriptionLabel.textColor = .white
         return view
     }()
     
     private lazy var customSegmentedControlView = CustomSegmentedControlView(
-        color: UIColor(hex: "535C91"),
+        color: .NavigationRectangleColor,
         controlItems: ["Budgets", "Expenses"],
         defaultIndex: 0
     ) { [weak self] selectedIndex in
@@ -43,7 +43,7 @@ final class BudgetsViewController: UIViewController {
         let label = UILabel()
         label.text = "Budgets"
         label.font = UIFont(name: "ChesnaGrotesk-Bold", size: 14)
-        label.textColor = UIColor(hex: "0F1035")
+        label.textColor = .primaryTextColor
         return label
     }()
     
@@ -52,7 +52,7 @@ final class BudgetsViewController: UIViewController {
         button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
         button.layer.cornerRadius = 10
         button.setImage(UIImage(systemName: "plus"), for: .normal)
-        button.tintColor = UIColor(hex: "0F1035")
+        button.tintColor = .primaryTextColor
         
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.addBudget()
@@ -65,7 +65,7 @@ final class BudgetsViewController: UIViewController {
         let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.backgroundColor = UIColor(hex: "f4f3f9")
+        tableView.backgroundColor = .backgroundColor
         tableView.showsVerticalScrollIndicator = false
         tableView.register(CustomBudgetCell.self, forCellReuseIdentifier: CustomBudgetCell.reuseIdentifier)
         return tableView
@@ -100,7 +100,7 @@ final class BudgetsViewController: UIViewController {
 
     // MARK: - Setup UI
     private func setupUI() {
-        view.backgroundColor = UIColor(hex: "#f4f3f9")
+        view.backgroundColor = .backgroundColor
         self.navigationController?.isNavigationBarHidden = true
         
         let views = [customSegmentedControlView, infoView, allBudgetsLabel, allBudgetsTableView, budgetsStackViewBackground, addBudgetButton, favoriteBudgetsStackView]
@@ -214,7 +214,7 @@ extension BudgetsViewController: UITableViewDataSource, UITableViewDelegate {
         let budget = viewModel.allBudgets[indexPath.row]
         cell.configure(with: budget)
         cell.selectionStyle = .none
-        cell.backgroundColor = UIColor(hex: "f4f3f9")
+        cell.backgroundColor = .backgroundColor
         return cell
     }
     

@@ -16,7 +16,7 @@ struct RecurringPage: View {
         VStack {
             ZStack {
                 CustomSegmentedControlViewRepresentable(
-                    color: UIColor(hex: "535C91"),
+                    color: .NavigationRectangleColor,
                     controlItems: ["Subscriptions", "Payments", "Overview"],
                     defaultIndex: viewModel.selectedSegmentIndex,
                     segmentChangeCallback: { index in
@@ -29,7 +29,7 @@ struct RecurringPage: View {
                 
                 NavigationRectangleRepresentable(
                     height: 0,
-                    color: .customBlue,
+                    color: .infoViewColor,
                     totalBudgetedMoney: NumberFormatterHelper.shared.format(amount: totalBudgetedMoneyHelper(), baseFont: UIFont(name: "Heebo-SemiBold", size: 36) ?? UIFont(), sizeDifference: 0.6),
                     descriptionLabelText: viewModel.descriptionLabelText
                 )
@@ -51,9 +51,9 @@ struct RecurringPage: View {
                     } label: {
                         Text(viewModel.selectedTimePeriod.rawValue.uppercased())
                             .font(.custom("ChesnaGrotesk-Bold", size: 16))
-                            .foregroundStyle(.black)
+                            .foregroundStyle(Color(UIColor.primaryTextColor))
                         Image(systemName: "chevron.down")
-                            .foregroundStyle(.black)
+                            .foregroundStyle(Color(UIColor.primaryTextColor))
                     }
                 } else {
                     // TODO: Maybe add two buttons for adding subscriptions and adding payments in Overview?
@@ -67,7 +67,7 @@ struct RecurringPage: View {
                         viewModel.loadOverviewExpenses()
                     }) {
                         Text(isEditing ? "Done" : "Edit")
-                            .foregroundStyle(.black)
+                            .foregroundStyle(Color(UIColor.primaryTextColor))
                     }
                 } else {
                     Button(action: {
@@ -78,7 +78,7 @@ struct RecurringPage: View {
                         }
                     }) {
                         Image(systemName: "plus")
-                            .foregroundStyle(.black)
+                            .foregroundStyle(Color(UIColor.primaryTextColor))
                     }
                 }
             }
@@ -161,7 +161,7 @@ struct RecurringPage: View {
             .padding(.top, -120) //2
         }
         .background(
-            Color(UIColor.customBackground)
+            Color(UIColor.backgroundColor)
         )
     }
     
@@ -226,15 +226,15 @@ struct EditableRecurringView: View {
                         Text(paymentDescription)
                             .font(.custom("ChesnaGrotesk-Bold", size: 18))
                             .lineLimit(2)
-                            .foregroundColor(.black)
+                            .foregroundColor(Color(UIColor.primaryTextColor))
                         
                         Text(PlainNumberFormatterHelper.shared.format(amount: amount))
                             .font(.custom("ChesnaGrotesk-Regular", size: 12))
-                            .foregroundStyle(.black)
+                            .foregroundStyle(Color(UIColor.primaryTextColor))
                         
                         Text("Every month on \(Calendar.current.component(.day, from: date))\(daySuffix(for: date))")
                             .font(.custom("ChesnaGrotesk-Regular", size: 12))
-                            .foregroundColor(.secondary)
+                            .foregroundColor(Color(UIColor.quaternaryTextColor))
                             .padding(.top, 10)
                     }
                     
@@ -250,7 +250,7 @@ struct EditableRecurringView: View {
             }
         }
         .padding()
-        .background(Color(UIColor.white))
+        .background(Color(UIColor.cellBackgroundColor))
         .cornerRadius(15)
     }
 }
@@ -278,21 +278,21 @@ struct RecurringView: View {
                         Text(paymentDescription)
                             .font(.custom("ChesnaGrotesk-Bold", size: 18))
                             .lineLimit(2)
-                            .foregroundColor(.black)
+                            .foregroundColor(Color(UIColor.primaryTextColor))
                         
                         Text(PlainNumberFormatterHelper.shared.format(amount: amount))
                             .font(.custom("ChesnaGrotesk-Regular", size: 12))
-                            .foregroundStyle(.black)
+                            .foregroundStyle(Color(UIColor.primaryTextColor))
                         
                         if isOverview {
                             Text("Every month on \(Calendar.current.component(.day, from: date))\(daySuffix(for: date))")
                                 .font(.custom("ChesnaGrotesk-Regular", size: 12))
-                                .foregroundColor(.secondary)
+                                .foregroundColor(Color(UIColor.quaternaryTextColor))
                                 .padding(.top, 10)
                         } else {
                             Text(DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none))
                                 .font(.custom("ChesnaGrotesk-Regular", size: 12))
-                                .foregroundColor(.secondary)
+                                .foregroundColor(Color(UIColor.quaternaryTextColor))
                                 .padding(.top, 10)
                         }
                     }
@@ -310,7 +310,7 @@ struct RecurringView: View {
             }
         }
         .padding()
-        .background(Color(UIColor.white))
+        .background(Color(UIColor.cellBackgroundColor))
         .cornerRadius(15)
     }
 }
@@ -367,7 +367,7 @@ struct RecurringPage_Previews: PreviewProvider {
     static var previews: some View {
         RecurringPage()
         
-        RecurringView(emoji: "🏠", amount: 1000, paymentDescription: "Vashlijvari", date: Date(), color: .customLightBlue)
+        RecurringView(emoji: "🏠", amount: 1000, paymentDescription: "Vashlijvari", date: Date(), color: .NavigationRectangleColor)
             .frame(width: UIScreen.main.bounds.width / 2, height: 150)
         
         EditableRecurringView(amount: 200, paymentDescription: "Vashlijvari", date: Date(), color: .blue, deleteAction: {})

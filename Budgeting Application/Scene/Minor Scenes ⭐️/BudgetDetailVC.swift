@@ -11,6 +11,7 @@ class DashboardBudgetDetailViewController: UIViewController {
     // MARK: - Properties
     private let budget: BasicExpenseBudget
     weak var delegate: AddExpenseDelegate?
+    private let scrollView = UIScrollView()
     private lazy var keyboardHandler = KeyboardHandler(viewController: self)
 
     private let remainingAmountLabel: UILabel = {
@@ -76,7 +77,7 @@ class DashboardBudgetDetailViewController: UIViewController {
     
     private let descriptionTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "" // Changed placeholder
+        textField.placeholder = "e.g Chocolate"
         textField.borderStyle = .roundedRect
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
@@ -84,7 +85,7 @@ class DashboardBudgetDetailViewController: UIViewController {
     
     private lazy var descriptionButton: UIButton = {
         let button = UIButton()
-        button.tintColor = .customBlue
+        button.tintColor = .infoViewColor
         button.setImage(UIImage(systemName: "info.circle.fill"), for: .normal)
         
 //        button.addAction(UIAction(handler: { [weak self] _ in
@@ -106,7 +107,7 @@ class DashboardBudgetDetailViewController: UIViewController {
     
     private let amountTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "e.g. 50" // Changed placeholder
+        textField.placeholder = "e.g 50"
         textField.borderStyle = .roundedRect
         textField.keyboardType = .decimalPad
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -116,7 +117,7 @@ class DashboardBudgetDetailViewController: UIViewController {
     private lazy var amountButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "info.circle.fill"), for: .normal)
-        button.tintColor = .customBlue
+        button.tintColor = .infoViewColor
 //        
 //        button.addAction(UIAction(handler: { [weak self] _ in
 //            self?.inputAmountButtonTapped()
@@ -146,9 +147,23 @@ class DashboardBudgetDetailViewController: UIViewController {
         button.heightAnchor.constraint(equalToConstant: 40).isActive = true
         button.titleLabel?.font = UIFont(name: "ChesnaGrotesk-Regular", size: 18)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .customBlue
+        button.backgroundColor = .infoViewColor
         button.layer.cornerRadius = 15
         return button
+    }()
+    
+    let progressViewBackground: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemGray4
+        view.layer.cornerRadius = 25
+        return view
+    }()
+    
+    let addExpenseBackground: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemGray4
+        view.layer.cornerRadius = 25
+        return view
     }()
     
     // MARK: - Initialization
@@ -174,7 +189,7 @@ class DashboardBudgetDetailViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .white
         
-        let views = [progressView, spentAmountLabel, maxAmountLabel, remainingAmountLabel, addExpenseLabel, addExpenseToLabel, descriptionLabel, descriptionTextField, descriptionButton, amountLabel, amountTextField, amountButton, datePicker, addExpenseButton]
+        let views = [progressViewBackground, addExpenseBackground, progressView, spentAmountLabel, maxAmountLabel, remainingAmountLabel, addExpenseLabel, addExpenseToLabel, descriptionLabel, descriptionTextField, descriptionButton, amountLabel, amountTextField, amountButton, datePicker, addExpenseButton]
         
         views.forEach { eachView in
             view.addSubview(eachView)
@@ -183,7 +198,7 @@ class DashboardBudgetDetailViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             progressView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            progressView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            progressView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 25),
             progressView.widthAnchor.constraint(equalToConstant: 180),
             progressView.heightAnchor.constraint(equalToConstant: 180),
             
@@ -197,7 +212,7 @@ class DashboardBudgetDetailViewController: UIViewController {
             remainingAmountLabel.centerXAnchor.constraint(equalTo: progressView.centerXAnchor),
             
             addExpenseLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            addExpenseLabel.topAnchor.constraint(equalTo: maxAmountLabel.bottomAnchor, constant: 40),
+            addExpenseLabel.topAnchor.constraint(equalTo: maxAmountLabel.bottomAnchor, constant: 60),
             
             addExpenseToLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             addExpenseToLabel.topAnchor.constraint(equalTo: addExpenseLabel.bottomAnchor, constant: 5),
@@ -226,7 +241,17 @@ class DashboardBudgetDetailViewController: UIViewController {
             datePicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
 
             addExpenseButton.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 20),
-            addExpenseButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            addExpenseButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            addExpenseBackground.topAnchor.constraint(equalTo: addExpenseLabel.topAnchor, constant: -20),
+            addExpenseBackground.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 5),
+            addExpenseBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
+            addExpenseBackground.bottomAnchor.constraint(equalTo: addExpenseButton.bottomAnchor, constant: 20),
+            
+            progressViewBackground.topAnchor.constraint(equalTo: progressView.topAnchor, constant: -20),
+            progressViewBackground.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
+            progressViewBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
+            progressViewBackground.bottomAnchor.constraint(equalTo: spentAmountLabel.bottomAnchor, constant: 20)
         ])
     }
     

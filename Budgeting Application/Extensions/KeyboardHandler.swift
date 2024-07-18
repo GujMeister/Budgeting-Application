@@ -8,20 +8,17 @@
 import UIKit
 
 class KeyboardHandler {
-
     private weak var viewController: UIViewController?
     private var keyboardHeight: CGFloat = 0
 
     init(viewController: UIViewController) {
         self.viewController = viewController
 
-        // Add keyboard observers
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     deinit {
-        // Remove observers when deallocated
         NotificationCenter.default.removeObserver(self)
     }
 
@@ -30,7 +27,7 @@ class KeyboardHandler {
         keyboardHeight = keyboardSize.height
 
         if viewController?.view.frame.origin.y == 0 {
-            viewController?.view.frame.origin.y -= keyboardHeight
+            viewController?.view.frame.origin.y -= keyboardHeight * 0.5
         }
     }
 

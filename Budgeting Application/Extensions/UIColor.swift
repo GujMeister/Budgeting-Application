@@ -8,9 +8,9 @@
 import UIKit
 
 extension UIColor {
-    static let customBlue = UIColor(hex: "1B1A55")
-    static let customLightBlue = UIColor(hex: "#adb2d0")
-    static let customBackground = UIColor(hex: "f4f3f9")
+    static let infoViewColor = UIColor(hex: "468585")
+    static let NavigationRectangleColor = UIColor(hex: "#6a9d9d")
+//    static let customBackground = UIColor(hex: "f4f3f9")
     
     convenience init(hex: String) {
         var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -29,17 +29,63 @@ extension UIColor {
 }
 
 extension UIColor {
-    static var myControlBackground: UIColor {
+    static var backgroundColor: UIColor {
         if #available(iOS 13.0, *) {
             return UIColor { (traits) -> UIColor in
-                // Return one of two colors depending on light or dark mode
-                return traits.userInterfaceStyle == .dark ?
-                    UIColor(red: 0.5, green: 0.4, blue: 0.3, alpha: 1) :
-                    UIColor(red: 0.3, green: 0.4, blue: 0.5, alpha: 1)
+                return traits.userInterfaceStyle == .dark ? UIColor.black : UIColor(hex: "#F0F0F0")
             }
         } else {
-            // Same old color used for iOS 12 and earlier
-            return UIColor(red: 0.3, green: 0.4, blue: 0.5, alpha: 1)
+            return UIColor(hex: "#F0F0F0")
+        }
+    }
+    
+    static var cellBackgroundColor: UIColor {
+        if #available(iOS 13.0, *) {
+            return UIColor { (traits) -> UIColor in
+                return traits.userInterfaceStyle == .dark ? UIColor(hex: "#333333") : UIColor.white
+            }
+        } else {
+            return UIColor.white
+        }
+    }
+    
+    static var primaryTextColor: UIColor {
+        if #available(iOS 13.0, *) {
+            return UIColor { (traits) -> UIColor in
+                return traits.userInterfaceStyle == .dark ? UIColor(hex: "#e5e5e5") /*ideal*/ : UIColor(hex: "#262626")
+            }
+        } else {
+            return UIColor.white
+        }
+    }
+    
+    static var secondaryTextColor: UIColor {
+        if #available(iOS 13.0, *) {
+            return UIColor { (traits) -> UIColor in
+                return traits.userInterfaceStyle == .dark ? UIColor(hex: "#333333") : UIColor.white
+            }
+        } else {
+            return UIColor.white
+        }
+    }
+    
+    static var tertiaryTextColor: UIColor {
+        if #available(iOS 13.0, *) {
+            return UIColor { (traits) -> UIColor in
+                return traits.userInterfaceStyle == .dark ? UIColor(hex: "#c0c0c0") : UIColor(hex: "#393939")
+            }
+        } else {
+            return UIColor.white
+        }
+    }
+    
+    static var quaternaryTextColor: UIColor {
+        if #available(iOS 13.0, *) {
+            return UIColor { (traits) -> UIColor in
+                return traits.userInterfaceStyle == .dark ? UIColor(hex: "#7f7f7f") : UIColor(hex: "#999999")
+            }
+        } else {
+            return UIColor.white
         }
     }
 }

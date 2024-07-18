@@ -7,7 +7,7 @@ final class SubscriptionCollectionViewCell: UICollectionViewCell {
     private let customBackgroundView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 10
-        view.backgroundColor = .white
+        view.backgroundColor = .cellBackgroundColor
         view.layer.masksToBounds = false
 //        view.layer.shadowColor = UIColor.customBlue.cgColor
 //        view.layer.shadowOffset = CGSize(width: 3, height: 3)
@@ -29,13 +29,13 @@ final class SubscriptionCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .label
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 13, weight: .regular)
+        label.font = .systemFont(ofSize: 11, weight: .regular)
         return label
     }()
     
     private let categoryLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(hex: "#71797E")
+        label.textColor = UIColor.primaryTextColor
         label.textAlignment = .left
         label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 14)
         return label
@@ -43,9 +43,9 @@ final class SubscriptionCollectionViewCell: UICollectionViewCell {
     
     private let costLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .gray
+        label.textColor = .quaternaryTextColor
         label.textAlignment = .center
-        label.font = UIFont(name: "Heebo-SemiBold", size: 10)
+        label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 11)
         return label
     }()
     
@@ -95,14 +95,12 @@ final class SubscriptionCollectionViewCell: UICollectionViewCell {
     }
     
     // MARK: - Configure
-    func configure(with subscription: SubscriptionOccurrence/*, textColor: UIColor*/) {
-        dateLabel.text = DateFormatter.localizedString(from: subscription.date, dateStyle: .medium, timeStyle: .none)
+    func configure(with subscription: SubscriptionOccurrence) {
+//        dateLabel.text = DateFormatter.localizedString(from: subscription.date, dateStyle: .medium, timeStyle: .none)
+        dateLabel.text = subscription.date.formattedWithoutYear()
         categoryLabel.text = subscription.subscriptionDescription
         costLabel.text = PlainNumberFormatterHelper.shared.format(amount: subscription.amount)
-        
-        //        categoryLabel.textColor = textColor
-        //        costLabel.textColor = textColor
-        
+
         if let category = SubscriptionCategory(rawValue: subscription.category) {
             emojiLabel.text = category.emoji
         } else {
@@ -115,3 +113,10 @@ final class SubscriptionCollectionViewCell: UICollectionViewCell {
     SubscriptionCollectionViewCell()
 }
 
+extension Date {
+    func formattedWithoutYear() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "d MMM"
+        return dateFormatter.string(from: self)
+    }
+}

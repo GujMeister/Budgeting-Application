@@ -22,7 +22,7 @@
 		851DCFF32C48090400A0E302 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851DCFF22C48090400A0E302 /* AboutView.swift */; };
 		851DCFF52C480D4000A0E302 /* UITabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851DCFF42C480D4000A0E302 /* UITabBar.swift */; };
 		851DCFF72C4824B700A0E302 /* BudgetDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851DCFF62C4824B700A0E302 /* BudgetDetailVC.swift */; };
-		851DCFF92C48823400A0E302 /* Keyboard Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851DCFF82C48823400A0E302 /* Keyboard Functions.swift */; };
+		851DCFF92C48823400A0E302 /* KeyboardHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851DCFF82C48823400A0E302 /* KeyboardHandler.swift */; };
 		853A3DA92C3593A40042A0A4 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D812C3593A40042A0A4 /* Model.xcdatamodeld */; };
 		853A3DAA2C3593A40042A0A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D842C3593A40042A0A4 /* AppDelegate.swift */; };
 		853A3DAB2C3593A40042A0A4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D852C3593A40042A0A4 /* SceneDelegate.swift */; };
@@ -129,7 +129,7 @@
 		851DCFF22C48090400A0E302 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		851DCFF42C480D4000A0E302 /* UITabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBar.swift; sourceTree = "<group>"; };
 		851DCFF62C4824B700A0E302 /* BudgetDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetDetailVC.swift; sourceTree = "<group>"; };
-		851DCFF82C48823400A0E302 /* Keyboard Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Keyboard Functions.swift"; sourceTree = "<group>"; };
+		851DCFF82C48823400A0E302 /* KeyboardHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHandler.swift; sourceTree = "<group>"; };
 		853A3D672C3592BF0042A0A4 /* Budgeting Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Budgeting Application.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		853A3D782C3592C20042A0A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		853A3D832C3593A40042A0A4 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -360,7 +360,7 @@
 				853A3DD02C35F6460042A0A4 /* UIColor.swift */,
 				853A3DD22C35F66A0042A0A4 /* Color.swift */,
 				851DCFF42C480D4000A0E302 /* UITabBar.swift */,
-				851DCFF82C48823400A0E302 /* Keyboard Functions.swift */,
+				851DCFF82C48823400A0E302 /* KeyboardHandler.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -731,7 +731,7 @@
 				853A3DB12C3593A40042A0A4 /* NavigationRectangle.swift in Sources */,
 				851DCFDC2C4679F300A0E302 /* ChangeNameView.swift in Sources */,
 				853A3DCD2C35E4F00042A0A4 /* CustomBudgetCell.swift in Sources */,
-				851DCFF92C48823400A0E302 /* Keyboard Functions.swift in Sources */,
+				851DCFF92C48823400A0E302 /* KeyboardHandler.swift in Sources */,
 				85835ECE2C41A7E70007F180 /* LoginView.swift in Sources */,
 				85B85B072C36DB4C00AAD046 /* CustomExpenseCell.swift in Sources */,
 				853A3DC52C35D1030042A0A4 /* BudgetsVC.swift in Sources */,
