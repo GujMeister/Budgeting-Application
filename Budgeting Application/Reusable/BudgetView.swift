@@ -17,6 +17,7 @@ class BudgetView: UIView {
         label.textAlignment = .center
         label.textColor = .primaryTextColor
         label.font = UIFont(name: "ChesnaGrotesk-Bold", size: 12)
+        label.text = "$100"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -26,6 +27,7 @@ class BudgetView: UIView {
         label.textAlignment = .center
         label.textColor = .quaternaryTextColor
         label.font = UIFont(name: "ChesnaGrotesk-Regular", size: 10)
+        label.text = "over"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -67,10 +69,10 @@ class BudgetView: UIView {
             emojiView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             
             amountLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            amountLabel.topAnchor.constraint(equalTo: emojiView.bottomAnchor, constant: 30),
+            amountLabel.topAnchor.constraint(equalTo: emojiView.bottomAnchor, constant: 25),
             
             statusLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            statusLabel.topAnchor.constraint(equalTo: amountLabel.bottomAnchor)
+            statusLabel.topAnchor.constraint(equalTo: amountLabel.bottomAnchor, constant: -3)
         ])
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(budgetTapped))
@@ -88,7 +90,7 @@ class BudgetView: UIView {
         
         circleLayer.path = circularPath.cgPath
         circleLayer.fillColor = UIColor.clear.cgColor
-        circleLayer.strokeColor = UIColor.quaternaryTextColor.cgColor
+        circleLayer.strokeColor = UIColor.budgetViewBezierColor.cgColor
         circleLayer.lineWidth = 5
         circleLayer.lineCap = .round
         
