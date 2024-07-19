@@ -13,16 +13,13 @@ struct LoginView: View {
     @AppStorage("userName") private var userName: String = ""
 
     @State private var passcode = ""
-    @State private var isConfirmingPasscode = false
-    @State private var topPasswordText = "Welcome"
-    @State private var bottomPasswordText = "Create your 4-digit PIN to access your personal budgeting application"
     @State private var showText = false
 
     // MARK: - View
     var body: some View {
         VStack(spacing: 48) {
             VStack(spacing: 24) {
-                Text(topPasswordText)
+                Text(viewModel.topPasswordText)
                     .font(.largeTitle)
                     .fontWeight(.heavy)
                     .opacity(showText ? 1 : 0)
@@ -32,7 +29,7 @@ struct LoginView: View {
                         }
                     }
 
-                Text(bottomPasswordText)
+                Text(viewModel.bottomPasswordText)
                     .font(.subheadline)
                     .multilineTextAlignment(.center)
             }
@@ -45,45 +42,16 @@ struct LoginView: View {
             NumberPadView(passcode: $passcode)
                 .onChange(of: passcode) { newPasscode in
                     if newPasscode.count == 4 {
-                        handlePasscodeEntry(newPasscode)
+                        viewModel.handlePasscodeEntry(newPasscode, resetPasscode: {
+                            passcode = ""
+                        }, switchToMainTabBar: switchToMainTabBar, presentAlert: presentAlert)
                     }
                 }
         }
         .padding()
         .onAppear {
             if viewModel.isPasscodeSet {
-                topPasswordText = "Welcome back \(userName)"
-                bottomPasswordText = "Enter your 4-digit PIN to log in to your personal budgeting application"
-            }
-        }
-    }
-
-    private func handlePasscodeEntry(_ enteredPasscode: String) {
-        if !viewModel.isPasscodeSet {
-            if isConfirmingPasscode {
-                if viewModel.temporaryPasscode == enteredPasscode {
-                    viewModel.setPasscode(enteredPasscode)
-                    switchToMainTabBar()
-                } else {
-                    isConfirmingPasscode = false
-                    passcode = ""
-                    topPasswordText = "Enter Passcode"
-                    presentAlert(title: "Error", message: "Passcodes do not match.")
-                }
-            } else {
-                viewModel.temporaryPasscode = enteredPasscode
-                isConfirmingPasscode = true
-                passcode = ""
-                topPasswordText = "Confirm Passcode"
-                bottomPasswordText = "Repeat Your Passcode"
-            }
-        } else {
-            if viewModel.isPasscodeCorrect(enteredPasscode) {
-                switchToMainTabBar()
-            } else {
-                passcode = ""
-                presentAlert(title: "Try Again", message: "Incorrect passcode.")
-
+                viewModel.setupTexts(userName: userName)
             }
         }
     }

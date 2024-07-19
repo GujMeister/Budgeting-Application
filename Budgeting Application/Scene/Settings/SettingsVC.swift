@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct SettingsView: View {
+    // MARK: - Properties
     @StateObject private var viewModel = SettingsVM()
     
+    // MARK: - View
     var body: some View {
         Form {
             Section {
@@ -21,22 +23,25 @@ struct SettingsView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 50)
-                            .foregroundColor(Color(UIColor.systemBackground))
+                            .foregroundColor(.white)
                             .padding(10)
                             .background(
                             RoundedRectangle(cornerRadius: 15)
                                 .fill(Color(UIColor.systemGray))
                             )
                             .padding(.top)
+                            .accessibilityHidden(true)
                         
                         Text("Settings")
                             .font(.largeTitle)
                             .bold()
+                            .accessibilityLabel("Settings")
                         
                         Text("Manage or delete your data, read about the app and change password, app icons or name")
                             .multilineTextAlignment(.center)
-                            .font(.system(size: 14))
+                            .font(.subheadline)
                             .padding(.bottom)
+                            .accessibilityLabel("Manage or delete your data, read about the app and change password, app icons or name")
                     }
                     
                     Spacer()
@@ -52,12 +57,15 @@ struct SettingsView: View {
                     Spacer()
                     Image(systemName: "chevron.right")
                 }
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel("About the app")
+                .accessibilityHint("Tap to read about the app")
             }
             .sheet(isPresented: $viewModel.showAboutView) {
                 AboutView()
             }
             
-            Section(header: Text("Delete")) {
+            Section(header: Text("Delete").accessibilityLabel("Delete data")) {
                 Button {
                     viewModel.deleteBasicExpenses()
                 } label: {
@@ -66,6 +74,9 @@ struct SettingsView: View {
                         Spacer()
                         Image(systemName: "chevron.right")
                     }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel("Delete expenses")
+                    .accessibilityHint("Tap to delete all expenses")
                 }
                 
                 Button {
@@ -76,6 +87,9 @@ struct SettingsView: View {
                         Spacer()
                         Image(systemName: "chevron.right")
                     }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel("Delete subscriptions")
+                    .accessibilityHint("Tap to delete all subscriptions")
                 }
                 
                 Button {
@@ -86,6 +100,9 @@ struct SettingsView: View {
                         Spacer()
                         Image(systemName: "chevron.right")
                     }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel("Delete bank payments")
+                    .accessibilityHint("Tap to delete all bank payments")
                 }
                 
                 Button {
@@ -96,6 +113,9 @@ struct SettingsView: View {
                         Spacer()
                         Image(systemName: "chevron.right")
                     }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel("Delete all data")
+                    .accessibilityHint("Tap to delete all data")
                 }
             }
             
@@ -108,6 +128,9 @@ struct SettingsView: View {
                         Spacer()
                         Image(systemName: "chevron.right")
                     }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel("Change password")
+                    .accessibilityHint("Tap to change your password")
                 }
                 .sheet(isPresented: $viewModel.showChangePasswordView) {
                     ChangePasswordView(viewModel: ChangePasswordViewModel())
@@ -122,6 +145,9 @@ struct SettingsView: View {
                         Spacer()
                         Image(systemName: "chevron.right")
                     }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel("Change app icon")
+                    .accessibilityHint("Tap to change the app icon")
                 }
                 .sheet(isPresented: $viewModel.showChangeIcon) {
                     ChangeIconView()
@@ -136,6 +162,9 @@ struct SettingsView: View {
                         Spacer()
                         Image(systemName: "chevron.right")
                     }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel("Change app name")
+                    .accessibilityHint("Tap to change the app name")
                 }
                 .sheet(isPresented: $viewModel.showChangeNameView) {
                     ChangeNameView()
@@ -144,12 +173,15 @@ struct SettingsView: View {
             
             Section {
                 Text("Version 2.2")
+                    .accessibilityLabel("App version 2.2")
                 Text("© All Rights Reserved")
+                    .accessibilityLabel("All rights reserved")
             } header: {
-                Text("App")
+                Text("App").accessibilityLabel("App information")
             } footer: {
                 Text("Owner of this application gives all the rights imaginable regarding the usage of his assets and code used in this application")
                     .foregroundStyle(Color(UIColor.systemGray2))
+                    .accessibilityLabel("Owner of this application gives all the rights imaginable regarding the usage of his assets and code used in this application")
             }
         }
         .padding(.top, -30)
@@ -160,7 +192,6 @@ struct SettingsView: View {
         )
     }
 }
-
 
 #Preview {
     SettingsView()

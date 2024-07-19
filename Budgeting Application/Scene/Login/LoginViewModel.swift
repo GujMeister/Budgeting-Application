@@ -9,9 +9,44 @@ import Foundation
 
 class LoginPageViewModel: ObservableObject {
     @Published var temporaryPasscode: String = ""
+    @Published var topPasswordText: String = "Welcome"
+    @Published var bottomPasswordText: String = "Create your 4-digit PIN to access your personal budgeting application"
 
     var isPasscodeSet: Bool {
         return retrievePasscode() != nil
+    }
+
+    func setupTexts(userName: String) {
+        topPasswordText = "Welcome back \(userName)"
+        bottomPasswordText = "Enter your 4-digit PIN to log in to your personal budgeting application"
+    }
+
+    func handlePasscodeEntry(_ enteredPasscode: String, resetPasscode: @escaping () -> Void, switchToMainTabBar: @escaping () -> Void, presentAlert: @escaping (String, String) -> Void) {
+        if !isPasscodeSet {
+            if temporaryPasscode.isEmpty {
+                temporaryPasscode = enteredPasscode
+                topPasswordText = "Confirm Passcode"
+                bottomPasswordText = "Repeat Your Passcode"
+                resetPasscode()
+            } else {
+                if temporaryPasscode == enteredPasscode {
+                    setPasscode(enteredPasscode)
+                    switchToMainTabBar()
+                } else {
+                    temporaryPasscode = ""
+                    topPasswordText = "Enter Passcode"
+                    presentAlert("Error", "Passcodes do not match.")
+                    resetPasscode()
+                }
+            }
+        } else {
+            if isPasscodeCorrect(enteredPasscode) {
+                switchToMainTabBar()
+            } else {
+                presentAlert("Try Again", "Incorrect passcode.")
+                resetPasscode()
+            }
+        }
     }
 
     func setPasscode(_ passcode: String) {
