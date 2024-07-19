@@ -5,7 +5,6 @@
 //  Created by Luka Gujejiani on 15.07.24.
 //
 
-//import UIKit
 import SwiftUI
 
 class InitialViewController: UIViewController {
@@ -13,8 +12,8 @@ class InitialViewController: UIViewController {
     private let budgetoLabel: UILabel = {
         let label = UILabel()
         label.text = "Budgeto."
-        label.font = UIFont.systemFont(ofSize: 162, weight: .bold) // Adjust font size and weight as needed
-        label.textColor = .black
+        label.font = UIFont.systemFont(ofSize: 142, weight: .bold)
+        label.textColor = .infoViewColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -22,7 +21,7 @@ class InitialViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white // Set your desired background color
+        view.backgroundColor = .backgroundColor
         setupBudgetoLabel()
         animateBudgetoLabel()
     }
@@ -37,15 +36,24 @@ class InitialViewController: UIViewController {
 
     private func animateBudgetoLabel() {
         view.layoutIfNeeded()
-        UIView.animate(withDuration: 2.0, animations: {
+        UIView.animate(withDuration: 1.5, animations: {
             self.budgetoLabel.frame.origin.x = -1700
         }) { _ in
-            self.showLoginView()
+            self.showInitialView()
         }
     }
 
-    private func showLoginView() {
-        let hostingController = UIHostingController(rootView: LoginView(viewModel: LoginPageViewModel()))
+    private func showInitialView() {
+        let hasSeenOnBoarding = UserDefaults.standard.bool(forKey: "hasSeenOnBoarding")
+        let rootView: AnyView
+
+        if hasSeenOnBoarding {
+            rootView = AnyView(LoginView(viewModel: LoginPageViewModel()))
+        } else {
+            rootView = AnyView(OnBoarding())
+        }
+
+        let hostingController = UIHostingController(rootView: rootView)
         hostingController.modalTransitionStyle = .crossDissolve
         hostingController.modalPresentationStyle = .fullScreen
         self.present(hostingController, animated: true, completion: nil)

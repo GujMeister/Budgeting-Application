@@ -32,3 +32,17 @@ func presentAlert(from presentingViewController: UIViewController,
            currentViewController.present(alertController, animated: true)
     }
 }
+
+func presentAlert(title: String, message: String) {
+    if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+       let rootViewController = windowScene.windows.first?.rootViewController {
+        var currentViewController = rootViewController
+        while let presentedVC = currentViewController.presentedViewController {
+            currentViewController = presentedVC
+        }
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default))
+        currentViewController.present(alertController, animated: true)
+    }
+}

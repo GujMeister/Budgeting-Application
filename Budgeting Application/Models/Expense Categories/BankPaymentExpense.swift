@@ -37,7 +37,7 @@ enum PaymentsCategory: String, CaseIterable {
         case .housePayments:
             return "🏠"
         case .carPayments:
-            return "🚗"
+            return "🚌"
         case .personalLoans:
             return "💸"
         case .studentLoans:

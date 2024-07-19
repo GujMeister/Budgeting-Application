@@ -23,6 +23,9 @@
 		851DCFF52C480D4000A0E302 /* UITabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851DCFF42C480D4000A0E302 /* UITabBar.swift */; };
 		851DCFF72C4824B700A0E302 /* BudgetDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851DCFF62C4824B700A0E302 /* BudgetDetailVC.swift */; };
 		851DCFF92C48823400A0E302 /* KeyboardHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851DCFF82C48823400A0E302 /* KeyboardHandler.swift */; };
+		851DCFFD2C4AB85E00A0E302 /* OnBoarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851DCFFC2C4AB85E00A0E302 /* OnBoarding.swift */; };
+		851DD0022C4AC7E600A0E302 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 851DD0012C4AC7E600A0E302 /* Lottie */; };
+		851DD0062C4ACBA400A0E302 /* OnBoardingAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 851DD0052C4ACBA300A0E302 /* OnBoardingAnimation.json */; };
 		853A3DA92C3593A40042A0A4 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D812C3593A40042A0A4 /* Model.xcdatamodeld */; };
 		853A3DAA2C3593A40042A0A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D842C3593A40042A0A4 /* AppDelegate.swift */; };
 		853A3DAB2C3593A40042A0A4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D852C3593A40042A0A4 /* SceneDelegate.swift */; };
@@ -130,7 +133,9 @@
 		851DCFF42C480D4000A0E302 /* UITabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBar.swift; sourceTree = "<group>"; };
 		851DCFF62C4824B700A0E302 /* BudgetDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetDetailVC.swift; sourceTree = "<group>"; };
 		851DCFF82C48823400A0E302 /* KeyboardHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHandler.swift; sourceTree = "<group>"; };
-		853A3D672C3592BF0042A0A4 /* Budgeting Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Budgeting Application.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		851DCFFA2C4AAD8400A0E302 /* Budgeting Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Budgeting Application.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		851DCFFC2C4AB85E00A0E302 /* OnBoarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoarding.swift; sourceTree = "<group>"; };
+		851DD0052C4ACBA300A0E302 /* OnBoardingAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OnBoardingAnimation.json; sourceTree = "<group>"; };
 		853A3D782C3592C20042A0A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		853A3D832C3593A40042A0A4 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		853A3D842C3593A40042A0A4 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -206,6 +211,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				851DCFD32C46591300A0E302 /* DGCharts in Frameworks */,
+				851DD0022C4AC7E600A0E302 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,21 +276,20 @@
 			path = AboutPage;
 			sourceTree = "<group>";
 		};
+		851DCFFB2C4AB85300A0E302 /* OnBoarding */ = {
+			isa = PBXGroup;
+			children = (
+				851DCFFC2C4AB85E00A0E302 /* OnBoarding.swift */,
+			);
+			path = OnBoarding;
+			sourceTree = "<group>";
+		};
 		853A3D5E2C3592BF0042A0A4 = {
 			isa = PBXGroup;
 			children = (
 				853A3D692C3592BF0042A0A4 /* Budgeting Application */,
-				853A3D682C3592BF0042A0A4 /* Products */,
-				85AAEB9D2C45B99100C47952 /* Frameworks */,
+				851DCFFA2C4AAD8400A0E302 /* Budgeting Application.app */,
 			);
-			sourceTree = "<group>";
-		};
-		853A3D682C3592BF0042A0A4 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				853A3D672C3592BF0042A0A4 /* Budgeting Application.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		853A3D692C3592BF0042A0A4 /* Budgeting Application */ = {
@@ -346,6 +351,7 @@
 		853A3D8D2C3593A40042A0A4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				851DD0052C4ACBA300A0E302 /* OnBoardingAnimation.json */,
 				851DCFDD2C47F45C00A0E302 /* App Icons */,
 				85B85B0E2C38AB5600AAD046 /* Fonts */,
 				853A3D882C3593A40042A0A4 /* Assets.xcassets */,
@@ -420,10 +426,11 @@
 		853A3DA02C3593A40042A0A4 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				85835F2A2C457C310007F180 /* Settings */,
 				85835F272C4533220007F180 /* Launch Screen */,
+				851DCFFB2C4AB85300A0E302 /* OnBoarding */,
 				85835ECC2C41A7AE0007F180 /* Login */,
 				85835EC42C402D3D0007F180 /* TabBarController */,
+				85835F2A2C457C310007F180 /* Settings */,
 				85835EBF2C402CCE0007F180 /* Calendar */,
 				853A3D8F2C3593A40042A0A4 /* Budgets */,
 				853A3D972C3593A40042A0A4 /* Dashboard */,
@@ -546,13 +553,6 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		85AAEB9D2C45B99100C47952 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		85B85B0B2C3718BA00AAD046 /* Occurances */ = {
 			isa = PBXGroup;
 			children = (
@@ -601,9 +601,10 @@
 			name = "Budgeting Application";
 			packageProductDependencies = (
 				851DCFD22C46591300A0E302 /* DGCharts */,
+				851DD0012C4AC7E600A0E302 /* Lottie */,
 			);
 			productName = "Budgeting Application";
-			productReference = 853A3D672C3592BF0042A0A4 /* Budgeting Application.app */;
+			productReference = 851DCFFA2C4AAD8400A0E302 /* Budgeting Application.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -632,8 +633,9 @@
 			mainGroup = 853A3D5E2C3592BF0042A0A4;
 			packageReferences = (
 				851DCFD12C46591300A0E302 /* XCRemoteSwiftPackageReference "Charts" */,
+				851DD0002C4AC7E600A0E302 /* XCRemoteSwiftPackageReference "lottie-spm" */,
 			);
-			productRefGroup = 853A3D682C3592BF0042A0A4 /* Products */;
+			productRefGroup = 853A3D5E2C3592BF0042A0A4;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -661,6 +663,7 @@
 				85B85B282C38C46900AAD046 /* OpenSans-SemiBold.ttf in Resources */,
 				85B85B122C38ACFF00AAD046 /* Heebo-SemiBold.ttf in Resources */,
 				85B85B1C2C38BD6900AAD046 /* Inter-Regular.ttf in Resources */,
+				851DD0062C4ACBA400A0E302 /* OnBoardingAnimation.json in Resources */,
 				85B85B362C3DFBDD00AAD046 /* ChesnaGrotesk-Regular.ttf in Resources */,
 				851DCFEB2C47FF3700A0E302 /* Green Icon.png in Resources */,
 				85B85B292C38C46900AAD046 /* OpenSans-Regular.ttf in Resources */,
@@ -705,6 +708,7 @@
 				853A3DD52C35FC990042A0A4 /* SegmentedControlView.swift in Sources */,
 				851DCFE22C47F4DD00A0E302 /* ChangeIconView.swift in Sources */,
 				853A3DB72C3593A40042A0A4 /* RecurringVC.swift in Sources */,
+				851DCFFD2C4AB85E00A0E302 /* OnBoarding.swift in Sources */,
 				85835EE12C42E1D20007F180 /* SubscriptionExpense.swift in Sources */,
 				85B85B302C3AE06800AAD046 /* AddPaymentVC.swift in Sources */,
 				85B85B342C3C2E1900AAD046 /* BankPaymentCell.swift in Sources */,
@@ -887,8 +891,10 @@
 				DEVELOPMENT_TEAM = 9S26B8AV5C;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Budgeting Application/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Budgeto;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIStatusBarHidden = NO;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -923,8 +929,10 @@
 				DEVELOPMENT_TEAM = 9S26B8AV5C;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Budgeting Application/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Budgeto;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIStatusBarHidden = NO;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -978,6 +986,14 @@
 				minimumVersion = 5.1.0;
 			};
 		};
+		851DD0002C4AC7E600A0E302 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -985,6 +1001,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 851DCFD12C46591300A0E302 /* XCRemoteSwiftPackageReference "Charts" */;
 			productName = DGCharts;
+		};
+		851DD0012C4AC7E600A0E302 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 851DD0002C4AC7E600A0E302 /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -15,8 +16,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
         let window = UIWindow(windowScene: windowScene)
-//        let rootViewController = InitialViewController()
-        let rootViewController = MainTabBarController()
+        let rootViewController = InitialViewController()
+//        let rootViewController = MainTabBarController()
         
         window.rootViewController = rootViewController
         self.window = window
@@ -27,5 +28,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func switchToMainTabBar() {
         let mainTabBarController = MainTabBarController()
         window?.rootViewController = mainTabBarController
+    }
+    
+    func switchToLoginView() {
+        let rootView = LoginView(viewModel: LoginPageViewModel())
+        let hostingController = UIHostingController(rootView: rootView)
+        window?.rootViewController = hostingController
     }
 }

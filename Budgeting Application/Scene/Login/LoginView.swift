@@ -52,7 +52,6 @@ struct LoginView: View {
         .padding()
         .onAppear {
             if viewModel.isPasscodeSet {
-                // TODO: Insert name of the user
                 topPasswordText = "Welcome back \(userName)"
                 bottomPasswordText = "Enter your 4-digit PIN to log in to your personal budgeting application"
             }
@@ -69,6 +68,7 @@ struct LoginView: View {
                     isConfirmingPasscode = false
                     passcode = ""
                     topPasswordText = "Enter Passcode"
+                    presentAlert(title: "Error", message: "Passcodes do not match.")
                 }
             } else {
                 viewModel.temporaryPasscode = enteredPasscode
@@ -82,6 +82,8 @@ struct LoginView: View {
                 switchToMainTabBar()
             } else {
                 passcode = ""
+                presentAlert(title: "Try Again", message: "Incorrect passcode.")
+
             }
         }
     }
@@ -101,6 +103,7 @@ struct LoginView: View {
 struct NumberPadView: View {
     // MARK: Properties
     @Binding var passcode: String
+    @State private var scaleEffect: [Int: CGFloat] = [:]
 
     private let columns: [GridItem] = [
         .init(),
@@ -114,6 +117,7 @@ struct NumberPadView: View {
             ForEach(1...9, id: \.self) { index in
                 Button {
                     addValue(index)
+                    animateButton(index)
                 } label: {
                     Text("\(index)")
                         .font(.title)
@@ -121,10 +125,13 @@ struct NumberPadView: View {
                         .padding(.vertical, 16)
                         .contentShape(Rectangle())
                 }
+                .scaleEffect(scaleEffect[index] ?? 1.0)
+                .animation(.easeInOut(duration: 0.1), value: scaleEffect[index])
             }
 
             Button {
                 removeValue()
+                animateButton(-1)
             } label: {
                 Image(systemName: "delete.backward")
                     .font(.title)
@@ -132,9 +139,12 @@ struct NumberPadView: View {
                     .padding(.vertical, 16)
                     .contentShape(Rectangle())
             }
+            .scaleEffect(scaleEffect[-1] ?? 1.0)
+            .animation(.easeInOut(duration: 0.1), value: scaleEffect[-1])
 
             Button {
                 addValue(0)
+                animateButton(0)
             } label: {
                 Text("0")
                     .font(.title)
@@ -142,6 +152,8 @@ struct NumberPadView: View {
                     .padding(.vertical, 16)
                     .contentShape(Rectangle())
             }
+            .scaleEffect(scaleEffect[0] ?? 1.0)
+            .animation(.easeInOut(duration: 0.1), value: scaleEffect[0])
         }
         .foregroundStyle(.primary)
     }
@@ -157,7 +169,15 @@ struct NumberPadView: View {
             passcode.removeLast()
         }
     }
+
+    private func animateButton(_ index: Int) {
+        scaleEffect[index] = 1.2
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            scaleEffect[index] = 1.0
+        }
+    }
 }
+
 
 struct PasscodeIndicatorView: View {
     // MARK: Properties
