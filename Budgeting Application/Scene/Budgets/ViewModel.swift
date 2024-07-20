@@ -7,8 +7,8 @@
 
 import CoreData
 
-class BudgetsViewModel: NSObject {
-    // MARK: - Properties
+final class BudgetsViewModel: NSObject {
+    // MARK: Properties
     var onBudgetsUpdated: (() -> Void)?
     var onFavoritedBudgetsUpdated: (() -> Void)?
     var onExpensesUpdated: (() -> Void)?
@@ -239,7 +239,7 @@ extension BudgetsViewModel: AddBudgetsDelegate {
     }
 }
 
-// MARK: - AddExpenseDelegate
+// MARK: - Delegate - AddExpenseDelegate
 extension BudgetsViewModel: AddExpenseDelegate {
     func didAddExpense(_ expense: BasicExpenseModel) {
         loadBudgets()

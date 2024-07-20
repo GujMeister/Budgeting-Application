@@ -9,7 +9,7 @@ import UIKit
 
 final class CalendarViewController: UIViewController {
     // MARK: - Properties
-    private var viewModel = CalendarViewModel()
+    private var viewModel: CalendarViewModel
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -117,6 +117,15 @@ final class CalendarViewController: UIViewController {
     }()
     
     // MARK: - Lifecycle
+    init(viewModel: CalendarViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()

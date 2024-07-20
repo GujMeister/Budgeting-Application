@@ -30,7 +30,8 @@ final class MainTabBarController: UITabBarController {
         let budgetsVC = BudgetsViewController(viewModel: budgetsViewModel)
         budgetsVC.tabBarItem = UITabBarItem(title: "Budgets", image: UIImage(systemName: "book.closed"), tag: 2)
         
-        let calendarVC = CalendarViewController()
+        let calendarViewModel = CalendarViewModel()
+        let calendarVC = CalendarViewController(viewModel: calendarViewModel)
         calendarVC.tabBarItem = UITabBarItem(title: "Calendar", image: UIImage(systemName: "calendar"), tag: 3)
         
         let settingsVC = SettingsViewController()
