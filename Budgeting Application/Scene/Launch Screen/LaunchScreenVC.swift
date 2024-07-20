@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class InitialViewController: UIViewController {
+final class InitialViewController: UIViewController {
     // MARK: - Properties
     private let budgetoLabel: UILabel = {
         let label = UILabel()
@@ -21,13 +21,13 @@ class InitialViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .backgroundColor
         setupBudgetoLabel()
         animateBudgetoLabel()
     }
 
     // MARK: - Helper functions
     private func setupBudgetoLabel() {
+        view.backgroundColor = .backgroundColor
         view.addSubview(budgetoLabel)
         NSLayoutConstraint.activate([
             budgetoLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),

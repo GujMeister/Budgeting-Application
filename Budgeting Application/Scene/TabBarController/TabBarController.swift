@@ -1,15 +1,15 @@
 //
 //  TabBarController.swift
-//  PersonalFinanceV2
+//  Budgeting Application
 //
 //  Created by Luka Gujejiani on 01.07.24.
 //
 
-//import UIKit
 import SwiftUI
 
-class MainTabBarController: UITabBarController {
+final class MainTabBarController: UITabBarController {
 
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewControllers()
@@ -17,6 +17,7 @@ class MainTabBarController: UITabBarController {
         ChangeRadiusOfTabbar()
     }
     
+    // MARK: - Setup Tab Bar Views
     private func setupViewControllers() {
         let dashboardViewModel = DashboardViewModel()
         let dashboardVC = DashboardViewController(viewModel: dashboardViewModel)
@@ -44,6 +45,7 @@ class MainTabBarController: UITabBarController {
         }
     }
     
+    // MARK: - Custom Tab Bar Functions
     private func setupCustomTabBar() {
         tabBar.configureMaterialBackground(
             selectedItemColor: .primaryTextColor,

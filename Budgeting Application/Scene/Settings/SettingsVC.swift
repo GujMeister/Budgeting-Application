@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    // MARK: - Properties
+    // MARK: Properties
     @StateObject private var viewModel = SettingsVM()
     
     // MARK: - View

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ChangePasswordView: View {
+    // MARK: Properties
     @ObservedObject var viewModel: ChangePasswordViewModel
     @Environment(\.dismiss) var dismiss
     
@@ -18,6 +19,7 @@ struct ChangePasswordView: View {
     @State private var bottomPasswordText = "Enter your new 4-digit PIN"
     @State private var showText = false
     
+    // MARK: - View
     var body: some View {
         VStack(spacing: 48) {
             VStack(spacing: 24) {
@@ -42,9 +44,9 @@ struct ChangePasswordView: View {
             Spacer()
             
             NumberPadView(passcode: $newPassword)
-                .onChange(of: newPassword) { newPasscode in
-                    if newPasscode.count == 4 {
-                        handlePasscodeEntry(newPasscode)
+                .onChange(of: newPassword) {
+                    if newPassword.count == 4 {
+                        handlePasscodeEntry(newPassword)
                     }
                 }
         }
@@ -57,6 +59,7 @@ struct ChangePasswordView: View {
         }
     }
     
+    // MARK: - Helper functions
     private func handlePasscodeEntry(_ enteredPasscode: String) {
         if isConfirmingPasscode {
             if newPassword == enteredPasscode {

@@ -8,6 +8,7 @@
 import SwiftUI
 
 class ChangeIconViewModel: ObservableObject {
+    // MARK: - Properties
     @Published var icons: [String] = [
         "Default Dark Mode",
         "Green Dark Mode",
@@ -18,10 +19,12 @@ class ChangeIconViewModel: ObservableObject {
     ]
     @Published var currentIcon: String? = nil
     
+    // MARK: - Init
     init() {
         fetchCurrentIcon()
     }
     
+    // MARK: - Helper Functions
     func fetchCurrentIcon() {
         currentIcon = UIApplication.shared.alternateIconName
     }
