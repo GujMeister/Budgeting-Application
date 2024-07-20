@@ -30,7 +30,11 @@ struct RecurringPage: View {
                 NavigationRectangleRepresentable(
                     height: 0,
                     color: .infoViewColor,
-                    totalBudgetedMoney: NumberFormatterHelper.shared.format(amount: totalBudgetedMoneyHelper(), baseFont: UIFont(name: "Heebo-SemiBold", size: 36) ?? UIFont(), sizeDifference: 0.6),
+                    totalBudgetedMoney: NumberFormatterHelper.shared.format(
+                        amount: viewModel.totalBudgetedMoneyHelper(),
+                        baseFont: UIFont(name: "Heebo-SemiBold", size: 36) ?? UIFont(),
+                        sizeDifference: 0.6
+                    ),
                     descriptionLabelText: viewModel.descriptionLabelText
                 )
                 .edgesIgnoringSafeArea(.top)
@@ -83,7 +87,7 @@ struct RecurringPage: View {
                 }
             }
             .padding([.leading, .trailing])
-            .padding(.top, -145) // 1
+            .padding(.top, -145)
             
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 20) {
@@ -191,15 +195,6 @@ struct RecurringPage: View {
                 topController = presentedViewController
             }
             topController.present(addPaymentVC, animated: true, completion: nil)
-        }
-    }
-    
-    //TODO: ეს გაიტანე
-    private func totalBudgetedMoneyHelper() -> Double {
-        if viewModel.selectedSegmentIndex == 2 {
-            return viewModel.listTotalBudgeted
-        } else {
-            return viewModel.totalBudgeted
         }
     }
 }
