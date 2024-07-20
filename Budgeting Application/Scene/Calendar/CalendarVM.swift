@@ -7,29 +7,31 @@
 
 import CoreData
 
-class CalendarViewModel {
+final class CalendarViewModel {
+    // MARK: - Properties
     var onEventsUpdated: (() -> Void)?
     
     private var context: NSManagedObjectContext {
         return DataManager.shared.context
     }
-
-    var expensesByDate: [Date: [BasicExpense]] = [:]
-    var subscriptionsByDate: [Date: [SubscriptionOccurrence]] = [:]
-    var paymentsByDate: [Date: [PaymentOccurrence]] = [:]
-    var datesWithEvents: Set<Date> = []
     
-    var selectedDateEvents: [Any] = []
-
+    internal var expensesByDate: [Date: [BasicExpense]] = [:]
+    internal var subscriptionsByDate: [Date: [SubscriptionOccurrence]] = [:]
+    internal var paymentsByDate: [Date: [PaymentOccurrence]] = [:]
+    internal var datesWithEvents: Set<Date> = []
+    internal var selectedDateEvents: [Any] = []
+    
+    // MARK: - Initialization
     init() {
         loadEvents()
     }
-
-    func loadEvents() {
+    
+    // MARK: - Methods
+    internal func loadEvents() {
         let expenseService = BasicExpenseService(context: context)
         let subscriptionService = SubscriptionService(context: context)
         let paymentService = PaymentService(context: context)
-
+        
         let expenses = expenseService.fetchBasicExpenses()
         let subscriptions = subscriptionService.fetchSubscriptionOccurrences()
         let payments = paymentService.fetchPaymentOccurrences()
@@ -41,16 +43,16 @@ class CalendarViewModel {
         datesWithEvents = Set(expensesByDate.keys)
             .union(subscriptionsByDate.keys)
             .union(paymentsByDate.keys)
-
+        
         onEventsUpdated?()
     }
-
-    func events(for date: Date) {
+    
+    internal func events(for date: Date) {
         let startOfDay = Calendar.current.startOfDay(for: date)
         selectedDateEvents = (expensesByDate[startOfDay] ?? []) + (subscriptionsByDate[startOfDay] ?? []) + (paymentsByDate[startOfDay] ?? [])
         onEventsUpdated?()
     }
-
+    
     var sections: [String] {
         var sections = [String]()
         if !selectedDateEvents.filter({ $0 is BasicExpense }).isEmpty {
