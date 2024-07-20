@@ -21,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        UserDefaults.standard.removePersistentDomain(forName: domain)
 //        UserDefaults.standard.synchronize()
 //        print(Array(UserDefaults.standard.dictionaryRepresentation().keys).count)
-//
         
 //        deleteAllKeychainData()
         

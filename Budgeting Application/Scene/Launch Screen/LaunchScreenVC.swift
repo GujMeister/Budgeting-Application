@@ -26,6 +26,7 @@ class InitialViewController: UIViewController {
         animateBudgetoLabel()
     }
 
+    // MARK: - Helper functions
     private func setupBudgetoLabel() {
         view.addSubview(budgetoLabel)
         NSLayoutConstraint.activate([

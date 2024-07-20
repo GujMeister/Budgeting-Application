@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct LoginView: View {
-    // MARK: - Properties
+    // MARK: Properties
     @ObservedObject var viewModel: LoginPageViewModel
     @AppStorage("userName") private var userName: String = ""
-
     @State private var passcode = ""
     @State private var showText = false
 
@@ -40,9 +39,9 @@ struct LoginView: View {
             Spacer()
 
             NumberPadView(passcode: $passcode)
-                .onChange(of: passcode) { newPasscode in
-                    if newPasscode.count == 4 {
-                        viewModel.handlePasscodeEntry(newPasscode, resetPasscode: {
+                .onChange(of: passcode) {
+                    if passcode.count == 4 {
+                        viewModel.handlePasscodeEntry(passcode, resetPasscode: {
                             passcode = ""
                         }, switchToMainTabBar: switchToMainTabBar, presentAlert: presentAlert)
                     }

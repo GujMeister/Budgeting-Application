@@ -1,6 +1,6 @@
 //
 //  DashboardVM.swift
-//  PersonalFinance
+//  Budgeting Application
 //
 //  Created by Luka Gujejiani on 30.06.24.
 //

@@ -9,6 +9,7 @@ import SwiftUI
 import Lottie
 
 struct OnBoarding: View {
+    // MARK: Properties
     @State private var currentPage = 0
     @AppStorage("hasSeenOnBoarding") private var hasSeenOnBoarding: Bool = false
     
@@ -16,6 +17,7 @@ struct OnBoarding: View {
         UIScrollView.appearance().bounces = false
     }
     
+    // MARK: - View
     var body: some View {
         VStack {
             HStack {
@@ -73,12 +75,9 @@ struct OnBoarding: View {
                     .foregroundColor(.white)
             }
             .padding(.bottom, 20)
-            
         }
-        .onChange(of: hasSeenOnBoarding) { newValue in
-            if newValue {
+        .onChange(of: hasSeenOnBoarding) {
                 switchToLoginView()
-            }
         }
         .background(Color(UIColor.backgroundColor))
     }
@@ -90,6 +89,7 @@ struct OnBoarding: View {
     }
 }
 
+// MARK: - Extracted Views
 struct FirstPage: View {
     var body: some View {
         VStack {
