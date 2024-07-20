@@ -9,39 +9,36 @@ import CoreData
 
 final class DashboardViewModel {
     // MARK: - Properties
-    var budgets: [BasicExpenseBudget] = []
-    var allExpenses: [BasicExpense] = [] {
-        didSet {
-            
-        }
-    }
-    var subscriptions: [SubscriptionExpenseModel] = []
-    var payments: [PaymentExpenseModel] = []
+    private var budgets: [BasicExpenseBudget] = []
+    private var allExpenses: [BasicExpense] = []
+    private var subscriptions: [SubscriptionExpenseModel] = []
+    private var payments: [PaymentExpenseModel] = []
     
-    var totalBudgets: Double = 0.0
-    var totalPayments: Double = 0.0
-    var totalSubscriptions: Double = 0.0
+    //Pie chart
+    internal var totalBudgets: Double = 0.0
+    internal var totalPayments: Double = 0.0
+    internal var totalSubscriptions: Double = 0.0
     
     //Data To Show
-    var filteredSubscriptions: [SubscriptionOccurrence] = [] {
+    internal var filteredSubscriptions: [SubscriptionOccurrence] = [] {
         didSet {
             onSubscriptionsUpdated?()
         }
     }
     
-    var filteredPayments: [PaymentOccurrence] = [] {
+    internal var filteredPayments: [PaymentOccurrence] = [] {
         didSet {
             onPaymentsUpdated?()
         }
     }
     
-    var favoritedBudgets: [BasicExpenseBudget] = [] {
+    internal var favoritedBudgets: [BasicExpenseBudget] = [] {
         didSet {
             onFavoritedBudgetsUpdated?()
         }
     }
     
-    var totalBudgetedThisMonth: Double = 0.0 {
+    internal var totalBudgetedThisMonth: Double = 0.0 {
         didSet {
             onTotalBudgetedThisMonthUpdated?()
         }
@@ -51,6 +48,10 @@ final class DashboardViewModel {
     var onFavoritedBudgetsUpdated: (() -> Void)?
     var onSubscriptionsUpdated: (() -> Void)?
     var onPaymentsUpdated: (() -> Void)?
+    var onBudgetsPlaceholderUpdated: ((Bool) -> Void)?
+    var onSubscriptionsPlaceholderUpdated: ((Bool) -> Void)?
+    var onPaymentsPlaceholderUpdated: ((Bool) -> Void)?
+    var onBudgetsUpdated: (() -> Void)?
     
     private var context: NSManagedObjectContext {
         return DataManager.shared.context
@@ -58,10 +59,7 @@ final class DashboardViewModel {
     
     // MARK: - Initialization
     init() {
-        fetchPayments()
-        fetchSubscriptions()
-        calculateTotalBudgetedThisMonth()
-        loadFilteredOccurrences()
+        loadData()
     }
     
     deinit {
@@ -75,6 +73,12 @@ final class DashboardViewModel {
         loadFavoritedBudgets()
         calculateTotalBudgetedThisMonth()
         loadFilteredOccurrences()
+    }
+    
+    private func notifyPlaceholders() {
+        onBudgetsPlaceholderUpdated?(favoritedBudgets.isEmpty)
+        onSubscriptionsPlaceholderUpdated?(filteredSubscriptions.isEmpty)
+        onPaymentsPlaceholderUpdated?(filteredPayments.isEmpty)
     }
     
     private func calculateTotalBudgetedThisMonth() {
@@ -98,13 +102,15 @@ final class DashboardViewModel {
         
         self.filteredSubscriptions = Array(filteredSubscriptions.sorted(by: { $0.date < $1.date }).prefix(5))
         self.filteredPayments = Array(filteredPayments.sorted(by: { $0.date < $1.date }).prefix(4))
+        notifyPlaceholders()
     }
     
-    func loadFavoritedBudgets() {
+    private func loadFavoritedBudgets() {
         loadBudgets()
         DataManager.shared.fetchFavoriteBudgets()
         let favoriteCategories = DataManager.shared.favoriteBudgets.map { $0.category }
         favoritedBudgets = budgets.filter { favoriteCategories.contains($0.category.rawValue) }
+        notifyPlaceholders()
         onFavoritedBudgetsUpdated?()
     }
     
@@ -123,6 +129,7 @@ final class DashboardViewModel {
     }
 }
 
+// MARK: - Delegate
 extension DashboardViewModel: AddExpenseDelegate {
     func didAddExpense(_ expense: BasicExpenseModel) {
         loadBudgets()

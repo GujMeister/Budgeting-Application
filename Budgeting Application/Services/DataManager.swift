@@ -13,7 +13,7 @@ class DataManager {
     
     private init() {}
     
-    private static var persistentContainer: NSPersistentContainer = {
+    private lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Model")
         container.loadPersistentStores { description, error in
             if let error = error {
@@ -24,7 +24,7 @@ class DataManager {
     }()
     
     var context: NSManagedObjectContext {
-        return Self.persistentContainer.viewContext
+        return persistentContainer.viewContext
     }
     
     // MARK: - Delete Records

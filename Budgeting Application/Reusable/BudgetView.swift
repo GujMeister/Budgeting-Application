@@ -4,6 +4,7 @@ class BudgetView: UIView {
     // MARK: - Properties
     private let circleLayer = CAShapeLayer()
     private let progressLayer = CAShapeLayer()
+    var shouldExecuteTapAction: Bool?
     
     private let emojiView: UILabel = {
         let label = UILabel()
@@ -43,14 +44,15 @@ class BudgetView: UIView {
         super.init(frame: frame)
         setupView()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupView()
     }
-    
-    init(budget: BasicExpenseBudget) {
+
+    init(budget: BasicExpenseBudget, shouldExecuteTapAction: Bool) {
         self.budget = budget
+        self.shouldExecuteTapAction = shouldExecuteTapAction
         super.init(frame: .zero)
         setupView()
     }
@@ -105,7 +107,9 @@ class BudgetView: UIView {
     
     @objc private func budgetTapped() {
         guard let budget = budget else { return }
-        NotificationCenter.default.post(name: NSNotification.Name("BudgetTapped"), object: budget)
+        if shouldExecuteTapAction ?? false {
+            NotificationCenter.default.post(name: NSNotification.Name("BudgetTapped"), object: budget)
+        }
     }
     
     // MARK: - Update View

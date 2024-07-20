@@ -1,6 +1,13 @@
+//
+//  ExpensesVC.swift
+//  Budgeting Application
+//
+//  Created by Luka Gujejiani on 03.07.24.
+//
+
 import UIKit
 
-class ExpensesViewController: UIViewController {
+final class ExpensesViewController: UIViewController {
     // MARK: - Properties
     private var viewModel = BudgetsViewModel()
     
@@ -208,8 +215,4 @@ extension ExpensesViewController: UITableViewDataSource, UITableViewDelegate {
         header.textLabel?.textColor = UIColor.gray
         header.textLabel?.font = UIFont(name: "ChesnaGrotesk-Medium", size: 12)
     }
-}
-
-#Preview {
-    ExpensesViewController()
 }

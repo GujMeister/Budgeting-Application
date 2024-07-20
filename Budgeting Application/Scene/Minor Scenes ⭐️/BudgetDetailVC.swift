@@ -88,9 +88,9 @@ class DashboardBudgetDetailViewController: UIViewController {
         button.tintColor = .infoViewColor
         button.setImage(UIImage(systemName: "info.circle.fill"), for: .normal)
         
-//        button.addAction(UIAction(handler: { [weak self] _ in
-//            self?.descriptionsButtonTapped()
-//        }), for: .touchUpInside)
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.descriptionsButtonTapped()
+        }), for: .touchUpInside)
         
         return button
     }()
@@ -118,10 +118,10 @@ class DashboardBudgetDetailViewController: UIViewController {
         let button = UIButton()
         button.setImage(UIImage(systemName: "info.circle.fill"), for: .normal)
         button.tintColor = .infoViewColor
-//        
-//        button.addAction(UIAction(handler: { [weak self] _ in
-//            self?.inputAmountButtonTapped()
-//        }), for: .touchUpInside)
+        
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.inputAmountButtonTapped()
+        }), for: .touchUpInside)
 
         return button
     }()
@@ -154,14 +154,14 @@ class DashboardBudgetDetailViewController: UIViewController {
     
     let progressViewBackground: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemGray4
+        view.backgroundColor = .cellBackgroundColor
         view.layer.cornerRadius = 25
         return view
     }()
     
     let addExpenseBackground: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemGray4
+        view.backgroundColor = .cellBackgroundColor
         view.layer.cornerRadius = 25
         return view
     }()
@@ -187,7 +187,7 @@ class DashboardBudgetDetailViewController: UIViewController {
     
     // MARK: - UI Setup
     private func setupUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = .backgroundColor
         
         let views = [progressViewBackground, addExpenseBackground, progressView, spentAmountLabel, maxAmountLabel, remainingAmountLabel, addExpenseLabel, addExpenseToLabel, descriptionLabel, descriptionTextField, descriptionButton, amountLabel, amountTextField, amountButton, datePicker, addExpenseButton]
         
@@ -271,6 +271,7 @@ class DashboardBudgetDetailViewController: UIViewController {
         maxAmountLabel.text = "Max: \(PlainNumberFormatterHelper.shared.format(amount: abs(budget.totalAmount)))"
         progressView.setProgress(spent: budget.spentAmount, total: budget.totalAmount, animated: true)
     }
+    
     private func didTapAddExpense() {
         let category = budget.category
         
@@ -291,7 +292,6 @@ class DashboardBudgetDetailViewController: UIViewController {
 
         delegate?.didAddExpense(expense)
         
-        // Temporarily push and pop the BudgetsViewController to trigger updates
         if let navigationController = self.navigationController {
             let budgetsViewModel = BudgetsViewModel()
             let budgetsViewController = BudgetsViewController(viewModel: budgetsViewModel)
@@ -299,16 +299,23 @@ class DashboardBudgetDetailViewController: UIViewController {
             navigationController.pushViewController(budgetsViewController, animated: false)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
                 navigationController.popViewController(animated: false)
-                // Pop current view controller after updating
                 self.navigationController?.popViewController(animated: true)
             }
         } else {
-            // Pop current view controller directly if no navigation controller
             self.navigationController?.popViewController(animated: true)
         }
     }
     
+    // MARK: - Alerts
+    private func inputAmountButtonTapped() {
+        presentAlert(from: self, title: "Info about the input amount", message: "This number will be used to set the amount that you are going to budget every month for this payment")
+    }
+    
     private func invalidInput() {
         presentAlert(from: self, title: "Invalid Input", message: "Please fill out all fields")
+    }
+    
+    private func descriptionsButtonTapped() {
+        presentAlert(from: self, title: "Info about the description", message: "This description will be used to describe the expense throughout the application for your convenience")
     }
 }

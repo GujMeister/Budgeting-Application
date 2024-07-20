@@ -16,6 +16,7 @@ final class CalendarViewController: UIViewController {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.showsVerticalScrollIndicator = false
+        UIScrollView.appearance().bounces = false
         return scrollView
     }()
     
@@ -100,6 +101,7 @@ final class CalendarViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.isHidden = true
         tableView.allowsSelection = false
+        tableView.backgroundColor = .backgroundColor
         tableView.showsVerticalScrollIndicator = false
         return tableView
     }()

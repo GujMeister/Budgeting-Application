@@ -77,7 +77,7 @@ final class AddExpenseViewController: UIViewController {
     
     private let amountTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "e.g. 50" // Changed placeholder
+        textField.placeholder = "e.g. 50"
         textField.borderStyle = .roundedRect
         textField.keyboardType = .decimalPad
         textField.translatesAutoresizingMaskIntoConstraints = false

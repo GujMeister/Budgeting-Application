@@ -158,10 +158,12 @@ final class BudgetsViewController: UIViewController {
             self?.updateInfoView()
         }
         
-        viewModel.showAlertForDuplicateCategory = { [weak self] in
-            let alert = UIAlertController(title: "Duplicate Category", message: "This category already exists.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self?.present(alert, animated: true, completion: nil)
+        viewModel.showAlertForDuplicateCategory = {
+            presentAlert(title: "Duplicate", message: "This category already exists")
+        }
+        
+        viewModel.showAlertForMaxFavorites = {
+            presentAlert(title: "Limit Reached", message: "You can only have 5 budgets favorited")
         }
     }
     
@@ -183,6 +185,7 @@ final class BudgetsViewController: UIViewController {
         for budget in viewModel.favoritedBudgets.suffix(5) {
             let singleBudgetView = BudgetView()
             singleBudgetView.budget = budget
+            singleBudgetView.shouldExecuteTapAction = false
             favoriteBudgetsStackView.addArrangedSubview(singleBudgetView)
         }
     }

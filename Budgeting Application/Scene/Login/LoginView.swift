@@ -67,6 +67,7 @@ struct LoginView: View {
     LoginView(viewModel: LoginPageViewModel())
 }
 
+
 // MARK: - Extracted Views
 struct NumberPadView: View {
     // MARK: Properties
@@ -156,11 +157,11 @@ struct PasscodeIndicatorView: View {
         HStack(spacing: 32) {
             ForEach(0..<4) { index in
                 Circle()
-                    .fill(passcode.count > index ? .primary : Color.white)
+                    .fill(passcode.count > index ? .primary : Color(UIColor.systemBackground))
                     .frame(width: 20, height: 20)
                     .overlay {
                         Circle()
-                            .stroke(.black, lineWidth: 1.0)
+                            .stroke(Color(UIColor.label), lineWidth: 1.0)
                     }
             }
         }

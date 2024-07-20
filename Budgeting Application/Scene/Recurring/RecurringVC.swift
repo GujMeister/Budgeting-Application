@@ -56,7 +56,7 @@ struct RecurringPage: View {
                             .foregroundStyle(Color(UIColor.primaryTextColor))
                     }
                 } else {
-                    // TODO: Maybe add two buttons for adding subscriptions and adding payments in Overview?
+                    //Show nothing
                 }
                 
                 Spacer()
@@ -120,7 +120,7 @@ struct RecurringPage: View {
                                     }
                                 )
                             }
-
+                            
                             ForEach(viewModel.allPaymentExpenses) { payment in
                                 EditableRecurringView(
                                     amount: payment.amount,
@@ -194,6 +194,7 @@ struct RecurringPage: View {
         }
     }
     
+    //TODO: ეს გაიტანე
     private func totalBudgetedMoneyHelper() -> Double {
         if viewModel.selectedSegmentIndex == 2 {
             return viewModel.listTotalBudgeted
@@ -204,6 +205,7 @@ struct RecurringPage: View {
 }
 
 // MARK: - Extracted Views
+
 // MARK: Editable Payment Cell
 struct EditableRecurringView: View {
     var amount: Double
