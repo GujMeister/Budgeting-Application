@@ -7,7 +7,8 @@
 
 import CoreData
 
-class BasicExpenseService {
+final class BasicExpenseService {
+    // MARK: - Context
     private var context: NSManagedObjectContext
     
     init(context: NSManagedObjectContext) {
@@ -140,28 +141,6 @@ class BasicExpenseService {
     }
     
     // MARK: - Budgets
-//    private func updateBudget(for expense: BasicExpenseModel) {
-//        guard let categoryString = expense.category,
-//              let category = BasicExpenseCategory(rawValue: categoryString) else {
-//            return
-//        }
-//        
-//        let request: NSFetchRequest<BasicExpenseBudgetModel> = BasicExpenseBudgetModel.fetchRequest() as! NSFetchRequest<BasicExpenseBudgetModel>
-//        request.predicate = NSPredicate(format: "category == %@", category.rawValue)
-//        
-//        do {
-//            let budgets = try context.fetch(request)
-//            if let budget = budgets.first {
-//                budget.spentAmount = NSNumber(value: budget.spentAmount.doubleValue + expense.amount.doubleValue)
-//                
-//                // Save updated budgets to UserDefaults
-//                saveUpdatedBudgets()
-//            }
-//        } catch {
-//            print("Failed to fetch budget for category \(category.rawValue): \(error)")
-//        }
-//    }
-    
     func recalculateSpentAmount(for category: BasicExpenseCategory) {
         guard let startOfMonth = startOfCurrentMonth() else { return }
         

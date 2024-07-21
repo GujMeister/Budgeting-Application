@@ -7,13 +7,15 @@
 
 import Foundation
 
-class ChangePasswordViewModel: ObservableObject {
+final class ChangePasswordViewModel: ObservableObject {
+    // MARK: - Properties
     @Published var temporaryPasscode: String = ""
 
     var isPasscodeSet: Bool {
         return retrievePasscode() != nil
     }
 
+    // MARK: - Methods
     func setPasscode(_ passcode: String) {
         storePasscode(passcode)
     }

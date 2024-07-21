@@ -9,7 +9,6 @@ import Foundation
 
 enum TimePeriodBackwards: String, CaseIterable {
     case today = "Today"
-//    case lastDay = "Last Day"
     case lastThreeDays = "Last 3 Days"
     case lastWeek = "Last Week"
     case lastMonth = "Last Month"

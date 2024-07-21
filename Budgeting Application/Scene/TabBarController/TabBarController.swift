@@ -1,15 +1,15 @@
 //
 //  TabBarController.swift
-//  PersonalFinanceV2
+//  Budgeting Application
 //
 //  Created by Luka Gujejiani on 01.07.24.
 //
 
-//import UIKit
 import SwiftUI
 
-class MainTabBarController: UITabBarController {
+final class MainTabBarController: UITabBarController {
 
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewControllers()
@@ -17,6 +17,7 @@ class MainTabBarController: UITabBarController {
         ChangeRadiusOfTabbar()
     }
     
+    // MARK: - Setup Tab Bar Views
     private func setupViewControllers() {
         let dashboardViewModel = DashboardViewModel()
         let dashboardVC = DashboardViewController(viewModel: dashboardViewModel)
@@ -29,7 +30,8 @@ class MainTabBarController: UITabBarController {
         let budgetsVC = BudgetsViewController(viewModel: budgetsViewModel)
         budgetsVC.tabBarItem = UITabBarItem(title: "Budgets", image: UIImage(systemName: "book.closed"), tag: 2)
         
-        let calendarVC = CalendarViewController()
+        let calendarViewModel = CalendarViewModel()
+        let calendarVC = CalendarViewController(viewModel: calendarViewModel)
         calendarVC.tabBarItem = UITabBarItem(title: "Calendar", image: UIImage(systemName: "calendar"), tag: 3)
         
         let settingsVC = SettingsViewController()
@@ -44,6 +46,7 @@ class MainTabBarController: UITabBarController {
         }
     }
     
+    // MARK: - Custom Tab Bar Functions
     private func setupCustomTabBar() {
         tabBar.configureMaterialBackground(
             selectedItemColor: .primaryTextColor,
@@ -62,7 +65,7 @@ class MainTabBarController: UITabBarController {
 }
 
 // MARK: - SwiftUI to UIKit
-class RecurringViewController: UIHostingController<RecurringPage> {
+final class RecurringViewController: UIHostingController<RecurringPage> {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder, rootView: RecurringPage())
     }
@@ -72,7 +75,7 @@ class RecurringViewController: UIHostingController<RecurringPage> {
     }
 }
 
-class SettingsViewController: UIHostingController<SettingsView> {
+final class SettingsViewController: UIHostingController<SettingsView> {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder, rootView: SettingsView())
     }

@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct AboutView: View {
+    // MARK:  View
     var body: some View {
-        ScrollView { // Make content scrollable
+        ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 Text("About Budgeto.")
                     .font(.title).bold()
@@ -48,7 +49,7 @@ struct AboutView: View {
     }
 }
 
-// Helper view for feature list items
+// MARK: - Extracted View
 struct FeatureListItem: View {
     let icon: String
     let text: String

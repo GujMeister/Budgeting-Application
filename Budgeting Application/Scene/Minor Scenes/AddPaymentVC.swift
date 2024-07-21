@@ -1,22 +1,23 @@
 //
-//  AddSubscriptionVC.swift
-//  PersonalFinanceV2
+//  AddPaymentVC.swift
+//  Budgeting Application
 //
-//  Created by Luka Gujejiani on 01.07.24.
+//  Created by Luka Gujejiani on 07.07.24.
 //
 
 import UIKit
 
-protocol AddSubscriptionDelegate: AnyObject {
-    func didAddSubscription(_ subscription: SubscriptionExpenseModel)
+protocol AddPaymentDelegate: AnyObject {
+    func didAddPayment(_ subscription: PaymentExpenseModel)
 }
 
-final class AddSubscriptionVC: UIViewController {
+final class AddPaymentVC: UIViewController {
     // MARK: - Properties
-    weak var delegate: AddSubscriptionDelegate?
+    weak var delegate: AddPaymentDelegate?
+    private lazy var keyboardHandler = KeyboardHandler(viewController: self)
     
     private var topView: UIView = {
-        let view = UIView()
+       let view = UIView()
         view.backgroundColor = .gray
         view.layer.cornerRadius = 3
         return view
@@ -27,7 +28,7 @@ final class AddSubscriptionVC: UIViewController {
         label.textColor = .label
         label.textAlignment = .center
         label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 20)
-        label.text = "Choose Subscription Category"
+        label.text = "Choose Payment Category"
         return label
     }()
     
@@ -42,13 +43,13 @@ final class AddSubscriptionVC: UIViewController {
         label.textColor = .label
         label.textAlignment = .center
         label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 16)
-        label.text = "Input Subscription Description"
+        label.text = "Input Payment Description"
         return label
     }()
     
     private let descriptionTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "e.g. Netflix"
+        textField.placeholder = "e.g. Car"
         textField.borderStyle = .roundedRect
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
@@ -77,7 +78,7 @@ final class AddSubscriptionVC: UIViewController {
     
     private let amountTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "e.g. 9.99"
+        textField.placeholder = "e.g. 1500"
         textField.borderStyle = .roundedRect
         textField.keyboardType = .decimalPad
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -151,15 +152,13 @@ final class AddSubscriptionVC: UIViewController {
         return button
     }()
     
-    private let categories = SubscriptionCategory.allCases
+    private let categories = PaymentsCategory.allCases
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        addDoneButtonToKeyboards()
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        keyboardHandler.addDoneButtonToKeyboard(for: [descriptionTextField, amountTextField, repeatCountTextField])
     }
     
     // MARK: - Setup UI
@@ -240,77 +239,58 @@ final class AddSubscriptionVC: UIViewController {
             return
         }
         
+        // Validate description length
+        if description.count < 2 || description.count > 40 {
+            presentAlert(from: self, title: "Invalid description", message: "Description must be between 2 and 40 characters")
+            return
+        }
+        
+        // Validate amount
+        let amountComponents = amountText.split(separator: ".")
+        if amount <= 0 || amount > 50000 || (amountComponents.count == 2 && amountComponents[1].count > 2) {
+            presentAlert(from: self, title: "Invalid amount", message: "Amount must be greater than 0, less than or equal to 50000, and have at most two decimal places")
+            return
+        }
+        
+        // Validate repeat count
+        if repeatCount <= 0 || repeatCount > 600 || repeatCountText.contains(".") {
+            presentAlert(from: self, title: "Invalid repeat count", message: "Number of months must be an integer greater than 0 and less than or equal to 600 (50 years)")
+            return
+        }
+        
         let context = DataManager.shared.context
-        let subscription = SubscriptionExpenseModel(context: context)
+        let subscription = PaymentExpenseModel(context: context)
         
         subscription.category = category.rawValue
-        subscription.subscriptionDescription = description
+        subscription.paymentDescription = description
         subscription.amount = amount
         subscription.startDate = datePicker.date
         subscription.repeatCount = Int16(repeatCount)
         
-        do {
-            try context.save()
-            delegate?.didAddSubscription(subscription)
-            dismiss(animated: true)
-        } catch {
-            print("Failed to save subscription: \(error)")
-        }
-    }
-    
-    // MARK: - Keyboard Functions
-    private func addDoneButtonToKeyboards() {
-        let doneToolbar = UIToolbar()
-        doneToolbar.sizeToFit()
-
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonTapped))
-
-        doneToolbar.items = [flexSpace, doneButton]
-
-        descriptionTextField.inputAccessoryView = doneToolbar
-        amountTextField.inputAccessoryView = doneToolbar
-        repeatCountTextField.inputAccessoryView = doneToolbar
+        delegate?.didAddPayment(subscription)
+        dismiss(animated: true)
     }
 
-    @objc private func doneButtonTapped() {
-        view.endEditing(true)
-    }
-    
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height
-            }
-        }
-    }
-
-    @objc func keyboardWillHide(notification: NSNotification) {
-        if self.view.frame.origin.y != 0 {
-            self.view.frame.origin.y = 0
-        }
-    }
-    
     // MARK: - Information Alerts
     private func descriptionsButtonTapped() {
-        presentAlert(from: self, title: "Info about the description", message: "This description will be used to describe the subscription throughout the application for your convenience")
+        presentAlert(from: self, title: "Info about the description", message: "This description will be used to describe the payment throughout the application for your convenience")
     }
 
     private func inputAmountButtonTapped() {
-        presentAlert(from: self, title: "Info about the input amount", message: "This number will be used to set the amount that you are going to budget every month for this subscription")
+        presentAlert(from: self, title: "Info about the input amount", message: "This number will be used to set the amount that you are going to budget every month for this payment")
     }
 
     private func monthsButtonTapped() {
-        presentAlert(from: self, title: "Info about the number of months", message: "This is an input for the number of months you want your subscription to occur. Inputting 12 will repeat the subscription 12 times (1 Year)")
+        presentAlert(from: self, title: "Info about the number of months", message: "This is an input for the number of months you want your payment to occur. Inputting 12 will repeat the payment 12 times (1 Year)")
     }
 
     private func invalidInput() {
-        presentAlert(from: self, title: "Invalid Input", message: "Please fill out all fields")
+        presentAlert(from: self, title: "Invalid Input", message: "Please fill out all fields correctly")
     }
 }
 
 // MARK: - Picker
-extension AddSubscriptionVC: UIPickerViewDataSource, UIPickerViewDelegate {
+extension AddPaymentVC: UIPickerViewDataSource, UIPickerViewDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -322,8 +302,4 @@ extension AddSubscriptionVC: UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return categories[row].rawValue
     }
-}
-
-#Preview {
-    AddSubscriptionVC()
 }

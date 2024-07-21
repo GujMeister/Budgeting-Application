@@ -1,6 +1,6 @@
 //
 //  DataManager.swift
-//  PersonalFinanceV2
+//  Budgeting Application
 //
 //  Created by Luka Gujejiani on 30.06.24.
 //
@@ -8,12 +8,13 @@
 import CoreData
 import UIKit
 
-class DataManager {
+final class DataManager {
+    // MARK: - Properties
     static let shared = DataManager()
     
     private init() {}
     
-    private static var persistentContainer: NSPersistentContainer = {
+    private lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Model")
         container.loadPersistentStores { description, error in
             if let error = error {
@@ -24,7 +25,7 @@ class DataManager {
     }()
     
     var context: NSManagedObjectContext {
-        return Self.persistentContainer.viewContext
+        return persistentContainer.viewContext
     }
     
     // MARK: - Delete Records

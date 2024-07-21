@@ -12,13 +12,16 @@
 
 import CoreData
 
-class PaymentService {
+final class PaymentService {
+    // MARK: - Properties
     private var context: NSManagedObjectContext
     
+    // MARK: - Initialization
     init(context: NSManagedObjectContext) {
         self.context = context
     }
     
+    // MARK: - Methods
     func fetchPaymentOccurrences() -> [PaymentOccurrence] {
         var occurrences: [PaymentOccurrence] = []
         

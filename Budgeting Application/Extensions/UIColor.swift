@@ -8,10 +8,6 @@
 import UIKit
 
 extension UIColor {
-    static let infoViewColor = UIColor(hex: "468585")
-    static let NavigationRectangleColor = UIColor(hex: "#6a9d9d")
-//    static let customBackground = UIColor(hex: "f4f3f9")
-    
     convenience init(hex: String) {
         var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
         hexSanitized = hexSanitized.replacingOccurrences(of: "#", with: "")
@@ -28,7 +24,11 @@ extension UIColor {
     }
 }
 
+// MARK: - Custom Colors
 extension UIColor {
+    static let infoViewColor = UIColor(hex: "468585")
+    static let NavigationRectangleColor = UIColor(hex: "#6a9d9d")
+    
     static var backgroundColor: UIColor {
         if #available(iOS 13.0, *) {
             return UIColor { (traits) -> UIColor in
@@ -92,7 +92,27 @@ extension UIColor {
     static var budgetViewBezierColor: UIColor {
         if #available(iOS 13.0, *) {
             return UIColor { (traits) -> UIColor in
-                return traits.userInterfaceStyle == .dark ? UIColor(hex: "#7f7f7f") : UIColor(hex: "#d8d8d8")
+                return traits.userInterfaceStyle == .dark ? UIColor(hex: "#474747") : UIColor(hex: "#e4e4e4")
+            }
+        } else {
+            return UIColor.white
+        }
+    }
+
+    static var budgetDetailViewController: UIColor {
+        if #available(iOS 13.0, *) {
+            return UIColor { (traits) -> UIColor in
+                return traits.userInterfaceStyle == .dark ? UIColor(hex: "#68b0b0") : UIColor(hex: "#bbdcdc")
+            }
+        } else {
+            return UIColor.white
+        }
+    }
+    
+    static var budgetDetailViewControllerTextColor: UIColor {
+        if #available(iOS 13.0, *) {
+            return UIColor { (traits) -> UIColor in
+                return traits.userInterfaceStyle == .dark ? .black : UIColor(hex: "#333333")
             }
         } else {
             return UIColor.white

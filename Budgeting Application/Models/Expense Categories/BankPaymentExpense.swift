@@ -24,11 +24,13 @@ enum PaymentsCategory: String, CaseIterable {
     case studentLoans = "Student Loans"
     case creditCardPayments = "Credit-Card Payments"
     case phoneBills = "Phone Bills"
-    case internetBills = "Internet Bills"
+    case rent = "Rent"
     case healthInsurance = "Health Insurance"
     case lifeInsurance = "Life Insurance"
-    case dentalInsurance = "Dental Insurance"
     case propertyTaxes = "Property Taxes"
+    case medicalBills = "Medical Bills"
+    case other = "Other"
+    case miscellaneous = "Miscellaneous"
     
     var emoji: String {
         switch self {
@@ -37,7 +39,7 @@ enum PaymentsCategory: String, CaseIterable {
         case .housePayments:
             return "🏠"
         case .carPayments:
-            return "🚌"
+            return "🚘"
         case .personalLoans:
             return "💸"
         case .studentLoans:
@@ -46,16 +48,20 @@ enum PaymentsCategory: String, CaseIterable {
             return "💳"
         case .phoneBills:
             return "📱"
-        case .internetBills:
-            return "🌐"
+        case .rent:
+            return "🏘️"
         case .healthInsurance:
             return "🏥"
         case .lifeInsurance:
             return "❤️"
-        case .dentalInsurance:
-            return "🦷"
         case .propertyTaxes:
             return "🏡"
+        case .medicalBills:
+            return "🩺"
+        case .other:
+            return "📒"
+        case .miscellaneous:
+            return "📝"
         }
     }
     
@@ -75,16 +81,20 @@ enum PaymentsCategory: String, CaseIterable {
             return UIColor(hex: "#FFB6C1") // Light Pink
         case .phoneBills:
             return UIColor(hex: "#48D1CC") // Medium Turquoise
-        case .internetBills:
+        case .rent:
             return UIColor(hex: "#40E0D0") // Turquoise
         case .healthInsurance:
             return UIColor(hex: "#8FBC8F") // Dark Sea Green
         case .lifeInsurance:
             return UIColor(hex: "#FFD700") // Gold
-        case .dentalInsurance:
-            return UIColor(hex: "#E6E6FA") // Lavender
         case .propertyTaxes:
             return UIColor(hex: "#B0E0E6") // Powder Blue
+        case .medicalBills:
+            return UIColor(hex: "#D4AFDF") // Lavender Blush (pastel purple)
+        case .other:
+            return UIColor(hex: "#FFDFD3") // Floral White (pastel peach)
+        case .miscellaneous:
+            return UIColor(hex: "#C1E1C1") // Mint Cream (pastel green)
         }
     }
     

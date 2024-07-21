@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct ChangeNameView: View {
+    // MARK: Properties
     @Environment(\.dismiss) var dismiss
     @State private var newName = ""
     @AppStorage("userName") private var userName: String = ""
 
+    // MARK: - View
     var body: some View {
         VStack {
             Text(userName.isEmpty ? "You don't have a name set" : "Your current name is set to \"\(userName)\"")
+                .multilineTextAlignment(.center)
                 .font(.title2)
                 .bold()
                 .padding()

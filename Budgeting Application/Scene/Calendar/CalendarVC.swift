@@ -9,13 +9,14 @@ import UIKit
 
 final class CalendarViewController: UIViewController {
     // MARK: - Properties
-    private var viewModel = CalendarViewModel()
+    private var viewModel: CalendarViewModel
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.showsVerticalScrollIndicator = false
+        UIScrollView.appearance().bounces = false
         return scrollView
     }()
     
@@ -28,7 +29,6 @@ final class CalendarViewController: UIViewController {
     private var topView: UIView = {
         let view = UIView()
         view.backgroundColor = .infoViewColor
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 25
         return view
     }()
@@ -39,7 +39,6 @@ final class CalendarViewController: UIViewController {
         label.textAlignment = .center
         label.font = UIFont(name: "ChesnaGrotesk-Bold", size: 26)
         label.text = ""
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -53,7 +52,6 @@ final class CalendarViewController: UIViewController {
         button.setImage(chevron, for: .normal)
         button.tintColor = .infoViewColor
         button.semanticContentAttribute = .forceRightToLeft
-        button.translatesAutoresizingMaskIntoConstraints = false
         
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.didTapCalendarInfoButton()
@@ -66,7 +64,6 @@ final class CalendarViewController: UIViewController {
         let calendar = UICalendarView()
         calendar.backgroundColor = .backgroundColor
         calendar.calendar = Calendar(identifier: .gregorian)
-        calendar.translatesAutoresizingMaskIntoConstraints = false
         let selection = UICalendarSelectionSingleDate(delegate: self)
         calendar.selectionBehavior = selection
         calendar.delegate = self
@@ -83,7 +80,6 @@ final class CalendarViewController: UIViewController {
         button.setImage(chevron, for: .normal)
         button.tintColor = .infoViewColor
         button.semanticContentAttribute = .forceRightToLeft
-        button.translatesAutoresizingMaskIntoConstraints = false
         
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.didTapInformationTableButton()
@@ -97,26 +93,17 @@ final class CalendarViewController: UIViewController {
         tableView.register(CalendarTableViewCell.self, forCellReuseIdentifier: CalendarTableViewCell.reuseIdentifier)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.isHidden = true
         tableView.allowsSelection = false
+        tableView.backgroundColor = .backgroundColor
         tableView.showsVerticalScrollIndicator = false
         return tableView
-    }()
-    
-    private lazy var eventsIndicatorLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 12)
-        return label
     }()
     
     private lazy var noDataBackgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .NavigationRectangleColor
         view.layer.cornerRadius = 20
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -130,6 +117,15 @@ final class CalendarViewController: UIViewController {
     }()
     
     // MARK: - Lifecycle
+    init(viewModel: CalendarViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -143,15 +139,15 @@ final class CalendarViewController: UIViewController {
         view.backgroundColor = .backgroundColor
         
         view.addSubview(scrollView)
-        
         scrollView.addSubview(contentView)
-        contentView.addSubview(topView)
-        contentView.addSubview(calendarLabel)
-        contentView.addSubview(calendarInfoButton)
-        contentView.addSubview(calendar)
-        contentView.addSubview(tableViewInfoButton)
-        contentView.addSubview(tableView)
-        contentView.addSubview(noDataBackgroundView)
+        
+        let subviews = [topView, calendarLabel, calendarInfoButton, calendar, tableViewInfoButton, tableView, noDataBackgroundView]
+        
+        subviews.forEach { 
+            contentView.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
         noDataBackgroundView.addSubview(noDataLabel)
         
         NSLayoutConstraint.activate([
@@ -193,14 +189,14 @@ final class CalendarViewController: UIViewController {
             noDataBackgroundView.topAnchor.constraint(equalTo: tableViewInfoButton.bottomAnchor, constant: 10),
             noDataBackgroundView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             noDataBackgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            noDataBackgroundView.heightAnchor.constraint(equalToConstant: 100),
+            noDataBackgroundView.heightAnchor.constraint(equalToConstant: 200),
             
             noDataLabel.centerYAnchor.constraint(equalTo: noDataBackgroundView.centerYAnchor),
             noDataLabel.centerXAnchor.constraint(equalTo: noDataBackgroundView.centerXAnchor),
         ])
     }
     
-    // MARK: - View Model
+    // MARK: - Binding ViewModel
     private func setupViewModelCallbacks() {
         viewModel.onEventsUpdated = { [weak self] in
             DispatchQueue.main.async {
@@ -214,7 +210,6 @@ final class CalendarViewController: UIViewController {
     }
     
     // MARK: - Actions
-    
     func didTapCalendarInfoButton() {
         presentAlert(from: self, title: "Calendar Information", message: "Calendar displays all your Subscriptions, Payments and Expenses that you have saved. It helps you to visually understand when you should make/had made Subscriptions or Bank Payments. Every expense that you've made so far is in the calendar also. The numbers show you how many catogories of payments are in the calendar. 3 means there are Subscriptions, Payments and Expenses for the specific date and so on")
     }

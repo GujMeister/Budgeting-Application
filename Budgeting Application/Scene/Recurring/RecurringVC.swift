@@ -1,3 +1,10 @@
+//
+//  RecurringVC.swift
+//  Budgeting Application
+//
+//  Created by Luka Gujejiani on 05.07.24.
+//
+
 import SwiftUI
 
 struct RecurringPage: View {
@@ -24,18 +31,23 @@ struct RecurringPage: View {
                     },
                     shouldAnimate: $shouldAnimate
                 )
-                .frame(height: 60)
-                .padding(.top, 195)
+                .frame(height: UIScreen.main.bounds.height / 14)
+                .padding(.top, UIScreen.main.bounds.height / 4.1)
                 
                 NavigationRectangleRepresentable(
                     height: 0,
                     color: .infoViewColor,
-                    totalBudgetedMoney: NumberFormatterHelper.shared.format(amount: totalBudgetedMoneyHelper(), baseFont: UIFont(name: "Heebo-SemiBold", size: 36) ?? UIFont(), sizeDifference: 0.6),
+                    totalBudgetedMoney: NumberFormatterHelper.shared.format(
+                        amount: viewModel.totalBudgetedMoneyHelper(),
+                        baseFont: UIFont(name: "Heebo-SemiBold", size: 36) ?? UIFont(),
+                        sizeDifference: 0.6
+                    ),
                     descriptionLabelText: viewModel.descriptionLabelText
                 )
                 .edgesIgnoringSafeArea(.top)
-                .frame(height: UIScreen.main.bounds.size.height / 5)
+                .frame(height: UIScreen.main.bounds.size.height / 4.6)
             }
+            .frame(height: UIScreen.main.bounds.size.height / 3.5)
             .edgesIgnoringSafeArea(.top)
             
             HStack {
@@ -56,7 +68,7 @@ struct RecurringPage: View {
                             .foregroundStyle(Color(UIColor.primaryTextColor))
                     }
                 } else {
-                    // TODO: Maybe add two buttons for adding subscriptions and adding payments in Overview?
+                    //Show nothing
                 }
                 
                 Spacer()
@@ -83,7 +95,7 @@ struct RecurringPage: View {
                 }
             }
             .padding([.leading, .trailing])
-            .padding(.top, -145) // 1
+            .padding(.top, -140)
             
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 20) {
@@ -120,7 +132,7 @@ struct RecurringPage: View {
                                     }
                                 )
                             }
-
+                            
                             ForEach(viewModel.allPaymentExpenses) { payment in
                                 EditableRecurringView(
                                     amount: payment.amount,
@@ -193,17 +205,10 @@ struct RecurringPage: View {
             topController.present(addPaymentVC, animated: true, completion: nil)
         }
     }
-    
-    private func totalBudgetedMoneyHelper() -> Double {
-        if viewModel.selectedSegmentIndex == 2 {
-            return viewModel.listTotalBudgeted
-        } else {
-            return viewModel.totalBudgeted
-        }
-    }
 }
 
 // MARK: - Extracted Views
+
 // MARK: Editable Payment Cell
 struct EditableRecurringView: View {
     var amount: Double

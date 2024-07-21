@@ -7,23 +7,20 @@
 
 import SwiftUI
 
-class SettingsVM: ObservableObject {
+final class SettingsVM: ObservableObject {
+    // MARK: - Properties
     @AppStorage("userName") var userName: String = ""
-    
-    private var viewModel = BudgetsViewModel()
-    
     @Published var showChangePasswordView = false
     @Published var showChangeNameView = false
     @Published var showChangeIcon = false
     @Published var showAboutView = false
     @Published var alert: UIAlertController?
+    private var viewModel = BudgetsViewModel()
 
     func deleteBasicExpenses() {
         confirmDeletion { [weak self] in
             DataManager.shared.deleteBasicExpenses()
-            self?.viewModel.loadFavoritedBudgets()
-            self?.viewModel.loadExpenses()
-            self?.viewModel.loadBudgets()
+            self?.viewModel.loadData()
             self?.viewModel.filterExpenses()
         }
     }
@@ -47,28 +44,21 @@ class SettingsVM: ObservableObject {
     }
 
     private func confirmDeletion(action: @escaping () -> Void) {
-        // Create the alert
         let alert = UIAlertController(title: "Confirm Deletion",
                                       message: "Are you sure you want to delete this data? This action cannot be undone.",
                                       preferredStyle: .alert)
 
-        // Delete Action
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive) { _ in
-            action() // Perform the deletion
+            action()
         })
 
-        // Cancel Action
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
 
-        // Assign alert to the published variable
         self.alert = alert
     }
 }
 
-
-import SwiftUI
-import UIKit
-
+// MARK: - Alert in SwiftUI
 struct SwiftUIViewController: UIViewControllerRepresentable {
     var alert: UIAlertController?
 

@@ -1,3 +1,10 @@
+//
+//  SubscriptionCell.swift
+//  Budgeting Application
+//
+//  Created by Luka Gujejiani on 08.06.24.
+//
+
 import UIKit
 
 final class SubscriptionCollectionViewCell: UICollectionViewCell {
@@ -107,10 +114,6 @@ final class SubscriptionCollectionViewCell: UICollectionViewCell {
             emojiLabel.text = "🔔"
         }
     }
-}
-
-#Preview {
-    SubscriptionCollectionViewCell()
 }
 
 extension Date {

@@ -1,6 +1,6 @@
 //
 //  DashboardVC.swift
-//  PersonalFinance
+//  Budgeting Application
 //
 //  Created by Luka Gujejiani on 30.06.24.
 
@@ -203,9 +203,8 @@ final class DashboardViewController: UIViewController {
         print("✅ DashboardVC viewDidLoad")
         setupUI()
         setupBindings()
+        setupNotificationObserver()
         viewModel.loadData()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(budgetTapped(_:)), name: NSNotification.Name("BudgetTapped"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -213,16 +212,6 @@ final class DashboardViewController: UIViewController {
         print("✅ DashboardVC viewWillAppear")
         setupUI()
         viewModel.loadData()
-    }
-    
-    // MARK: - Testing Tapping
-    @objc private func budgetTapped(_ notification: Notification) {
-        if let budget = notification.object as? BasicExpenseBudget {
-            let budgetDetailVC = DashboardBudgetDetailViewController(budget: budget, delegate: viewModel)
-            self.hidesBottomBarWhenPushed  = true
-            self.navigationController?.pushViewController(budgetDetailVC, animated: true)
-            self.hidesBottomBarWhenPushed = false
-        }
     }
     
     // MARK: - Setup UI
@@ -277,11 +266,11 @@ final class DashboardViewController: UIViewController {
             subscriptionBackgroundView.topAnchor.constraint(equalTo: subscriptionCollectionView.topAnchor, constant: 0),
             subscriptionBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             subscriptionBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            subscriptionBackgroundView.bottomAnchor.constraint(equalTo: subscriptionCollectionView.bottomAnchor, constant: 0),
+            subscriptionBackgroundView.bottomAnchor.constraint(equalTo: subscriptionCollectionView.bottomAnchor, constant: -10),
             subscriptionBackgroundView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 12),
             
-            noSubscriptionsLabel.centerXAnchor.constraint(equalTo: subscriptionCollectionView.centerXAnchor),
-            noSubscriptionsLabel.centerYAnchor.constraint(equalTo: subscriptionCollectionView.centerYAnchor),
+            noSubscriptionsLabel.centerXAnchor.constraint(equalTo: subscriptionBackgroundView.centerXAnchor),
+            noSubscriptionsLabel.centerYAnchor.constraint(equalTo: subscriptionBackgroundView.centerYAnchor),
             
             subscriptionCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
             subscriptionCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
@@ -318,22 +307,33 @@ final class DashboardViewController: UIViewController {
     private func setupBindings() {
         viewModel.onFavoritedBudgetsUpdated = { [weak self] in
             self?.updateBudgets()
-            self?.updateBudgetsPlaceholder()
         }
         
         viewModel.onSubscriptionsUpdated = { [weak self] in
             self?.subscriptionCollectionView.reloadData()
-            self?.updateSubscriptionsPlaceholder()
         }
         
         viewModel.onPaymentsUpdated = { [weak self] in
             self?.paymentCollectionView.reloadData()
-            self?.updatePaymentsPlaceholder()
         }
         
         viewModel.onTotalBudgetedThisMonthUpdated = { [weak self] in
             self?.updateTotalBudgetedLabel()
             self?.updatePieChart()
+        }
+        
+        viewModel.onBudgetsPlaceholderUpdated = { [weak self] isEmpty in
+            self?.noFavoriteBudgetsLabel.isHidden = !isEmpty
+        }
+        
+        viewModel.onSubscriptionsPlaceholderUpdated = { [weak self] isEmpty in
+            self?.noSubscriptionsLabel.isHidden = !isEmpty
+            self?.subscriptionBackgroundView.isHidden = !isEmpty
+        }
+        
+        viewModel.onPaymentsPlaceholderUpdated = { [weak self] isEmpty in
+            self?.noPaymentsLabel.isHidden = !isEmpty
+            self?.paymentsBackgroundView.isHidden = !isEmpty
         }
     }
     
@@ -346,31 +346,19 @@ final class DashboardViewController: UIViewController {
         tabBarController?.selectedIndex = 1
     }
     
+    // MARK: - Alerts
     private func didTapChartButton() {
-        presentAlert(from: self, title: "Charts", message: "Chart below will show you your monthly expenditure by three categories such as Subscriptions, Bank Payments and Budgets")
+        presentAlert(from: self, title: "Chart", message: "Pie chart below will show you your monthly expenditure by three categories such as Subscriptions, Bank Payments and Budgets")
     }
     
     // MARK: - Helper Functions
-    private func updateBudgetsPlaceholder() {
-        noFavoriteBudgetsLabel.isHidden = !viewModel.favoritedBudgets.isEmpty
-    }
-    
-    private func updateSubscriptionsPlaceholder() {
-        noSubscriptionsLabel.isHidden = !viewModel.filteredSubscriptions.isEmpty
-        subscriptionBackgroundView.isHidden = !viewModel.filteredSubscriptions.isEmpty
-    }
-    
-    private func updatePaymentsPlaceholder() {
-        noPaymentsLabel.isHidden = !viewModel.filteredPayments.isEmpty
-        paymentsBackgroundView.isHidden = !viewModel.filteredPayments.isEmpty
-    }
-    
     private func updateBudgets() {
         budgetStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         
         for budget in viewModel.favoritedBudgets {
             let singleBudgetView = BudgetView()
             singleBudgetView.budget = budget
+            singleBudgetView.shouldExecuteTapAction = true
             budgetStackView.addArrangedSubview(singleBudgetView)
         }
     }
@@ -396,17 +384,29 @@ final class DashboardViewController: UIViewController {
         dataSet.entryLabelColor = .infoViewColor
         dataSet.valueTextColor = .infoViewColor
         dataSet.colors = [
-            UIColor(hex: "#ffb3ba"), // Color for Total Budgets
-            UIColor(hex: "#baffc9"), // Color for Total Payments
-            UIColor(hex: "#ffdfba")  // Color for Total Subscriptions
+            UIColor(hex: "#ffb3ba"),
+            UIColor(hex: "#baffc9"),
+            UIColor(hex: "#ffdfba")
         ]
 
         let data = PieChartData(dataSet: dataSet)
         
-        // Set the custom value formatter
         data.setValueFormatter(DollarValueFormatter())
         
         pieChartView.data = data
+    }
+    
+    private func setupNotificationObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(budgetTapped(_:)), name: NSNotification.Name("BudgetTapped"), object: nil)
+    }
+
+    @objc private func budgetTapped(_ notification: Notification) {
+        if let budget = notification.object as? BasicExpenseBudget {
+            let budgetDetailVC = DashboardBudgetDetailViewController(budget: budget, delegate: viewModel)
+            self.hidesBottomBarWhenPushed  = true
+            self.navigationController?.pushViewController(budgetDetailVC, animated: true)
+            self.hidesBottomBarWhenPushed = false
+        }
     }
 }
 
@@ -448,8 +448,8 @@ extension DashboardViewController: UICollectionViewDelegateFlowLayout {
         if collectionView == paymentCollectionView {
             let screenWidth = UIScreen.main.bounds.width
             let spacing: CGFloat = 25
-            let totalSpacing = (spacing * 2) // 2 cells + 3 spaces
-            let cellWidth = (screenWidth - totalSpacing) / 2 // Two cells per row
+            let totalSpacing = (spacing * 2)
+            let cellWidth = (screenWidth - totalSpacing) / 2
             let cellHeight = screenWidth / 3.7
             return CGSize(width: cellWidth, height: cellHeight)
         } else if collectionView == subscriptionCollectionView {
@@ -471,7 +471,7 @@ extension DashboardViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         if collectionView == paymentCollectionView {
-            let insets: CGFloat = 7 // Set your desired inset value
+            let insets: CGFloat = 7
             let verticalInsets: CGFloat = 5
             return UIEdgeInsets(top: verticalInsets, left: insets, bottom: verticalInsets, right: insets)
         } else if collectionView == subscriptionCollectionView {
@@ -480,8 +480,4 @@ extension DashboardViewController: UICollectionViewDelegateFlowLayout {
             return .zero
         }
     }
-}
-
-#Preview {
-    DashboardViewController(viewModel: DashboardViewModel())
 }

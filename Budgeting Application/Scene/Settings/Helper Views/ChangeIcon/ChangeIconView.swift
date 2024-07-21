@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct ChangeIconView: View {
+    // MARK: Properties
     @StateObject private var viewModel = ChangeIconViewModel()
     private let columns = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
     
+    // MARK: - View
     var body: some View {
         VStack {
             HStack {

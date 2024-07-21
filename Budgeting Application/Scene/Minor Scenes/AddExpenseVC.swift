@@ -14,6 +14,7 @@ protocol AddExpenseDelegate: AnyObject {
 final class AddExpenseViewController: UIViewController {
     // MARK: - Properties
     weak var delegate: AddExpenseDelegate?
+    private lazy var keyboardHandler = KeyboardHandler(viewController: self)
     
     private var topView: UIView = {
        let view = UIView()
@@ -27,7 +28,7 @@ final class AddExpenseViewController: UIViewController {
         label.textColor = .label
         label.textAlignment = .center
         label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 20)
-        label.text = "Choose Expense Category WHAAAAAT" // Changed text
+        label.text = "Choose Expense Category"
         return label
     }()
     
@@ -77,7 +78,7 @@ final class AddExpenseViewController: UIViewController {
     
     private let amountTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "e.g. 50" // Changed placeholder
+        textField.placeholder = "e.g. 50"
         textField.borderStyle = .roundedRect
         textField.keyboardType = .decimalPad
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -128,9 +129,7 @@ final class AddExpenseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        addDoneButtonToKeyboards()
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        keyboardHandler.addDoneButtonToKeyboard(for: [amountTextField, descriptionTextField])
     }
 
     // MARK: - Setup UI
@@ -198,7 +197,20 @@ final class AddExpenseViewController: UIViewController {
             invalidInput()
             return
         }
-        
+
+        // Validate amount
+        let amountComponents = amountText.split(separator: ".")
+        if amount <= 0 || amount > 50000 || (amountComponents.count == 2 && amountComponents[1].count > 2) {
+            presentAlert(from: self, title: "Invalid Input", message: "Amount must be greater than 0, less than or equal to 50000, and have at most two decimal places.")
+            return
+        }
+
+        // Validate description length
+        if description.count < 2 || description.count > 40 {
+            presentAlert(from: self, title: "Invalid Input", message: "Description must be between 2 and 40 characters.")
+            return
+        }
+
         let context = DataManager.shared.context
         let expense = BasicExpenseModel(context: context)
         
@@ -210,38 +222,6 @@ final class AddExpenseViewController: UIViewController {
         delegate?.didAddExpense(expense)
         
         dismiss(animated: true, completion: nil)
-    }
-    
-    // MARK: - Keyboard Functions
-    private func addDoneButtonToKeyboards() {
-        let doneToolbar = UIToolbar()
-        doneToolbar.sizeToFit()
-
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonTapped))
-
-        doneToolbar.items = [flexSpace, doneButton]
-
-        descriptionTextField.inputAccessoryView = doneToolbar
-        amountTextField.inputAccessoryView = doneToolbar
-    }
-
-    @objc private func doneButtonTapped() {
-        view.endEditing(true)
-    }
-    
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height
-            }
-        }
-    }
-
-    @objc func keyboardWillHide(notification: NSNotification) {
-        if self.view.frame.origin.y != 0 {
-            self.view.frame.origin.y = 0
-        }
     }
     
     // MARK: - Information Alerts

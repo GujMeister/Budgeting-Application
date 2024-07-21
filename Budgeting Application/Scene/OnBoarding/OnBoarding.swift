@@ -9,6 +9,7 @@ import SwiftUI
 import Lottie
 
 struct OnBoarding: View {
+    // MARK: Properties
     @State private var currentPage = 0
     @AppStorage("hasSeenOnBoarding") private var hasSeenOnBoarding: Bool = false
     
@@ -16,6 +17,7 @@ struct OnBoarding: View {
         UIScrollView.appearance().bounces = false
     }
     
+    // MARK: - View
     var body: some View {
         VStack {
             HStack {
@@ -73,12 +75,9 @@ struct OnBoarding: View {
                     .foregroundColor(.white)
             }
             .padding(.bottom, 20)
-            
         }
-        .onChange(of: hasSeenOnBoarding) { newValue in
-            if newValue {
+        .onChange(of: hasSeenOnBoarding) {
                 switchToLoginView()
-            }
         }
         .background(Color(UIColor.backgroundColor))
     }
@@ -90,6 +89,7 @@ struct OnBoarding: View {
     }
 }
 
+// MARK: - Extracted Views
 struct FirstPage: View {
     var body: some View {
         VStack {
@@ -127,15 +127,17 @@ struct SecondPage: View {
     
     var body: some View {
         VStack {
-            Text("Main Page will provide you with a quick and easy access to adding expenses by tapping on budgets or get information about upcoming subscriptions or bank payments, see example below:")
+            Text("Main Page will provide you with a quick and easy access upcoming payments or budgets (Click on budgets to quickly add expenses)")
+                .multilineTextAlignment(.leading)
                 .padding()
                 .font(.custom("ChesnaGrotesk-Medium", size: 13))
+                .foregroundStyle(Color(UIColor.primaryTextColor))
 
             HStack {
                 HStack {
                         Image(colorScheme == .dark ? "OB-Dark" : "OB-White")
                         .resizable()
-                        .frame(width: UIScreen.main.bounds.width / 2, height: UIScreen.main.bounds.height / 1.9)
+                        .frame(width: UIScreen.main.bounds.width / 2.3, height: UIScreen.main.bounds.height / 2)
                         .clipShape(
                             .rect(
                                 topLeadingRadius: 0,
@@ -147,29 +149,66 @@ struct SecondPage: View {
                 }
                 
                 VStack {
-                    Text("Total Budgeted this month")
-                        .frame(width: UIScreen.main.bounds.width / 3)
-                        .font(.custom("ChesnaGrotesk-Regular", size: 16))
-                        .frame(maxHeight: .infinity)
-                    Text("Your five favorite budgets for easy access")
-                        .font(.custom("ChesnaGrotesk-Regular", size: 16))
-                        .frame(width: UIScreen.main.bounds.width / 3)
-                        .frame(maxHeight: .infinity)
-                        .padding(.bottom, -50)
-                    Text("Subscriptions that have to be payed soon ")
-                        .font(.custom("ChesnaGrotesk-Regular", size: 16))
-                        .frame(width: UIScreen.main.bounds.width / 3)
-                        .frame(maxHeight: .infinity)
-                    Text("Upcoming Bank Payments")
-                        .frame(maxHeight: .infinity)
-                        .font(.custom("ChesnaGrotesk-Regular", size: 16))
-                        .frame(width: UIScreen.main.bounds.width / 3)
-                        .padding(.top, -20)
+                    HStack {
+                        Image(systemName: "arrow.left.square.fill")
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                            .foregroundStyle(Color(UIColor.infoViewColor))
+                        
+                        Text("Total Budgeted this month")
+                            .frame(width: UIScreen.main.bounds.width / 2.5)
+                            .multilineTextAlignment(.center)
+                            .font(.custom("ChesnaGrotesk-Bold", size: 14))
+                            .frame(maxHeight: .infinity)
+                    }
+                    .padding(.top, 40)
+                    
+                    HStack {
+                        Image(systemName: "arrow.left.square.fill")
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                            .foregroundStyle(Color(UIColor.cellBackgroundColor))
+                        
+                        Text("Your five favorite budgets for easy access")
+                            .font(.custom("ChesnaGrotesk-Regular", size: 12))
+                            .multilineTextAlignment(.center)
+                            .frame(width: UIScreen.main.bounds.width / 2.5)
+                            .frame(maxHeight: .infinity)
+                    }
+                    .padding(.bottom, -60)
+                    
+                    HStack {
+                        Image(systemName: "arrow.left.square.fill")
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                            .foregroundStyle(Color(UIColor.cellBackgroundColor))
+                        
+                        Text("Subscriptions that have to be payed soon ")
+                            .font(.custom("ChesnaGrotesk-Regular", size: 12))
+                            .multilineTextAlignment(.center)
+                            .frame(width: UIScreen.main.bounds.width / 2.5)
+                            .frame(maxHeight: .infinity)
+                    }
+                    .padding(.top, -5)
+                    
+                    HStack {
+                        Image(systemName: "arrow.left.square.fill")
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                            .foregroundStyle(Color(UIColor.cellBackgroundColor))
+                        
+                        Text("Upcoming Bank Payments")
+                            .frame(maxHeight: .infinity)
+                            .font(.custom("ChesnaGrotesk-Regular", size: 12))
+                            .multilineTextAlignment(.center)
+                            .frame(width: UIScreen.main.bounds.width / 2.5)
+                    }
+                    .padding(.top, -60)
+                    
                 }
-                .frame(height: UIScreen.main.bounds.height / 1.8)
-                
                 Spacer()
             }
+            .frame(height: UIScreen.main.bounds.height / 1.9)
             
             Spacer()
         }
@@ -195,5 +234,5 @@ struct ThirdPage: View {
 }
 
 #Preview {
-    OnBoarding()
+    SecondPage()
 }

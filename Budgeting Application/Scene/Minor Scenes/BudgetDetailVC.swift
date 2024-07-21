@@ -7,15 +7,16 @@
 
 import UIKit
 
-class DashboardBudgetDetailViewController: UIViewController {
+final class DashboardBudgetDetailViewController: UIViewController {
     // MARK: - Properties
     private let budget: BasicExpenseBudget
     weak var delegate: AddExpenseDelegate?
     private let scrollView = UIScrollView()
     private lazy var keyboardHandler = KeyboardHandler(viewController: self)
-
+    
     private let remainingAmountLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .budgetDetailViewControllerTextColor
         label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 20)
         label.textAlignment = .center
         label.numberOfLines = 2
@@ -24,6 +25,7 @@ class DashboardBudgetDetailViewController: UIViewController {
     
     private let spentAmountLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .budgetDetailViewControllerTextColor
         label.font = UIFont(name: "ChesnaGrotesk-Regular", size: 14)
         label.textAlignment = .left
         return label
@@ -31,6 +33,7 @@ class DashboardBudgetDetailViewController: UIViewController {
     
     private let maxAmountLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .budgetDetailViewControllerTextColor
         label.font = UIFont(name: "ChesnaGrotesk-Regular", size: 14)
         label.textAlignment = .right
         return label
@@ -47,20 +50,19 @@ class DashboardBudgetDetailViewController: UIViewController {
         let label = UILabel()
         label.textColor = .label
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 32, weight: .bold)
+        label.font = UIFont(name: "ChesnaGrotesk-Bold", size: 32)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Add Expense"
         return label
     }()
     
-    //TODO: Needs function so it says "to: Entertainment" for example
     private let addExpenseToLabel: UILabel = {
         let label = UILabel()
         label.textColor = .label
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 12, weight: .regular)
+        label.font = UIFont(name: "ChesnaGrotesk-Regular", size: 12)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "NEED FUNCTIONS FOR THIS!"
+        label.text = ""
         return label
     }()
     
@@ -71,7 +73,7 @@ class DashboardBudgetDetailViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 16)
-        label.text = "Input Expense Description" // Changed text
+        label.text = "Input Expense Description"
         return label
     }()
     
@@ -88,9 +90,9 @@ class DashboardBudgetDetailViewController: UIViewController {
         button.tintColor = .infoViewColor
         button.setImage(UIImage(systemName: "info.circle.fill"), for: .normal)
         
-//        button.addAction(UIAction(handler: { [weak self] _ in
-//            self?.descriptionsButtonTapped()
-//        }), for: .touchUpInside)
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.descriptionsButtonTapped()
+        }), for: .touchUpInside)
         
         return button
     }()
@@ -118,11 +120,11 @@ class DashboardBudgetDetailViewController: UIViewController {
         let button = UIButton()
         button.setImage(UIImage(systemName: "info.circle.fill"), for: .normal)
         button.tintColor = .infoViewColor
-//        
-//        button.addAction(UIAction(handler: { [weak self] _ in
-//            self?.inputAmountButtonTapped()
-//        }), for: .touchUpInside)
-
+        
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.inputAmountButtonTapped()
+        }), for: .touchUpInside)
+        
         return button
     }()
     
@@ -136,12 +138,12 @@ class DashboardBudgetDetailViewController: UIViewController {
     
     private lazy var addExpenseButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Add Expense", for: .normal) // Changed text
+        button.setTitle("Add Expense", for: .normal)
         
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.didTapAddExpense()
         }), for: .touchUpInside)
-
+        
         button.translatesAutoresizingMaskIntoConstraints = false
         button.widthAnchor.constraint(equalToConstant: 180).isActive = true
         button.heightAnchor.constraint(equalToConstant: 40).isActive = true
@@ -154,14 +156,11 @@ class DashboardBudgetDetailViewController: UIViewController {
     
     let progressViewBackground: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemGray4
-        view.layer.cornerRadius = 25
-        return view
-    }()
-    
-    let addExpenseBackground: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemGray4
+        view.backgroundColor = .budgetDetailViewController
+        view.layer.shadowColor = UIColor.infoViewColor.cgColor
+        view.layer.shadowOffset = CGSize(width: 3, height: 3)
+        view.layer.shadowOpacity = 0.2
+        view.layer.shadowRadius = 5
         view.layer.cornerRadius = 25
         return view
     }()
@@ -179,17 +178,17 @@ class DashboardBudgetDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        keyboardHandler.addDoneButtonToKeyboard(for: [descriptionTextField, amountTextField])
         self.navigationController?.isNavigationBarHidden = false
+        keyboardHandler.addDoneButtonToKeyboard(for: [descriptionTextField, amountTextField])
         setupUI()
         configureView()
     }
     
     // MARK: - UI Setup
     private func setupUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = .backgroundColor
         
-        let views = [progressViewBackground, addExpenseBackground, progressView, spentAmountLabel, maxAmountLabel, remainingAmountLabel, addExpenseLabel, addExpenseToLabel, descriptionLabel, descriptionTextField, descriptionButton, amountLabel, amountTextField, amountButton, datePicker, addExpenseButton]
+        let views = [progressViewBackground, progressView, spentAmountLabel, maxAmountLabel, remainingAmountLabel, addExpenseLabel, addExpenseToLabel, descriptionLabel, descriptionTextField, descriptionButton, amountLabel, amountTextField, amountButton, datePicker, addExpenseButton]
         
         views.forEach { eachView in
             view.addSubview(eachView)
@@ -202,10 +201,10 @@ class DashboardBudgetDetailViewController: UIViewController {
             progressView.widthAnchor.constraint(equalToConstant: 180),
             progressView.heightAnchor.constraint(equalToConstant: 180),
             
-            spentAmountLabel.leadingAnchor.constraint(equalTo: progressView.leadingAnchor),
+            spentAmountLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: UIScreen.main.bounds.width / 7),
             spentAmountLabel.topAnchor.constraint(equalTo: progressView.bottomAnchor, constant: 8),
             
-            maxAmountLabel.trailingAnchor.constraint(equalTo: progressView.trailingAnchor),
+            maxAmountLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -(UIScreen.main.bounds.width / 7)),
             maxAmountLabel.topAnchor.constraint(equalTo: progressView.bottomAnchor, constant: 8),
             
             remainingAmountLabel.centerYAnchor.constraint(equalTo: progressView.centerYAnchor),
@@ -236,21 +235,16 @@ class DashboardBudgetDetailViewController: UIViewController {
             amountButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             amountButton.centerYAnchor.constraint(equalTo: amountTextField.centerYAnchor),
             amountTextField.trailingAnchor.constraint(equalTo: amountButton.leadingAnchor, constant: -20),
-
+            
             datePicker.topAnchor.constraint(equalTo: amountButton.bottomAnchor, constant: 30),
             datePicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-
+            
             addExpenseButton.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 20),
             addExpenseButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            addExpenseBackground.topAnchor.constraint(equalTo: addExpenseLabel.topAnchor, constant: -20),
-            addExpenseBackground.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 5),
-            addExpenseBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
-            addExpenseBackground.bottomAnchor.constraint(equalTo: addExpenseButton.bottomAnchor, constant: 20),
-            
-            progressViewBackground.topAnchor.constraint(equalTo: progressView.topAnchor, constant: -20),
-            progressViewBackground.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
-            progressViewBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
+            progressViewBackground.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+            progressViewBackground.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            progressViewBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
             progressViewBackground.bottomAnchor.constraint(equalTo: spentAmountLabel.bottomAnchor, constant: 20)
         ])
     }
@@ -271,6 +265,7 @@ class DashboardBudgetDetailViewController: UIViewController {
         maxAmountLabel.text = "Max: \(PlainNumberFormatterHelper.shared.format(amount: abs(budget.totalAmount)))"
         progressView.setProgress(spent: budget.spentAmount, total: budget.totalAmount, animated: true)
     }
+    
     private func didTapAddExpense() {
         let category = budget.category
         
@@ -287,11 +282,10 @@ class DashboardBudgetDetailViewController: UIViewController {
         expense.expenseDescription = description
         expense.amount = amount as NSNumber
         expense.date = datePicker.date
-
-
+        
+        
         delegate?.didAddExpense(expense)
         
-        // Temporarily push and pop the BudgetsViewController to trigger updates
         if let navigationController = self.navigationController {
             let budgetsViewModel = BudgetsViewModel()
             let budgetsViewController = BudgetsViewController(viewModel: budgetsViewModel)
@@ -299,16 +293,23 @@ class DashboardBudgetDetailViewController: UIViewController {
             navigationController.pushViewController(budgetsViewController, animated: false)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
                 navigationController.popViewController(animated: false)
-                // Pop current view controller after updating
                 self.navigationController?.popViewController(animated: true)
             }
         } else {
-            // Pop current view controller directly if no navigation controller
             self.navigationController?.popViewController(animated: true)
         }
     }
     
+    // MARK: - Alerts
+    private func inputAmountButtonTapped() {
+        presentAlert(from: self, title: "Info about the input amount", message: "This number will be used to set the amount that you are going to budget every month for this payment")
+    }
+    
     private func invalidInput() {
         presentAlert(from: self, title: "Invalid Input", message: "Please fill out all fields")
+    }
+    
+    private func descriptionsButtonTapped() {
+        presentAlert(from: self, title: "Info about the description", message: "This description will be used to describe the expense throughout the application for your convenience")
     }
 }
