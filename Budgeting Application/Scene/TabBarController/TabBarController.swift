@@ -65,7 +65,7 @@ final class MainTabBarController: UITabBarController {
 }
 
 // MARK: - SwiftUI to UIKit
-class RecurringViewController: UIHostingController<RecurringPage> {
+final class RecurringViewController: UIHostingController<RecurringPage> {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder, rootView: RecurringPage())
     }
@@ -75,7 +75,7 @@ class RecurringViewController: UIHostingController<RecurringPage> {
     }
 }
 
-class SettingsViewController: UIHostingController<SettingsView> {
+final class SettingsViewController: UIHostingController<SettingsView> {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder, rootView: SettingsView())
     }

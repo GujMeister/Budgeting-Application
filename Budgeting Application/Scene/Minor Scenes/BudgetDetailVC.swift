@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DashboardBudgetDetailViewController: UIViewController {
+final class DashboardBudgetDetailViewController: UIViewController {
     // MARK: - Properties
     private let budget: BasicExpenseBudget
     weak var delegate: AddExpenseDelegate?
@@ -176,8 +176,8 @@ class DashboardBudgetDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        keyboardHandler.addDoneButtonToKeyboard(for: [descriptionTextField, amountTextField])
         self.navigationController?.isNavigationBarHidden = false
+        keyboardHandler.addDoneButtonToKeyboard(for: [descriptionTextField, amountTextField])
         setupUI()
         configureView()
     }

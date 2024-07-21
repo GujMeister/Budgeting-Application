@@ -12,13 +12,16 @@
 
 import CoreData
 
-class SubscriptionService {
+final class SubscriptionService {
+    // MARK: - Context
     private var context: NSManagedObjectContext
     
+    // MARK: - Init
     init(context: NSManagedObjectContext) {
         self.context = context
     }
     
+    // MARK: - Methods
     func fetchSubscriptionOccurrences() -> [SubscriptionOccurrence] {
         var occurrences: [SubscriptionOccurrence] = []
         

@@ -8,7 +8,8 @@
 import CoreData
 import UIKit
 
-class DataManager {
+final class DataManager {
+    // MARK: - Properties
     static let shared = DataManager()
     
     private init() {}

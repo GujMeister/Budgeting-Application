@@ -7,7 +7,8 @@
 
 import Foundation
 
-class LoginPageViewModel: ObservableObject {
+final class LoginPageViewModel: ObservableObject {
+    // MARK: - Properties
     @Published var temporaryPasscode: String = ""
     @Published var topPasswordText: String = "Welcome"
     @Published var bottomPasswordText: String = "Create your 4-digit PIN to access your personal budgeting application"
@@ -16,6 +17,7 @@ class LoginPageViewModel: ObservableObject {
         return retrievePasscode() != nil
     }
 
+    // MARK: - Methods
     func setupTexts(userName: String) {
         topPasswordText = "Welcome back \(userName)"
         bottomPasswordText = "Enter your 4-digit PIN to log in to your personal budgeting application"

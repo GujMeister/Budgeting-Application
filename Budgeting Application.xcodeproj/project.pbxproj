@@ -405,7 +405,7 @@
 			path = Dashboard;
 			sourceTree = "<group>";
 		};
-		853A3D9C2C3593A40042A0A4 /* Minor Scenes ⭐️ */ = {
+		853A3D9C2C3593A40042A0A4 /* Minor Scenes */ = {
 			isa = PBXGroup;
 			children = (
 				85B85B2F2C3AE06800AAD046 /* AddPaymentVC.swift */,
@@ -414,7 +414,7 @@
 				85B85B042C36D83100AAD046 /* AddExpenseVC.swift */,
 				851DCFF62C4824B700A0E302 /* BudgetDetailVC.swift */,
 			);
-			path = "Minor Scenes ⭐️";
+			path = "Minor Scenes";
 			sourceTree = "<group>";
 		};
 		853A3D9F2C3593A40042A0A4 /* Recurring */ = {
@@ -438,7 +438,7 @@
 				853A3D8F2C3593A40042A0A4 /* Budgets */,
 				853A3D972C3593A40042A0A4 /* Dashboard */,
 				853A3D9F2C3593A40042A0A4 /* Recurring */,
-				853A3D9C2C3593A40042A0A4 /* Minor Scenes ⭐️ */,
+				853A3D9C2C3593A40042A0A4 /* Minor Scenes */,
 			);
 			path = Scene;
 			sourceTree = "<group>";

@@ -7,7 +7,8 @@
 
 import CoreData
 
-class BasicExpenseService {
+final class BasicExpenseService {
+    // MARK: - Context
     private var context: NSManagedObjectContext
     
     init(context: NSManagedObjectContext) {

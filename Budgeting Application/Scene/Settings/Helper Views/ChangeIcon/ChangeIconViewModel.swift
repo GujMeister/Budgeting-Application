@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class ChangeIconViewModel: ObservableObject {
+final class ChangeIconViewModel: ObservableObject {
     // MARK: - Properties
     @Published var icons: [String] = [
         "Default Dark Mode",

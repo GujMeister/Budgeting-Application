@@ -15,6 +15,7 @@ protocol AddBudgetsDelegate: AnyObject {
 final class AddBudgetsViewController: UIViewController {
     // MARK: - Properties
     weak var delegate: AddBudgetsDelegate?
+    private lazy var keyboardHandler = KeyboardHandler(viewController: self)
     
     private var topView: UIView = {
        let view = UIView()
@@ -92,14 +93,12 @@ final class AddBudgetsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        addDoneButtonToKeyboards()
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        keyboardHandler.addDoneButtonToKeyboard(for: [amountTextField])
     }
 
     // MARK: - Setup UI
     private func setupUI() {
-        view.backgroundColor = .infoViewColor
+        view.backgroundColor = .NavigationRectangleColor
         
         categoryPicker.dataSource = self
         categoryPicker.delegate = self
@@ -140,7 +139,7 @@ final class AddBudgetsViewController: UIViewController {
     }
     
     // MARK: - Helper functions
-    @objc private func addButtonTapped() {
+    private func addButtonTapped() {
         let selectedCategoryIndex = categoryPicker.selectedRow(inComponent: 0)
         let category = categories[selectedCategoryIndex]
 
@@ -148,46 +147,24 @@ final class AddBudgetsViewController: UIViewController {
             invalidInput()
             return
         }
-        
-        if let delegate = delegate, delegate.checkForDuplicateCategory(category) {
-            showAlert(message: "Category already exists")
-        } else {
-            delegate?.addCategory(category, totalAmount: amount)
-            dismiss(animated: true, completion: nil)
+
+        // Validate amount
+        let amountComponents = amountText.split(separator: ".")
+        if amount <= 0 || amount > 50000 || (amountComponents.count == 2 && amountComponents[1].count > 2) {
+            presentAlert(from: self, title: "Invalid Input", message: "Amount must be greater than 0, less than or equal to 50000, and have at most two decimal places.")
+            return
         }
-    }
-    
-    // MARK: - Keyboard Functions
-    private func addDoneButtonToKeyboards() {
-        let doneToolbar = UIToolbar()
-        doneToolbar.sizeToFit()
 
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonTapped))
-
-        doneToolbar.items = [flexSpace, doneButton]
-
-        amountTextField.inputAccessoryView = doneToolbar
-    }
-
-    @objc private func doneButtonTapped() {
-        view.endEditing(true) // Dismiss the keyboard
-    }
-    
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height
+        if let delegate = delegate {
+            if delegate.checkForDuplicateCategory(category) {
+                showAlert(message: "Category already exists")
+            } else {
+                delegate.addCategory(category, totalAmount: amount)
+                dismiss(animated: true, completion: nil)
             }
         }
     }
 
-    @objc func keyboardWillHide(notification: NSNotification) {
-        if self.view.frame.origin.y != 0 {
-            self.view.frame.origin.y = 0
-        }
-    }
-    
     // MARK: - Information Alerts
     private func inputAmountButtonTapped() {
         presentAlert(from: self, title: "Info about the input amount", message: "This number will be used to set the amount that you are going to budget every month for this payment")
@@ -202,6 +179,7 @@ final class AddBudgetsViewController: UIViewController {
     }
 }
 
+// MARK: - Picker
 extension AddBudgetsViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1

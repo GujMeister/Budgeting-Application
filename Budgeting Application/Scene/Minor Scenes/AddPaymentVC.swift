@@ -14,6 +14,7 @@ protocol AddPaymentDelegate: AnyObject {
 final class AddPaymentVC: UIViewController {
     // MARK: - Properties
     weak var delegate: AddPaymentDelegate?
+    private lazy var keyboardHandler = KeyboardHandler(viewController: self)
     
     private var topView: UIView = {
        let view = UIView()
@@ -157,9 +158,7 @@ final class AddPaymentVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        addDoneButtonToKeyboards()
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        keyboardHandler.addDoneButtonToKeyboard(for: [descriptionTextField, amountTextField, repeatCountTextField])
     }
     
     // MARK: - Setup UI
@@ -240,6 +239,25 @@ final class AddPaymentVC: UIViewController {
             return
         }
         
+        // Validate description length
+        if description.count < 2 || description.count > 40 {
+            presentAlert(from: self, title: "Invalid description", message: "Description must be between 2 and 40 characters")
+            return
+        }
+        
+        // Validate amount
+        let amountComponents = amountText.split(separator: ".")
+        if amount <= 0 || amount > 50000 || (amountComponents.count == 2 && amountComponents[1].count > 2) {
+            presentAlert(from: self, title: "Invalid amount", message: "Amount must be greater than 0, less than or equal to 50000, and have at most two decimal places")
+            return
+        }
+        
+        // Validate repeat count
+        if repeatCount <= 0 || repeatCount > 600 || repeatCountText.contains(".") {
+            presentAlert(from: self, title: "Invalid repeat count", message: "Number of months must be an integer greater than 0 and less than or equal to 600 (50 years)")
+            return
+        }
+        
         let context = DataManager.shared.context
         let subscription = PaymentExpenseModel(context: context)
         
@@ -257,40 +275,7 @@ final class AddPaymentVC: UIViewController {
             print("Failed to save subscription: \(error)")
         }
     }
-    
-    // MARK: - Keyboard Functions
-    private func addDoneButtonToKeyboards() {
-        let doneToolbar = UIToolbar()
-        doneToolbar.sizeToFit()
 
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonTapped))
-
-        doneToolbar.items = [flexSpace, doneButton]
-
-        descriptionTextField.inputAccessoryView = doneToolbar
-        amountTextField.inputAccessoryView = doneToolbar
-        repeatCountTextField.inputAccessoryView = doneToolbar
-    }
-
-    @objc private func doneButtonTapped() {
-        view.endEditing(true)
-    }
-    
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height
-            }
-        }
-    }
-
-    @objc func keyboardWillHide(notification: NSNotification) {
-        if self.view.frame.origin.y != 0 {
-            self.view.frame.origin.y = 0
-        }
-    }
-    
     // MARK: - Information Alerts
     private func descriptionsButtonTapped() {
         presentAlert(from: self, title: "Info about the description", message: "This description will be used to describe the payment throughout the application for your convenience")
