@@ -15,12 +15,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        // MARK: - Use for testing
+//        DataDeletion.shared.deleteAllKeychainData()
+//        DataDeletion.shared.deleteCoreData()
+//        DataDeletion.shared.deleteUserDefaults()
+        
         return true
     }
-    
-    // MARK: - Use for testing
-//    DataDeletion.shared.deleteAllKeychainData()
-//    DataDeletion.shared.deleteCoreData()
-//    DataDeletion.shared.deleteUserDefaults()
-    
 }
