@@ -33,13 +33,15 @@ final class BudgetDetailViewController: UIViewController {
     private let categoryLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "ChesnaGrotesk-Bold", size: 28)
+        label.textColor = .primaryTextColor
         label.numberOfLines = 2
         return label
     }()
     
     private let remainingAmountLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 20)
+        label.font = UIFont(name: "ChesnaGrotesk-Bold", size: 22)
+        label.textColor = .primaryTextColor
         label.textAlignment = .center
         label.numberOfLines = 2
         return label
@@ -47,14 +49,16 @@ final class BudgetDetailViewController: UIViewController {
     
     private let spentAmountLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "ChesnaGrotesk-Regular", size: 20)
+        label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 20)
+        label.textColor = .primaryTextColor
         label.textAlignment = .left
         return label
     }()
     
     private let maxAmountLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "ChesnaGrotesk-Regular", size: 20)
+        label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 20)
+        label.textColor = .primaryTextColor
         label.textAlignment = .right
         return label
     }()
@@ -85,26 +89,15 @@ final class BudgetDetailViewController: UIViewController {
     
     // MARK: - UI Setup
     private func setupUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = .backgroundColor
         
-        categoryLabel.translatesAutoresizingMaskIntoConstraints = false
-        remainingAmountLabel.translatesAutoresizingMaskIntoConstraints = false
-        spentAmountLabel.translatesAutoresizingMaskIntoConstraints = false
-        maxAmountLabel.translatesAutoresizingMaskIntoConstraints = false
-        favoriteButton.translatesAutoresizingMaskIntoConstraints = false
-        topView.translatesAutoresizingMaskIntoConstraints = false
-        emojiLabel.translatesAutoresizingMaskIntoConstraints = false
+        let views = [categoryLabel,progressView, spentAmountLabel, maxAmountLabel, remainingAmountLabel, favoriteButton, topView, emojiLabel]
         
-        
-        view.addSubview(categoryLabel)
-        view.addSubview(progressView)
-        view.addSubview(spentAmountLabel)
-        view.addSubview(maxAmountLabel)
-        view.addSubview(remainingAmountLabel)
-        view.addSubview(favoriteButton)
-        view.addSubview(topView)
-        view.addSubview(emojiLabel)
-        
+        views.forEach { view in
+            self.view.addSubview(view)
+            view.translatesAutoresizingMaskIntoConstraints = false
+        }
+
         NSLayoutConstraint.activate([
             topView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
             topView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
