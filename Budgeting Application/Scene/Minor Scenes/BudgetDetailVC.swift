@@ -16,6 +16,7 @@ final class DashboardBudgetDetailViewController: UIViewController {
     
     private let remainingAmountLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .budgetDetailViewControllerTextColor
         label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 20)
         label.textAlignment = .center
         label.numberOfLines = 2
@@ -24,6 +25,7 @@ final class DashboardBudgetDetailViewController: UIViewController {
     
     private let spentAmountLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .budgetDetailViewControllerTextColor
         label.font = UIFont(name: "ChesnaGrotesk-Regular", size: 14)
         label.textAlignment = .left
         return label
@@ -31,6 +33,7 @@ final class DashboardBudgetDetailViewController: UIViewController {
     
     private let maxAmountLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .budgetDetailViewControllerTextColor
         label.font = UIFont(name: "ChesnaGrotesk-Regular", size: 14)
         label.textAlignment = .right
         return label
@@ -153,7 +156,7 @@ final class DashboardBudgetDetailViewController: UIViewController {
     
     let progressViewBackground: UIView = {
         let view = UIView()
-        view.backgroundColor = .cellBackgroundColor
+        view.backgroundColor = .budgetDetailViewController
         view.layer.shadowColor = UIColor.infoViewColor.cgColor
         view.layer.shadowOffset = CGSize(width: 3, height: 3)
         view.layer.shadowOpacity = 0.2
@@ -198,10 +201,10 @@ final class DashboardBudgetDetailViewController: UIViewController {
             progressView.widthAnchor.constraint(equalToConstant: 180),
             progressView.heightAnchor.constraint(equalToConstant: 180),
             
-            spentAmountLabel.leadingAnchor.constraint(equalTo: progressView.leadingAnchor),
+            spentAmountLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: UIScreen.main.bounds.width / 7),
             spentAmountLabel.topAnchor.constraint(equalTo: progressView.bottomAnchor, constant: 8),
             
-            maxAmountLabel.trailingAnchor.constraint(equalTo: progressView.trailingAnchor),
+            maxAmountLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -(UIScreen.main.bounds.width / 7)),
             maxAmountLabel.topAnchor.constraint(equalTo: progressView.bottomAnchor, constant: 8),
             
             remainingAmountLabel.centerYAnchor.constraint(equalTo: progressView.centerYAnchor),
@@ -239,9 +242,9 @@ final class DashboardBudgetDetailViewController: UIViewController {
             addExpenseButton.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 20),
             addExpenseButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            progressViewBackground.topAnchor.constraint(equalTo: progressView.topAnchor, constant: -20),
-            progressViewBackground.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
-            progressViewBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
+            progressViewBackground.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+            progressViewBackground.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            progressViewBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
             progressViewBackground.bottomAnchor.constraint(equalTo: spentAmountLabel.bottomAnchor, constant: 20)
         ])
     }

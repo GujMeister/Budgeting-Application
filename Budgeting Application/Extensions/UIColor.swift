@@ -98,4 +98,24 @@ extension UIColor {
             return UIColor.white
         }
     }
+
+    static var budgetDetailViewController: UIColor {
+        if #available(iOS 13.0, *) {
+            return UIColor { (traits) -> UIColor in
+                return traits.userInterfaceStyle == .dark ? UIColor(hex: "#68b0b0") : UIColor(hex: "#bbdcdc")
+            }
+        } else {
+            return UIColor.white
+        }
+    }
+    
+    static var budgetDetailViewControllerTextColor: UIColor {
+        if #available(iOS 13.0, *) {
+            return UIColor { (traits) -> UIColor in
+                return traits.userInterfaceStyle == .dark ? .black : UIColor(hex: "#333333")
+            }
+        } else {
+            return UIColor.white
+        }
+    }
 }
