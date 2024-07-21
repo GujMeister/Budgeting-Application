@@ -10,6 +10,7 @@ import UIKit
 final class BudgetsViewController: UIViewController {
     // MARK: - Properties
     private var viewModel: BudgetsViewModel
+    private var segmentedControlViewShouldAnimate = true
     
     private var infoView: NavigationRectangle = {
         let screenSize = UIScreen.main.bounds.height
@@ -141,6 +142,16 @@ final class BudgetsViewController: UIViewController {
             allBudgetsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             allBudgetsTableView.heightAnchor.constraint(equalToConstant: 300),
         ])
+        
+        
+        if segmentedControlViewShouldAnimate {
+            customSegmentedControlView.transform = CGAffineTransform(translationX: 0, y: -50)
+            UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: {
+                self.customSegmentedControlView.transform = .identity
+            }, completion: { _ in
+                self.segmentedControlViewShouldAnimate = false
+            })
+        }
     }
     
     // MARK: - View Model Bindings
