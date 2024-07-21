@@ -7,12 +7,14 @@
 
 import UIKit
 
-class CircularProgressView: UIView {
+final class CircularProgressView: UIView {
+    // MARK: - Properties
     private var spent: Double = 0
     private var total: Double = 0
     private let shapeLayer = CAShapeLayer()
     private let backgroundLayer = CAShapeLayer()
 
+    // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -33,6 +35,7 @@ class CircularProgressView: UIView {
         configureLayers()
     }
 
+    // MARK: - Setup UI
     private func configureLayers() {
         let center = CGPoint(x: bounds.width / 2, y: bounds.height / 2)
         let radius = min(bounds.width, bounds.height) / 2 - 10
@@ -42,7 +45,7 @@ class CircularProgressView: UIView {
         let circularPath = UIBezierPath(arcCenter: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
 
         backgroundLayer.path = circularPath.cgPath
-        backgroundLayer.strokeColor = UIColor.lightGray.cgColor
+        backgroundLayer.strokeColor = UIColor.budgetViewBezierColor.cgColor
         backgroundLayer.fillColor = UIColor.clear.cgColor
         backgroundLayer.lineWidth = 10
         backgroundLayer.lineCap = .round
@@ -54,7 +57,7 @@ class CircularProgressView: UIView {
         shapeLayer.strokeEnd = 0
     }
 
-    func setProgress(spent: Double, total: Double, animated: Bool) {
+    internal func setProgress(spent: Double, total: Double, animated: Bool) {
         self.spent = spent
         self.total = total
 

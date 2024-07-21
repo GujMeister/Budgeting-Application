@@ -92,7 +92,7 @@ extension UIColor {
     static var budgetViewBezierColor: UIColor {
         if #available(iOS 13.0, *) {
             return UIColor { (traits) -> UIColor in
-                return traits.userInterfaceStyle == .dark ? UIColor(hex: "#7f7f7f") : UIColor(hex: "#d8d8d8")
+                return traits.userInterfaceStyle == .dark ? UIColor(hex: "#474747") : UIColor(hex: "#e4e4e4")
             }
         } else {
             return UIColor.white

@@ -299,13 +299,12 @@
 			children = (
 				853A3D872C3593A40042A0A4 /* App */,
 				853A3D822C3593A40042A0A4 /* CoreData */,
-				853A3D8E2C3593A40042A0A4 /* Extensions */,
 				853A3D7F2C3593A40042A0A4 /* Models */,
-				853A3D8D2C3593A40042A0A4 /* Resources */,
-				853A3D802C3593A40042A0A4 /* Reusable */,
 				853A3DA02C3593A40042A0A4 /* Scene */,
 				853A3DA72C3593A40042A0A4 /* Services */,
-				853A3D782C3592C20042A0A4 /* Info.plist */,
+				853A3D8D2C3593A40042A0A4 /* Resources */,
+				853A3D802C3593A40042A0A4 /* Reusable */,
+				853A3D8E2C3593A40042A0A4 /* Extensions */,
 			);
 			path = "Budgeting Application";
 			sourceTree = "<group>";
@@ -354,11 +353,12 @@
 		853A3D8D2C3593A40042A0A4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				851DD0052C4ACBA300A0E302 /* OnBoardingAnimation.json */,
 				851DCFDD2C47F45C00A0E302 /* App Icons */,
 				85B85B0E2C38AB5600AAD046 /* Fonts */,
+				851DD0052C4ACBA300A0E302 /* OnBoardingAnimation.json */,
 				853A3D882C3593A40042A0A4 /* Assets.xcassets */,
 				853A3D8A2C3593A40042A0A4 /* LaunchScreen.storyboard */,
+				853A3D782C3592C20042A0A4 /* Info.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -377,11 +377,11 @@
 		853A3D8F2C3593A40042A0A4 /* Budgets */ = {
 			isa = PBXGroup;
 			children = (
-				853A3DC82C35DC140042A0A4 /* Detail Views */,
-				853A3DCB2C35E4E50042A0A4 /* Table View Cells */,
 				853A3DC42C35D1030042A0A4 /* BudgetsVC.swift */,
 				853A3DD82C360B7C0042A0A4 /* ExpensesVC.swift */,
 				853A3DC22C35CF3E0042A0A4 /* ViewModel.swift */,
+				853A3DCB2C35E4E50042A0A4 /* Table View Cells */,
+				853A3DC82C35DC140042A0A4 /* Detail Views */,
 			);
 			path = Budgets;
 			sourceTree = "<group>";
@@ -398,9 +398,9 @@
 		853A3D972C3593A40042A0A4 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
-				853A3D942C3593A40042A0A4 /* Collection View Cells */,
 				853A3D952C3593A40042A0A4 /* DashboardVC.swift */,
 				853A3D962C3593A40042A0A4 /* DashboardVM.swift */,
+				853A3D942C3593A40042A0A4 /* Collection View Cells */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -487,9 +487,9 @@
 		85835EBF2C402CCE0007F180 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
-				85835EC52C407AF30007F180 /* Table View Cell */,
 				85835EC02C402CDD0007F180 /* CalendarVC.swift */,
 				85835EC22C402CE60007F180 /* CalendarVM.swift */,
+				85835EC52C407AF30007F180 /* Table View Cell */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -549,9 +549,9 @@
 		85835F2A2C457C310007F180 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				851DCFD42C4672CD00A0E302 /* Helper Views */,
 				85835F2B2C457C3D0007F180 /* SettingsVC.swift */,
 				85835F2D2C457C430007F180 /* SettingsVM.swift */,
+				851DCFD42C4672CD00A0E302 /* Helper Views */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -894,7 +894,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9S26B8AV5C;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Budgeting Application/Info.plist";
+				INFOPLIST_FILE = "Budgeting Application/Resources/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Budgeto;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -932,7 +932,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9S26B8AV5C;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Budgeting Application/Info.plist";
+				INFOPLIST_FILE = "Budgeting Application/Resources/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Budgeto;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;

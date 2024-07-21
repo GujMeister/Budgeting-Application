@@ -323,7 +323,3 @@ extension AddPaymentVC: UIPickerViewDataSource, UIPickerViewDelegate {
         return categories[row].rawValue
     }
 }
-
-#Preview {
-    AddPaymentVC()
-}

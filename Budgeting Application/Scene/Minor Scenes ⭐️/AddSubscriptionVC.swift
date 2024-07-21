@@ -1,6 +1,6 @@
 //
 //  AddSubscriptionVC.swift
-//  PersonalFinanceV2
+//  Budgeting Application
 //
 //  Created by Luka Gujejiani on 01.07.24.
 //
@@ -322,8 +322,4 @@ extension AddSubscriptionVC: UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return categories[row].rawValue
     }
-}
-
-#Preview {
-    AddSubscriptionVC()
 }

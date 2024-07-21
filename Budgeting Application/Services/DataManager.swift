@@ -1,6 +1,6 @@
 //
 //  DataManager.swift
-//  PersonalFinanceV2
+//  Budgeting Application
 //
 //  Created by Luka Gujejiani on 30.06.24.
 //

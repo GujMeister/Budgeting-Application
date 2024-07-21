@@ -1,3 +1,10 @@
+//
+//  BudgetView.swift
+//  Budgeting Application
+//
+//  Created by Luka Gujejiani on 14.06.24.
+//
+
 import UIKit
 
 class BudgetView: UIView {
@@ -135,8 +142,4 @@ class BudgetView: UIView {
         
         emojiView.text = budget.category.emoji
     }
-}
-
-#Preview {
-    BudgetView()
 }

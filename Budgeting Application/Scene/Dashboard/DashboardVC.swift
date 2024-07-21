@@ -266,11 +266,11 @@ final class DashboardViewController: UIViewController {
             subscriptionBackgroundView.topAnchor.constraint(equalTo: subscriptionCollectionView.topAnchor, constant: 0),
             subscriptionBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             subscriptionBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            subscriptionBackgroundView.bottomAnchor.constraint(equalTo: subscriptionCollectionView.bottomAnchor, constant: 0),
+            subscriptionBackgroundView.bottomAnchor.constraint(equalTo: subscriptionCollectionView.bottomAnchor, constant: -10),
             subscriptionBackgroundView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 12),
             
-            noSubscriptionsLabel.centerXAnchor.constraint(equalTo: subscriptionCollectionView.centerXAnchor),
-            noSubscriptionsLabel.centerYAnchor.constraint(equalTo: subscriptionCollectionView.centerYAnchor),
+            noSubscriptionsLabel.centerXAnchor.constraint(equalTo: subscriptionBackgroundView.centerXAnchor),
+            noSubscriptionsLabel.centerYAnchor.constraint(equalTo: subscriptionBackgroundView.centerYAnchor),
             
             subscriptionCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
             subscriptionCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
@@ -348,7 +348,7 @@ final class DashboardViewController: UIViewController {
     
     // MARK: - Alerts
     private func didTapChartButton() {
-        presentAlert(from: self, title: "Charts", message: "Chart below will show you your monthly expenditure by three categories such as Subscriptions, Bank Payments and Budgets")
+        presentAlert(from: self, title: "Chart", message: "Pie chart below will show you your monthly expenditure by three categories such as Subscriptions, Bank Payments and Budgets")
     }
     
     // MARK: - Helper Functions
@@ -480,8 +480,4 @@ extension DashboardViewController: UICollectionViewDelegateFlowLayout {
             return .zero
         }
     }
-}
-
-#Preview {
-    DashboardViewController(viewModel: DashboardViewModel())
 }
