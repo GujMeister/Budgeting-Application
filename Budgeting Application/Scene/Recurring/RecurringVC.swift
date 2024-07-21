@@ -1,3 +1,10 @@
+//
+//  RecurringVC.swift
+//  Budgeting Application
+//
+//  Created by Luka Gujejiani on 05.07.24.
+//
+
 import SwiftUI
 
 struct RecurringPage: View {
@@ -24,8 +31,8 @@ struct RecurringPage: View {
                     },
                     shouldAnimate: $shouldAnimate
                 )
-                .frame(height: 60)
-                .padding(.top, 195)
+                .frame(height: UIScreen.main.bounds.height / 14)
+                .padding(.top, UIScreen.main.bounds.height / 4.1)
                 
                 NavigationRectangleRepresentable(
                     height: 0,
@@ -38,8 +45,9 @@ struct RecurringPage: View {
                     descriptionLabelText: viewModel.descriptionLabelText
                 )
                 .edgesIgnoringSafeArea(.top)
-                .frame(height: UIScreen.main.bounds.size.height / 5)
+                .frame(height: UIScreen.main.bounds.size.height / 4.6)
             }
+            .frame(height: UIScreen.main.bounds.size.height / 3.5)
             .edgesIgnoringSafeArea(.top)
             
             HStack {

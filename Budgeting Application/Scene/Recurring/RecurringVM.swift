@@ -1,4 +1,10 @@
-import SwiftUI
+//
+//  RecurringVM.swift
+//  Budgeting Application
+//
+//  Created by Luka Gujejiani on 05.07.24.
+//
+
 import CoreData
 
 final class RecurringPageViewModel: ObservableObject {

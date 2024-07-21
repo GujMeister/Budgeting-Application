@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  PersonalFinanceV2
+//  Budgeting Application
 //
 //  Created by Luka Gujejiani on 30.06.24.
 //
@@ -15,8 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
 //        DataManager.shared.deleteAllRecords()
-//        
+        
 //        let domain = Bundle.main.bundleIdentifier!
 //        UserDefaults.standard.removePersistentDomain(forName: domain)
 //        UserDefaults.standard.synchronize()
