@@ -15,41 +15,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-//        DataManager.shared.deleteAllRecords()
-        
-//        let domain = Bundle.main.bundleIdentifier!
-//        UserDefaults.standard.removePersistentDomain(forName: domain)
-//        UserDefaults.standard.synchronize()
-//        print(Array(UserDefaults.standard.dictionaryRepresentation().keys).count)
-        
-//        deleteAllKeychainData()
-        
-        let window = UIWindow(frame: UIScreen.main.bounds)
-        let mainTabBarController = MainTabBarController()
-
-        window.rootViewController = mainTabBarController
-        self.window = window
-        window.makeKeyAndVisible()
-
         return true
     }
     
-    private func deleteAllKeychainData() {
-        let service = "com.yvelazeMagariKompania.ge.Budgeting-Application"
-        let account = "userPasscode"
-
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrService as String: service,
-            kSecAttrAccount as String: account
-        ]
-
-        let status = SecItemDelete(query as CFDictionary)
-        if status == errSecSuccess {
-            print("Successfully deleted keychain item.")
-        } else {
-            print("Failed to delete keychain item with error: \(status)")
-        }
-    }
+    // MARK: - Use for testing
+//    DataDeletion.shared.deleteAllKeychainData()
+//    DataDeletion.shared.deleteCoreData()
+//    DataDeletion.shared.deleteUserDefaults()
+    
 }

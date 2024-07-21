@@ -49,7 +49,7 @@ final class BudgetDetailViewController: UIViewController {
     
     private let spentAmountLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 20)
+        label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 16)
         label.textColor = .primaryTextColor
         label.textAlignment = .left
         return label
@@ -57,7 +57,7 @@ final class BudgetDetailViewController: UIViewController {
     
     private let maxAmountLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 20)
+        label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 16)
         label.textColor = .primaryTextColor
         label.textAlignment = .right
         return label
@@ -87,6 +87,10 @@ final class BudgetDetailViewController: UIViewController {
         bindViewModel()
     }
     
+    deinit {
+        print("Deiniting BudgetDetailViewController")
+    }
+    
     // MARK: - UI Setup
     private func setupUI() {
         view.backgroundColor = .backgroundColor
@@ -97,7 +101,7 @@ final class BudgetDetailViewController: UIViewController {
             self.view.addSubview(view)
             view.translatesAutoresizingMaskIntoConstraints = false
         }
-
+        
         NSLayoutConstraint.activate([
             topView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
             topView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -118,10 +122,10 @@ final class BudgetDetailViewController: UIViewController {
             progressView.widthAnchor.constraint(equalToConstant: 250),
             progressView.heightAnchor.constraint(equalToConstant: 250),
             
-            spentAmountLabel.leadingAnchor.constraint(equalTo: progressView.leadingAnchor),
+            spentAmountLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             spentAmountLabel.topAnchor.constraint(equalTo: progressView.bottomAnchor, constant: 8),
             
-            maxAmountLabel.trailingAnchor.constraint(equalTo: progressView.trailingAnchor),
+            maxAmountLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
             maxAmountLabel.topAnchor.constraint(equalTo: progressView.bottomAnchor, constant: 8),
             
             remainingAmountLabel.centerYAnchor.constraint(equalTo: progressView.centerYAnchor),
@@ -131,7 +135,7 @@ final class BudgetDetailViewController: UIViewController {
     
     // MARK: - Bind ViewModel
     func bindViewModel() {
-        BudgetsViewModel.shared.onFavoritedBudgetsUpdated = { [weak self] in
+        viewModel.onFavoritedBudgetsUpdated = { [weak self] in
             self?.updateFavoriteButtonTitle()
         }
     }

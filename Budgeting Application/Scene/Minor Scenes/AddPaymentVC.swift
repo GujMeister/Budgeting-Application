@@ -267,13 +267,8 @@ final class AddPaymentVC: UIViewController {
         subscription.startDate = datePicker.date
         subscription.repeatCount = Int16(repeatCount)
         
-        do {
-            try context.save()
-            delegate?.didAddPayment(subscription)
-            dismiss(animated: true)
-        } catch {
-            print("Failed to save subscription: \(error)")
-        }
+        delegate?.didAddPayment(subscription)
+        dismiss(animated: true)
     }
 
     // MARK: - Information Alerts

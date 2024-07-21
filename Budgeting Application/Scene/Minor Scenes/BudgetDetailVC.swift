@@ -53,14 +53,13 @@ final class DashboardBudgetDetailViewController: UIViewController {
         return label
     }()
     
-    //TODO: Needs function so it says "to: Entertainment" for example
     private let addExpenseToLabel: UILabel = {
         let label = UILabel()
         label.textColor = .label
         label.textAlignment = .center
         label.font = UIFont(name: "ChesnaGrotesk-Regular", size: 12)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "NEED FUNCTIONS FOR THIS!"
+        label.text = ""
         return label
     }()
     
@@ -71,7 +70,7 @@ final class DashboardBudgetDetailViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 16)
-        label.text = "Input Expense Description" // Changed text
+        label.text = "Input Expense Description"
         return label
     }()
     
@@ -136,7 +135,7 @@ final class DashboardBudgetDetailViewController: UIViewController {
     
     private lazy var addExpenseButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Add Expense", for: .normal) // Changed text
+        button.setTitle("Add Expense", for: .normal)
         
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.didTapAddExpense()

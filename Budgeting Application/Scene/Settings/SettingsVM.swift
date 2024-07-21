@@ -20,9 +20,7 @@ final class SettingsVM: ObservableObject {
     func deleteBasicExpenses() {
         confirmDeletion { [weak self] in
             DataManager.shared.deleteBasicExpenses()
-            self?.viewModel.loadFavoritedBudgets()
-            self?.viewModel.loadExpenses()
-            self?.viewModel.loadBudgets()
+            self?.viewModel.loadData()
             self?.viewModel.filterExpenses()
         }
     }

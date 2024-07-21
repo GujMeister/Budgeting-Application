@@ -1,6 +1,6 @@
 //
 //  NavigationRectangle.swift
-//  PersonalFinance
+//  Budgeting Application
 //
 //  Created by Luka Gujejiani on 28.06.24.
 //

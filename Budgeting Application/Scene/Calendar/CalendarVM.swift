@@ -53,7 +53,7 @@ final class CalendarViewModel {
         onEventsUpdated?()
     }
     
-    var sections: [String] {
+    internal var sections: [String] {
         var sections = [String]()
         if !selectedDateEvents.filter({ $0 is BasicExpense }).isEmpty {
             sections.append("Expenses")

@@ -87,7 +87,7 @@ final class BudgetsViewController: UIViewController {
         print("✅ BudgetsVC viewDidLoad")
         setupBindings()
         setupUI()
-        viewModel.loadBudgets()
+        viewModel.loadData()
         handleSegmentChange(selectedIndex: 0)
     }
     
@@ -95,8 +95,7 @@ final class BudgetsViewController: UIViewController {
         super.viewWillAppear(animated)
         print("✅ BudgetsVC viewWillAppear")
         customSegmentedControlView.setSelectedIndex(0)
-        viewModel.loadBudgets()
-        viewModel.loadFavoritedBudgets()
+        viewModel.loadData()
     }
 
     // MARK: - Setup UI

@@ -76,14 +76,18 @@ final class BudgetsViewModel: NSObject {
     override init() {
         self.service = BasicExpenseService(context: DataManager.shared.context)
         super.init()
+        loadData()
+    }
+    
+    // MARK: - Methods
+    internal func loadData() {
         loadBudgets()
         loadFavoritedBudgets()
         loadExpenses()
     }
     
-    // MARK: - Methods
     // Budgets
-    func loadBudgets() {
+    private func loadBudgets() {
         allBudgets = service.fetchBasicExpenseBudgets()
         updateTotalBudgetedMoney()
         allBudgets.forEach { budget in
@@ -97,14 +101,14 @@ final class BudgetsViewModel: NSObject {
         totalBudgetedMoney = allBudgets.reduce(0) { $0 + $1.totalAmount }
     }
     
-    func loadFavoritedBudgets() {
+    private func loadFavoritedBudgets() {
         DataManager.shared.fetchFavoriteBudgets()
         let favoriteCategories = DataManager.shared.favoriteBudgets.map { $0.category }
         favoritedBudgets = allBudgets.filter { favoriteCategories.contains($0.category.rawValue) }
         onFavoritedBudgetsUpdated?()
     }
     
-    func addBudgetToFavorites(_ budget: BasicExpenseBudget) {
+    internal func addBudgetToFavorites(_ budget: BasicExpenseBudget) {
         if favoritedBudgets.count < 5 {
             DataManager.shared.addFavoriteBudget(category: budget.category.rawValue)
             loadFavoritedBudgets()
@@ -113,12 +117,12 @@ final class BudgetsViewModel: NSObject {
         }
     }
     
-    func removeBudgetFromFavorites(_ budget: BasicExpenseBudget) {
+    internal func removeBudgetFromFavorites(_ budget: BasicExpenseBudget) {
         DataManager.shared.removeFavoriteBudget(category: budget.category.rawValue)
         loadFavoritedBudgets()
     }
     
-    func deleteBudget(at index: Int) {
+    internal func deleteBudget(at index: Int) {
         let budgetToDelete = allBudgets[index]
         service.deleteBasicExpenseBudget(by: budgetToDelete.category.rawValue)
         allBudgets.remove(at: index)
@@ -127,22 +131,17 @@ final class BudgetsViewModel: NSObject {
         updateTotalBudgetedMoney()
     }
     
-    func isBudgetFavorited(_ budget: BasicExpenseBudget) -> Bool {
+    internal func isBudgetFavorited(_ budget: BasicExpenseBudget) -> Bool {
         return favoritedBudgets.contains(where: { $0.category == budget.category })
     }
     
     // MARK: - Expenses
-    func addExpense(_ expense: BasicExpenseModel) {
-        service.addExpense(expense)
-        loadExpenses()
-    }
-    
-    func loadExpenses() {
+    internal func loadExpenses() {
         expenses = service.fetchBasicExpenses()
         filterExpenses()
     }
     
-    func deleteExpense(at indexPath: IndexPath) {
+    internal func deleteExpense(at indexPath: IndexPath) {
         let date = sortedExpenseDates[indexPath.section]
         if var expensesForDate = expensesByDate[date] {
             let expenseToDelete = expensesForDate[indexPath.row]
@@ -153,7 +152,7 @@ final class BudgetsViewModel: NSObject {
         }
     }
     
-    func filterExpenses() {
+    internal func filterExpenses() {
         let calendar = Calendar.current
         let now = Date()
         var filtered: [BasicExpense] = []
@@ -184,7 +183,7 @@ final class BudgetsViewModel: NSObject {
         }
     }
     
-    func updateExpensesDescription() {
+    internal func updateExpensesDescription() {
         let description: String
         switch selectedTimePeriod {
         case .today:

@@ -8,10 +8,6 @@
 import UIKit
 
 extension UIColor {
-    static let infoViewColor = UIColor(hex: "468585")
-    static let NavigationRectangleColor = UIColor(hex: "#6a9d9d")
-//    static let customBackground = UIColor(hex: "f4f3f9")
-    
     convenience init(hex: String) {
         var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
         hexSanitized = hexSanitized.replacingOccurrences(of: "#", with: "")
@@ -28,7 +24,11 @@ extension UIColor {
     }
 }
 
+// MARK: - Custom Colors
 extension UIColor {
+    static let infoViewColor = UIColor(hex: "468585")
+    static let NavigationRectangleColor = UIColor(hex: "#6a9d9d")
+    
     static var backgroundColor: UIColor {
         if #available(iOS 13.0, *) {
             return UIColor { (traits) -> UIColor in

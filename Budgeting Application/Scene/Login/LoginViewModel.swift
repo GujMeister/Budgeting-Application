@@ -51,11 +51,11 @@ final class LoginPageViewModel: ObservableObject {
         }
     }
 
-    func setPasscode(_ passcode: String) {
+    private func setPasscode(_ passcode: String) {
         storePasscode(passcode)
     }
 
-    func isPasscodeCorrect(_ passcode: String) -> Bool {
+    private func isPasscodeCorrect(_ passcode: String) -> Bool {
         return retrievePasscode() == passcode
     }
 

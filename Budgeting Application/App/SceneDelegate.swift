@@ -5,7 +5,6 @@
 //  Created by Luka Gujejiani on 30.06.24.
 //
 
-import UIKit
 import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -17,7 +16,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let window = UIWindow(windowScene: windowScene)
         let rootViewController = InitialViewController()
-//        let rootViewController = MainTabBarController()
         
         window.rootViewController = rootViewController
         self.window = window

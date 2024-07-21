@@ -93,7 +93,7 @@ final class AddSubscriptionVC: UIViewController {
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.inputAmountButtonTapped()
         }), for: .touchUpInside)
-
+        
         return button
     }()
     
@@ -141,7 +141,7 @@ final class AddSubscriptionVC: UIViewController {
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.addButtonTapped()
         }), for: .touchUpInside)
-
+        
         button.translatesAutoresizingMaskIntoConstraints = false
         button.widthAnchor.constraint(equalToConstant: 180).isActive = true
         button.heightAnchor.constraint(equalToConstant: 40).isActive = true
@@ -167,7 +167,7 @@ final class AddSubscriptionVC: UIViewController {
         
         categoryPicker.dataSource = self
         categoryPicker.delegate = self
-
+        
         let views = [topView, categoryLabel, categoryPicker, descriptionLabel, descriptionTextField, descriptionButton, amountLabel, amountTextField, amountButton, datePicker, repeatCountTextField, addButton, repeatCountLabel, repeatButton]
         
         views.forEach { singleView in
@@ -207,7 +207,7 @@ final class AddSubscriptionVC: UIViewController {
             amountButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             amountButton.centerYAnchor.constraint(equalTo: amountTextField.centerYAnchor),
             amountTextField.trailingAnchor.constraint(equalTo: amountButton.leadingAnchor, constant: -20),
-
+            
             repeatCountLabel.topAnchor.constraint(equalTo: amountTextField.bottomAnchor, constant: 15),
             repeatCountLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             
@@ -220,7 +220,7 @@ final class AddSubscriptionVC: UIViewController {
             
             datePicker.topAnchor.constraint(equalTo: repeatButton.bottomAnchor, constant: 30),
             datePicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-
+            
             addButton.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 20),
             addButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
@@ -267,28 +267,23 @@ final class AddSubscriptionVC: UIViewController {
         subscription.startDate = datePicker.date
         subscription.repeatCount = Int16(repeatCount)
         
-        do {
-            try context.save()
-            delegate?.didAddSubscription(subscription)
-            dismiss(animated: true)
-        } catch {
-            print("Failed to save subscription: \(error)")
-        }
+        delegate?.didAddSubscription(subscription)
+        dismiss(animated: true)
     }
-
+    
     // MARK: - Information Alerts
     private func descriptionsButtonTapped() {
         presentAlert(from: self, title: "Info about the description", message: "This description will be used to describe the subscription throughout the application for your convenience")
     }
-
+    
     private func inputAmountButtonTapped() {
         presentAlert(from: self, title: "Info about the input amount", message: "This number will be used to set the amount that you are going to budget every month for this subscription")
     }
-
+    
     private func monthsButtonTapped() {
         presentAlert(from: self, title: "Info about the number of months", message: "This is an input for the number of months you want your subscription to occur. Inputting 12 will repeat the subscription 12 times (1 Year)")
     }
-
+    
     private func invalidInput() {
         presentAlert(from: self, title: "Invalid Input", message: "Please fill out all fields")
     }

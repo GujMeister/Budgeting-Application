@@ -1,6 +1,6 @@
 //
 //  Subscription Occurances.swift
-//  PersonalFinanceV2
+//  Budgeting Application
 //
 //  Created by Luka Gujejiani on 01.07.24.
 //

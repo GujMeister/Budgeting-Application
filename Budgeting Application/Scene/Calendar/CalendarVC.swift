@@ -189,7 +189,7 @@ final class CalendarViewController: UIViewController {
             noDataBackgroundView.topAnchor.constraint(equalTo: tableViewInfoButton.bottomAnchor, constant: 10),
             noDataBackgroundView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             noDataBackgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            noDataBackgroundView.heightAnchor.constraint(equalToConstant: 100),
+            noDataBackgroundView.heightAnchor.constraint(equalToConstant: 200),
             
             noDataLabel.centerYAnchor.constraint(equalTo: noDataBackgroundView.centerYAnchor),
             noDataLabel.centerXAnchor.constraint(equalTo: noDataBackgroundView.centerXAnchor),
