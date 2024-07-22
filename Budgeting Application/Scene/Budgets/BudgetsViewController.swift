@@ -198,14 +198,17 @@ final class BudgetsViewController: UIViewController {
         let addBudgetVC = AddBudgetsViewController()
         addBudgetVC.delegate = viewModel
         
-        present(addBudgetVC, animated: true) {
-            if let sheet = addBudgetVC.presentationController as? UISheetPresentationController {
-                if UIScreen.main.bounds.height <= 736 {
-                    sheet.detents = [.large()]
-                } else {
-                    sheet.detents = [.medium()]
-                }
+        // Configure the presentation controller before presenting
+        if let sheet = addBudgetVC.presentationController as? UISheetPresentationController {
+            if UIScreen.main.bounds.height <= 736 {
+                sheet.detents = [.large()]
+            } else {
+                sheet.detents = [.medium()]
             }
+        }
+        
+        DispatchQueue.main.async {
+            self.present(addBudgetVC, animated: true, completion: nil)
         }
     }
     
