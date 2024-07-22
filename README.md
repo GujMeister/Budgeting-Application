@@ -80,8 +80,7 @@ If you liked using this app or it has helped you in any way, I'd like you send m
 #### When you first open the app you will be greeted with a small OnBoarding view which will give you a description of the main screen called Dashboard.
 * OnBoarding view supports immersive dark/light Modes
 
-<img src="https://i.ibb.co/7XNYzC9/light-mode.gif" alt="Light-Mode" width="250"> 
-<img src="https://i.ibb.co/6Z2sqK8/dark-mode.gif" alt="Dark-Mode" width="250"> 
+|<img src="https://i.ibb.co/7XNYzC9/light-mode.gif" alt="Light-Mode" width="250"> | <img src="https://i.ibb.co/6Z2sqK8/dark-mode.gif" alt="Dark-Mode" width="250"> |
 
 ####  For security measures you will be greeted with Login Page every time you open an app to safeguard the process of using the application
 <img src="https://i.ibb.co/xq7WRxv/Screenshot-2024-07-22-at-1-45-31-PM-Photoroom.png" alt="Cmon" width="250">
