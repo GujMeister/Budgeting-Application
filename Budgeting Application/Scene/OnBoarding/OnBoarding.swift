@@ -76,7 +76,7 @@ struct OnBoarding: View {
             }
             .padding(.bottom, 20)
         }
-        .onChange(of: hasSeenOnBoarding) {
+        .onChange(of: hasSeenOnBoarding) { hasSeen in
                 switchToLoginView()
         }
         .background(Color(UIColor.backgroundColor))
@@ -111,7 +111,6 @@ struct FirstPage: View {
                 Spacer()
             }
             
-            
             Text("Budgeto is a comprehensive application that helps you manage your finances efficiently.\nTrack your expenses, manage budgets, and stay on top of your financial goals.")
                 .multilineTextAlignment(.leading)
                 .font(.custom("ChesnaGrotesk-Medium", size: 18))
@@ -130,7 +129,8 @@ struct SecondPage: View {
             Text("Main Page will provide you with a quick and easy access upcoming payments or budgets (Click on budgets to quickly add expenses)")
                 .multilineTextAlignment(.leading)
                 .padding()
-                .font(.custom("ChesnaGrotesk-Medium", size: 13))
+                .font(.custom("ChesnaGrotesk-Medium", size: 12))
+                .minimumScaleFactor(5)
                 .foregroundStyle(Color(UIColor.primaryTextColor))
 
             HStack {

@@ -29,6 +29,7 @@ final class CalendarViewController: UIViewController {
     private var topView: UIView = {
         let view = UIView()
         view.backgroundColor = .infoViewColor
+        view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         view.layer.cornerRadius = 25
         return view
     }()

@@ -44,7 +44,7 @@ struct ChangePasswordView: View {
             Spacer()
             
             NumberPadView(passcode: $newPassword)
-                .onChange(of: newPassword) {
+                .onChange(of: newPassword) { differentPass in
                     if newPassword.count == 4 {
                         handlePasscodeEntry(newPassword)
                     }

@@ -1,5 +1,5 @@
 //
-//  RecurringVC.swift
+//  RecurringView.swift
 //  Budgeting Application
 //
 //  Created by Luka Gujejiani on 05.07.24.
@@ -47,7 +47,7 @@ struct RecurringPage: View {
                 .edgesIgnoringSafeArea(.top)
                 .frame(height: UIScreen.main.bounds.size.height / 4.6)
             }
-            .frame(height: UIScreen.main.bounds.size.height / 3.5)
+            .frame(height: UIScreen.main.bounds.size.height / 3.3)
             .edgesIgnoringSafeArea(.top)
             
             HStack {
@@ -95,7 +95,7 @@ struct RecurringPage: View {
                 }
             }
             .padding([.leading, .trailing])
-            .padding(.top, -140)
+            .padding(.top, -(UIScreen.main.bounds.height / 6.6))
             
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 20) {
@@ -170,7 +170,7 @@ struct RecurringPage: View {
                 }
                 .padding()
             }
-            .padding(.top, -120) //2
+            .padding(.top, -(UIScreen.main.bounds.height / 7.2))
         }
         .background(
             Color(UIColor.backgroundColor)

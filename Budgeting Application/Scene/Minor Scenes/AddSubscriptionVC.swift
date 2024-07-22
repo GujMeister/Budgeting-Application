@@ -185,20 +185,20 @@ final class AddSubscriptionVC: UIViewController {
             categoryLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             categoryPicker.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor),
-            categoryPicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            categoryPicker.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            categoryPicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            categoryPicker.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
             
-            descriptionLabel.topAnchor.constraint(equalTo: categoryPicker.bottomAnchor, constant: 40),
+            descriptionLabel.topAnchor.constraint(equalTo: categoryPicker.bottomAnchor, constant: 20),
             descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             
             descriptionTextField.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 3),
             descriptionTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            descriptionTextField.trailingAnchor.constraint(equalTo: descriptionButton.leadingAnchor, constant: -20),
             
             descriptionButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             descriptionButton.centerYAnchor.constraint(equalTo: descriptionTextField.centerYAnchor),
+            descriptionTextField.trailingAnchor.constraint(equalTo: descriptionButton.leadingAnchor, constant: -20),
             
-            amountLabel.topAnchor.constraint(equalTo: descriptionTextField.bottomAnchor, constant: 15),
+            amountLabel.topAnchor.constraint(equalTo: descriptionTextField.bottomAnchor, constant: 10),
             amountLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             
             amountTextField.topAnchor.constraint(equalTo: amountLabel.bottomAnchor, constant: 3),
@@ -208,7 +208,7 @@ final class AddSubscriptionVC: UIViewController {
             amountButton.centerYAnchor.constraint(equalTo: amountTextField.centerYAnchor),
             amountTextField.trailingAnchor.constraint(equalTo: amountButton.leadingAnchor, constant: -20),
             
-            repeatCountLabel.topAnchor.constraint(equalTo: amountTextField.bottomAnchor, constant: 15),
+            repeatCountLabel.topAnchor.constraint(equalTo: amountTextField.bottomAnchor, constant: 10),
             repeatCountLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             
             repeatCountTextField.topAnchor.constraint(equalTo: repeatCountLabel.bottomAnchor, constant: 3),
@@ -218,10 +218,10 @@ final class AddSubscriptionVC: UIViewController {
             repeatButton.centerYAnchor.constraint(equalTo: repeatCountTextField.centerYAnchor),
             repeatButton.leadingAnchor.constraint(equalTo: repeatCountTextField.trailingAnchor, constant: 20),
             
-            datePicker.topAnchor.constraint(equalTo: repeatButton.bottomAnchor, constant: 30),
+            datePicker.topAnchor.constraint(equalTo: repeatButton.bottomAnchor, constant: 15),
             datePicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             
-            addButton.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 20),
+            addButton.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 15),
             addButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
@@ -266,6 +266,12 @@ final class AddSubscriptionVC: UIViewController {
         subscription.amount = amount
         subscription.startDate = datePicker.date
         subscription.repeatCount = Int16(repeatCount)
+        
+        do {
+            try context.save()
+        } catch {
+            print("Failed to save payment: \(error)")
+        }
         
         delegate?.didAddSubscription(subscription)
         dismiss(animated: true)

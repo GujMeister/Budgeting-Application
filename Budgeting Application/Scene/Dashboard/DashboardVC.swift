@@ -228,6 +228,12 @@ final class DashboardViewController: UIViewController {
             view.translatesAutoresizingMaskIntoConstraints = false
         }
         
+        if UIScreen.main.bounds.height <= 736 {
+            paymentCollectionView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 3).isActive = true
+        } else {
+            paymentCollectionView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 3.6).isActive = true
+        }
+        
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -255,7 +261,7 @@ final class DashboardViewController: UIViewController {
             budgetsStackViewBackground.topAnchor.constraint(equalTo: budgetStackView.topAnchor, constant: 6),
             budgetsStackViewBackground.leadingAnchor.constraint(equalTo: budgetStackView.leadingAnchor, constant: -10),
             budgetsStackViewBackground.trailingAnchor.constraint(equalTo: budgetStackView.trailingAnchor, constant: 10),
-            budgetsStackViewBackground.bottomAnchor.constraint(equalTo: budgetStackView.bottomAnchor, constant: 18),
+            budgetsStackViewBackground.bottomAnchor.constraint(equalTo: budgetStackView.bottomAnchor, constant: 20),
             
             noFavoriteBudgetsLabel.centerXAnchor.constraint(equalTo: budgetsStackViewBackground.centerXAnchor),
             noFavoriteBudgetsLabel.centerYAnchor.constraint(equalTo: budgetsStackViewBackground.centerYAnchor),
@@ -275,7 +281,7 @@ final class DashboardViewController: UIViewController {
             subscriptionCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
             subscriptionCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
             subscriptionCollectionView.topAnchor.constraint(equalTo: upcomingButton.bottomAnchor, constant: 5),
-            subscriptionCollectionView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 13),
+            subscriptionCollectionView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 12),
 
             paymentsBackgroundView.topAnchor.constraint(equalTo: paymentCollectionView.topAnchor, constant: 10),
             paymentsBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
@@ -288,7 +294,7 @@ final class DashboardViewController: UIViewController {
             paymentCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             paymentCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
             paymentCollectionView.topAnchor.constraint(equalTo: subscriptionCollectionView.bottomAnchor, constant: -7),
-            paymentCollectionView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 3.6),
+//            paymentCollectionView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 3.6),
             
             paymentCollectionView.bottomAnchor.constraint(equalTo: pieChartView.topAnchor, constant: -20),
             

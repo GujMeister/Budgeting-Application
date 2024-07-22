@@ -41,7 +41,7 @@
 		853A3DB42C3593A40042A0A4 /* DashboardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D962C3593A40042A0A4 /* DashboardVM.swift */; };
 		853A3DB52C3593A40042A0A4 /* AddSubscriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D982C3593A40042A0A4 /* AddSubscriptionVC.swift */; };
 		853A3DB62C3593A40042A0A4 /* AddBudgetsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D9A2C3593A40042A0A4 /* AddBudgetsVC.swift */; };
-		853A3DB72C3593A40042A0A4 /* RecurringVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D9D2C3593A40042A0A4 /* RecurringVC.swift */; };
+		853A3DB72C3593A40042A0A4 /* RecurringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D9D2C3593A40042A0A4 /* RecurringView.swift */; };
 		853A3DB82C3593A40042A0A4 /* RecurringVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3D9E2C3593A40042A0A4 /* RecurringVM.swift */; };
 		853A3DB92C3593A40042A0A4 /* BasicExpenseBudgetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3DA12C3593A40042A0A4 /* BasicExpenseBudgetModel.swift */; };
 		853A3DBA2C3593A40042A0A4 /* BasicExpenseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3DA22C3593A40042A0A4 /* BasicExpenseModel.swift */; };
@@ -154,7 +154,7 @@
 		853A3D962C3593A40042A0A4 /* DashboardVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardVM.swift; sourceTree = "<group>"; };
 		853A3D982C3593A40042A0A4 /* AddSubscriptionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSubscriptionVC.swift; sourceTree = "<group>"; };
 		853A3D9A2C3593A40042A0A4 /* AddBudgetsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddBudgetsVC.swift; sourceTree = "<group>"; };
-		853A3D9D2C3593A40042A0A4 /* RecurringVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecurringVC.swift; sourceTree = "<group>"; };
+		853A3D9D2C3593A40042A0A4 /* RecurringView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecurringView.swift; sourceTree = "<group>"; };
 		853A3D9E2C3593A40042A0A4 /* RecurringVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecurringVM.swift; sourceTree = "<group>"; };
 		853A3DA12C3593A40042A0A4 /* BasicExpenseBudgetModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicExpenseBudgetModel.swift; sourceTree = "<group>"; };
 		853A3DA22C3593A40042A0A4 /* BasicExpenseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicExpenseModel.swift; sourceTree = "<group>"; };
@@ -423,7 +423,7 @@
 		853A3D9F2C3593A40042A0A4 /* Recurring */ = {
 			isa = PBXGroup;
 			children = (
-				853A3D9D2C3593A40042A0A4 /* RecurringVC.swift */,
+				853A3D9D2C3593A40042A0A4 /* RecurringView.swift */,
 				853A3D9E2C3593A40042A0A4 /* RecurringVM.swift */,
 			);
 			path = Recurring;
@@ -715,7 +715,7 @@
 				853A3DBD2C3593A40042A0A4 /* Subscription Occurances.swift in Sources */,
 				853A3DD52C35FC990042A0A4 /* SegmentedControlView.swift in Sources */,
 				851DCFE22C47F4DD00A0E302 /* ChangeIconView.swift in Sources */,
-				853A3DB72C3593A40042A0A4 /* RecurringVC.swift in Sources */,
+				853A3DB72C3593A40042A0A4 /* RecurringView.swift in Sources */,
 				851DCFFD2C4AB85E00A0E302 /* OnBoarding.swift in Sources */,
 				85835EE12C42E1D20007F180 /* SubscriptionExpense.swift in Sources */,
 				85B85B302C3AE06800AAD046 /* AddPaymentVC.swift in Sources */,
@@ -905,7 +905,7 @@
 				INFOPLIST_KEY_UIStatusBarHidden = NO;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -943,7 +943,7 @@
 				INFOPLIST_KEY_UIStatusBarHidden = NO;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
