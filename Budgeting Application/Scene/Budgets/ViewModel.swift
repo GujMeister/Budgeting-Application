@@ -217,20 +217,14 @@ extension BudgetsViewModel: AddBudgetsDelegate {
     func addCategory(_ category: BasicExpenseCategory, totalAmount: Double) {
         if checkForDuplicateCategory(category) {
             showAlertForDuplicateCategory?()
-            return
-        }
-        
-        let newBudget = BasicExpenseBudgetModel(context: DataManager.shared.context)
-        newBudget.category = category.rawValue
-        newBudget.totalAmount = NSNumber(value: totalAmount)
-        newBudget.spentAmount = 0
-        
-        do {
-            try DataManager.shared.context.save()
+        } else {
+            let newBudget = BasicExpenseBudgetModel(context: DataManager.shared.context)
+            newBudget.category = category.rawValue
+            newBudget.totalAmount = NSNumber(value: totalAmount)
+            newBudget.spentAmount = 0
             loadBudgets()
-        } catch {
-            print("Failed to save new budget: \(error)")
         }
+        loadBudgets()
     }
     
     func checkForDuplicateCategory(_ category: BasicExpenseCategory) -> Bool {

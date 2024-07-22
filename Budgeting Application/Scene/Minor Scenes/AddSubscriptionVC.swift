@@ -8,7 +8,7 @@
 import UIKit
 
 protocol AddSubscriptionDelegate: AnyObject {
-    func didAddSubscription(_ subscription: SubscriptionExpenseModel)
+    func didAddSubscription(_ subscription: SubscriptionExpense)
 }
 
 final class AddSubscriptionVC: UIViewController {
@@ -258,22 +258,16 @@ final class AddSubscriptionVC: UIViewController {
             return
         }
         
-        let context = DataManager.shared.context
-        let subscription = SubscriptionExpenseModel(context: context)
-        
-        subscription.category = category.rawValue
-        subscription.subscriptionDescription = description
-        subscription.amount = amount
-        subscription.startDate = datePicker.date
-        subscription.repeatCount = Int16(repeatCount)
-        
-        do {
-            try context.save()
-        } catch {
-            print("Failed to save payment: \(error)")
-        }
+        let subscription = SubscriptionExpense(
+            category: category,
+            subscriptionDescription: description,
+            amount: amount,
+            startDate: datePicker.date,
+            repeatCount: repeatCount
+        )
         
         delegate?.didAddSubscription(subscription)
+        
         dismiss(animated: true)
     }
     

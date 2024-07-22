@@ -45,7 +45,6 @@ final class DashboardBudgetDetailViewController: UIViewController {
         return view
     }()
     
-    //Add expense
     private let addExpenseLabel: UILabel = {
         let label = UILabel()
         label.textColor = .label
@@ -66,7 +65,6 @@ final class DashboardBudgetDetailViewController: UIViewController {
         return label
     }()
     
-    //Description
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.textColor = .label
@@ -284,7 +282,6 @@ final class DashboardBudgetDetailViewController: UIViewController {
         expense.amount = amount as NSNumber
         expense.date = datePicker.date
         
-        
         delegate?.didAddExpense(expense)
         
         if let navigationController = self.navigationController {
@@ -294,7 +291,7 @@ final class DashboardBudgetDetailViewController: UIViewController {
             navigationController.pushViewController(budgetsViewController, animated: false)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
                 navigationController.popViewController(animated: false)
-                self.navigationController?.popViewController(animated: true)
+                self.navigationController?.popViewController(animated: false)
             }
         } else {
             self.navigationController?.popViewController(animated: true)

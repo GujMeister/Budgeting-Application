@@ -200,16 +200,13 @@ final class DashboardViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("✅ DashboardVC viewDidLoad")
         setupUI()
         setupBindings()
         setupNotificationObserver()
-        viewModel.loadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("✅ DashboardVC viewWillAppear")
         setupUI()
         viewModel.loadData()
     }
@@ -294,7 +291,6 @@ final class DashboardViewController: UIViewController {
             paymentCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             paymentCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
             paymentCollectionView.topAnchor.constraint(equalTo: subscriptionCollectionView.bottomAnchor, constant: -7),
-//            paymentCollectionView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 3.6),
             
             paymentCollectionView.bottomAnchor.constraint(equalTo: pieChartView.topAnchor, constant: -20),
             
@@ -312,7 +308,14 @@ final class DashboardViewController: UIViewController {
     // MARK: - Setup Bindings
     private func setupBindings() {
         viewModel.onFavoritedBudgetsUpdated = { [weak self] in
-            self?.updateBudgets()
+            self?.budgetStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+                
+            for budget in self?.viewModel.favoritedBudgets ?? [] {
+                let singleBudgetView = BudgetView()
+                singleBudgetView.budget = budget
+                singleBudgetView.shouldExecuteTapAction = true
+                self?.budgetStackView.addArrangedSubview(singleBudgetView)
+            }
         }
         
         viewModel.onSubscriptionsUpdated = { [weak self] in
@@ -324,7 +327,11 @@ final class DashboardViewController: UIViewController {
         }
         
         viewModel.onTotalBudgetedThisMonthUpdated = { [weak self] in
-            self?.updateTotalBudgetedLabel()
+            self?.infoView.totalBudgetedNumberLabel.attributedText = NumberFormatterHelper.shared.format(
+                amount: self?.viewModel.totalBudgetedThisMonth ?? 0,
+                baseFont: UIFont(name: "Heebo-SemiBold", size: 36) ?? UIFont(),
+                sizeDifference: 0.6
+            )
             self?.updatePieChart()
         }
         
@@ -341,50 +348,15 @@ final class DashboardViewController: UIViewController {
             self?.noPaymentsLabel.isHidden = !isEmpty
             self?.paymentsBackgroundView.isHidden = !isEmpty
         }
-    }
-    
-    // MARK: - Actions
-    private func pushBudgetsViewController() {
-        tabBarController?.selectedIndex = 2
-    }
-    
-    private func pushRecurringViewController() {
-        tabBarController?.selectedIndex = 1
-    }
-    
-    // MARK: - Alerts
-    private func didTapChartButton() {
-        presentAlert(from: self, title: "Chart", message: "Pie chart below will show you your monthly expenditure by three categories such as Subscriptions, Bank Payments and Budgets")
-    }
-    
-    // MARK: - Helper Functions
-    private func updateBudgets() {
-        budgetStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         
-        for budget in viewModel.favoritedBudgets {
-            let singleBudgetView = BudgetView()
-            singleBudgetView.budget = budget
-            singleBudgetView.shouldExecuteTapAction = true
-            budgetStackView.addArrangedSubview(singleBudgetView)
+        viewModel.onPieChartUpdated = { [weak self] in
+            self?.updatePieChart()
         }
     }
     
-    private func updateTotalBudgetedLabel() {
-        infoView.totalBudgetedNumberLabel.attributedText = NumberFormatterHelper.shared.format(
-            amount: viewModel.totalBudgetedThisMonth,
-            baseFont: UIFont(name: "Heebo-SemiBold", size: 36) ?? UIFont(),
-            sizeDifference: 0.6
-        )
-    }
-    
+    // MARK: Binding Functions
     private func updatePieChart() {
-        let entries = [
-            PieChartDataEntry(value: Double(round(100 * viewModel.totalBudgets) / 100), label: "Budgets"),
-            PieChartDataEntry(value: Double(round(100 * viewModel.totalPayments) / 100), label: "Bank Payments"),
-            PieChartDataEntry(value: Double(round(100 * viewModel.totalSubscriptions) / 100), label: "Subscriptions")
-        ]
-
-        let dataSet = PieChartDataSet(entries: entries, label: "")
+        let dataSet = PieChartDataSet(entries: viewModel.pieChartData, label: "")
         dataSet.entryLabelFont = UIFont(name: "ChesnaGrotesk-Bold", size: 12)
         dataSet.valueFont = UIFont(name: "Heebo-SemiBold", size: 10)!
         dataSet.entryLabelColor = .infoViewColor
@@ -396,16 +368,20 @@ final class DashboardViewController: UIViewController {
         ]
 
         let data = PieChartData(dataSet: dataSet)
-        
         data.setValueFormatter(DollarValueFormatter())
-        
+
         pieChartView.data = data
     }
     
-    private func setupNotificationObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(budgetTapped(_:)), name: NSNotification.Name("BudgetTapped"), object: nil)
+    // MARK: - Actions
+    private func pushBudgetsViewController() {
+        tabBarController?.selectedIndex = 2
     }
-
+    
+    private func pushRecurringViewController() {
+        tabBarController?.selectedIndex = 1
+    }
+    
     @objc private func budgetTapped(_ notification: Notification) {
         if let budget = notification.object as? BasicExpenseBudget {
             let budgetDetailVC = DashboardBudgetDetailViewController(budget: budget, delegate: viewModel)
@@ -413,6 +389,15 @@ final class DashboardViewController: UIViewController {
             self.navigationController?.pushViewController(budgetDetailVC, animated: true)
             self.hidesBottomBarWhenPushed = false
         }
+    }
+    
+    // MARK: - Alerts and Notifications
+    private func didTapChartButton() {
+        presentAlert(from: self, title: "Chart", message: "Pie chart below will show you your monthly expenditure by three categories such as Subscriptions, Bank Payments and Budgets")
+    }
+    
+    private func setupNotificationObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(budgetTapped(_:)), name: NSNotification.Name("BudgetTapped"), object: nil)
     }
 }
 

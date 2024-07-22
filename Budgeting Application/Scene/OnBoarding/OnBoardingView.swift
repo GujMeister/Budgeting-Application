@@ -232,7 +232,3 @@ struct ThirdPage: View {
         .background(Color(UIColor.backgroundColor))
     }
 }
-
-#Preview {
-    SecondPage()
-}

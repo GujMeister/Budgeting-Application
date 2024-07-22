@@ -177,24 +177,8 @@ final class BudgetsViewController: UIViewController {
         }
     }
     
-    // MARK: - Button Action
-    func addBudget() {
-        let addBudgetVC = AddBudgetsViewController()
-        addBudgetVC.delegate = viewModel
-        
-        present(addBudgetVC, animated: true) {
-            if let sheet = addBudgetVC.presentationController as? UISheetPresentationController {
-                if UIScreen.main.bounds.height <= 736 {
-                    sheet.detents = [.large()]
-                } else {
-                    sheet.detents = [.medium()]
-                }
-            }
-        }
-    }
-    
-    // MARK: - View helper functions
-    func updateFavoriteBudgets() {
+    // MARK: - Binding Functions
+    private func updateFavoriteBudgets() {
         favoriteBudgetsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         
         for budget in viewModel.favoritedBudgets.suffix(5) {
@@ -207,6 +191,22 @@ final class BudgetsViewController: UIViewController {
     
     private func updateInfoView() {
         infoView.totalBudgetedNumberLabel.attributedText = NumberFormatterHelper.shared.format(amount: viewModel.totalBudgetedMoney, baseFont: UIFont(name: "Heebo-SemiBold", size: 36) ?? UIFont(), sizeDifference: 0.6)
+    }
+    
+    // MARK: - Button Action
+    private func addBudget() {
+        let addBudgetVC = AddBudgetsViewController()
+        addBudgetVC.delegate = viewModel
+        
+        present(addBudgetVC, animated: true) {
+            if let sheet = addBudgetVC.presentationController as? UISheetPresentationController {
+                if UIScreen.main.bounds.height <= 736 {
+                    sheet.detents = [.large()]
+                } else {
+                    sheet.detents = [.medium()]
+                }
+            }
+        }
     }
     
     private func handleSegmentChange(selectedIndex: Int) {

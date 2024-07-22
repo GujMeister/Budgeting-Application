@@ -8,7 +8,7 @@
 import UIKit
 
 protocol AddPaymentDelegate: AnyObject {
-    func didAddPayment(_ subscription: PaymentExpenseModel)
+    func didAddPayment(_ subscription: PaymentExpense)
 }
 
 final class AddPaymentVC: UIViewController {
@@ -258,16 +258,16 @@ final class AddPaymentVC: UIViewController {
             return
         }
         
-        let context = DataManager.shared.context
-        let payment = PaymentExpenseModel(context: context)
-        
-        payment.category = category.rawValue
-        payment.paymentDescription = description
-        payment.amount = amount
-        payment.startDate = datePicker.date
-        payment.repeatCount = Int16(repeatCount)
+        let payment = PaymentExpense(
+            category: category,
+            paymentDescription: description,
+            amount: amount,
+            startDate: datePicker.date,
+            repeatCount: repeatCount
+        )
         
         delegate?.didAddPayment(payment)
+
         dismiss(animated: true)
     }
 
