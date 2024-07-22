@@ -86,11 +86,8 @@ If you liked using this app or it has helped you in any way, I'd like you send m
 <img src="https://i.ibb.co/xq7WRxv/Screenshot-2024-07-22-at-1-45-31-PM-Photoroom.png" alt="Cmon" width="250">
 
 ####  Application itself is fun to use and navigate. See different pages you will be using to navigate through the application
-<img src="https://i.ibb.co/d7z8KJ5/Dashboard.png" alt="Dashboard" width="250">
-<img src="https://i.ibb.co/86TyHDC/Recurring.png" alt="Recurring" width="250">
-<img src="https://i.ibb.co/tQkH923/Budgets.png" alt="Budgets" width="250">
-<img src="https://i.ibb.co/vJbC4X5/Expenses.png" alt="Expenses" width="250">
-<img src="https://i.ibb.co/RzdZBpr/Calendar.png" alt="Calendar" width="250">
+|<img src="https://i.ibb.co/d7z8KJ5/Dashboard.png" alt="Dashboard" width="250"> | <img src="https://i.ibb.co/86TyHDC/Recurring.png" alt="Recurring" width="250"> | <img src="https://i.ibb.co/tQkH923/Budgets.png" alt="Budgets" width="250"> |
+|<img src="https://i.ibb.co/vJbC4X5/Expenses.png" alt="Expenses" width="250"> | <img src="https://i.ibb.co/RzdZBpr/Calendar.png" alt="Calendar" width="250">
 
 #### Be sure to visit application settings to: Add your name so you'll be greeted using it on login, change your passcode, delete data and to read more about the application
 <img src="https://i.ibb.co/6rWk35V/Settings.png" alt="Dashboard" width="250">
