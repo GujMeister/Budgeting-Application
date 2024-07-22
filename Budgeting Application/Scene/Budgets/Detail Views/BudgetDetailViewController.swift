@@ -162,6 +162,8 @@ final class BudgetDetailViewController: UIViewController {
         guard let budget = budget else { return }
         if BudgetsViewModel.shared.isBudgetFavorited(budget) {
             BudgetsViewModel.shared.removeBudgetFromFavorites(budget)
+            updateFavoriteButtonTitle()
+            BudgetsViewModel.shared.loadData()
         } else {
             BudgetsViewModel.shared.addBudgetToFavorites(budget)
         }
