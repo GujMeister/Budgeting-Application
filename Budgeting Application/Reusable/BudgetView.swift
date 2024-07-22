@@ -129,7 +129,7 @@ class BudgetView: UIView {
         
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.toValue = remainingPercentage
-        animation.duration = 1 // Adjust the duration as needed
+        animation.duration = 1
         animation.fillMode = .forwards
         animation.isRemovedOnCompletion = false
         progressLayer.add(animation, forKey: "progressAnim")

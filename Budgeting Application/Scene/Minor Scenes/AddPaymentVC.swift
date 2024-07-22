@@ -8,7 +8,7 @@
 import UIKit
 
 protocol AddPaymentDelegate: AnyObject {
-    func didAddPayment(_ subscription: PaymentExpenseModel)
+    func didAddPayment(_ subscription: PaymentExpense)
 }
 
 final class AddPaymentVC: UIViewController {
@@ -136,7 +136,7 @@ final class AddPaymentVC: UIViewController {
     
     private lazy var addButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Add Subscription", for: .normal)
+        button.setTitle("Add Payment", for: .normal)
         
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.addButtonTapped()
@@ -185,20 +185,20 @@ final class AddPaymentVC: UIViewController {
             categoryLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             categoryPicker.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor),
-            categoryPicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            categoryPicker.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            categoryPicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            categoryPicker.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
             
-            descriptionLabel.topAnchor.constraint(equalTo: categoryPicker.bottomAnchor, constant: 40),
+            descriptionLabel.topAnchor.constraint(equalTo: categoryPicker.bottomAnchor, constant: 20),
             descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             
             descriptionTextField.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 3),
             descriptionTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            descriptionTextField.trailingAnchor.constraint(equalTo: descriptionButton.leadingAnchor, constant: -20),
             
             descriptionButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             descriptionButton.centerYAnchor.constraint(equalTo: descriptionTextField.centerYAnchor),
+            descriptionTextField.trailingAnchor.constraint(equalTo: descriptionButton.leadingAnchor, constant: -20),
             
-            amountLabel.topAnchor.constraint(equalTo: descriptionTextField.bottomAnchor, constant: 15),
+            amountLabel.topAnchor.constraint(equalTo: descriptionTextField.bottomAnchor, constant: 10),
             amountLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             
             amountTextField.topAnchor.constraint(equalTo: amountLabel.bottomAnchor, constant: 3),
@@ -207,8 +207,8 @@ final class AddPaymentVC: UIViewController {
             amountButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             amountButton.centerYAnchor.constraint(equalTo: amountTextField.centerYAnchor),
             amountTextField.trailingAnchor.constraint(equalTo: amountButton.leadingAnchor, constant: -20),
-
-            repeatCountLabel.topAnchor.constraint(equalTo: amountTextField.bottomAnchor, constant: 15),
+            
+            repeatCountLabel.topAnchor.constraint(equalTo: amountTextField.bottomAnchor, constant: 10),
             repeatCountLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             
             repeatCountTextField.topAnchor.constraint(equalTo: repeatCountLabel.bottomAnchor, constant: 3),
@@ -218,10 +218,10 @@ final class AddPaymentVC: UIViewController {
             repeatButton.centerYAnchor.constraint(equalTo: repeatCountTextField.centerYAnchor),
             repeatButton.leadingAnchor.constraint(equalTo: repeatCountTextField.trailingAnchor, constant: 20),
             
-            datePicker.topAnchor.constraint(equalTo: repeatButton.bottomAnchor, constant: 30),
+            datePicker.topAnchor.constraint(equalTo: repeatButton.bottomAnchor, constant: 15),
             datePicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-
-            addButton.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 20),
+            
+            addButton.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 15),
             addButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
@@ -258,16 +258,16 @@ final class AddPaymentVC: UIViewController {
             return
         }
         
-        let context = DataManager.shared.context
-        let subscription = PaymentExpenseModel(context: context)
+        let payment = PaymentExpense(
+            category: category,
+            paymentDescription: description,
+            amount: amount,
+            startDate: datePicker.date,
+            repeatCount: repeatCount
+        )
         
-        subscription.category = category.rawValue
-        subscription.paymentDescription = description
-        subscription.amount = amount
-        subscription.startDate = datePicker.date
-        subscription.repeatCount = Int16(repeatCount)
-        
-        delegate?.didAddPayment(subscription)
+        delegate?.didAddPayment(payment)
+
         dismiss(animated: true)
     }
 

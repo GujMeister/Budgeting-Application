@@ -38,7 +38,6 @@ class KeyboardHandler {
         keyboardHeight = 0
     }
 
-    // Add a "Done" button to the keyboard's toolbar
     func addDoneButtonToKeyboard(for textFields: [UITextField]) {
         let doneToolbar = UIToolbar()
         doneToolbar.sizeToFit()

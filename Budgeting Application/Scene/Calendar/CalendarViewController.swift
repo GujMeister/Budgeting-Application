@@ -29,6 +29,7 @@ final class CalendarViewController: UIViewController {
     private var topView: UIView = {
         let view = UIView()
         view.backgroundColor = .infoViewColor
+        view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         view.layer.cornerRadius = 25
         return view
     }()
@@ -132,6 +133,11 @@ final class CalendarViewController: UIViewController {
         setupViewModelCallbacks()
         viewModel.loadEvents()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.loadEvents()
+    }
 
     // MARK: - Setup UI
     private func setupUI() {
@@ -217,7 +223,6 @@ final class CalendarViewController: UIViewController {
     func didTapInformationTableButton() {
         presentAlert(from: self, title: "Information Table", message: "Information Table gives you all the expenses you have made or will have to make based on the date that you have chosen in the calendar")
     }
-    
     
     // MARK: - Helper Functions
     @objc private func dateChanged(_ sender: UIDatePicker) {

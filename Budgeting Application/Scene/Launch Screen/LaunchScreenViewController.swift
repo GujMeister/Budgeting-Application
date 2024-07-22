@@ -1,5 +1,5 @@
 //
-//  LaunchScreenVC.swift
+//  InitialViewController.swift
 //  Budgeting Application
 //
 //  Created by Luka Gujejiani on 15.07.24.

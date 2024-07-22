@@ -37,6 +37,7 @@ final class LoginPageViewModel: ObservableObject {
                 } else {
                     temporaryPasscode = ""
                     topPasswordText = "Enter Passcode"
+                    bottomPasswordText = "Create new password"
                     presentAlert("Error", "Passcodes do not match.")
                     resetPasscode()
                 }

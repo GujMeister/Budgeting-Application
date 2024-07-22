@@ -6,6 +6,7 @@
 //
 
 import CoreData
+import DGCharts
 
 final class DashboardViewModel {
     // MARK: - Properties
@@ -15,9 +16,9 @@ final class DashboardViewModel {
     private var payments: [PaymentExpenseModel] = []
     
     //Pie chart
-    internal var totalBudgets: Double = 0.0
-    internal var totalPayments: Double = 0.0
-    internal var totalSubscriptions: Double = 0.0
+    private var totalBudgets: Double = 0.0
+    private var totalPayments: Double = 0.0
+    private var totalSubscriptions: Double = 0.0
     
     //Data To Show
     internal var filteredSubscriptions: [SubscriptionOccurrence] = [] {
@@ -43,6 +44,12 @@ final class DashboardViewModel {
             onTotalBudgetedThisMonthUpdated?()
         }
     }
+    
+    internal var pieChartData: [PieChartDataEntry] = [] {
+        didSet {
+            onPieChartUpdated?()
+        }
+    }
 
     var onTotalBudgetedThisMonthUpdated: (() -> Void)?
     var onFavoritedBudgetsUpdated: (() -> Void)?
@@ -52,6 +59,7 @@ final class DashboardViewModel {
     var onSubscriptionsPlaceholderUpdated: ((Bool) -> Void)?
     var onPaymentsPlaceholderUpdated: ((Bool) -> Void)?
     var onBudgetsUpdated: (() -> Void)?
+    var onPieChartUpdated: (() -> Void)?
     
     private var context: NSManagedObjectContext {
         return DataManager.shared.context
@@ -85,8 +93,19 @@ final class DashboardViewModel {
         totalBudgets = budgets.reduce(0) { $0 + $1.totalAmount }
         totalPayments = payments.reduce(0) { $0 + $1.amount }
         totalSubscriptions = subscriptions.reduce(0) { $0 + $1.amount }
-
+        
         totalBudgetedThisMonth = totalBudgets + totalPayments + totalSubscriptions
+        preparePieChartData()
+    }
+    
+    private func preparePieChartData() {
+        let entries = [
+            PieChartDataEntry(value: Double(round(100 * totalBudgets) / 100), label: "Budgets"),
+            PieChartDataEntry(value: Double(round(100 * totalPayments) / 100), label: "Bank Payments"),
+            PieChartDataEntry(value: Double(round(100 * totalSubscriptions) / 100), label: "Subscriptions")
+        ]
+
+        pieChartData = entries
     }
     
     private func loadFilteredOccurrences() {

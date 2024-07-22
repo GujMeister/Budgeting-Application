@@ -39,7 +39,7 @@ struct LoginView: View {
             Spacer()
 
             NumberPadView(passcode: $passcode)
-                .onChange(of: passcode) {
+                .onChange(of: passcode) { newPassword in
                     if passcode.count == 4 {
                         viewModel.handlePasscodeEntry(passcode, resetPasscode: {
                             passcode = ""

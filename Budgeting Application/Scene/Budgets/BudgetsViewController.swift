@@ -27,12 +27,12 @@ final class BudgetsViewController: UIViewController {
     ) { [weak self] selectedIndex in
         self?.handleSegmentChange(selectedIndex: selectedIndex)
     }
-
+    
     private var budgetsStackViewBackground: UIView = {
         let view = BorderLabelView(labelName: "Favorites")
         return view
     }()
-
+    
     private var favoriteBudgetsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -71,7 +71,7 @@ final class BudgetsViewController: UIViewController {
         tableView.register(CustomBudgetCell.self, forCellReuseIdentifier: CustomBudgetCell.reuseIdentifier)
         return tableView
     }()
-
+    
     // MARK: - Lifecycle
     init(viewModel: BudgetsViewModel) {
         self.viewModel = viewModel
@@ -97,7 +97,7 @@ final class BudgetsViewController: UIViewController {
         customSegmentedControlView.setSelectedIndex(0)
         viewModel.loadData()
     }
-
+    
     // MARK: - Setup UI
     private func setupUI() {
         view.backgroundColor = .backgroundColor
@@ -120,7 +120,7 @@ final class BudgetsViewController: UIViewController {
             customSegmentedControlView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             customSegmentedControlView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
-            budgetsStackViewBackground.topAnchor.constraint(equalTo: favoriteBudgetsStackView.topAnchor, constant: 5),
+            budgetsStackViewBackground.topAnchor.constraint(equalTo: favoriteBudgetsStackView.topAnchor, constant: 0),
             budgetsStackViewBackground.leadingAnchor.constraint(equalTo: favoriteBudgetsStackView.leadingAnchor, constant: -10),
             budgetsStackViewBackground.trailingAnchor.constraint(equalTo: favoriteBudgetsStackView.trailingAnchor, constant: 10),
             budgetsStackViewBackground.bottomAnchor.constraint(equalTo: favoriteBudgetsStackView.bottomAnchor, constant: 25),
@@ -177,19 +177,8 @@ final class BudgetsViewController: UIViewController {
         }
     }
     
-    // MARK: - Button Action
-    func addBudget() {
-        let addBudgetVC = AddBudgetsViewController()
-        addBudgetVC.delegate = viewModel
-        
-        if let presentationController = addBudgetVC.presentationController as? UISheetPresentationController {
-            presentationController.detents = [.medium()]
-            present(addBudgetVC, animated: true, completion: nil)
-        }
-    }
-    
-    // MARK: - View helper functions
-    func updateFavoriteBudgets() {
+    // MARK: - Binding Functions
+    private func updateFavoriteBudgets() {
         favoriteBudgetsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         
         for budget in viewModel.favoritedBudgets.suffix(5) {
@@ -202,6 +191,22 @@ final class BudgetsViewController: UIViewController {
     
     private func updateInfoView() {
         infoView.totalBudgetedNumberLabel.attributedText = NumberFormatterHelper.shared.format(amount: viewModel.totalBudgetedMoney, baseFont: UIFont(name: "Heebo-SemiBold", size: 36) ?? UIFont(), sizeDifference: 0.6)
+    }
+    
+    // MARK: - Button Action
+    private func addBudget() {
+        let addBudgetVC = AddBudgetsViewController()
+        addBudgetVC.delegate = viewModel
+        
+        present(addBudgetVC, animated: true) {
+            if let sheet = addBudgetVC.presentationController as? UISheetPresentationController {
+                if UIScreen.main.bounds.height <= 736 {
+                    sheet.detents = [.large()]
+                } else {
+                    sheet.detents = [.medium()]
+                }
+            }
+        }
     }
     
     private func handleSegmentChange(selectedIndex: Int) {
@@ -234,10 +239,14 @@ extension BudgetsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailVC = BudgetDetailViewController()
         detailVC.budget = viewModel.allBudgets[indexPath.row]
-        detailVC.delegate = viewModel as any BudgetDetailViewControllerDelegate // as? iyo
+        detailVC.delegate = viewModel as any BudgetDetailViewControllerDelegate
         
-        if let presentationController = detailVC.presentationController as? UISheetPresentationController {
-            presentationController.detents = [.medium()]
+        if let sheet = detailVC.presentationController as? UISheetPresentationController {
+            if UIScreen.main.bounds.height <= 736 {
+                sheet.detents = [.large()]
+            } else {
+                sheet.detents = [.medium()]
+            }
         }
         
         present(detailVC, animated: true, completion: nil)

@@ -39,7 +39,8 @@ final class SettingsVM: ObservableObject {
 
     func deleteAllData() {
         confirmDeletion {
-            DataManager.shared.deleteAllRecords()
+            DataDeletion.shared.deleteUserDefaults()
+            DataDeletion.shared.deleteCoreData()
         }
     }
 

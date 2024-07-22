@@ -45,7 +45,6 @@ final class DashboardBudgetDetailViewController: UIViewController {
         return view
     }()
     
-    //Add expense
     private let addExpenseLabel: UILabel = {
         let label = UILabel()
         label.textColor = .label
@@ -66,7 +65,6 @@ final class DashboardBudgetDetailViewController: UIViewController {
         return label
     }()
     
-    //Description
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.textColor = .label
@@ -161,6 +159,7 @@ final class DashboardBudgetDetailViewController: UIViewController {
         view.layer.shadowOffset = CGSize(width: 3, height: 3)
         view.layer.shadowOpacity = 0.2
         view.layer.shadowRadius = 5
+        view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         view.layer.cornerRadius = 25
         return view
     }()
@@ -197,9 +196,9 @@ final class DashboardBudgetDetailViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             progressView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            progressView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 25),
-            progressView.widthAnchor.constraint(equalToConstant: 180),
-            progressView.heightAnchor.constraint(equalToConstant: 180),
+            progressView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
+            progressView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2.5),
+            progressView.heightAnchor.constraint(equalTo: progressView.widthAnchor),
             
             spentAmountLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: UIScreen.main.bounds.width / 7),
             spentAmountLabel.topAnchor.constraint(equalTo: progressView.bottomAnchor, constant: 8),
@@ -211,12 +210,12 @@ final class DashboardBudgetDetailViewController: UIViewController {
             remainingAmountLabel.centerXAnchor.constraint(equalTo: progressView.centerXAnchor),
             
             addExpenseLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            addExpenseLabel.topAnchor.constraint(equalTo: maxAmountLabel.bottomAnchor, constant: 60),
+            addExpenseLabel.topAnchor.constraint(equalTo: maxAmountLabel.bottomAnchor, constant: 30),
             
             addExpenseToLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            addExpenseToLabel.topAnchor.constraint(equalTo: addExpenseLabel.bottomAnchor, constant: 5),
+            addExpenseToLabel.topAnchor.constraint(equalTo: addExpenseLabel.bottomAnchor, constant: 3),
             
-            descriptionLabel.topAnchor.constraint(equalTo: addExpenseToLabel.bottomAnchor, constant: 20),
+            descriptionLabel.topAnchor.constraint(equalTo: addExpenseToLabel.bottomAnchor, constant: 15),
             descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             
             descriptionTextField.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 3),
@@ -283,7 +282,6 @@ final class DashboardBudgetDetailViewController: UIViewController {
         expense.amount = amount as NSNumber
         expense.date = datePicker.date
         
-        
         delegate?.didAddExpense(expense)
         
         if let navigationController = self.navigationController {
@@ -293,7 +291,7 @@ final class DashboardBudgetDetailViewController: UIViewController {
             navigationController.pushViewController(budgetsViewController, animated: false)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
                 navigationController.popViewController(animated: false)
-                self.navigationController?.popViewController(animated: true)
+                self.navigationController?.popViewController(animated: false)
             }
         } else {
             self.navigationController?.popViewController(animated: true)

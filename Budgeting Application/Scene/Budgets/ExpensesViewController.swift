@@ -123,7 +123,7 @@ final class ExpensesViewController: UIViewController {
         ])
     }
     
-    // MARK: - View Model Bindings
+    // MARK: - Binding ViewModel
     private func setupBindings() {
         viewModel.onExpensesUpdated = { [weak self] in
             self?.expensesTableView.reloadData()

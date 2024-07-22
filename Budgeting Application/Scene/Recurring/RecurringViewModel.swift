@@ -181,22 +181,60 @@ final class RecurringPageViewModel: ObservableObject {
             descriptionLabelText = "\(segmentName) Left: \(selectedTimePeriod.rawValue)"
         }
     }
-}
-
-// MARK: - Delegate - AddPaymentDelegate
-extension RecurringPageViewModel: AddPaymentDelegate {
-    func didAddPayment(_ payment: PaymentExpenseModel) {
+    
+    private func savePayment(_ payment: PaymentExpense) {
+        let context = DataManager.shared.context
+        let paymentModel = PaymentExpenseModel(context: context)
+        
+        paymentModel.category = payment.category.rawValue
+        paymentModel.paymentDescription = payment.paymentDescription
+        paymentModel.amount = payment.amount
+        paymentModel.startDate = payment.startDate
+        paymentModel.repeatCount = Int16(payment.repeatCount)
+        
+        do {
+            try context.save()
+        } catch {
+            print("Failed to save payment: \(error)")
+        }
+        
+        loadOccurrences()
+        loadOverviewExpenses()
+        updateDescriptionLabelText()
+    }
+    
+    private func saveSubscription(_ payment: SubscriptionExpense) {
+        let context = DataManager.shared.context
+        let subscriptionModel = SubscriptionExpenseModel(context: context)
+        
+        subscriptionModel.category = payment.category.rawValue
+        subscriptionModel.subscriptionDescription = payment.subscriptionDescription
+        subscriptionModel.amount = payment.amount
+        subscriptionModel.startDate = payment.startDate
+        subscriptionModel.repeatCount = Int16(payment.repeatCount)
+        
+        do {
+            try context.save()
+        } catch {
+            print("Failed to save payment: \(error)")
+        }
+        
         loadOccurrences()
         loadOverviewExpenses()
         updateDescriptionLabelText()
     }
 }
 
+// MARK: - Delegate - AddPaymentDelegate
+extension RecurringPageViewModel: AddPaymentDelegate {
+    func didAddPayment(_ payment: PaymentExpense) {
+        savePayment(payment)
+    }
+}
+
 // MARK: - Delegate - AddSubscriptionDelegate
 extension RecurringPageViewModel: AddSubscriptionDelegate {
-    func didAddSubscription(_ subscription: SubscriptionExpenseModel) {
-        loadOccurrences()
-        loadOverviewExpenses()
-        updateDescriptionLabelText()
+    func didAddSubscription(_ subscription: SubscriptionExpense) {
+        saveSubscription(subscription)
     }
 }
