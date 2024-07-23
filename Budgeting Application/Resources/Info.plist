@@ -52,15 +52,11 @@
 	</dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Inter-Regular.ttf</string>
 		<string>Heebo-SemiBold.ttf</string>
-		<string>OpenSans-Bold.ttf</string>
-		<string>Inter-SemiBold.ttf</string>
 		<string>ChesnaGrotesk-Regular.ttf</string>
 		<string>ChesnaGrotesk-Bold.ttf</string>
 		<string>ChesnaGrotesk-Medium.ttf</string>
 		<string>Montserrat-Medium.ttf</string>
-		<string>Montserrat-Regular.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

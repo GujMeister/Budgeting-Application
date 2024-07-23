@@ -71,7 +71,6 @@ final class ExpensesViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("✅ ExpensesVC viewDidLoad")
         setupUI()
         setupBindings()
         viewModel.loadExpenses()
@@ -80,7 +79,6 @@ final class ExpensesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("✅ ExpensesVC viewWillAppear")
         viewModel.loadExpenses()
     }
     

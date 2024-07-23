@@ -64,7 +64,6 @@
 		85835EC32C402CE60007F180 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835EC22C402CE60007F180 /* CalendarViewModel.swift */; };
 		85835EC72C407B0A0007F180 /* CalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835EC62C407B0A0007F180 /* CalendarTableViewCell.swift */; };
 		85835ECA2C41A25E0007F180 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85835EC82C41A25E0007F180 /* Montserrat-Medium.ttf */; };
-		85835ECB2C41A25E0007F180 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85835EC92C41A25E0007F180 /* Montserrat-Regular.ttf */; };
 		85835ECE2C41A7E70007F180 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835ECD2C41A7E70007F180 /* LoginView.swift */; };
 		85835ED02C41A7F20007F180 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835ECF2C41A7F20007F180 /* LoginViewModel.swift */; };
 		85835EDC2C42E1470007F180 /* TimeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835EDB2C42E1470007F180 /* TimeModels.swift */; };
@@ -82,12 +81,6 @@
 		85B85B092C36FC9400AAD046 /* FavoriteBudgetsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B082C36FC9400AAD046 /* FavoriteBudgetsModel.swift */; };
 		85B85B0D2C38A54A00AAD046 /* BorderLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B0C2C38A54A00AAD046 /* BorderLabelView.swift */; };
 		85B85B122C38ACFF00AAD046 /* Heebo-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85B85B112C38ACFF00AAD046 /* Heebo-SemiBold.ttf */; };
-		85B85B1C2C38BD6900AAD046 /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85B85B1B2C38BD6800AAD046 /* Inter-Regular.ttf */; };
-		85B85B282C38C46900AAD046 /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85B85B252C38C46800AAD046 /* OpenSans-SemiBold.ttf */; };
-		85B85B292C38C46900AAD046 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85B85B262C38C46800AAD046 /* OpenSans-Regular.ttf */; };
-		85B85B2A2C38C46900AAD046 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85B85B272C38C46900AAD046 /* OpenSans-Bold.ttf */; };
-		85B85B2C2C38D44B00AAD046 /* Inter-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85B85B2B2C38D44B00AAD046 /* Inter-Bold.ttf */; };
-		85B85B2E2C38D67300AAD046 /* Inter-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85B85B2D2C38D67200AAD046 /* Inter-SemiBold.ttf */; };
 		85B85B302C3AE06800AAD046 /* AddPaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B2F2C3AE06800AAD046 /* AddPaymentVC.swift */; };
 		85B85B322C3B308200AAD046 /* DaySuffix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B312C3B308200AAD046 /* DaySuffix.swift */; };
 		85B85B342C3C2E1900AAD046 /* BankPaymentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B332C3C2E1900AAD046 /* BankPaymentCell.swift */; };
@@ -177,7 +170,6 @@
 		85835EC22C402CE60007F180 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		85835EC62C407B0A0007F180 /* CalendarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTableViewCell.swift; sourceTree = "<group>"; };
 		85835EC82C41A25E0007F180 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
-		85835EC92C41A25E0007F180 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		85835ECD2C41A7E70007F180 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		85835ECF2C41A7F20007F180 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		85835EDB2C42E1470007F180 /* TimeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeModels.swift; sourceTree = "<group>"; };
@@ -195,12 +187,6 @@
 		85B85B082C36FC9400AAD046 /* FavoriteBudgetsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteBudgetsModel.swift; sourceTree = "<group>"; };
 		85B85B0C2C38A54A00AAD046 /* BorderLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderLabelView.swift; sourceTree = "<group>"; };
 		85B85B112C38ACFF00AAD046 /* Heebo-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Heebo-SemiBold.ttf"; sourceTree = "<group>"; };
-		85B85B1B2C38BD6800AAD046 /* Inter-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Regular.ttf"; sourceTree = "<group>"; };
-		85B85B252C38C46800AAD046 /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiBold.ttf"; sourceTree = "<group>"; };
-		85B85B262C38C46800AAD046 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
-		85B85B272C38C46900AAD046 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
-		85B85B2B2C38D44B00AAD046 /* Inter-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Bold.ttf"; sourceTree = "<group>"; };
-		85B85B2D2C38D67200AAD046 /* Inter-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-SemiBold.ttf"; sourceTree = "<group>"; };
 		85B85B2F2C3AE06800AAD046 /* AddPaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPaymentVC.swift; sourceTree = "<group>"; };
 		85B85B312C3B308200AAD046 /* DaySuffix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaySuffix.swift; sourceTree = "<group>"; };
 		85B85B332C3C2E1900AAD046 /* BankPaymentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankPaymentCell.swift; sourceTree = "<group>"; };
@@ -572,16 +558,9 @@
 			isa = PBXGroup;
 			children = (
 				85835EC82C41A25E0007F180 /* Montserrat-Medium.ttf */,
-				85835EC92C41A25E0007F180 /* Montserrat-Regular.ttf */,
 				85B85B392C3DFD7F00AAD046 /* ChesnaGrotesk-Medium.ttf */,
 				85B85B372C3DFD2000AAD046 /* ChesnaGrotesk-Bold.ttf */,
 				85B85B352C3DFBDD00AAD046 /* ChesnaGrotesk-Regular.ttf */,
-				85B85B2D2C38D67200AAD046 /* Inter-SemiBold.ttf */,
-				85B85B2B2C38D44B00AAD046 /* Inter-Bold.ttf */,
-				85B85B272C38C46900AAD046 /* OpenSans-Bold.ttf */,
-				85B85B262C38C46800AAD046 /* OpenSans-Regular.ttf */,
-				85B85B252C38C46800AAD046 /* OpenSans-SemiBold.ttf */,
-				85B85B1B2C38BD6800AAD046 /* Inter-Regular.ttf */,
 				85B85B112C38ACFF00AAD046 /* Heebo-SemiBold.ttf */,
 			);
 			path = Fonts;
@@ -660,22 +639,15 @@
 				851DCFEE2C47FF3700A0E302 /* Purple Icon.png in Resources */,
 				853A3DAE2C3593A40042A0A4 /* LaunchScreen.storyboard in Resources */,
 				851DCFEC2C47FF3700A0E302 /* Orange Icon.png in Resources */,
-				85835ECB2C41A25E0007F180 /* Montserrat-Regular.ttf in Resources */,
 				853A3DAD2C3593A40042A0A4 /* Assets.xcassets in Resources */,
 				85B85B3A2C3DFD7F00AAD046 /* ChesnaGrotesk-Medium.ttf in Resources */,
-				85B85B2C2C38D44B00AAD046 /* Inter-Bold.ttf in Resources */,
 				851DCFED2C47FF3700A0E302 /* Green Dark Mode.png in Resources */,
 				851DCFF02C47FF3700A0E302 /* Purple Dark Mode.png in Resources */,
-				85B85B282C38C46900AAD046 /* OpenSans-SemiBold.ttf in Resources */,
 				85B85B122C38ACFF00AAD046 /* Heebo-SemiBold.ttf in Resources */,
-				85B85B1C2C38BD6900AAD046 /* Inter-Regular.ttf in Resources */,
 				851DD0062C4ACBA400A0E302 /* OnBoardingAnimation.json in Resources */,
 				85B85B362C3DFBDD00AAD046 /* ChesnaGrotesk-Regular.ttf in Resources */,
 				851DCFEB2C47FF3700A0E302 /* Green Icon.png in Resources */,
-				85B85B292C38C46900AAD046 /* OpenSans-Regular.ttf in Resources */,
 				85835ECA2C41A25E0007F180 /* Montserrat-Medium.ttf in Resources */,
-				85B85B2E2C38D67300AAD046 /* Inter-SemiBold.ttf in Resources */,
-				85B85B2A2C38C46900AAD046 /* OpenSans-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
