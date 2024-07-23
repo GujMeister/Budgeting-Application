@@ -95,7 +95,7 @@ struct RecurringPage: View {
                 }
             }
             .padding([.leading, .trailing])
-            .padding(.top, -(UIScreen.main.bounds.height / 6.6))
+            .padding(.top, -(UIScreen.main.bounds.height / 5.7))
             
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 20) {
@@ -368,14 +368,14 @@ struct NavigationRectangleRepresentable: UIViewRepresentable {
 }
 
 // MARK: - Preview
-struct RecurringPage_Previews: PreviewProvider {
-    static var previews: some View {
-        RecurringPage()
-        
-        RecurringView(emoji: "🏠", amount: 1000, paymentDescription: "Vashlijvari", date: Date(), color: .NavigationRectangleColor)
-            .frame(width: UIScreen.main.bounds.width / 2, height: 150)
-        
-        EditableRecurringView(amount: 200, paymentDescription: "Vashlijvari", date: Date(), color: .blue, deleteAction: {})
-            .frame(width: UIScreen.main.bounds.width / 2, height: 150)
-    }
-}
+//struct RecurringPage_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RecurringPage()
+//        
+//        RecurringView(emoji: "🏠", amount: 1000, paymentDescription: "Vashlijvari", date: Date(), color: .NavigationRectangleColor)
+//            .frame(width: UIScreen.main.bounds.width / 2, height: 150)
+//        
+//        EditableRecurringView(amount: 200, paymentDescription: "Vashlijvari", date: Date(), color: .blue, deleteAction: {})
+//            .frame(width: UIScreen.main.bounds.width / 2, height: 150)
+//    }
+//}

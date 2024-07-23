@@ -17,6 +17,7 @@ final class BudgetsViewModel: NSObject {
     var onExpensesDescriptionUpdated: ((String) -> Void)?
     var showAlertForDuplicateCategory: (() -> Void)?
     var showAlertForMaxFavorites: (() -> Void)?
+    var onUpdateFavoriteButtonStatus: ((Bool) -> Void)?
     
     // BudgetsVC
     var totalBudgetedMoney: Double = 0.0 {
@@ -69,7 +70,6 @@ final class BudgetsViewModel: NSObject {
         return DataManager.shared.context
     }
     
-    static let shared = BudgetsViewModel()
     private var service: BasicExpenseService
     
     // MARK: - Lifecycle
@@ -209,6 +209,10 @@ extension BudgetsViewModel: BudgetDetailViewControllerDelegate {
         } else {
             showAlertForMaxFavorites?()
         }
+    }
+    
+    func isBudgetFavoritedDelegate(_ budget: BasicExpenseBudget) -> Bool {
+        isBudgetFavorited(budget)
     }
 }
 

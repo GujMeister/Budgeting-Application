@@ -270,7 +270,6 @@ final class DashboardViewController: UIViewController {
             subscriptionBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             subscriptionBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             subscriptionBackgroundView.bottomAnchor.constraint(equalTo: subscriptionCollectionView.bottomAnchor, constant: -10),
-            subscriptionBackgroundView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 12),
             
             noSubscriptionsLabel.centerXAnchor.constraint(equalTo: subscriptionBackgroundView.centerXAnchor),
             noSubscriptionsLabel.centerYAnchor.constraint(equalTo: subscriptionBackgroundView.centerYAnchor),

@@ -16,7 +16,7 @@ final class DashboardBudgetDetailViewController: UIViewController {
     
     private let remainingAmountLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .budgetDetailViewControllerTextColor
+        label.textColor = .white
         label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 20)
         label.textAlignment = .center
         label.numberOfLines = 2
@@ -25,7 +25,7 @@ final class DashboardBudgetDetailViewController: UIViewController {
     
     private let spentAmountLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .budgetDetailViewControllerTextColor
+        label.textColor = .white
         label.font = UIFont(name: "ChesnaGrotesk-Regular", size: 14)
         label.textAlignment = .left
         return label
@@ -33,7 +33,7 @@ final class DashboardBudgetDetailViewController: UIViewController {
     
     private let maxAmountLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .budgetDetailViewControllerTextColor
+        label.textColor = .white
         label.font = UIFont(name: "ChesnaGrotesk-Regular", size: 14)
         label.textAlignment = .right
         return label
@@ -154,10 +154,10 @@ final class DashboardBudgetDetailViewController: UIViewController {
     
     let progressViewBackground: UIView = {
         let view = UIView()
-        view.backgroundColor = .budgetDetailViewController
+        view.backgroundColor = .infoViewColor
         view.layer.shadowColor = UIColor.infoViewColor.cgColor
         view.layer.shadowOffset = CGSize(width: 3, height: 3)
-        view.layer.shadowOpacity = 0.2
+        view.layer.shadowOpacity = 0.3
         view.layer.shadowRadius = 5
         view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         view.layer.cornerRadius = 25
@@ -251,7 +251,40 @@ final class DashboardBudgetDetailViewController: UIViewController {
     // MARK: - Helper Functions
     private func configureView() {
         self.navigationItem.largeTitleDisplayMode = .never
-        self.navigationItem.title = budget.category.rawValue
+        
+        let titleView = UIView()
+        titleView.backgroundColor = .backgroundColor
+        titleView.layer.cornerRadius = 8
+        titleView.layer.masksToBounds = true
+        titleView.alpha = 0
+
+        let titleLabel = UILabel()
+        titleLabel.text = budget.category.emoji
+        titleLabel.textColor = .black
+        titleLabel.textAlignment = .center
+        titleLabel.font = UIFont.systemFont(ofSize: 14)
+        titleLabel.alpha = 0
+        
+        titleView.addSubview(titleLabel)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            titleLabel.centerXAnchor.constraint(equalTo: titleView.centerXAnchor),
+            titleLabel.centerYAnchor.constraint(equalTo: titleView.centerYAnchor)
+        ])
+        
+        self.navigationItem.titleView = titleView
+        titleView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleView.heightAnchor.constraint(equalToConstant: 35),
+            titleView.widthAnchor.constraint(equalToConstant: 45)
+        ])
+        
+        UIView.animate(withDuration: 0.4) {
+            titleView.alpha = 1
+            titleLabel.alpha = 1
+        }
+        
         addExpenseToLabel.text = "to: \(budget.category.rawValue)"
         
         if budget.remainingAmount < 0 {

@@ -20,7 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        DataDeletion.shared.deleteAllKeychainData()
 //        DataDeletion.shared.deleteCoreData()
 //        DataDeletion.shared.deleteUserDefaults()
-        
         return true
     }
 }

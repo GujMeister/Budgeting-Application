@@ -9,13 +9,13 @@ import UIKit
 
 protocol BudgetDetailViewControllerDelegate: AnyObject {
     func didUpdateFavoriteStatus(for budget: BasicExpenseBudget)
+    func isBudgetFavoritedDelegate(_ budget: BasicExpenseBudget) -> Bool
 }
 
 final class BudgetDetailViewController: UIViewController {
     // MARK: - Properties
-    var budget: BasicExpenseBudget?
+    internal var budget: BasicExpenseBudget?
     weak var delegate: BudgetDetailViewControllerDelegate?
-    private var viewModel = BudgetsViewModel()
     
     private var topView: UIView = {
         let view = UIView()
@@ -84,7 +84,7 @@ final class BudgetDetailViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         configureView()
-        bindViewModel()
+        updateFavoriteButtonTitle()
     }
     
     deinit {
@@ -133,13 +133,6 @@ final class BudgetDetailViewController: UIViewController {
         ])
     }
     
-    // MARK: - Bind ViewModel
-    func bindViewModel() {
-        viewModel.onFavoritedBudgetsUpdated = { [weak self] in
-            self?.updateFavoriteButtonTitle()
-        }
-    }
-    
     // MARK: - Helper Functions
     private func configureView() {
         guard let budget = budget else { return }
@@ -155,31 +148,20 @@ final class BudgetDetailViewController: UIViewController {
         spentAmountLabel.text = "Spent: \(PlainNumberFormatterHelper.shared.format(amount: abs(budget.spentAmount)))"
         maxAmountLabel.text = "Max: \(PlainNumberFormatterHelper.shared.format(amount: abs(budget.totalAmount)))"
         progressView.setProgress(spent: budget.spentAmount, total: budget.totalAmount, animated: true)
-        updateFavoriteButtonTitle()
     }
     
+    // MARK: - Delegate Methods
     private func favoriteButtonTapped() {
         guard let budget = budget else { return }
-        if BudgetsViewModel.shared.isBudgetFavorited(budget) {
-            BudgetsViewModel.shared.removeBudgetFromFavorites(budget)
-            updateFavoriteButtonTitle()
-            BudgetsViewModel.shared.loadData()
-        } else {
-            BudgetsViewModel.shared.addBudgetToFavorites(budget)
-        }
-        updateFavoriteButtonTitle()
         delegate?.didUpdateFavoriteStatus(for: budget)
+        updateFavoriteButtonTitle()
     }
     
     private func updateFavoriteButtonTitle() {
         guard let budget = budget else { return }
-        
-        if BudgetsViewModel.shared.favoritedBudgets.contains(where: { $0.category == budget.category }) {
-            favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            favoriteButton.tintColor = .red
-        } else {
-            favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
-            favoriteButton.tintColor = .red
-        }
+        let isFavorited = delegate?.isBudgetFavoritedDelegate(budget) ?? false
+        let image = isFavorited ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
+        favoriteButton.setImage(image, for: .normal)
+        favoriteButton.tintColor = .red
     }
 }
