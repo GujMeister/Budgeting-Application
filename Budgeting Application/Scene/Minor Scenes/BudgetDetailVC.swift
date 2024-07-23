@@ -317,18 +317,7 @@ final class DashboardBudgetDetailViewController: UIViewController {
         
         delegate?.didAddExpense(expense)
         
-        if let navigationController = self.navigationController {
-            let budgetsViewModel = BudgetsViewModel()
-            let budgetsViewController = BudgetsViewController(viewModel: budgetsViewModel)
-            
-            navigationController.pushViewController(budgetsViewController, animated: false)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-                navigationController.popViewController(animated: false)
-                self.navigationController?.popViewController(animated: false)
-            }
-        } else {
-            self.navigationController?.popViewController(animated: true)
-        }
+        self.navigationController?.popViewController(animated: true)
     }
     
     // MARK: - Alerts

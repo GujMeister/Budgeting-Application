@@ -135,6 +135,16 @@ final class DashboardViewModel {
     
     private func loadBudgets() {
         budgets = BasicExpenseService(context: DataManager.shared.context).fetchBasicExpenseBudgets()
+        updateSpentAmounts()
+    }
+    
+    private func updateSpentAmounts() {
+        budgets.forEach { budget in
+            if let category = BasicExpenseCategory(rawValue: budget.category.rawValue) {
+                BasicExpenseService(context: DataManager.shared.context).recalculateSpentAmount(for: category)
+            }
+        }
+        calculateTotalBudgetedThisMonth()
     }
 
     private func fetchSubscriptions() {
@@ -151,7 +161,6 @@ final class DashboardViewModel {
 // MARK: - Delegate
 extension DashboardViewModel: AddExpenseDelegate {
     func didAddExpense(_ expense: BasicExpenseModel) {
-        loadBudgets()
         loadFavoritedBudgets()
     }
 }

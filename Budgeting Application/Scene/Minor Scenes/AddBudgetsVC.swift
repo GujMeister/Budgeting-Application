@@ -26,7 +26,7 @@ final class AddBudgetsViewController: UIViewController {
     
     private let categoryLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .label
+        label.textColor = .white
         label.textAlignment = .center
         label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 20)
         label.text = "Choose Budget Category"
@@ -41,7 +41,7 @@ final class AddBudgetsViewController: UIViewController {
     
     private let amountLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .label
+        label.textColor = .white
         label.textAlignment = .center
         label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 16)
         label.text = "Input Budget Limit"
@@ -191,5 +191,9 @@ extension AddBudgetsViewController: UIPickerViewDelegate, UIPickerViewDataSource
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return categories[row].rawValue
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        return NSAttributedString(string: categories[row].rawValue, attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
     }
 }
