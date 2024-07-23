@@ -95,7 +95,7 @@ struct RecurringPage: View {
                 }
             }
             .padding([.leading, .trailing])
-            .padding(.top, -(UIScreen.main.bounds.height / 5.7))
+            .padding(.top, -(UIScreen.main.bounds.height / 5.9))
             
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 20) {

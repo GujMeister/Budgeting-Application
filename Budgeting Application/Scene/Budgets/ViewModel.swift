@@ -239,8 +239,6 @@ extension BudgetsViewModel: AddBudgetsDelegate {
 // MARK: - Delegate - AddExpenseDelegate
 extension BudgetsViewModel: AddExpenseDelegate {
     func didAddExpense(_ expense: BasicExpenseModel) {
-        loadBudgets()
-        loadFavoritedBudgets()
-        loadExpenses()
+        loadData()
     }
 }
