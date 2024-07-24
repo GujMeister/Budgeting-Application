@@ -177,7 +177,6 @@ final class DashboardBudgetDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = false
         keyboardHandler.addDoneButtonToKeyboard(for: [descriptionTextField, amountTextField])
         setupUI()
         configureView()
@@ -185,6 +184,9 @@ final class DashboardBudgetDetailViewController: UIViewController {
     
     // MARK: - UI Setup
     private func setupUI() {
+        navigationController?.isNavigationBarHidden = false
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         view.backgroundColor = .backgroundColor
         
         let views = [progressViewBackground, progressView, spentAmountLabel, maxAmountLabel, remainingAmountLabel, addExpenseLabel, addExpenseToLabel, descriptionLabel, descriptionTextField, descriptionButton, amountLabel, amountTextField, amountButton, datePicker, addExpenseButton]
