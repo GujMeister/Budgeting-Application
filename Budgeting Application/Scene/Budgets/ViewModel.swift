@@ -17,7 +17,6 @@ final class BudgetsViewModel: NSObject {
     var onExpensesDescriptionUpdated: ((String) -> Void)?
     var showAlertForDuplicateCategory: (() -> Void)?
     var showAlertForMaxFavorites: (() -> Void)?
-    var onUpdateFavoriteButtonStatus: ((Bool) -> Void)?
     
     // BudgetsVC
     var totalBudgetedMoney: Double = 0.0 {

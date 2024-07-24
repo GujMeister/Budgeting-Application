@@ -58,7 +58,6 @@ final class DashboardViewModel {
     var onBudgetsPlaceholderUpdated: ((Bool) -> Void)?
     var onSubscriptionsPlaceholderUpdated: ((Bool) -> Void)?
     var onPaymentsPlaceholderUpdated: ((Bool) -> Void)?
-    var onBudgetsUpdated: (() -> Void)?
     var onPieChartUpdated: (() -> Void)?
     
     private var context: NSManagedObjectContext {
