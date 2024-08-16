@@ -11,6 +11,9 @@
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="expenseDescription" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="FavoriteBudgetsModel" representedClassName="FavoriteBudgetsModel" syncable="YES">
+        <attribute name="category" optional="YES" attributeType="String"/>
+    </entity>
     <entity name="PaymentExpenseModel" representedClassName="PaymentExpenseModel" syncable="YES">
         <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="category" optional="YES" attributeType="String"/>
