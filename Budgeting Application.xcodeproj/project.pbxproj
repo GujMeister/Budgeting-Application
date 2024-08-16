@@ -164,7 +164,7 @@
 		853A3DD22C35F66A0042A0A4 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		853A3DD42C35FC990042A0A4 /* SegmentedControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlView.swift; sourceTree = "<group>"; };
 		853A3DD82C360B7C0042A0A4 /* ExpensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesViewController.swift; sourceTree = "<group>"; };
-		8575F7FB2C6FE17D0053DFDF /* Budgeting Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Budgeting Application.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8575F7FB2C6FE17D0053DFDF /* Budgeting Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "Budgeting Application.app"; path = "/Users/lukagujejiani/Desktop/BudgetingApplication/build/Debug-iphoneos/Budgeting Application.app"; sourceTree = "<absolute>"; };
 		8575F8002C6FE41F0053DFDF /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		85835EC02C402CDD0007F180 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		85835EC22C402CE60007F180 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
@@ -278,7 +278,6 @@
 			isa = PBXGroup;
 			children = (
 				853A3D692C3592BF0042A0A4 /* Budgeting Application */,
-				8575F7FB2C6FE17D0053DFDF /* Budgeting Application.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -996,8 +995,7 @@
 				8575F8002C6FE41F0053DFDF /* Model.xcdatamodel */,
 			);
 			currentVersion = 8575F8002C6FE41F0053DFDF /* Model.xcdatamodel */;
-			name = Model.xcdatamodeld;
-			path = "/Users/lukagujejiani/Desktop/Test3/Budgeting Application/CD/Model.xcdatamodeld";
+			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
