@@ -75,7 +75,6 @@
 		85835F292C4533470007F180 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835F282C4533460007F180 /* LaunchScreenViewController.swift */; };
 		85835F2C2C457C3D0007F180 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835F2B2C457C3D0007F180 /* SettingsView.swift */; };
 		85835F2E2C457C430007F180 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835F2D2C457C430007F180 /* SettingsViewModel.swift */; };
-		859862852C6FD6A300B79C3C /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 859862832C6FD6A300B79C3C /* Model.xcdatamodeld */; };
 		85B85B052C36D83100AAD046 /* AddExpenseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B042C36D83100AAD046 /* AddExpenseVC.swift */; };
 		85B85B072C36DB4C00AAD046 /* CustomExpenseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B062C36DB4C00AAD046 /* CustomExpenseCell.swift */; };
 		85B85B092C36FC9400AAD046 /* FavoriteBudgetsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B85B082C36FC9400AAD046 /* FavoriteBudgetsModel.swift */; };
@@ -685,7 +684,6 @@
 				85835EDF2C42E1A00007F180 /* BasicExpense.swift in Sources */,
 				853A3DAB2C3593A40042A0A4 /* SceneDelegate.swift in Sources */,
 				853A3DBD2C3593A40042A0A4 /* Subscription Occurances.swift in Sources */,
-				859862852C6FD6A300B79C3C /* Model.xcdatamodeld in Sources */,
 				853A3DD52C35FC990042A0A4 /* SegmentedControlView.swift in Sources */,
 				851DCFE22C47F4DD00A0E302 /* ChangeIconView.swift in Sources */,
 				853A3DB72C3593A40042A0A4 /* RecurringView.swift in Sources */,
