@@ -59,6 +59,7 @@
 		853A3DD32C35F66A0042A0A4 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3DD22C35F66A0042A0A4 /* Color.swift */; };
 		853A3DD52C35FC990042A0A4 /* SegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3DD42C35FC990042A0A4 /* SegmentedControlView.swift */; };
 		853A3DD92C360B7C0042A0A4 /* ExpensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3DD82C360B7C0042A0A4 /* ExpensesViewController.swift */; };
+		8575F7FC2C6FE2030053DFDF /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8575F7F62C6FDF6F0053DFDF /* Model.xcdatamodeld */; };
 		85835EC12C402CDD0007F180 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835EC02C402CDD0007F180 /* CalendarViewController.swift */; };
 		85835EC32C402CE60007F180 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835EC22C402CE60007F180 /* CalendarViewModel.swift */; };
 		85835EC72C407B0A0007F180 /* CalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835EC62C407B0A0007F180 /* CalendarTableViewCell.swift */; };
@@ -127,7 +128,6 @@
 		851DCFF42C480D4000A0E302 /* UITabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBar.swift; sourceTree = "<group>"; };
 		851DCFF62C4824B700A0E302 /* BudgetDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetDetailVC.swift; sourceTree = "<group>"; };
 		851DCFF82C48823400A0E302 /* KeyboardHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHandler.swift; sourceTree = "<group>"; };
-		851DCFFA2C4AAD8400A0E302 /* Budgeting Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Budgeting Application.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		851DCFFC2C4AB85E00A0E302 /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingView.swift; sourceTree = "<group>"; };
 		851DD0052C4ACBA300A0E302 /* OnBoardingAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OnBoardingAnimation.json; sourceTree = "<group>"; };
 		8534F9272C4C11B1004EB309 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
@@ -164,6 +164,8 @@
 		853A3DD22C35F66A0042A0A4 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		853A3DD42C35FC990042A0A4 /* SegmentedControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlView.swift; sourceTree = "<group>"; };
 		853A3DD82C360B7C0042A0A4 /* ExpensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesViewController.swift; sourceTree = "<group>"; };
+		8575F7F72C6FDF6F0053DFDF /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		8575F7FB2C6FE17D0053DFDF /* Budgeting Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Budgeting Application.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		85835EC02C402CDD0007F180 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		85835EC22C402CE60007F180 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		85835EC62C407B0A0007F180 /* CalendarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTableViewCell.swift; sourceTree = "<group>"; };
@@ -180,7 +182,6 @@
 		85835F282C4533460007F180 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		85835F2B2C457C3D0007F180 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		85835F2D2C457C430007F180 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
-		859862842C6FD6A300B79C3C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		85B85B042C36D83100AAD046 /* AddExpenseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseVC.swift; sourceTree = "<group>"; };
 		85B85B062C36DB4C00AAD046 /* CustomExpenseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomExpenseCell.swift; sourceTree = "<group>"; };
 		85B85B082C36FC9400AAD046 /* FavoriteBudgetsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteBudgetsModel.swift; sourceTree = "<group>"; };
@@ -277,14 +278,14 @@
 			isa = PBXGroup;
 			children = (
 				853A3D692C3592BF0042A0A4 /* Budgeting Application */,
-				851DCFFA2C4AAD8400A0E302 /* Budgeting Application.app */,
+				8575F7FB2C6FE17D0053DFDF /* Budgeting Application.app */,
 			);
 			sourceTree = "<group>";
 		};
 		853A3D692C3592BF0042A0A4 /* Budgeting Application */ = {
 			isa = PBXGroup;
 			children = (
-				8598627F2C6FD64E00B79C3C /* Core Data */,
+				8575F7F52C6FDF620053DFDF /* Core Data */,
 				853A3D872C3593A40042A0A4 /* App */,
 				853A3D7F2C3593A40042A0A4 /* Models */,
 				853A3DA02C3593A40042A0A4 /* Scene */,
@@ -464,6 +465,14 @@
 			path = "Table View Cells";
 			sourceTree = "<group>";
 		};
+		8575F7F52C6FDF620053DFDF /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				8575F7F62C6FDF6F0053DFDF /* Model.xcdatamodeld */,
+			);
+			path = "Core Data";
+			sourceTree = "<group>";
+		};
 		85835EBF2C402CCE0007F180 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -536,14 +545,6 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		8598627F2C6FD64E00B79C3C /* Core Data */ = {
-			isa = PBXGroup;
-			children = (
-				859862832C6FD6A300B79C3C /* Model.xcdatamodeld */,
-			);
-			path = "Core Data";
-			sourceTree = "<group>";
-		};
 		85B85B0B2C3718BA00AAD046 /* Occurances */ = {
 			isa = PBXGroup;
 			children = (
@@ -588,7 +589,7 @@
 				851DD0012C4AC7E600A0E302 /* Lottie */,
 			);
 			productName = "Budgeting Application";
-			productReference = 851DCFFA2C4AAD8400A0E302 /* Budgeting Application.app */;
+			productReference = 8575F7FB2C6FE17D0053DFDF /* Budgeting Application.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -684,6 +685,7 @@
 				85835EDF2C42E1A00007F180 /* BasicExpense.swift in Sources */,
 				853A3DAB2C3593A40042A0A4 /* SceneDelegate.swift in Sources */,
 				853A3DBD2C3593A40042A0A4 /* Subscription Occurances.swift in Sources */,
+				8575F7FC2C6FE2030053DFDF /* Model.xcdatamodeld in Sources */,
 				853A3DD52C35FC990042A0A4 /* SegmentedControlView.swift in Sources */,
 				851DCFE22C47F4DD00A0E302 /* ChangeIconView.swift in Sources */,
 				853A3DB72C3593A40042A0A4 /* RecurringView.swift in Sources */,
@@ -988,14 +990,14 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		859862832C6FD6A300B79C3C /* Model.xcdatamodeld */ = {
+		8575F7F62C6FDF6F0053DFDF /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				859862842C6FD6A300B79C3C /* Model.xcdatamodel */,
+				8575F7F72C6FDF6F0053DFDF /* Model.xcdatamodel */,
 			);
-			currentVersion = 859862842C6FD6A300B79C3C /* Model.xcdatamodel */;
+			currentVersion = 8575F7F72C6FDF6F0053DFDF /* Model.xcdatamodel */;
 			name = Model.xcdatamodeld;
-			path = "/Users/lukagujejiani/Desktop/BudgetingApplicationV3/Budgeting Application/Core Data/Model.xcdatamodeld";
+			path = "/Users/lukagujejiani/Desktop/TEst2/Budgeting Application/Core Data/Model.xcdatamodeld";
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
