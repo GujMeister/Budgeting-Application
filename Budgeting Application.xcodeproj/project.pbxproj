@@ -59,7 +59,7 @@
 		853A3DD32C35F66A0042A0A4 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3DD22C35F66A0042A0A4 /* Color.swift */; };
 		853A3DD52C35FC990042A0A4 /* SegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3DD42C35FC990042A0A4 /* SegmentedControlView.swift */; };
 		853A3DD92C360B7C0042A0A4 /* ExpensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853A3DD82C360B7C0042A0A4 /* ExpensesViewController.swift */; };
-		8575F7FC2C6FE2030053DFDF /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8575F7F62C6FDF6F0053DFDF /* Model.xcdatamodeld */; };
+		8575F8022C6FE4250053DFDF /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8575F7FF2C6FE41F0053DFDF /* Model.xcdatamodeld */; };
 		85835EC12C402CDD0007F180 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835EC02C402CDD0007F180 /* CalendarViewController.swift */; };
 		85835EC32C402CE60007F180 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835EC22C402CE60007F180 /* CalendarViewModel.swift */; };
 		85835EC72C407B0A0007F180 /* CalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85835EC62C407B0A0007F180 /* CalendarTableViewCell.swift */; };
@@ -164,8 +164,8 @@
 		853A3DD22C35F66A0042A0A4 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		853A3DD42C35FC990042A0A4 /* SegmentedControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlView.swift; sourceTree = "<group>"; };
 		853A3DD82C360B7C0042A0A4 /* ExpensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesViewController.swift; sourceTree = "<group>"; };
-		8575F7F72C6FDF6F0053DFDF /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		8575F7FB2C6FE17D0053DFDF /* Budgeting Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Budgeting Application.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8575F8002C6FE41F0053DFDF /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		85835EC02C402CDD0007F180 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		85835EC22C402CE60007F180 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		85835EC62C407B0A0007F180 /* CalendarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTableViewCell.swift; sourceTree = "<group>"; };
@@ -285,7 +285,7 @@
 		853A3D692C3592BF0042A0A4 /* Budgeting Application */ = {
 			isa = PBXGroup;
 			children = (
-				8575F7F52C6FDF620053DFDF /* Core Data */,
+				8575F7FE2C6FE4150053DFDF /* CD */,
 				853A3D872C3593A40042A0A4 /* App */,
 				853A3D7F2C3593A40042A0A4 /* Models */,
 				853A3DA02C3593A40042A0A4 /* Scene */,
@@ -465,12 +465,12 @@
 			path = "Table View Cells";
 			sourceTree = "<group>";
 		};
-		8575F7F52C6FDF620053DFDF /* Core Data */ = {
+		8575F7FE2C6FE4150053DFDF /* CD */ = {
 			isa = PBXGroup;
 			children = (
-				8575F7F62C6FDF6F0053DFDF /* Model.xcdatamodeld */,
+				8575F7FF2C6FE41F0053DFDF /* Model.xcdatamodeld */,
 			);
-			path = "Core Data";
+			path = CD;
 			sourceTree = "<group>";
 		};
 		85835EBF2C402CCE0007F180 /* Calendar */ = {
@@ -685,7 +685,7 @@
 				85835EDF2C42E1A00007F180 /* BasicExpense.swift in Sources */,
 				853A3DAB2C3593A40042A0A4 /* SceneDelegate.swift in Sources */,
 				853A3DBD2C3593A40042A0A4 /* Subscription Occurances.swift in Sources */,
-				8575F7FC2C6FE2030053DFDF /* Model.xcdatamodeld in Sources */,
+				8575F8022C6FE4250053DFDF /* Model.xcdatamodeld in Sources */,
 				853A3DD52C35FC990042A0A4 /* SegmentedControlView.swift in Sources */,
 				851DCFE22C47F4DD00A0E302 /* ChangeIconView.swift in Sources */,
 				853A3DB72C3593A40042A0A4 /* RecurringView.swift in Sources */,
@@ -990,14 +990,14 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		8575F7F62C6FDF6F0053DFDF /* Model.xcdatamodeld */ = {
+		8575F7FF2C6FE41F0053DFDF /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				8575F7F72C6FDF6F0053DFDF /* Model.xcdatamodel */,
+				8575F8002C6FE41F0053DFDF /* Model.xcdatamodel */,
 			);
-			currentVersion = 8575F7F72C6FDF6F0053DFDF /* Model.xcdatamodel */;
+			currentVersion = 8575F8002C6FE41F0053DFDF /* Model.xcdatamodel */;
 			name = Model.xcdatamodeld;
-			path = "/Users/lukagujejiani/Desktop/TEst2/Budgeting Application/Core Data/Model.xcdatamodeld";
+			path = "/Users/lukagujejiani/Desktop/Test3/Budgeting Application/CD/Model.xcdatamodeld";
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
