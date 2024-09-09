@@ -136,17 +136,17 @@ final class BudgetDetailViewController: UIViewController {
     // MARK: - Helper Functions
     private func configureView() {
         guard let budget = budget else { return }
-        categoryLabel.text = budget.category.rawValue
+        categoryLabel.text = budget.category.rawValue.translated()
         emojiLabel.text = budget.category.emoji
         
         if budget.remainingAmount < 0 {
-            remainingAmountLabel.text = "Overdue:\n\(PlainNumberFormatterHelper.shared.format(amount: abs(budget.remainingAmount)))"
+            remainingAmountLabel.text = "\("budget_detail_overdue".translated()):\n\(PlainNumberFormatterHelper.shared.format(amount: abs(budget.remainingAmount)))"
         } else {
-            remainingAmountLabel.text = "Remaining:\n\(PlainNumberFormatterHelper.shared.format(amount: abs(budget.remainingAmount)))"
+            remainingAmountLabel.text = "\("budget_detail_remaining".translated()):\n\(PlainNumberFormatterHelper.shared.format(amount: abs(budget.remainingAmount)))"
         }
         
-        spentAmountLabel.text = "Spent: \(PlainNumberFormatterHelper.shared.format(amount: abs(budget.spentAmount)))"
-        maxAmountLabel.text = "Max: \(PlainNumberFormatterHelper.shared.format(amount: abs(budget.totalAmount)))"
+        spentAmountLabel.text = "\("budget_detail_spent".translated()): \(PlainNumberFormatterHelper.shared.format(amount: abs(budget.spentAmount)))"
+        maxAmountLabel.text = "\("budget_detail_max".translated()): \(PlainNumberFormatterHelper.shared.format(amount: abs(budget.totalAmount)))"
         progressView.setProgress(spent: budget.spentAmount, total: budget.totalAmount, animated: true)
     }
     

@@ -107,8 +107,6 @@ struct FirstPage: View {
                     .foregroundStyle(Color(UIColor.NavigationRectangleColor))
                     .font(.custom("ChesnaGrotesk-Bold", size: 24))
                     .padding([.trailing, .top])
-                
-                Spacer()
             }
             
             Text("Budgeto is a comprehensive application that helps you manage your finances efficiently.\nTrack your expenses, manage budgets, and stay on top of your financial goals.")

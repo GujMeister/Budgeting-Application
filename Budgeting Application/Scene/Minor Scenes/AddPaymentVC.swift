@@ -17,7 +17,7 @@ final class AddPaymentVC: UIViewController {
     private lazy var keyboardHandler = KeyboardHandler(viewController: self)
     
     private var topView: UIView = {
-       let view = UIView()
+        let view = UIView()
         view.backgroundColor = .gray
         view.layer.cornerRadius = 3
         return view
@@ -28,7 +28,7 @@ final class AddPaymentVC: UIViewController {
         label.textColor = .label
         label.textAlignment = .center
         label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 20)
-        label.text = "Choose Payment Category"
+        label.text = "add_payment_category_label".translated()
         return label
     }()
     
@@ -43,13 +43,13 @@ final class AddPaymentVC: UIViewController {
         label.textColor = .label
         label.textAlignment = .center
         label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 16)
-        label.text = "Input Payment Description"
+        label.text = "add_payment_description_label".translated()
         return label
     }()
     
     private let descriptionTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "e.g. Car"
+        textField.placeholder = "add_payment_description_placeholder".translated()
         textField.borderStyle = .roundedRect
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
@@ -72,13 +72,13 @@ final class AddPaymentVC: UIViewController {
         label.textColor = .label
         label.textAlignment = .center
         label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 16)
-        label.text = "Input Amount"
+        label.text = "add_payment_amount_label".translated()
         return label
     }()
     
     private let amountTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "e.g. 1500"
+        textField.placeholder = "add_payment_amount_placeholder".translated()
         textField.borderStyle = .roundedRect
         textField.keyboardType = .decimalPad
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -109,13 +109,13 @@ final class AddPaymentVC: UIViewController {
         label.textColor = .label
         label.textAlignment = .center
         label.font = UIFont(name: "ChesnaGrotesk-Medium", size: 16)
-        label.text = "Number of Months"
+        label.text = "add_payment_repeat_label".translated()
         return label
     }()
     
     private let repeatCountTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "e.g. 12"
+        textField.placeholder = "add_payment_repeat_placeholder".translated()
         textField.borderStyle = .roundedRect
         textField.keyboardType = .numberPad
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -136,7 +136,7 @@ final class AddPaymentVC: UIViewController {
     
     private lazy var addButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Add Payment", for: .normal)
+        button.setTitle("add_payment_button_title".translated(), for: .normal)
         
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.addButtonTapped()
@@ -241,20 +241,20 @@ final class AddPaymentVC: UIViewController {
         
         // Validate description length
         if description.count < 2 || description.count > 40 {
-            presentAlert(from: self, title: "Invalid description", message: "Description must be between 2 and 40 characters")
+            presentAlert(from: self, title: "invalid_description_title".translated(), message: "invalid_description_message".translated())
             return
         }
         
         // Validate amount
         let amountComponents = amountText.split(separator: ".")
         if amount <= 0 || amount > 50000 || (amountComponents.count == 2 && amountComponents[1].count > 2) {
-            presentAlert(from: self, title: "Invalid amount", message: "Amount must be greater than 0, less than or equal to 50000, and have at most two decimal places")
+            presentAlert(from: self, title: "invalid_amount_title".translated(), message: "invalid_amount_message".translated())
             return
         }
         
         // Validate repeat count
         if repeatCount <= 0 || repeatCount > 600 || repeatCountText.contains(".") {
-            presentAlert(from: self, title: "Invalid repeat count", message: "Number of months must be an integer greater than 0 and less than or equal to 600 (50 years)")
+            presentAlert(from: self, title: "invalid_repeat_count_title".translated(), message: "invalid_repeat_count_message".translated())
             return
         }
         
@@ -273,19 +273,19 @@ final class AddPaymentVC: UIViewController {
 
     // MARK: - Information Alerts
     private func descriptionsButtonTapped() {
-        presentAlert(from: self, title: "Info about the description", message: "This description will be used to describe the payment throughout the application for your convenience")
+        presentAlert(from: self, title: "info_description_title".translated(), message: "info_description_message".translated())
     }
 
     private func inputAmountButtonTapped() {
-        presentAlert(from: self, title: "Info about the input amount", message: "This number will be used to set the amount that you are going to budget every month for this payment")
+        presentAlert(from: self, title: "info_amount_title".translated(), message: "info_amount_message".translated())
     }
 
     private func monthsButtonTapped() {
-        presentAlert(from: self, title: "Info about the number of months", message: "This is an input for the number of months you want your payment to occur. Inputting 12 will repeat the payment 12 times (1 Year)")
+        presentAlert(from: self, title: "info_repeat_count_title".translated(), message: "info_repeat_count_message".translated())
     }
 
     private func invalidInput() {
-        presentAlert(from: self, title: "Invalid Input", message: "Please fill out all fields correctly")
+        presentAlert(from: self, title: "invalid_input_title".translated(), message: "invalid_input_message".translated())
     }
 }
 
@@ -300,6 +300,6 @@ extension AddPaymentVC: UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return categories[row].rawValue
+        return categories[row].rawValue.translated()
     }
 }

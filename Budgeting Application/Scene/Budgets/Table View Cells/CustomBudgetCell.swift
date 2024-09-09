@@ -33,7 +33,7 @@ final class CustomBudgetCell: UITableViewCell {
     
     let spentAmountTextLabel: UILabel = {
         let label = UILabel()
-        label.text = "Spent:"
+//        label.text = "spent_amount".translated()
         label.font = UIFont(name: "ChesnaGrotesk-Regular", size: 10)
         label.textColor = .quaternaryTextColor
         return label
@@ -103,8 +103,8 @@ final class CustomBudgetCell: UITableViewCell {
     
     // MARK: - Helper function
     func configure(with budget: BasicExpenseBudget) {
-//        emojiLabel.text = budget.category.emoji
-        categoryNameLabel.text = budget.category.rawValue
+        spentAmountTextLabel.text = "spent_amount".translated()
+        categoryNameLabel.text = budget.category.rawValue.translated()
         
         spentAmountLabel.attributedText = NumberFormatterHelper.shared.format(amount: budget.spentAmount, baseFont: UIFont(name: "Heebo-SemiBold", size: 8) ?? UIFont(), sizeDifference: 1.1)
         totalAmountLabel.attributedText = NumberFormatterHelper.shared.format(amount: budget.totalAmount, baseFont: UIFont(name: "Heebo-SemiBold", size: 8) ?? UIFont(), sizeDifference: 1.1)

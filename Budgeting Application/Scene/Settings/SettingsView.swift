@@ -32,16 +32,16 @@ struct SettingsView: View {
                             .padding(.top)
                             .accessibilityHidden(true)
                         
-                        Text("Settings")
+                        Text("settings_title".translated())
                             .font(.largeTitle)
                             .bold()
-                            .accessibilityLabel("Settings")
+                            .accessibilityLabel("settings_title".translated())
                         
-                        Text("Manage or delete your data, read about the app and change password, app icons or name")
+                        Text("settings_description".translated())
                             .multilineTextAlignment(.center)
                             .font(.subheadline)
                             .padding(.bottom)
-                            .accessibilityLabel("Manage or delete your data, read about the app and change password, app icons or name")
+                            .accessibilityLabel("settings_description".translated())
                     }
                     
                     Spacer()
@@ -53,69 +53,69 @@ struct SettingsView: View {
                 viewModel.showAboutView = true
             } label: {
                 HStack {
-                    Text("About")
+                    Text("about".translated())
                     Spacer()
                     Image(systemName: "chevron.right")
                 }
                 .accessibilityElement(children: .combine)
-                .accessibilityLabel("About the app")
-                .accessibilityHint("Tap to read about the app")
+                .accessibilityLabel("about_accessibility".translated())
+                .accessibilityHint("about_accessibility_hint".translated())
             }
             .sheet(isPresented: $viewModel.showAboutView) {
                 AboutView()
             }
             
-            Section(header: Text("Delete").accessibilityLabel("Delete data")) {
+            Section(header: Text("delete_section".translated()).accessibilityLabel("delete_section".translated())) {
                 Button {
                     viewModel.deleteBasicExpenses()
                 } label: {
                     HStack {
-                        Text("Expenses")
+                        Text("delete_expenses".translated())
                         Spacer()
                         Image(systemName: "chevron.right")
                     }
                     .accessibilityElement(children: .combine)
-                    .accessibilityLabel("Delete expenses")
-                    .accessibilityHint("Tap to delete all expenses")
+                    .accessibilityLabel("delete_expenses_accessibility".translated())
+                    .accessibilityHint("delete_expenses_accessibility_hint".translated())
                 }
                 
                 Button {
                     viewModel.deleteSubscriptionExpenses()
                 } label: {
                     HStack {
-                        Text("Subscriptions")
+                        Text("delete_subscriptions".translated())
                         Spacer()
                         Image(systemName: "chevron.right")
                     }
                     .accessibilityElement(children: .combine)
-                    .accessibilityLabel("Delete subscriptions")
-                    .accessibilityHint("Tap to delete all subscriptions")
+                    .accessibilityLabel("delete_subscriptions_accessibility".translated())
+                    .accessibilityHint("delete_subscriptions_accessibility_hint".translated())
                 }
                 
                 Button {
                     viewModel.deletePaymentExpenses()
                 } label: {
                     HStack {
-                        Text("Bank Payments")
+                        Text("delete_payments".translated())
                         Spacer()
                         Image(systemName: "chevron.right")
                     }
                     .accessibilityElement(children: .combine)
-                    .accessibilityLabel("Delete bank payments")
-                    .accessibilityHint("Tap to delete all bank payments")
+                    .accessibilityLabel("delete_payments_accessibility".translated())
+                    .accessibilityHint("delete_payments_accessibility_hint".translated())
                 }
                 
                 Button {
                     viewModel.deleteAllData()
                 } label: {
                     HStack {
-                        Text("All Data")
+                        Text("delete_all_data".translated())
                         Spacer()
                         Image(systemName: "chevron.right")
                     }
                     .accessibilityElement(children: .combine)
-                    .accessibilityLabel("Delete all data")
-                    .accessibilityHint("Tap to delete all data")
+                    .accessibilityLabel("delete_all_data_accessibility".translated())
+                    .accessibilityHint("delete_all_data_accessibility_hint".translated())
                 }
             }
             
@@ -124,13 +124,13 @@ struct SettingsView: View {
                     viewModel.showChangePasswordView = true
                 } label: {
                     HStack {
-                        Text("Change Password")
+                        Text("change_password".translated())
                         Spacer()
                         Image(systemName: "chevron.right")
                     }
                     .accessibilityElement(children: .combine)
-                    .accessibilityLabel("Change password")
-                    .accessibilityHint("Tap to change your password")
+                    .accessibilityLabel("change_password_accessibility".translated())
+                    .accessibilityHint("change_password_accessibility_hint".translated())
                 }
                 .sheet(isPresented: $viewModel.showChangePasswordView) {
                     ChangePasswordView(viewModel: ChangePasswordViewModel())
@@ -141,30 +141,45 @@ struct SettingsView: View {
                     viewModel.showChangeIcon = true
                 } label: {
                     HStack {
-                        Text("Change App Icon")
+                        Text("change_app_icon".translated())
                         Spacer()
                         Image(systemName: "chevron.right")
                     }
                     .accessibilityElement(children: .combine)
-                    .accessibilityLabel("Change app icon")
-                    .accessibilityHint("Tap to change the app icon")
+                    .accessibilityLabel("change_app_icon_accessibility".translated())
+                    .accessibilityHint("change_app_icon_accessibility_hint".translated())
                 }
                 .sheet(isPresented: $viewModel.showChangeIcon) {
                     ChangeIconView()
                 }
                 
+                Button {
+                    viewModel.showChangeLanguage = true
+                } label: {
+                    HStack {
+                        Text("change_language".translated())
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                    }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel("change_language_accessibility".translated())
+                    .accessibilityHint("change_language_accessibility_hint".translated())
+                }
+                .sheet(isPresented: $viewModel.showChangeLanguage) {
+                    ChangeLanguagesView()
+                }
                 
                 Button {
                     viewModel.showChangeNameView = true
                 } label: {
                     HStack {
-                        Text("Change Name")
+                        Text("change_name".translated())
                         Spacer()
                         Image(systemName: "chevron.right")
                     }
                     .accessibilityElement(children: .combine)
-                    .accessibilityLabel("Change app name")
-                    .accessibilityHint("Tap to change the app name")
+                    .accessibilityLabel("change_name_accessibility".translated())
+                    .accessibilityHint("change_name_accessibility_hint".translated())
                 }
                 .sheet(isPresented: $viewModel.showChangeNameView) {
                     ChangeNameView()
@@ -172,16 +187,16 @@ struct SettingsView: View {
             }
             
             Section {
-                Text("Version 2.2")
-                    .accessibilityLabel("App version 2.2")
-                Text("© All Rights Reserved")
-                    .accessibilityLabel("All rights reserved")
+                Text("app_version".translated())
+                    .accessibilityLabel("app_version".translated())
+                Text("rights_reserved".translated())
+                    .accessibilityLabel("rights_reserved".translated())
             } header: {
-                Text("App").accessibilityLabel("App information")
+                Text("app_information_header".translated()).accessibilityLabel("app_information_header".translated())
             } footer: {
-                Text("Owner of this application gives all the rights imaginable regarding the usage of his assets and code used in this application")
+                Text("app_information_footer".translated())
                     .foregroundStyle(Color(UIColor.systemGray2))
-                    .accessibilityLabel("Owner of this application gives all the rights imaginable regarding the usage of his assets and code used in this application")
+                    .accessibilityLabel("app_information_footer".translated())
             }
         }
         .padding(.top, -30)

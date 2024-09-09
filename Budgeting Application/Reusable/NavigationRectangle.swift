@@ -13,7 +13,7 @@ class NavigationRectangle: UIView {
     private let height: CGFloat
     private let rectangleColor: UIColor
     private let totalBudgetedMoney: NSAttributedString
-    private let descriptionLabelText: String
+    internal var descriptionLabelText: String
     
     lazy var totalBudgetedNumberLabel: UILabel = {
         let label = UILabel()

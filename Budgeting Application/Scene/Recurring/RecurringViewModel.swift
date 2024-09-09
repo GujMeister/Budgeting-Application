@@ -23,6 +23,12 @@ final class RecurringPageViewModel: ObservableObject {
     @Published var listTotalBudgeted: Double = 0.0
     @Published var descriptionLabelText: String = ""
     
+    @Published var localeLanguage: String = Locale.current.identifier {
+        didSet {
+            reloadAllData()
+        }
+    }
+    
     @Published var selectedSegmentIndex: Int = 0 {
         didSet {
             loadOccurrences()
@@ -49,6 +55,14 @@ final class RecurringPageViewModel: ObservableObject {
     }
     
     // MARK: - Overview
+    func reloadAllData() {
+        allSubscriptionOccurrences.removeAll()
+        allPaymentOccurrences.removeAll()
+        loadOccurrences()
+        loadOverviewExpenses()
+        updateDescriptionLabelText()
+    }
+    
     func loadOverviewExpenses() {
         DataManager.shared.fetchSubscriptionExpenses()
         DataManager.shared.FetchPaymentExpenses()
@@ -175,10 +189,10 @@ final class RecurringPageViewModel: ObservableObject {
     
     private func updateDescriptionLabelText() {
         if selectedSegmentIndex == 2 {
-            descriptionLabelText = "Total Monthly Expenditure"
+            descriptionLabelText = "total_monthly_expenditure".translated()
         } else {
-            let segmentName = selectedSegmentIndex == 0 ? "Subscriptions" : "Bank Payments"
-            descriptionLabelText = "\(segmentName) Left: \(selectedTimePeriod.rawValue)"
+            let segmentKey = selectedSegmentIndex == 0 ? "subscriptions_left" : "bank_payments_left"
+            descriptionLabelText = String(format: segmentKey.translated(), selectedTimePeriod.localized())
         }
     }
     

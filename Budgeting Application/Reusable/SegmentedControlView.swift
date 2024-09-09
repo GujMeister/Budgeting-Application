@@ -75,6 +75,18 @@ class CustomSegmentedControlView: UIView {
         ])
     }
     
+    func updateControlItems(_ newControlItems: [String]) {
+        controlItems = newControlItems
+        segmentedControl.removeAllSegments()
+        
+        for (index, item) in newControlItems.enumerated() {
+            segmentedControl.insertSegment(withTitle: item, at: index, animated: false)
+        }
+        // Reset to the previous selected index if necessary
+        segmentedControl.selectedSegmentIndex = 0 // Or your default
+    }
+
+    
     private func applyCornerRadius() {
         let bounds = CGRect(
             x: 0,

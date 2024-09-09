@@ -8,7 +8,7 @@
 import UIKit
 import DGCharts
 
-class NumberFormatterHelper {
+final class NumberFormatterHelper {
     static let shared = NumberFormatterHelper()
     
     private init() {}
@@ -53,7 +53,7 @@ class PlainNumberFormatterHelper {
     func format(amount: Double) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
-        formatter.locale = Locale(identifier: "en_US") // Ensures the dollar sign is in the front
+        formatter.locale = Locale(identifier: "en_US") //$ sign in front
         formatter.currencySymbol = "$"
         
         if floor(amount) == amount {

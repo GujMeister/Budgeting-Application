@@ -14,11 +14,12 @@ class PaddedLabel: UILabel {
 }
 
 class BorderLabelView: UIView {
+    private let label = PaddedLabel()
+
     convenience init(labelName: String) {
         self.init()
 
         let contentView = UIView()
-
         contentView.backgroundColor = .backgroundColor
         contentView.layer.borderWidth = 3
         contentView.layer.borderColor = UIColor.NavigationRectangleColor.cgColor
@@ -28,13 +29,14 @@ class BorderLabelView: UIView {
         addSubview(contentView)
 
         contentView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        contentView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        contentView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        contentView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            contentView.topAnchor.constraint(equalTo: topAnchor),
+            contentView.rightAnchor.constraint(equalTo: rightAnchor),
+            contentView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            contentView.leftAnchor.constraint(equalTo: leftAnchor)
+        ])
 
-        let label = PaddedLabel()
-        label.text = labelName
+        label.text = labelName.translated()
         label.backgroundColor = .backgroundColor
         label.font = UIFont(name: "ChesnaGrotesk-Bold", size: 12)
         label.textColor = .primaryTextColor
@@ -42,7 +44,13 @@ class BorderLabelView: UIView {
 
         addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.topAnchor.constraint(equalTo: topAnchor, constant: -7).isActive = true
-        label.leftAnchor.constraint(equalTo: leftAnchor, constant: 15).isActive = true
+        NSLayoutConstraint.activate([
+            label.topAnchor.constraint(equalTo: topAnchor, constant: -7),
+            label.leftAnchor.constraint(equalTo: leftAnchor, constant: 15)
+        ])
+    }
+
+    func updateLabelText(_ newText: String) {
+        label.text = newText.translated()
     }
 }

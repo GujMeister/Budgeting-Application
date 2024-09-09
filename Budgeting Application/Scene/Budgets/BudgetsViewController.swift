@@ -22,14 +22,14 @@ final class BudgetsViewController: UIViewController {
     
     private lazy var customSegmentedControlView = CustomSegmentedControlView(
         color: .NavigationRectangleColor,
-        controlItems: ["Budgets", "Expenses"],
+        controlItems: ["expenses_control_item_budgets".translated(), "expenses_control_item_expenses".translated()],
         defaultIndex: 0
     ) { [weak self] selectedIndex in
         self?.handleSegmentChange(selectedIndex: selectedIndex)
     }
     
-    private var budgetsStackViewBackground: UIView = {
-        let view = BorderLabelView(labelName: "Favorites")
+    private var budgetsStackViewBackground: BorderLabelView = {
+        let view = BorderLabelView(labelName: "budgets_favorites".translated())
         return view
     }()
     
@@ -42,7 +42,7 @@ final class BudgetsViewController: UIViewController {
     
     private var allBudgetsLabel: UILabel = {
         let label = UILabel()
-        label.text = "Budgets"
+        label.text = "budgets_all_budgets".translated()
         label.font = UIFont(name: "ChesnaGrotesk-Bold", size: 14)
         label.textColor = .primaryTextColor
         return label
@@ -94,10 +94,12 @@ final class BudgetsViewController: UIViewController {
         super.viewWillAppear(animated)
         customSegmentedControlView.setSelectedIndex(0)
         viewModel.loadData()
+        updateLocalizedTexts()
     }
     
     // MARK: - Setup UI
     private func setupUI() {
+        updateLocalizedTexts()
         view.backgroundColor = .backgroundColor
         self.navigationController?.isNavigationBarHidden = true
         
@@ -167,11 +169,11 @@ final class BudgetsViewController: UIViewController {
         }
         
         viewModel.showAlertForDuplicateCategory = {
-            presentAlert(title: "Duplicate", message: "This category already exists")
+            presentAlert(title: "budgets_duplicate_category".translated(), message: "budgets_duplicate_message".translated())
         }
         
         viewModel.showAlertForMaxFavorites = {
-            presentAlert(title: "Limit Reached", message: "You can only have 5 budgets favorited")
+            presentAlert(title: "budgets_limit_reached".translated(), message: "budgets_limit_message".translated())
         }
     }
     
@@ -189,6 +191,20 @@ final class BudgetsViewController: UIViewController {
     
     private func updateInfoView() {
         infoView.totalBudgetedNumberLabel.attributedText = NumberFormatterHelper.shared.format(amount: viewModel.totalBudgetedMoney, baseFont: UIFont(name: "Heebo-SemiBold", size: 36) ?? UIFont(), sizeDifference: 0.6)
+    }
+    
+    private func updateLocalizedTexts() {
+        customSegmentedControlView.updateControlItems([
+            "budgets_control_item_budgets".translated(),
+            "budgets_control_item_expenses".translated()
+        ])
+        
+        allBudgetsTableView.reloadData()
+        infoView.descriptionLabel.text = "budgets_budget_limit".translated()
+        allBudgetsLabel.text = "budgets_all_budgets".translated()
+        budgetsStackViewBackground.updateLabelText("budgets_favorites".translated())
+
+        self.view.layoutIfNeeded()
     }
     
     // MARK: - Button Action

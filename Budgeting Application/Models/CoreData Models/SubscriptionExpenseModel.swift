@@ -7,7 +7,7 @@
 
 import CoreData
 
-@objc(SubscriptionExpenseModel)
+//@objc(SubscriptionExpenseModel)
 class SubscriptionExpenseModel: NSManagedObject, Identifiable {
     @NSManaged public var category: String?
     @NSManaged public var subscriptionDescription: String?

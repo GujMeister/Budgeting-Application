@@ -45,7 +45,6 @@ final class CalendarViewController: UIViewController {
     
     private lazy var calendarInfoButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Calendar ", for: .normal)
         button.titleLabel?.font = UIFont(name: "ChesnaGrotesk-Bold", size: 14)
         
         let config = UIImage.SymbolConfiguration(pointSize: 9)
@@ -73,7 +72,6 @@ final class CalendarViewController: UIViewController {
     
     private lazy var tableViewInfoButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Information Table ", for: .normal)
         button.titleLabel?.font = UIFont(name: "ChesnaGrotesk-Bold", size: 14)
         
         let config = UIImage.SymbolConfiguration(pointSize: 9)
@@ -110,8 +108,8 @@ final class CalendarViewController: UIViewController {
     
     private lazy var noDataLabel: UILabel = {
         let label = UILabel()
-        label.text = "No data for selected Date"
         label.textColor = .white
+        label.numberOfLines = 2
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -137,10 +135,12 @@ final class CalendarViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.loadEvents()
+        updateLocalizedTexts()
     }
 
     // MARK: - Setup UI
     private func setupUI() {
+        updateLocalizedTexts()
         self.navigationController?.isNavigationBarHidden = true
         view.backgroundColor = .backgroundColor
         
@@ -217,16 +217,24 @@ final class CalendarViewController: UIViewController {
     
     // MARK: - Actions
     func didTapCalendarInfoButton() {
-        presentAlert(from: self, title: "Calendar Information", message: "Calendar displays all your Subscriptions, Payments and Expenses that you have saved. It helps you to visually understand when you should make/had made Subscriptions or Bank Payments. Every expense that you've made so far is in the calendar also. The numbers show you how many catogories of payments are in the calendar. 3 means there are Subscriptions, Payments and Expenses for the specific date and so on")
+        presentAlert(from: self, title: "calendar_info_button".translated(), message: "calendar_alert_message".translated())
     }
     
     func didTapInformationTableButton() {
-        presentAlert(from: self, title: "Information Table", message: "Information Table gives you all the expenses you have made or will have to make based on the date that you have chosen in the calendar")
+        presentAlert(from: self, title: "calendar_table_info_button".translated(), message: "table_info_alert_message".translated())
     }
     
     // MARK: - Helper Functions
     @objc private func dateChanged(_ sender: UIDatePicker) {
         viewModel.events(for: sender.date)
+    }
+    
+    private func updateLocalizedTexts() {
+        calendarInfoButton.setTitle("calendar_info_button".translated(), for: .normal)
+        tableViewInfoButton.setTitle("calendar_table_info_button".translated(), for: .normal)
+        noDataLabel.text = "calendar_no_data".translated()
+        tableView.reloadData()
+        self.view.layoutIfNeeded()
     }
 }
 

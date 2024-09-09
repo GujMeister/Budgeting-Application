@@ -5,10 +5,14 @@
 //  Created by Luka Gujejiani on 03.07.24.
 //
 
-// Documentation:
-// Payment expense model has 2 properties named repeat count and date
-// PaymentService makes as many Payment Occurrance objects as there are "repeat counts" on the payment
-// If payment expense has 12 repeat count on specific date, this service produces 12 objects on dates 1 month apart
+/// The `PaymentService` class is responsible for generating occurrences of payment expenses.
+/// Each payment has a `repeatCount` and a `startDate`, which define how often the payment repeats over time.
+///
+/// This service iterates over the `repeatCount` value, generating a corresponding number of `PaymentOccurrence` objects.
+/// Each occurrence represents a recurring charge for a subscription, spaced one month apart from the start date.
+///
+/// Example:
+/// A subscription with a `repeatCount` of 12 will generate 12 occurrences, each one month apart from the `startDate`.
 
 import CoreData
 
@@ -25,7 +29,7 @@ final class PaymentService {
     func fetchPaymentOccurrences() -> [PaymentOccurrence] {
         var occurrences: [PaymentOccurrence] = []
         
-        let request: NSFetchRequest<PaymentExpenseModel> = PaymentExpenseModel.fetchRequest() as! NSFetchRequest<PaymentExpenseModel>
+        let request = NSFetchRequest<PaymentExpenseModel>(entityName: "PaymentExpenseModel")
         
         do {
             let payments = try context.fetch(request)

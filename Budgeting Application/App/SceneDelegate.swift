@@ -17,6 +17,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         let rootViewController = InitialViewController()
         
+///     `Use for testing`
+///      let rootViewController = MainTabBarController()
+        
         window.rootViewController = rootViewController
         self.window = window
         window.makeKeyAndVisible()

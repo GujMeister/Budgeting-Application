@@ -1,0 +1,182 @@
+/* 
+  Localizable.strings
+  Budgeting Application
+
+  Created by Luka Gujejiani on 24.08.24.
+  
+*/
+
+//Dashboard
+"dashboard_budgets" = "ბიუჯეტები";
+"dashboard_subscriptions" = "გამოწერები";
+"dashboard_bank_payments" = "ბანკის ვალდებულებები";
+"dashboard_total_budgeted" = "სულ ბიუჯეტირებული თანხა";
+"dashboard_no_subscriptions_saved" = "შენახული გამოწერები არ არის";
+"dashboard_no_bank_payments_to_display" = "საჩვენებელი საბანკო გადახდები არ არის";
+"dashboard_no_budgets_favorited" = "ფავორიტებში დამატებული ბიუჯეტები არ არის";
+"dashboard_chart" = "დიაგრამა";
+"dashboard_pie_chart_description" = "ქვემოთ მოცემული წრის დიაგრამა გაჩვენებთ თქვენს თვის ხარჯებს სამ კატეგორიაში: გამოწერები, საბანკო გადახდები და ბიუჯეტები";
+"dashboard_upcoming" = "მომავალი";
+
+// BudgetsViewController
+"budgets_budget_limit" = "ბიუჯეტის ლიმიტი";
+"budgets_control_item_budgets" = "ბიუჯეტები";
+"budgets_control_item_expenses" = "ხარჯები";
+"budgets_favorites" = "ფავორიტები";
+"budgets_all_budgets" = "ბიუჯეტები";
+"budgets_duplicate_category" = "დუბლიკატი";
+"budgets_duplicate_message" = "ეს კატეგორია უკვე არსებობს";
+"budgets_limit_reached" = "ლიმიტი მიღწეულია";
+"budgets_limit_message" = "თქვენ შეგიძლიათ მხოლოდ 5 ბიუჯეტის დამატება ფავორიტებში";
+
+// ExpensesViewController
+"expenses_last_month" = "გასული თვის ხარჯები";
+"expenses_time_period_last_month" = "გასული თვე";
+"expenses_control_item_budgets" = "ბიუჯეტები";
+"expenses_control_item_expenses" = "ხარჯები";
+
+// RecurringPage
+"recurring_segment_subscriptions" = "გამოწერები";
+"recurring_segment_payments" = "გადახდები";
+"recurring_segment_overview" = "მიმოხილვა";
+"recurring_time_period_today" = "დღეს";
+"recurring_time_period_last_three_days" = "ბოლო 3 დღე";
+"recurring_time_period_last_week" = "ბოლო კვირა";
+"recurring_time_period_last_month" = "ბოლო თვე";
+"recurring_edit" = "რედაქტირება";
+"recurring_done" = "დასრულება";
+"recurring_every_month_on" = "ყოველი თვის";
+"recurring_day_suffix" = "-ე";
+"recurring_delete" = "წაშლა";
+"total_monthly_expenditure" = "სულ თვიური ხარჯი";
+"subscriptions_left" = "გამოწერები დარჩენილი: %@";
+"bank_payments_left" = "ბანკის ვალდებულებები დარჩენილი: %@";
+
+// Localizable.strings (Georgian)
+"budgets_budget_limit" = "ბიუჯეტის ლიმიტი";
+"budgets_control_item_budgets" = "ბიუჯეტები";
+"budgets_control_item_expenses" = "ხარჯები";
+"budgets_favorites" = "ფავორიტები";
+"budgets_all_budgets" = "ყველა ბიუჯეტი";
+"budgets_add_budget" = "ბიუჯეტის დამატება";
+
+"expenses_last_month" = "გასული თვის ხარჯები";
+"expenses_add_expense" = "ხარჯების დამატება";
+"spent_amount" = "დახარჯული:";
+
+// BudgetDetailViewController
+"budget_detail_remaining" = "დარჩენილი";
+"budget_detail_spent" = "დახარჯული";
+"budget_detail_max" = "მაქს";
+"budget_detail_overdue" = "გადამეტება";
+
+// CalendarViewController
+"calendar_title" = "კალენდარი";
+"calendar_info_button" = "კალენდრის ინფორმაცია";
+"calendar_table_info_button" = "ინფორმაციის ცხრილი";
+"calendar_no_data" = "მონაცემები არ არის არჩეული თარიღისთვის";
+"calendar_alert_message" = "კალენდარი გიჩვენებთ ყველა შენახულ გამოწერას, გადასახადს და ხარჯს, რაც გაქვთ.";
+"table_info_alert_message" = "ინფორმაციის ცხრილი გაჩვენებთ ყველა ხარჯს არჩეული თარიღის მიხედვით.";
+
+// AddPaymentVC
+"add_payment_title" = "დაამატეთ გადახდა";
+"add_payment_category_label" = "აირჩიეთ გადახდის კატეგორია";
+"add_payment_description_label" = "შეიყვანეთ გადახდის აღწერა";
+"add_payment_description_placeholder" = "მაგ. მანქანა";
+"add_payment_amount_label" = "შეიყვანეთ თანხა";
+"add_payment_amount_placeholder" = "მაგ. 1500";
+"add_payment_repeat_label" = "თვეების რაოდენობა";
+"add_payment_repeat_placeholder" = "მაგ. 12";
+"add_payment_button_title" = "გადახდის დამატება";
+"add_payment_invalid_input_alert" = "არასწორი შეყვანა";
+"add_payment_invalid_input_message" = "გთხოვთ შეავსოთ ყველა ველი სწორად";
+"add_payment_description_info_title" = "ინფორმაცია აღწერაზე";
+"add_payment_description_info_message" = "ეს აღწერა გამოიყენება აპლიკაციაში გადახდის აღსანიშნავად თქვენი მოხერხებულობისთვის";
+"add_payment_amount_info_title" = "ინფორმაცია შეყვანილ თანხაზე";
+"add_payment_amount_info_message" = "ეს რიცხვი გამოიყენება იმისთვის, რომ დასახული თანხა ყოველთვიურად შეაფასოთ";
+"add_payment_repeat_info_title" = "ინფორმაცია თვეების რაოდენობაზე";
+"add_payment_repeat_info_message" = "ეს არის თვეების რაოდენობა, რომელზეც გსურთ გადახდის განმეორება. თუ შეიყვანთ 12, გადაიხდება 12-ჯერ (1 წელი)";
+
+// Settings
+"settings_title" = "პარამეტრები";
+"settings_description" = "მართეთ ან წაშალეთ თქვენი მონაცემები, გაიგეთ მეტი აპლიკაციის შესახებ - შეცვალეთ პაროლი, აპლიკაციის ხატულა ან სახელი";
+"about" = "აპლიკაციის შესახებ";
+"about_accessibility" = "აპლიკაციის შესახებ";
+"about_accessibility_hint" = "დააჭირეთ აპლიკაციის შესახებ წასაკითხად";
+"delete_section" = "წაშლა";
+"delete_expenses" = "ხარჯები";
+"delete_expenses_accessibility" = "ხარჯების წაშლა";
+"delete_expenses_accessibility_hint" = "დააჭირეთ ყველა ხარჯის წასაშლელად";
+"delete_subscriptions" = "გამოწერები";
+"delete_subscriptions_accessibility" = "გამოწერების წაშლა";
+"delete_subscriptions_accessibility_hint" = "დააჭირეთ ყველა გამოწერის წასაშლელად";
+"delete_payments" = "ბანკის გადახდები";
+"delete_payments_accessibility" = "ბანკის გადახდების წაშლა";
+"delete_payments_accessibility_hint" = "დააჭირეთ ყველა ბანკის გადახდის წასაშლელად";
+"delete_all_data" = "ყველა მონაცემი";
+"delete_all_data_accessibility" = "ყველა მონაცემის წაშლა";
+"delete_all_data_accessibility_hint" = "დააჭირეთ ყველა მონაცემის წასაშლელად";
+"change_password" = "პაროლის შეცვლა";
+"change_password_accessibility" = "პაროლის შეცვლა";
+"change_password_accessibility_hint" = "დააჭირეთ თქვენი პაროლის შესაცვლელად";
+"change_app_icon" = "აპლიკაციის ხატულას შეცვლა";
+"change_app_icon_accessibility" = "აპლიკაციის ხატულას შეცვლა";
+"change_app_icon_accessibility_hint" = "დააჭირეთ აპლიკაციის ხატულას შესაცვლელად";
+"change_name" = "სახელის შეცვლა";
+"change_name_accessibility" = "აპლიკაციის სახელის შეცვლა";
+"change_name_accessibility_hint" = "დააჭირეთ აპლიკაციის სახელის შესაცვლელად";
+"app_version" = "ვერსია 2.2";
+"rights_reserved" = "ყველა უფლება დაცულია";
+"app_information_header" = "აპლიკაცია";
+"app_information_footer" = "აპლიკაციის მფლობელი გაძლევთ ყველა უფლებას მის აქტივებსა და ამ აპლიკაციაში გამოყენებულ კოდზე";
+"change_language" = "ენის ცვლილება";
+"change_language_accessibility" = "შეცვალე ენა";
+"change_language_accessibility_hint" = "შეცვალე ენა აპლიკაციაში";
+
+
+//Enums
+// Categories 2
+"Insurance" = "დაზღვევა";
+"House Payments" = "სახლზე გადახდები";
+"Car Payments" = "მანქანის გადახდები";
+"Personal Loans" = "პერსონალური სესხები";
+"Student Loans" = "სტუდენტური სესხები";
+"Credit-Card Payments" = "საკრედიტო ბარათის გადახდები";
+"Phone Bills" = "ტელეფონის გადასახადები";
+"Rent" = "ქირა";
+"Health Insurance" = "ჯანმრთელობის დაზღვევა";
+"Life Insurance" = "სიცოცხლის დაზღვევა";
+"Property Taxes" = "ქონების გადასახადები";
+"Medical Bills" = "სამედიცინო გადასახადები";
+"Other" = "სხვა";
+"Miscellaneous" = "სხვადასხვა";
+
+// TimePeriodBackwards Enum
+"time_period_backwards_today" = "დღეს";
+"time_period_backwards_last_three_days" = "ბოლო 3 დღე";
+"time_period_backwards_last_week" = "ბოლო კვირა";
+"time_period_backwards_last_month" = "ბოლო თვე";
+
+// TimePeriod Enum
+"time_period_this_week" = "ეს კვირა";
+"time_period_this_two_weeks" = "ეს ორი კვირა";
+"time_period_this_month" = "ეს თვე";
+"time_period_three_months" = "3 თვე";
+"time_period_six_months" = "6 თვე";
+"time_period_year" = "წელი";
+
+// Categories
+"Food" = "საკვები";
+"Transportation" = "ტრანსპორტი";
+"Groceries" = "სასურსათო პროდუქტები";
+"Housing" = "საცხოვრებელი";
+"Utilities" = "სასარგებლო სერვისები";
+"Entertainment" = "გართობა";
+"Education" = "განათლება";
+"Clothing" = "ტანსაცმელი";
+"Personal_Care" = "პირადი მოვლა";
+"Miscellaneous" = "სხვადასხვა";
+"Others" = "სხვა";
+
+//Settings (Language)
+"choose_language" = "აირჩიეთ ენა";

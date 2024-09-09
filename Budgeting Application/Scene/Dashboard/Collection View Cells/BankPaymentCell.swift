@@ -118,14 +118,11 @@ final class BankPaymentCollectionViewCell: UICollectionViewCell {
     }
     
     // MARK: - Configure
-    func configure(with payment: PaymentOccurrence/*, textColor: UIColor*/) {
-        dateLabel.text = formattedDate(payment.date)
+    func configure(with payment: PaymentOccurrence) {
+        dateLabel.text = payment.date.formattedDate()
         categoryLabel.text = payment.subscriptionDescription
         
         costLabel.attributedText = NumberFormatterHelper.shared.format(amount: payment.amount, baseFont: UIFont(name: "Heebo-SemiBold", size: 17) ?? UIFont(), sizeDifference: 0.8)
-        
-//        categoryLabel.textColor = textColor
-//        costLabel.textColor = textColor
         
         if let category = PaymentsCategory(rawValue: payment.category) {
             emojiLabel.text = category.emoji
@@ -134,11 +131,5 @@ final class BankPaymentCollectionViewCell: UICollectionViewCell {
             emojiLabel.text = "🔔"
             lineColorView.backgroundColor = UIColor.red
         }
-    }
-    
-    func formattedDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM d'\(daySuffix(for: date))'"
-        return formatter.string(from: date)
     }
 }

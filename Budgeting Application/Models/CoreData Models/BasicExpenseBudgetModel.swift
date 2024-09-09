@@ -7,7 +7,7 @@
 
 import CoreData
 
-@objc(BasicExpenseBudgetModel)
+//@objc(BasicExpenseBudgetModel)
 class BasicExpenseBudgetModel: NSManagedObject {
     @NSManaged var category: String!
     @NSManaged var spentAmount: NSNumber!

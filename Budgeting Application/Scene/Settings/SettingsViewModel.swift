@@ -14,6 +14,7 @@ final class SettingsVM: ObservableObject {
     @Published var showChangeNameView = false
     @Published var showChangeIcon = false
     @Published var showAboutView = false
+    @Published var showChangeLanguage = false
     @Published var alert: UIAlertController?
     private var viewModel = BudgetsViewModel()
 

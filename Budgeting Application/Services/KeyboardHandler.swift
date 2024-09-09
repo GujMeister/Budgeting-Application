@@ -7,7 +7,7 @@
 
 import UIKit
 
-class KeyboardHandler {
+final class KeyboardHandler {
     private weak var viewController: UIViewController?
     private var keyboardHeight: CGFloat = 0
 

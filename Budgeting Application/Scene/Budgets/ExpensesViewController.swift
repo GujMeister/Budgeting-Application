@@ -21,7 +21,7 @@ final class ExpensesViewController: UIViewController {
     
     private lazy var customSegmentedControlView = CustomSegmentedControlView(
         color: .NavigationRectangleColor,
-        controlItems: ["Budgets", "Expenses"],
+        controlItems: ["expenses_control_item_budgets".translated(), "expenses_control_item_expenses".translated()],
         defaultIndex: 1 ) { [weak self] selectedIndex in
             self?.handleSegmentChange(selectedIndex: selectedIndex)
         }
@@ -42,7 +42,7 @@ final class ExpensesViewController: UIViewController {
     
     private lazy var timePeriodButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle(TimePeriodBackwards.lastMonth.rawValue, for: .normal)
+        button.setTitle(TimePeriodBackwards.lastMonth.rawValue.translated(), for: .normal)
         button.setTitleColor(.primaryTextColor, for: .normal)
         button.titleLabel?.font = UIFont(name: "ChesnaGrotesk-Medium", size: 14)
         button.contentHorizontalAlignment = .left
@@ -74,7 +74,6 @@ final class ExpensesViewController: UIViewController {
         setupUI()
         setupBindings()
         viewModel.loadExpenses()
-        configureTimePeriodMenu()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,6 +83,7 @@ final class ExpensesViewController: UIViewController {
     
     // MARK: - Setup UI
     private func setupUI() {
+        configureTimePeriodMenu()
         view.backgroundColor = .backgroundColor
         
         let views = [customSegmentedControlView, infoView, addExpenseButton, timePeriodButton, chevronImageView, expensesTableView]
@@ -158,8 +158,8 @@ final class ExpensesViewController: UIViewController {
     
     private func configureTimePeriodMenu() {
         let actions = TimePeriodBackwards.allCases.map { period in
-            UIAction(title: period.rawValue) { [weak self] _ in
-                self?.timePeriodButton.setTitle(period.rawValue, for: .normal)
+            UIAction(title: period.localized()) { [weak self] _ in
+                self?.timePeriodButton.setTitle(period.localized(), for: .normal)
                 self?.viewModel.selectedTimePeriod = period
                 self?.viewModel.loadExpenses()
             }

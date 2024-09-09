@@ -99,11 +99,10 @@ final class DashboardViewModel {
     
     private func preparePieChartData() {
         let entries = [
-            PieChartDataEntry(value: Double(round(100 * totalBudgets) / 100), label: "Budgets"),
-            PieChartDataEntry(value: Double(round(100 * totalPayments) / 100), label: "Bank Payments"),
-            PieChartDataEntry(value: Double(round(100 * totalSubscriptions) / 100), label: "Subscriptions")
+            PieChartDataEntry(value: Double(round(100 * totalBudgets) / 100), label: "dashboard_budgets".translated()),
+            PieChartDataEntry(value: Double(round(100 * totalPayments) / 100), label: "dashboard_subscriptions".translated()),
+            PieChartDataEntry(value: Double(round(100 * totalSubscriptions) / 100), label: "dashboard_bank_payments".translated())
         ]
-
         pieChartData = entries
     }
     

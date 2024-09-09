@@ -16,10 +16,6 @@ final class SubscriptionCollectionViewCell: UICollectionViewCell {
         view.layer.cornerRadius = 10
         view.backgroundColor = .cellBackgroundColor
         view.layer.masksToBounds = false
-//        view.layer.shadowColor = UIColor.customBlue.cgColor
-//        view.layer.shadowOffset = CGSize(width: 3, height: 3)
-//        view.layer.shadowOpacity = 0.2
-//        view.layer.shadowRadius = 5
         return view
     }()
     
@@ -103,7 +99,6 @@ final class SubscriptionCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Configure
     func configure(with subscription: SubscriptionOccurrence) {
-//        dateLabel.text = DateFormatter.localizedString(from: subscription.date, dateStyle: .medium, timeStyle: .none)
         dateLabel.text = subscription.date.formattedWithoutYear()
         categoryLabel.text = subscription.subscriptionDescription
         costLabel.text = PlainNumberFormatterHelper.shared.format(amount: subscription.amount)
@@ -113,13 +108,5 @@ final class SubscriptionCollectionViewCell: UICollectionViewCell {
         } else {
             emojiLabel.text = "🔔"
         }
-    }
-}
-
-extension Date {
-    func formattedWithoutYear() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "d MMM"
-        return dateFormatter.string(from: self)
     }
 }

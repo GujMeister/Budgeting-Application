@@ -39,7 +39,7 @@ final class DashboardViewController: UIViewController {
     
     private lazy var budgetingButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Budgets", for: .normal)
+//        button.setTitle("dashboard_budgets".translated(), for: .normal)
         button.titleLabel?.font = UIFont(name: "ChesnaGrotesk-Bold", size: 14)
         
         let config = UIImage.SymbolConfiguration(pointSize: 9)
@@ -71,7 +71,6 @@ final class DashboardViewController: UIViewController {
     
     private lazy var upcomingButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Upcoming", for: .normal)
         button.titleLabel?.font = UIFont(name: "ChesnaGrotesk-Bold", size: 14)
         
         let config = UIImage.SymbolConfiguration(pointSize: 9)
@@ -125,7 +124,6 @@ final class DashboardViewController: UIViewController {
     
     private lazy var pieChartButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Chart ", for: .normal)
         button.titleLabel?.font = UIFont(name: "ChesnaGrotesk-Bold", size: 14)
         
         let config = UIImage.SymbolConfiguration(pointSize: 9)
@@ -144,7 +142,6 @@ final class DashboardViewController: UIViewController {
     // MARK: - Placeholder Views (Initially hidden)
     private lazy var noSubscriptionsLabel: UILabel = {
         let label = UILabel()
-        label.text = "No subscriptions saved"
         label.textColor = .primaryTextColor
         label.font = UIFont(name: "Montserrat-Medium", size: 12)
         label.textAlignment = .center
@@ -154,7 +151,6 @@ final class DashboardViewController: UIViewController {
     
     private lazy var noPaymentsLabel: UILabel = {
         let label = UILabel()
-        label.text = "No bank payments to display"
         label.textColor = .primaryTextColor
         label.font = UIFont(name: "Montserrat-Medium", size: 13)
         label.textAlignment = .center
@@ -165,7 +161,6 @@ final class DashboardViewController: UIViewController {
     private lazy var noFavoriteBudgetsLabel: UILabel = {
         let label = UILabel()
         label.textColor = .primaryTextColor
-        label.text = "No Budgets Favorited"
         label.font = UIFont(name: "Montserrat-Medium", size: 12)
         label.textAlignment = .center
         label.isHidden = true
@@ -213,6 +208,8 @@ final class DashboardViewController: UIViewController {
     
     // MARK: - Setup UI
     private func setupUI() {
+        updateLocalizedTexts()
+        
         self.navigationController?.isNavigationBarHidden = true
         view.backgroundColor = .infoViewColor
         view.addSubview(scrollView)
@@ -350,6 +347,32 @@ final class DashboardViewController: UIViewController {
         
         viewModel.onPieChartUpdated = { [weak self] in
             self?.updatePieChart()
+        }
+    }
+    
+    // MARK: - Update Localized Texts
+    private func updateLocalizedTexts() {
+        UIView.performWithoutAnimation {
+            budgetingButton.setTitle("dashboard_budgets".translated(), for: .normal)
+            upcomingButton.setTitle("dashboard_upcoming".translated(), for: .normal)
+            noSubscriptionsLabel.text = "dashboard_no_subscriptions_saved".translated()
+            noPaymentsLabel.text = "dashboard_no_bank_payments_to_display".translated()
+            noFavoriteBudgetsLabel.text = "dashboard_no_budgets_favorited".translated()
+            pieChartButton.setTitle("dashboard_chart".translated(), for: .normal)
+            infoView.descriptionLabel.text = "dashboard_total_budgeted".translated()
+            
+            updatePieChartLabels()
+            
+            self.view.layoutIfNeeded()
+        }
+    }
+
+    private func updatePieChartLabels() {
+        // Update PieChart with translated labels (if applicable)
+        if let pieChartDataSet = pieChartView.data?.dataSets.first as? PieChartDataSet {
+            pieChartDataSet.label = "dashboard_chart".translated()  // Replace "dashboard_chart" with the actual label if applicable
+            pieChartView.data?.notifyDataChanged()
+            pieChartView.notifyDataSetChanged()
         }
     }
     

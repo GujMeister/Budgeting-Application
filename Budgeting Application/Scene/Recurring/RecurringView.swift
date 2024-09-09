@@ -24,7 +24,11 @@ struct RecurringPage: View {
             ZStack {
                 CustomSegmentedControlViewRepresentable(
                     color: .NavigationRectangleColor,
-                    controlItems: ["Subscriptions", "Payments", "Overview"],
+                    controlItems: [
+                        "recurring_segment_subscriptions".translated(),
+                        "recurring_segment_payments".translated(),
+                        "recurring_segment_overview".translated()
+                    ],
                     defaultIndex: viewModel.selectedSegmentIndex,
                     segmentChangeCallback: { index in
                         viewModel.selectedSegmentIndex = index
@@ -42,7 +46,7 @@ struct RecurringPage: View {
                         baseFont: UIFont(name: "Heebo-SemiBold", size: 36) ?? UIFont(),
                         sizeDifference: 0.6
                     ),
-                    descriptionLabelText: viewModel.descriptionLabelText
+                    descriptionLabelText: viewModel.descriptionLabelText.translated()
                 )
                 .edgesIgnoringSafeArea(.top)
                 .frame(height: UIScreen.main.bounds.size.height / 4.6)
@@ -57,11 +61,11 @@ struct RecurringPage: View {
                             Button(action: {
                                 viewModel.selectedTimePeriod = period
                             }) {
-                                Text(period.rawValue)
+                                Text(period.localized())
                             }
                         }
                     } label: {
-                        Text(viewModel.selectedTimePeriod.rawValue.uppercased())
+                        Text(viewModel.selectedTimePeriod.localized().uppercased())
                             .font(.custom("ChesnaGrotesk-Bold", size: 16))
                             .foregroundStyle(Color(UIColor.primaryTextColor))
                         Image(systemName: "chevron.down")
@@ -78,7 +82,7 @@ struct RecurringPage: View {
                         isEditing.toggle()
                         viewModel.loadOverviewExpenses()
                     }) {
-                        Text(isEditing ? "Done" : "Edit")
+                        Text(isEditing ? "recurring_done".translated() : "recurring_edit".translated())
                             .foregroundStyle(Color(UIColor.primaryTextColor))
                     }
                 } else {
@@ -175,7 +179,14 @@ struct RecurringPage: View {
         .background(
             Color(UIColor.backgroundColor)
         )
+        .onAppear {
+            viewModel.reloadAllData()
+        }
+        .onChange(of: viewModel.localeLanguage) { _ in
+            viewModel.reloadAllData()
+        }
     }
+    
     
     // MARK: - Helper Functions
     private func presentAddSubscriptionVC() {
@@ -208,7 +219,6 @@ struct RecurringPage: View {
 }
 
 // MARK: - Extracted Views
-
 // MARK: Editable Payment Cell
 struct EditableRecurringView: View {
     var amount: Double
@@ -237,7 +247,7 @@ struct EditableRecurringView: View {
                             .font(.custom("ChesnaGrotesk-Regular", size: 12))
                             .foregroundStyle(Color(UIColor.primaryTextColor))
                         
-                        Text("Every month on \(Calendar.current.component(.day, from: date))\(daySuffix(for: date))")
+                        Text("\("recurring_every_month_on".translated()) \(daySuffix(for: date))")
                             .font(.custom("ChesnaGrotesk-Regular", size: 12))
                             .foregroundColor(Color(UIColor.quaternaryTextColor))
                             .padding(.top, 10)
@@ -260,7 +270,6 @@ struct EditableRecurringView: View {
     }
 }
 
-// MARK: Payment Cell
 struct RecurringView: View {
     var emoji: String
     var amount: Double
@@ -290,12 +299,12 @@ struct RecurringView: View {
                             .foregroundStyle(Color(UIColor.primaryTextColor))
                         
                         if isOverview {
-                            Text("Every month on \(Calendar.current.component(.day, from: date))\(daySuffix(for: date))")
+                            Text("\("recurring_every_month_on".translated()) \(daySuffix(for: date))")
                                 .font(.custom("ChesnaGrotesk-Regular", size: 12))
                                 .foregroundColor(Color(UIColor.quaternaryTextColor))
                                 .padding(.top, 10)
                         } else {
-                            Text(DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none))
+                            Text(date.formattedWithYear())
                                 .font(.custom("ChesnaGrotesk-Regular", size: 12))
                                 .foregroundColor(Color(UIColor.quaternaryTextColor))
                                 .padding(.top, 10)
@@ -342,6 +351,7 @@ struct CustomSegmentedControlViewRepresentable: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: CustomSegmentedControlView, context: Context) {
+        uiView.updateControlItems(controlItems)
         uiView.setSelectedIndex(defaultIndex)
     }
 }
@@ -371,10 +381,10 @@ struct NavigationRectangleRepresentable: UIViewRepresentable {
 //struct RecurringPage_Previews: PreviewProvider {
 //    static var previews: some View {
 //        RecurringPage()
-//        
+//
 //        RecurringView(emoji: "🏠", amount: 1000, paymentDescription: "Vashlijvari", date: Date(), color: .NavigationRectangleColor)
 //            .frame(width: UIScreen.main.bounds.width / 2, height: 150)
-//        
+//
 //        EditableRecurringView(amount: 200, paymentDescription: "Vashlijvari", date: Date(), color: .blue, deleteAction: {})
 //            .frame(width: UIScreen.main.bounds.width / 2, height: 150)
 //    }

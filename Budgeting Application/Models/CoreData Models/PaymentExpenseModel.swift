@@ -7,7 +7,7 @@
 
 import CoreData
 
-@objc(PaymentExpenseModel)
+//@objc(PaymentExpenseModel)
 class PaymentExpenseModel: NSManagedObject, Identifiable {
     @NSManaged public var category: String?
     @NSManaged public var paymentDescription: String?

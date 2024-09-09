@@ -7,7 +7,7 @@
 
 import CoreData
 
-@objc(FavoriteBudgetsModel)
+//@objc(FavoriteBudgetsModel)
 class FavoriteBudgetsModel: NSManagedObject, Identifiable {
     @NSManaged public var category: String?
 }

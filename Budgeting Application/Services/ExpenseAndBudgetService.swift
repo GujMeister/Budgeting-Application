@@ -1,5 +1,5 @@
 //
-//  Expense:Budget service.swift
+//  ExpenseAndBudgetService.swift
 //  Budgeting Application
 //
 //  Created by Luka Gujejiani on 03.07.24.

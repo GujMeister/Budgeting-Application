@@ -65,7 +65,7 @@ final class DataManager {
     var favoriteBudgets: [FavoriteBudgetsModel] = []
 
     func fetchFavoriteBudgets() {
-        let request: NSFetchRequest<FavoriteBudgetsModel> = FavoriteBudgetsModel.fetchRequest() as! NSFetchRequest<FavoriteBudgetsModel>
+        let request = NSFetchRequest<FavoriteBudgetsModel>(entityName: "FavoriteBudgetsModel")
         do {
             favoriteBudgets = try context.fetch(request)
         } catch {
@@ -74,13 +74,14 @@ final class DataManager {
     }
 
     func addFavoriteBudget(category: String) {
-        let favorite = FavoriteBudgetsModel(context: context)
+        let entity = NSEntityDescription.entity(forEntityName: "FavoriteBudgetsModel", in: context)!
+        let favorite = FavoriteBudgetsModel(entity: entity, insertInto: context)
         favorite.category = category
         saveContext()
     }
 
     func removeFavoriteBudget(category: String) {
-        let request: NSFetchRequest<FavoriteBudgetsModel> = FavoriteBudgetsModel.fetchRequest() as! NSFetchRequest<FavoriteBudgetsModel>
+        let request = NSFetchRequest<FavoriteBudgetsModel>(entityName: "FavoriteBudgetsModel")
         request.predicate = NSPredicate(format: "category == %@", category)
         
         do {
@@ -93,11 +94,12 @@ final class DataManager {
             print("Failed to remove FavoriteBudgetsModel: \(error)")
         }
     }
+    
     // MARK: - SubscriptionExpenseModel Management
     var subscriptionExpenseModelList: [SubscriptionExpenseModel] = []
 
     func fetchSubscriptionExpenses() {
-        let request: NSFetchRequest<SubscriptionExpenseModel> = SubscriptionExpenseModel.fetchRequest() as! NSFetchRequest<SubscriptionExpenseModel>
+        let request = NSFetchRequest<SubscriptionExpenseModel>(entityName: "SubscriptionExpenseModel")
         do {
             subscriptionExpenseModelList = try context.fetch(request)
         } catch {
@@ -106,7 +108,8 @@ final class DataManager {
     }
 
     func addSubscriptionExpense(category: String, amount: Double, startDate: Date, repeatCount: Int16, subscriptionDescription: String) {
-        let subscription = SubscriptionExpenseModel(context: context)
+        let entity = NSEntityDescription.entity(forEntityName: "SubscriptionExpenseModel", in: context)!
+        let subscription = SubscriptionExpenseModel(entity: entity, insertInto: context)
         subscription.category = category
         subscription.amount = amount
         subscription.startDate = startDate
@@ -124,21 +127,22 @@ final class DataManager {
     var PaymentExpenseModelList: [PaymentExpenseModel] = []
 
     func FetchPaymentExpenses() {
-        let request: NSFetchRequest<PaymentExpenseModel> = PaymentExpenseModel.fetchRequest() as! NSFetchRequest<PaymentExpenseModel>
+        let request = NSFetchRequest<PaymentExpenseModel>(entityName: "PaymentExpenseModel")
         do {
             PaymentExpenseModelList = try context.fetch(request)
         } catch {
-            print("Failed to fetch SubscriptionExpenseModel: \(error)")
+            print("Failed to fetch PaymentExpenseModel: \(error)")
         }
     }
 
     func addPaymentExpense(category: String, amount: Double, startDate: Date, repeatCount: Int16, paymentDescription: String) {
-        let subscription = PaymentExpenseModel(context: context)
-        subscription.category = category
-        subscription.amount = amount
-        subscription.startDate = startDate
-        subscription.repeatCount = repeatCount
-        subscription.paymentDescription = paymentDescription
+        let entity = NSEntityDescription.entity(forEntityName: "PaymentExpenseModel", in: context)!
+        let payment = PaymentExpenseModel(entity: entity, insertInto: context)
+        payment.category = category
+        payment.amount = amount
+        payment.startDate = startDate
+        payment.repeatCount = repeatCount
+        payment.paymentDescription = paymentDescription
         saveContext()
     }
 
@@ -151,7 +155,7 @@ final class DataManager {
     var basicExpenseBudgetModelList: [BasicExpenseBudgetModel] = []
     
     func fetchBasicExpenseBudgets() {
-        let request: NSFetchRequest<BasicExpenseBudgetModel> = BasicExpenseBudgetModel.fetchRequest() as! NSFetchRequest<BasicExpenseBudgetModel>
+        let request = NSFetchRequest<BasicExpenseBudgetModel>(entityName: "BasicExpenseBudgetModel")
         do {
             basicExpenseBudgetModelList = try context.fetch(request)
         } catch {
@@ -160,7 +164,8 @@ final class DataManager {
     }
     
     func addBasicExpenseBudget(category: String, spentAmount: NSNumber, totalAmount: NSNumber) {
-        let expense = BasicExpenseBudgetModel(context: context)
+        let entity = NSEntityDescription.entity(forEntityName: "BasicExpenseBudgetModel", in: context)!
+        let expense = BasicExpenseBudgetModel(entity: entity, insertInto: context)
         expense.category = category
         expense.spentAmount = spentAmount
         expense.totalAmount = totalAmount
@@ -176,7 +181,7 @@ final class DataManager {
     var basicExpenseModelList: [BasicExpenseModel] = []
     
     func fetchBasicExpenses() {
-        let request: NSFetchRequest<BasicExpenseModel> = BasicExpenseModel.fetchRequest() as! NSFetchRequest<BasicExpenseModel>
+        let request = NSFetchRequest<BasicExpenseModel>(entityName: "BasicExpenseModel")
         do {
             basicExpenseModelList = try context.fetch(request)
         } catch {
@@ -185,7 +190,8 @@ final class DataManager {
     }
     
     func addBasicExpense(category: String, amount: NSNumber, date: Date, expenseDescription: String) {
-        let expense = BasicExpenseModel(context: context)
+        let entity = NSEntityDescription.entity(forEntityName: "BasicExpenseModel", in: context)!
+        let expense = BasicExpenseModel(entity: entity, insertInto: context)
         expense.category = category
         expense.amount = amount
         expense.date = date

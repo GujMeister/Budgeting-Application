@@ -1,0 +1,182 @@
+/* 
+  Localizable.strings
+  Budgeting Application
+
+  Created by Luka Gujejiani on 24.08.24.
+  
+*/
+
+//Dashboard
+"dashboard_budgets" = "Budgets";
+"dashboard_subscriptions" = "Subscriptions";
+"dashboard_bank_payments" = "Bank Payments";
+"dashboard_total_budgeted" = "Total Budgeted";
+"dashboard_no_subscriptions_saved" = "No subscriptions saved";
+"dashboard_no_bank_payments_to_display" = "No bank payments to display";
+"dashboard_no_budgets_favorited" = "No Budgets Favorited";
+"dashboard_chart" = "Chart";
+"dashboard_pie_chart_description" = "Pie chart below will show you your monthly expenditure by three categories such as Subscriptions, Bank Payments and Budgets";
+"dashboard_upcoming" = "Upcoming";
+
+// BudgetsViewController
+"budgets_budget_limit" = "Budget limit";
+"budgets_control_item_budgets" = "Budgets";
+"budgets_control_item_expenses" = "Expenses";
+"budgets_favorites" = "Favorites";
+"budgets_all_budgets" = "Budgets";
+"budgets_duplicate_category" = "Duplicate";
+"budgets_duplicate_message" = "This category already exists";
+"budgets_limit_reached" = "Limit Reached";
+"budgets_limit_message" = "You can only have 5 budgets favorited";
+
+// ExpensesViewController
+"expenses_last_month" = "Expenses Last Month";
+"expenses_time_period_last_month" = "Last Month";
+"expenses_control_item_budgets" = "Budgets";
+"expenses_control_item_expenses" = "Expenses";
+
+// RecurringPage
+"recurring_segment_subscriptions" = "Subscriptions";
+"recurring_segment_payments" = "Payments";
+"recurring_segment_overview" = "Overview";
+"recurring_time_period_today" = "Today";
+"recurring_time_period_last_three_days" = "Last 3 Days";
+"recurring_time_period_last_week" = "Last Week";
+"recurring_time_period_last_month" = "Last Month";
+"recurring_edit" = "Edit";
+"recurring_done" = "Done";
+"recurring_every_month_on" = "Every month on";
+"recurring_day_suffix" = "th"; // Add this key for the suffix handling
+"recurring_delete" = "Delete";
+"total_monthly_expenditure" = "Total Monthly Expenditure";
+"subscriptions_left" = "Subscriptions Left: %@";
+"bank_payments_left" = "Bank Payments Left: %@";
+
+// Localizable.strings (English)
+"budgets_budget_limit" = "Budget limit";
+"budgets_control_item_budgets" = "Budgets";
+"budgets_control_item_expenses" = "Expenses";
+"budgets_favorites" = "Favorites";
+"budgets_all_budgets" = "All Budgets";
+"budgets_add_budget" = "Add Budget";
+
+"expenses_last_month" = "Expenses Last Month";
+"expenses_add_expense" = "Add Expense";
+"spent_amount" = "Spent:";
+
+// BudgetDetailViewController
+"budget_detail_remaining" = "Remaining";
+"budget_detail_spent" = "Spent";
+"budget_detail_max" = "Max";
+"budget_detail_overdue" = "Overdue";
+
+// CalendarViewController
+"calendar_title" = "Calendar";
+"calendar_info_button" = "Calendar Information";
+"calendar_table_info_button" = "Information Table";
+"calendar_no_data" = "No data for selected Date";
+"calendar_alert_message" = "Calendar displays all your Subscriptions, Payments, and Expenses you have saved. It helps you to visually understand when you should make or have made Subscriptions or Bank Payments.";
+"table_info_alert_message" = "Information Table gives you all the expenses you have made or will have to make based on the date you chose in the calendar.";
+
+// AddPaymentVC
+"add_payment_title" = "Add Payment";
+"add_payment_category_label" = "Choose Payment Category";
+"add_payment_description_label" = "Input Payment Description";
+"add_payment_description_placeholder" = "e.g. Car";
+"add_payment_amount_label" = "Input Amount";
+"add_payment_amount_placeholder" = "e.g. 1500";
+"add_payment_repeat_label" = "Number of Months";
+"add_payment_repeat_placeholder" = "e.g. 12";
+"add_payment_button_title" = "Add Payment";
+"add_payment_invalid_input_alert" = "Invalid Input";
+"add_payment_invalid_input_message" = "Please fill out all fields correctly";
+"add_payment_description_info_title" = "Info about the description";
+"add_payment_description_info_message" = "This description will be used to describe the payment throughout the application for your convenience";
+"add_payment_amount_info_title" = "Info about the input amount";
+"add_payment_amount_info_message" = "This number will be used to set the amount that you are going to budget every month for this payment";
+"add_payment_repeat_info_title" = "Info about the number of months";
+"add_payment_repeat_info_message" = "This is an input for the number of months you want your payment to occur. Inputting 12 will repeat the payment 12 times (1 Year)";
+
+// Settings
+"settings_title" = "Settings";
+"settings_description" = "Manage or delete your data, read about the app and change password, app icons or name";
+"about" = "About";
+"about_accessibility" = "About the app";
+"about_accessibility_hint" = "Tap to read about the app";
+"delete_section" = "Delete";
+"delete_expenses" = "Expenses";
+"delete_expenses_accessibility" = "Delete expenses";
+"delete_expenses_accessibility_hint" = "Tap to delete all expenses";
+"delete_subscriptions" = "Subscriptions";
+"delete_subscriptions_accessibility" = "Delete subscriptions";
+"delete_subscriptions_accessibility_hint" = "Tap to delete all subscriptions";
+"delete_payments" = "Bank Payments";
+"delete_payments_accessibility" = "Delete bank payments";
+"delete_payments_accessibility_hint" = "Tap to delete all bank payments";
+"delete_all_data" = "All Data";
+"delete_all_data_accessibility" = "Delete all data";
+"delete_all_data_accessibility_hint" = "Tap to delete all data";
+"change_password" = "Change Password";
+"change_password_accessibility" = "Change password";
+"change_password_accessibility_hint" = "Tap to change your password";
+"change_app_icon" = "Change App Icon";
+"change_app_icon_accessibility" = "Change app icon";
+"change_app_icon_accessibility_hint" = "Tap to change the app icon";
+"change_name" = "Change Name";
+"change_name_accessibility" = "Change app name";
+"change_name_accessibility_hint" = "Tap to change the app name";
+"app_version" = "Version 2.2";
+"rights_reserved" = "© All Rights Reserved";
+"app_information_header" = "App";
+"app_information_footer" = "Owner of this application gives all the rights imaginable regarding the usage of his assets and code used in this application";
+"change_language" = "Change Language";
+"change_language_accessibility" = "Change Language";
+"change_language_accessibility_hint" = "Change Language";
+
+
+// Enums
+// Categories 2
+"Insurance" = "Insurance";
+"House Payments" = "House Payments";
+"Car Payments" = "Car Payments";
+"Personal Loans" = "Personal Loans";
+"Student Loans" = "Student Loans";
+"Credit-Card Payments" = "Credit-Card Payments";
+"Phone Bills" = "Phone Bills";
+"Rent" = "Rent";
+"Health Insurance" = "Health Insurance";
+"Life Insurance" = "Life Insurance";
+"Property Taxes" = "Property Taxes";
+"Medical Bills" = "Medical Bills";
+"Other" = "Other";
+"Miscellaneous" = "Miscellaneous";
+
+// TimePeriodBackwards Enum
+"time_period_backwards_today" = "Today";
+"time_period_backwards_last_three_days" = "Last 3 Days";
+"time_period_backwards_last_week" = "Last Week";
+"time_period_backwards_last_month" = "Last Month";
+
+// TimePeriod Enum
+"time_period_this_week" = "This Week";
+"time_period_this_two_weeks" = "This Two Weeks";
+"time_period_this_month" = "This Month";
+"time_period_three_months" = "3 Months";
+"time_period_six_months" = "6 Months";
+"time_period_year" = "Year";
+
+// Categories
+"Food" = "Food";
+"Transportation" = "Transportation";
+"Groceries" = "Groceries";
+"Housing" = "Housing";
+"Utilities" = "Utilities";
+"Entertainment" = "Entertainment";
+"Education" = "Education";
+"Clothing" = "Clothing";
+"Personal_Care" = "Personal Care";
+"Miscellaneous" = "Miscellaneous";
+"Others" = "Others";
+
+//Settings (Language)
+"choose_language" = "Choose Language";

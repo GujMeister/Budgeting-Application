@@ -10,12 +10,19 @@ import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    let container = NSPersistentContainer(name: "Model")
-
     var window: UIWindow?
     
+    let container: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "Model")
+        container.loadPersistentStores { description, error in
+            if let error = error {
+                fatalError("Unresolved error \(error), \(error)")
+            }
+        }
+        return container
+    }()
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
         // MARK: - Use for testing
 //        DataDeletion.shared.deleteAllKeychainData()
 //        DataDeletion.shared.deleteCoreData()
